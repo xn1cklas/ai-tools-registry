@@ -172,6 +172,18 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "calendar",
+      "description": "A calendar component",
+      "files": [
+        {
+          "path": "registry/alpine/ui/calendar.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

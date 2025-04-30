@@ -74,7 +74,12 @@ export function ListingBookingForm({
             </Button>
           </PopoverTrigger>
           <PopoverContent className="p-0 w-auto overflow-hidden" align="start">
-            <Calendar mode="range" selected={date} onSelect={setDate} />
+            <Calendar
+              mode="range"
+              selected={date}
+              onSelect={setDate}
+              captionLayout="dropdown"
+            />
           </PopoverContent>
         </Popover>
       </div>
