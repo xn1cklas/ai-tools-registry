@@ -1,0 +1,177 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "alpine",
+  "homepage": "https://alpine-registry.vercel.app",
+  "items": [
+    {
+      "name": "alpine",
+      "type": "registry:style",
+      "cssVars": {
+        "light": {
+          "primary": "oklch(0.63 0.17 149)",
+          "primary-foreground": "oklch(0.985 0 0)",
+          "radius": "0.825rem"
+        },
+        "dark": {
+          "primary": "oklch(0.63 0.17 149)",
+          "primary-foreground": "oklch(0.985 0 0)"
+        }
+      },
+      "files": [
+        {
+          "path": "registry/alpine/rules/registry.mdc",
+          "type": "registry:file",
+          "target": ".cursor/rules/registry.mdc"
+        }
+      ]
+    },
+    {
+      "name": "login-form",
+      "type": "registry:block",
+      "title": "Login Form",
+      "description": "A login form with email and password fields.",
+      "files": [
+        {
+          "path": "registry/alpine/auth/login-form.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "logo",
+      "type": "registry:block",
+      "title": "Logo",
+      "description": "A logo component.",
+      "files": [
+        {
+          "path": "registry/alpine/branding/logo.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "main-nav",
+      "type": "registry:block",
+      "title": "Main Nav",
+      "description": "A main navigation component.",
+      "files": [
+        {
+          "path": "registry/alpine/navigation/main-nav.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "listing-card",
+      "type": "registry:block",
+      "title": "Listing Card",
+      "description": "A listing card with a name, location, rating, and review count.",
+      "files": [
+        {
+          "path": "registry/alpine/listing/listing-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "listing-grid",
+      "type": "registry:block",
+      "title": "Listing Grid",
+      "description": "A grid of listing cards.",
+      "files": [
+        {
+          "path": "registry/alpine/listing/listing-grid.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/alpine/listing/listing-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "booking-form",
+      "type": "registry:block",
+      "title": "Booking Form",
+      "description": "A booking form with location, check-in, and check-out fields.",
+      "files": [
+        {
+          "path": "registry/alpine/forms/booking-form.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "contact-form",
+      "type": "registry:block",
+      "title": "Contact Form",
+      "description": "A contact form with name, email, and message fields.",
+      "files": [
+        {
+          "path": "registry/alpine/forms/contact-form.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "example-listing-card",
+      "type": "registry:block",
+      "title": "Example Listing Card",
+      "description": "An example listing card.",
+      "files": [
+        {
+          "path": "registry/alpine/examples/example-listing-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "example-listing-grid",
+      "type": "registry:block",
+      "title": "Example Listing Grid",
+      "description": "An example listing grid.",
+      "files": [
+        {
+          "path": "registry/alpine/examples/example-listing-grid.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "example-section-listing",
+      "type": "registry:block",
+      "title": "Section with Heading and Listing Grid",
+      "description": "An example section with a heading, subheading, and listing grid.",
+      "files": [
+        {
+          "path": "registry/alpine/examples/example-section-listing.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "example-section-booking",
+      "type": "registry:block",
+      "title": "Section with Booking Form",
+      "description": "An example section with a booking form.",
+      "files": [
+        {
+          "path": "registry/alpine/examples/example-section-booking.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "example-hero",
+      "type": "registry:block",
+      "title": "Example Hero Section",
+      "description": "An example hero section with a heading, subheading, and two call to action buttons.",
+      "files": [
+        {
+          "path": "registry/alpine/examples/example-hero.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}

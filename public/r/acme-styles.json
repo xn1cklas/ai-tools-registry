@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alpine-styles",
+  "type": "registry:style",
+  "files": [],
+  "cssVars": {
+    "light": {
+      "primary": "oklch(0.65 0.22 16)",
+      "primary-foreground": "oklch(0.985 0 0)",
+      "radius": "0.825rem"
+    },
+    "dark": {
+      "primary": "oklch(0.65 0.22 16)",
+      "primary-foreground": "oklch(0.985 0 0)"
+    }
+  }
+}

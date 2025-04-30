@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rules",
+  "type": "registry:file",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/alpine/rules/registry.mdc",
+      "content": "---\ndescription: Rules for using components from the registry\nglobs: \nalwaysApply: true\n---\n\n\n## Rules for using components\n\nHere are some rules to follow when using components in this project:\n\n- If using shadcn mcp and a registry url is provided, always check the mcp for components before creating your own.\n- If you are using a component that has a corresponding example, use the example as a guide to create your own component.\n- Do not install example- components directly, use them as reference to create your components.\n\n## Steps to follow in project initialization:\n\nWhen you initialize a new project:\n\n- Make sure to install the DM Sans fonts as follows:\n\t1. In the root layout, import DM_Sans from next/font/google.\n\t2. Declare the fontSans variables.\n\t3. Then add the following to the body tag: `${fontSans.variable} font-sans antialiased`\n- Here's the code example for setting up the fonts:\n\t```\n\timport { DM_Sans } from \"next/font/google\"\n\n\tconst fontSans = DM_Sans({\n  \tvariable: \"--font-sans\",\n  \tsubsets: [\"latin\"],\n\t})\n\n\t<body className={`${fontSans.variable} font-sans antialiased`}>\n\t```\n\n",
+      "type": "registry:file",
+      "target": ".cursor/rules/registry.mdc"
+    }
+  ]
+}

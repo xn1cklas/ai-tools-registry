@@ -1,0 +1,52 @@
+---
+description: Rules for using components from the registry
+globs: 
+alwaysApply: true
+---
+
+
+## Rules for using components
+
+Here are some rules to follow when using components in this project:
+
+- If using shadcn mcp and a registry url is provided, always check the mcp for components before creating your own.
+- If you are using a component that has a corresponding example, use the example as a guide to create your own component.
+- Do not install example- components directly, use them as reference to create your components.
+
+## Steps to follow in project initialization:
+
+When you initialize a new project:
+
+- Make sure to install the DM Sans fonts as follows:
+	1. In the root layout, import DM_Sans from next/font/google.
+	2. Declare the fontSans variables.
+	3. Then add the following to the body tag: `${fontSans.variable} font-sans antialiased`
+- Here's the code example for setting up the fonts:
+	
+	```tsx
+	import { DM_Sans } from "next/font/google"
+
+	const fontSans = DM_Sans({
+  	variable: "--font-sans",
+  	subsets: ["latin"],
+	})
+
+	<body className={`${fontSans.variable} font-sans antialiased`}>
+	```
+
+## Image
+
+When adding images from unsplash.com, make sure to configure images.domains under next.config.ts:
+
+```tsx
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  images: {
+    domains: ["images.unsplash.com"],
+  },
+};
+
+export default nextConfig;
+```
+
