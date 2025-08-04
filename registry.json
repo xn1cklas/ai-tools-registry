@@ -62,6 +62,24 @@
       ]
     },
     {
+      "name": "site-header",
+      "type": "registry:block",
+      "title": "Site Header",
+      "description": "A site header component.",
+      "registryDependencies": [
+        "@alpine/alpine",
+        "@alpine/logo"  ,
+        "@alpine/main-nav",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/alpine/navigation/site-header.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "listing-card",
       "type": "registry:block",
       "title": "Listing Card",
