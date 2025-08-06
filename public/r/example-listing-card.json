@@ -4,9 +4,7 @@
   "type": "registry:block",
   "title": "Example Listing Card",
   "description": "An example listing card.",
-  "dependencies": [
-    "lucide-react"
-  ],
+  "dependencies": ["lucide-react"],
   "files": [
     {
       "path": "registry/alpine/examples/example-listing-card.tsx",

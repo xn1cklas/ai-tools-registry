@@ -4,9 +4,7 @@
   "type": "registry:block",
   "title": "Listing Grid",
   "description": "A grid of listing cards.",
-  "dependencies": [
-    "lucide-react"
-  ],
+  "dependencies": ["lucide-react"],
   "files": [
     {
       "path": "registry/alpine/listing/listing-grid.tsx",

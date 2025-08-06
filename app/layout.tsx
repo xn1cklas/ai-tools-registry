@@ -9,6 +9,7 @@ import { Separator } from "@/registry/alpine/ui/separator"
 import Link from "next/link"
 import { Logo } from "@/registry/alpine/branding/logo"
 import { Toaster } from "@/registry/alpine/ui/sonner"
+import { RegistrySetup } from "@/components/registry-setup"
 
 const fontSans = DM_Sans({
   variable: "--font-sans",
@@ -68,6 +69,7 @@ export default function RootLayout({
                 </p>
               </div>
               <div className="ml-auto flex gap-2">
+                <RegistrySetup />
                 <McpSetup />
                 <ModeToggle />
               </div>

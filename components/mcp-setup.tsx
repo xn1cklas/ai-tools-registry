@@ -1,6 +1,5 @@
 "use client"
 
-import * as React from "react"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/alpine/ui/button"
@@ -19,11 +18,10 @@ import {
   TabsTrigger,
 } from "@/registry/alpine/ui/tabs"
 import { CheckIcon, CopyIcon } from "lucide-react"
+import * as React from "react"
 
 export function McpSetup({ className }: React.ComponentProps<typeof Button>) {
   const { isCopied, copyToClipboard } = useCopyToClipboard()
-  const { isCopied: isCopiedNpm, copyToClipboard: copyToClipboardNpm } =
-    useCopyToClipboard()
   const [tab, setTab] = React.useState("cursor")
 
   const filePath = React.useMemo(() => {
@@ -63,29 +61,8 @@ export function McpSetup({ className }: React.ComponentProps<typeof Button>) {
             Use the code below to configure the registry MCP in your IDE.
           </DialogDescription>
         </DialogHeader>
-        <div className="font-medium">1. Create a new Next.js app</div>
-        <div className="relative min-w-0">
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute bg-background right-4 top-4 size-8 rounded-md"
-            onClick={() =>
-              copyToClipboardNpm(
-                "pnpm create next-app@latest --tailwind --eslint --typescript --app --no-src-dir --turbopack --no-import-alias"
-              )
-            }
-          >
-            {isCopiedNpm ? <CheckIcon /> : <CopyIcon />}
-          </Button>
-          <div className="overflow-x-auto bg-muted p-6 rounded-md">
-            <pre className="text-sm font-mono">
-              pnpm create next-app@latest --tailwind --eslint --typescript --app
-              --no-src-dir --turbopack --no-import-alias
-            </pre>
-          </div>
-        </div>
         <div className="font-medium">
-          2. Copy and paste the code into{" "}
+          Copy and paste the code into{" "}
           <code className="font-mono text-foreground">{filePath}</code>
         </div>
         <Tabs defaultValue={tab} onValueChange={setTab} className="min-w-0">
@@ -93,63 +70,33 @@ export function McpSetup({ className }: React.ComponentProps<typeof Button>) {
             <TabsTrigger value="cursor">Cursor</TabsTrigger>
             <TabsTrigger value="windsurf">Windsurf</TabsTrigger>
           </TabsList>
-          <TabsContent value="cursor" className="relative">
-            <Button
-              variant="outline"
-              size="icon"
-              className="absolute right-4 z-10 top-4 size-8 rounded-md"
-              onClick={() => copyToClipboard(mcpSetupCodeCursor)}
-            >
-              {isCopied ? <CheckIcon /> : <CopyIcon />}
-            </Button>
-            <div className="overflow-x-auto bg-muted p-8 rounded-md min-h-[300px]">
-              <pre className="text-sm font-mono">
-                <code>{mcpSetupCodeCursor}</code>
-              </pre>
-            </div>
-          </TabsContent>
-          <TabsContent value="windsurf" className="relative">
-            <Button
-              variant="outline"
-              size="icon"
-              className="absolute bg-background right-4 z-10 top-4 size-8 rounded-md"
-              onClick={() => copyToClipboard(mcpSetupCodeWindsurf)}
-            >
-              {isCopied ? <CheckIcon /> : <CopyIcon />}
-            </Button>
-            <div className="overflow-x-auto bg-muted p-6 rounded-md min-h-[300px]">
-              <pre className="text-sm font-mono">
-                <code>{mcpSetupCodeWindsurf}</code>
-              </pre>
-            </div>
-          </TabsContent>
         </Tabs>
+        <div className="relative">
+          <Button
+            variant="outline"
+            size="icon"
+            className="absolute right-4 z-10 top-4 size-8 rounded-md"
+            onClick={() => copyToClipboard(mcpSetupCode)}
+          >
+            {isCopied ? <CheckIcon /> : <CopyIcon />}
+          </Button>
+          <div className="overflow-x-auto bg-muted p-8 rounded-md min-h-[200px]">
+            <pre className="text-sm font-mono">
+              <code>{mcpSetupCode}</code>
+            </pre>
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
   )
 }
 
-const mcpSetupCodeCursor = `{
+const mcpSetupCode = `{
   "mcpServers": {
     "shadcn": {
       "command": "npx",
-      "args": ["-y", "shadcn@canary", "registry:mcp"],
-      "env": {
-        "REGISTRY_URL": "${process.env.NEXT_PUBLIC_BASE_URL}/r/registry.json"
-      }
+      "args": ["-y", "shadcn@latest", "registry:mcp"]
     }
   }
 }
 `
-
-const mcpSetupCodeWindsurf = `{
-  "mcpServers": {
-    "shadcn": {
-      "command": "npx",
-      "args": ["-y", "shadcn@canary", "registry:mcp"],
-      "env": {
-        "REGISTRY_URL": "${process.env.NEXT_PUBLIC_BASE_URL}/r/registry.json"
-      }
-    }
-  }
-}`

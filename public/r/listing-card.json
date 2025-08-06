@@ -4,9 +4,7 @@
   "type": "registry:block",
   "title": "Listing Card",
   "description": "A listing card with a name, location, rating, and review count.",
-  "dependencies": [
-    "lucide-react"
-  ],
+  "dependencies": ["lucide-react"],
   "files": [
     {
       "path": "registry/alpine/listing/listing-card.tsx",

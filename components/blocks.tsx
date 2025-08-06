@@ -1,14 +1,14 @@
-import { LoginForm } from "@/registry/alpine/auth/login-form";
-import { Logo } from "@/registry/alpine/branding/logo";
-import { ExampleBookingForm } from "@/registry/alpine/examples/example-booking-form";
-import { ExampleHero } from "@/registry/alpine/examples/example-hero";
-import { ExampleListingCard } from "@/registry/alpine/examples/example-listing-card";
-import { ExampleListingGrid } from "@/registry/alpine/examples/example-listing-grid";
-import { ExampleSectionWithBookingForm } from "@/registry/alpine/examples/example-section-booking";
-import { ExampleSectionWithListing } from "@/registry/alpine/examples/example-section-listing";
-import { ContactForm } from "@/registry/alpine/forms/contact-form";
-import { MainNav } from "@/registry/alpine/navigation/main-nav";
-import { SiteHeader } from "@/registry/alpine/navigation/site-header";
+import { LoginForm } from "@/registry/alpine/auth/login-form"
+import { Logo } from "@/registry/alpine/branding/logo"
+import { ExampleBookingForm } from "@/registry/alpine/examples/example-booking-form"
+import { ExampleHero } from "@/registry/alpine/examples/example-hero"
+import { ExampleListingCard } from "@/registry/alpine/examples/example-listing-card"
+import { ExampleListingGrid } from "@/registry/alpine/examples/example-listing-grid"
+import { ExampleSectionWithBookingForm } from "@/registry/alpine/examples/example-section-booking"
+import { ExampleSectionWithListing } from "@/registry/alpine/examples/example-section-listing"
+import { ContactForm } from "@/registry/alpine/forms/contact-form"
+import { MainNav } from "@/registry/alpine/navigation/main-nav"
+import { SiteHeader } from "@/registry/alpine/navigation/site-header"
 export const blocks = [
   {
     name: "logo",
@@ -54,4 +54,4 @@ export const blocks = [
     name: "example-hero",
     component: ExampleHero,
   },
-];
+]

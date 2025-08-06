@@ -4,10 +4,7 @@
   "type": "registry:block",
   "title": "Example Hero Section",
   "description": "An example hero section with a heading, subheading, and two call to action buttons.",
-  "dependencies": [
-    "@radix-ui/react-slot",
-    "class-variance-authority"
-  ],
+  "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
   "files": [
     {
       "path": "registry/alpine/examples/example-hero.tsx",

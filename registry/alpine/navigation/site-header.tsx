@@ -1,7 +1,7 @@
-import { Logo } from "@/registry/alpine/branding/logo";
-import { MainNav } from "@/registry/alpine/navigation/main-nav";
-import { Button } from "@/registry/alpine/ui/button";
-import Link from "next/link";
+import { Logo } from "@/registry/alpine/branding/logo"
+import { MainNav } from "@/registry/alpine/navigation/main-nav"
+import { Button } from "@/registry/alpine/ui/button"
+import Link from "next/link"
 
 export function SiteHeader() {
   return (
@@ -16,5 +16,5 @@ export function SiteHeader() {
         </div>
       </div>
     </header>
-  );
+  )
 }

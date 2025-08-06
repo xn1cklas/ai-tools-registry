@@ -4,7 +4,7 @@
   "homepage": "https://alpine-registry.vercel.app",
   "items": [
     {
-      "name": "alpine",
+      "name": "style",
       "type": "registry:style",
       "cssVars": {
         "light": {
@@ -67,8 +67,8 @@
       "title": "Site Header",
       "description": "A site header component.",
       "registryDependencies": [
-        "@alpine/alpine",
-        "@alpine/logo"  ,
+        "@alpine/style",
+        "@alpine/logo",
         "@alpine/main-nav",
         "button"
       ],
