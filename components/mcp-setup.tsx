@@ -11,12 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/registry/alpine/ui/dialog"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/registry/alpine/ui/tabs"
+import { Tabs, TabsList, TabsTrigger } from "@/registry/alpine/ui/tabs"
 import { CheckIcon, CopyIcon } from "lucide-react"
 import * as React from "react"
 
