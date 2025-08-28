@@ -3,6 +3,7 @@
   "name": "style",
   "type": "registry:style",
   "dependencies": [],
+  "registryDependencies": ["@shadcn/style"],
   "files": [
     {
       "path": "registry/alpine/rules/registry.mdc",

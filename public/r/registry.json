@@ -6,6 +6,7 @@
     {
       "name": "style",
       "type": "registry:style",
+      "registryDependencies": ["@shadcn/style"],
       "cssVars": {
         "light": {
           "primary": "oklch(0.63 0.17 149)",

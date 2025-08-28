@@ -52,7 +52,7 @@ export function RegistrySetup({
               strokeWidth="32"
             ></line>
           </svg>
-          shadcn
+          Registry
         </Button>
       </DialogTrigger>
       <DialogContent className="md:max-w-2xl">
@@ -88,6 +88,14 @@ export function RegistrySetup({
         <div className="overflow-x-auto bg-muted p-8 rounded-md min-h-[50px]">
           <pre className="text-sm font-mono">
             <code>npx shadcn@latest add @alpine/[component-name]</code>
+          </pre>
+        </div>
+        <div className="font-medium">
+          To setup the MCP server, run the following command:
+        </div>
+        <div className="overflow-x-auto bg-muted p-8 rounded-md min-h-[50px]">
+          <pre className="text-sm font-mono">
+            <code>npx shadcn@latest mcp init</code>
           </pre>
         </div>
       </DialogContent>

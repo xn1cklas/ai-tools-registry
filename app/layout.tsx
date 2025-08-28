@@ -4,7 +4,6 @@ import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 import { Providers } from "@/components/providers"
 import { ModeToggle } from "@/components/mode-toggle"
-import { McpSetup } from "@/components/mcp-setup"
 import { Separator } from "@/registry/alpine/ui/separator"
 import Link from "next/link"
 import { Logo } from "@/registry/alpine/branding/logo"
@@ -70,7 +69,6 @@ export default function RootLayout({
               </div>
               <div className="ml-auto flex gap-2">
                 <RegistrySetup />
-                <McpSetup />
                 <ModeToggle />
               </div>
             </div>
