@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "marketing-template",
+  "type": "registry:item",
+  "title": "Marketing Template",
+  "description": "A marketing template.",
+  "registryDependencies": [
+    "@alpine/design-system"
+  ],
+  "files": [
+    {
+      "path": "registry/alpine/templates/marketing/page.tsx",
+      "content": "import { Button } from \"@/registry/alpine/ui/button\"\n\nexport default function MarketingPage() {\n  return (\n    <div className=\"flex mx-auto min-h-svh flex-col gap-4 justify-center items-center text-center max-w-md\">\n      This is a blank page. Replace it with your own content.\n      <Button className=\"w-fit\">Read the docs</Button>\n    </div>\n  )\n}\n",
+      "type": "registry:page",
+      "target": "~/app/page.tsx"
+    }
+  ]
+}

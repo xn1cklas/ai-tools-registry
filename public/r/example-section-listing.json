@@ -4,38 +4,15 @@
   "type": "registry:block",
   "title": "Section with Heading and Listing Grid",
   "description": "An example section with a heading, subheading, and listing grid.",
-  "dependencies": [
-    "lucide-react"
+  "registryDependencies": [
+    "@alpine/listing-grid",
+    "@alpine/section"
   ],
   "files": [
     {
       "path": "registry/alpine/examples/example-section-listing.tsx",
       "content": "import { Section } from \"@/registry/alpine/marketing/section\"\nimport { ListingGrid } from \"@/registry/alpine/listing/listing-grid\"\n\nexport function ExampleSectionWithListing() {\n  return (\n    <Section\n      heading=\"Settle in at these top-rated cabins\"\n      subheading=\"People love these highly-rated stays for their location, cleanliness, and more.\"\n    >\n      <ListingGrid\n        listings={[\n          {\n            name: \"Cabin in Thornfield\",\n            location: \"An off Grid Experience\",\n            imageUrl:\n              \"https://images.unsplash.com/photo-1542718610-a1d656d1884c\",\n            rating: 4.95,\n            reviewCount: 261,\n          },\n          {\n            name: \"Lakeview Retreat\",\n            location: \"Peaceful lakeside cabin\",\n            imageUrl:\n              \"https://images.unsplash.com/photo-1733849593382-3d06b5e97adc\",\n            rating: 4.87,\n            reviewCount: 198,\n          },\n          {\n            name: \"Mountain Hideaway\",\n            location: \"Secluded mountain escape\",\n            imageUrl:\n              \"https://images.unsplash.com/photo-1662652771281-afdb7c63d573\",\n            rating: 4.92,\n            reviewCount: 312,\n          },\n          {\n            name: \"Forest Bungalow\",\n            location: \"Nestled in the woods\",\n            imageUrl:\n              \"https://images.unsplash.com/photo-1601918774946-25832a4be0d6\",\n            rating: 4.89,\n            reviewCount: 174,\n          },\n        ]}\n      />\n    </Section>\n  )\n}\n",
       "type": "registry:component"
-    },
-    {
-      "path": "registry/alpine/marketing/section.tsx",
-      "content": "import { cn } from \"@/lib/utils\"\n\nexport function Section({\n  heading,\n  subheading,\n  children,\n  className,\n  ...props\n}: React.ComponentProps<\"div\"> & {\n  heading: string\n  subheading: string\n}) {\n  return (\n    <section\n      className={cn(\"py-10 lg:py-24 gap-6 w-full\", className)}\n      {...props}\n    >\n      <div className=\"container mx-auto flex flex-col gap-8 px-4 w-full\">\n        <div className=\"flex flex-col items-center gap-2 max-w-xl text-center mx-auto text-balance\">\n          <h2 className=\"text-3xl tracking-tighter lg:text-5xl xl:text-6xl font-bold\">\n            {heading}\n          </h2>\n          <p className=\"text-muted-foreground text-balance lg:text-xl\">\n            {subheading}\n          </p>\n        </div>\n        {children}\n      </div>\n    </section>\n  )\n}\n",
-      "type": "registry:component",
-      "target": ""
-    },
-    {
-      "path": "registry/alpine/listing/listing-grid.tsx",
-      "content": "import { cn } from \"@/lib/utils\"\nimport { ListingCard } from \"@/registry/alpine/listing/listing-card\"\n\nexport function ListingGrid({\n  heading,\n  subheading,\n  listings,\n  className,\n}: {\n  heading?: string\n  subheading?: string\n  listings: {\n    name: string\n    location: string\n    imageUrl: string\n    rating: number\n    reviewCount: number\n  }[]\n  className?: string\n}) {\n  return (\n    <div className=\"flex flex-col gap-6 min-w-0 w-full\">\n      {heading || subheading ? (\n        <div className=\"flex flex-col gap-1\">\n          <h2 className=\"text-2xl font-bold tracking-tighter\">{heading}</h2>\n          {subheading && <p className=\"text-muted-foreground\">{subheading}</p>}\n        </div>\n      ) : null}\n      <div\n        className={cn(\n          \"grid sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full\",\n          className\n        )}\n      >\n        {listings.map((listing) => (\n          <ListingCard key={listing.name} {...listing} />\n        ))}\n      </div>\n    </div>\n  )\n}\n",
-      "type": "registry:component",
-      "target": ""
-    },
-    {
-      "path": "registry/alpine/listing/listing-card.tsx",
-      "content": "import { cn } from \"@/lib/utils\"\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle,\n} from \"@/registry/alpine/ui/card\"\nimport { StarIcon } from \"lucide-react\"\nimport Image from \"next/image\"\n\nexport function ListingCard({\n  name,\n  location,\n  imageUrl,\n  rating,\n  reviewCount,\n  className,\n}: {\n  name: string\n  location: string\n  imageUrl: string\n  rating: number\n  reviewCount: number\n} & React.ComponentProps<typeof Card>) {\n  return (\n    <Card\n      className={cn(\n        \"w-full p-0 bg-transparent aspect-square border-0 gap-4 min-w-0\",\n        className\n      )}\n    >\n      <CardContent className=\"p-0\">\n        <Image\n          src={imageUrl}\n          alt={name}\n          width={600}\n          height={600}\n          className=\"aspect-square rounded-lg w-full object-cover\"\n        />\n      </CardContent>\n      <CardHeader className=\"p-0 gap-0\">\n        <CardTitle className=\"flex items-center gap-2 text-sm tracking-tight font-medium\">\n          {name}{\" \"}\n          <div className=\"flex items-center gap-1 ml-auto\">\n            <StarIcon className=\"fill-foreground size-3\" /> {rating} (\n            {reviewCount})\n          </div>\n        </CardTitle>\n        <CardDescription>{location}</CardDescription>\n      </CardHeader>\n    </Card>\n  )\n}\n",
-      "type": "registry:component",
-      "target": ""
-    },
-    {
-      "path": "registry/alpine/ui/card.tsx",
-      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Card({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card\"\n      className={cn(\n        \"bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardHeader({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-header\"\n      className={cn(\n        \"@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardTitle({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-title\"\n      className={cn(\n        \"leading-none tracking-tight text-lg font-semibold\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardDescription({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-description\"\n      className={cn(\"text-muted-foreground text-sm\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction CardAction({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-action\"\n      className={cn(\n        \"col-start-2 row-span-2 row-start-1 self-start justify-self-end\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardContent({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-content\"\n      className={cn(\"px-6\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction CardFooter({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-footer\"\n      className={cn(\"flex items-center px-6 [.border-t]:pt-6\", className)}\n      {...props}\n    />\n  )\n}\n\nexport {\n  Card,\n  CardHeader,\n  CardFooter,\n  CardTitle,\n  CardAction,\n  CardDescription,\n  CardContent,\n}\n",
-      "type": "registry:ui",
-      "target": ""
     }
   ]
 }

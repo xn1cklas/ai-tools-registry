@@ -5,7 +5,7 @@ import * as React from "react"
 import { blocks } from "@/components/blocks"
 import registry from "@/registry.json"
 import { Separator } from "@/registry/alpine/ui/separator"
-import { registryItemSchema } from "shadcn/registry"
+import { registryItemSchema } from "shadcn/schema"
 
 const getRegistryItemFromJson = React.cache((name: string) => {
   const registryItem = registry.items.find((item) => item.name === name)

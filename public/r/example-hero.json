@@ -4,27 +4,14 @@
   "type": "registry:block",
   "title": "Example Hero Section",
   "description": "An example hero section with a heading, subheading, and two call to action buttons.",
-  "dependencies": [
-    "@radix-ui/react-slot",
-    "class-variance-authority"
+  "registryDependencies": [
+    "@alpine/hero"
   ],
   "files": [
     {
       "path": "registry/alpine/examples/example-hero.tsx",
       "content": "import { Hero } from \"@/registry/alpine/marketing/hero\"\nimport { Button } from \"@/registry/alpine/ui/button\"\n\nexport function ExampleHero() {\n  return (\n    <Hero\n      heading=\"Introducing Co‑Host Network\"\n      subheading=\"Now you can hire a co-host to help. Plus, get more ways to make hosting and planning trips even easier.\"\n      imageUrl=\"https://images.unsplash.com/photo-1697807646004-31ae73a1a625\"\n    >\n      <div className=\"flex gap-2 mt-2\">\n        <Button size=\"lg\">Learn more</Button>\n        <Button size=\"lg\" variant=\"outline\">\n          Get started\n        </Button>\n      </div>\n    </Hero>\n  )\n}\n",
       "type": "registry:component"
-    },
-    {
-      "path": "registry/alpine/marketing/hero.tsx",
-      "content": "import { cn } from \"@/lib/utils\"\nimport Image from \"next/image\"\n\nexport function Hero({\n  heading,\n  subheading,\n  imageUrl,\n  className,\n  children,\n}: {\n  heading: string\n  subheading: string\n  imageUrl: string\n} & React.ComponentProps<\"section\">) {\n  return (\n    <section className={cn(\"w-full py-8 md:py-16\", className)}>\n      <div className=\"container mx-auto px-4\">\n        <div className=\"relative rounded-lg overflow-hidden\">\n          <Image\n            src={imageUrl}\n            alt={heading}\n            width={1200}\n            height={450}\n            className=\"aspect-square md:aspect-[120/45] w-full object-cover rounded-lg\"\n          />\n          <div className=\"py-8 md:absolute md:inset-0 md:bg-black/50 flex items-center justify-center\">\n            <div className=\"flex flex-col items-center gap-2 max-w-xl text-center mx-auto text-balance md:text-white\">\n              <h2 className=\"text-3xl tracking-tighter lg:text-5xl xl:text-6xl font-bold text-shadow\">\n                {heading}\n              </h2>\n              <p className=\"text-balance text-shadow lg:text-xl\">\n                {subheading}\n              </p>\n              {children}\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n  )\n}\n",
-      "type": "registry:component",
-      "target": ""
-    },
-    {
-      "path": "registry/alpine/ui/button.tsx",
-      "content": "import * as React from \"react\"\nimport { Slot } from \"@radix-ui/react-slot\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst buttonVariants = cva(\n  \"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-primary text-primary-foreground hover:bg-primary/90\",\n        destructive:\n          \"bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60\",\n        outline:\n          \"border bg-background hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input text-foreground dark:hover:bg-input/50\",\n        secondary:\n          \"bg-secondary text-secondary-foreground hover:bg-secondary/80\",\n        ghost:\n          \"hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50\",\n        link: \"text-primary underline-offset-4 hover:underline\",\n      },\n      size: {\n        default: \"h-9 px-4 py-2 has-[>svg]:px-3\",\n        sm: \"h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5\",\n        lg: \"h-10 rounded-md px-6 has-[>svg]:px-4\",\n        icon: \"size-9\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  }\n)\n\nfunction Button({\n  className,\n  variant,\n  size,\n  asChild = false,\n  ...props\n}: React.ComponentProps<\"button\"> &\n  VariantProps<typeof buttonVariants> & {\n    asChild?: boolean\n  }) {\n  const Comp = asChild ? Slot : \"button\"\n\n  return (\n    <Comp\n      data-slot=\"button\"\n      className={cn(buttonVariants({ variant, size, className }))}\n      {...props}\n    />\n  )\n}\n\nexport { Button, buttonVariants }\n",
-      "type": "registry:ui",
-      "target": ""
     }
   ]
 }

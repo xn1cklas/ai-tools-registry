@@ -4,8 +4,18 @@
   "homepage": "https://alpine-registry.vercel.app",
   "items": [
     {
-      "name": "alpine",
+      "name": "design-system",
       "type": "registry:style",
+      "dependencies": ["radix-ui"],
+      "registryDependencies": [
+        "@alpine/button",
+        "@alpine/input",
+        "@alpine/calendar",
+        "@alpine/card",
+        "@alpine/label",
+        "@alpine/popover",
+        "@alpine/textarea"
+      ],
       "cssVars": {
         "light": {
           "primary": "oklch(0.63 0.17 149)",
@@ -19,9 +29,94 @@
       },
       "files": [
         {
-          "path": "registry/alpine/rules/registry.mdc",
+          "path": "registry/alpine/rules/AGENTS.md",
           "type": "registry:file",
-          "target": ".cursor/rules/registry.mdc"
+          "target": "~/AGENTS.md"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "A button component.",
+      "files": [
+        {
+          "path": "registry/alpine/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "A calendar component.",
+      "dependencies": ["react-day-picker"],
+      "files": [
+        {
+          "path": "registry/alpine/ui/calendar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "A card component.",
+      "files": [
+        {
+          "path": "registry/alpine/ui/card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "An input component.",
+      "files": [
+        {
+          "path": "registry/alpine/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "A label component.",
+      "files": [
+        {
+          "path": "registry/alpine/ui/label.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "A popover component.",
+      "files": [
+        {
+          "path": "registry/alpine/ui/popover.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "A textarea component.",
+      "files": [
+        {
+          "path": "registry/alpine/ui/textarea.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -62,6 +157,43 @@
       ]
     },
     {
+      "name": "site-header",
+      "type": "registry:block",
+      "title": "Site Header",
+      "description": "A site header component.",
+      "registryDependencies": ["@alpine/logo", "@alpine/main-nav"],
+      "files": [
+        {
+          "path": "registry/alpine/navigation/site-header.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "section",
+      "type": "registry:component",
+      "title": "Section",
+      "description": "A section component.",
+      "files": [
+        {
+          "path": "registry/alpine/marketing/section.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "hero",
+      "type": "registry:component",
+      "title": "Hero",
+      "description": "A hero component.",
+      "files": [
+        {
+          "path": "registry/alpine/marketing/hero.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "listing-card",
       "type": "registry:block",
       "title": "Listing Card",
@@ -78,6 +210,7 @@
       "type": "registry:block",
       "title": "Listing Grid",
       "description": "A grid of listing cards.",
+      "registryDependencies": ["@alpine/listing-card"],
       "files": [
         {
           "path": "registry/alpine/listing/listing-grid.tsx",
@@ -94,6 +227,7 @@
       "type": "registry:block",
       "title": "Booking Form",
       "description": "A booking form with location, check-in, and check-out fields.",
+      "dependencies": ["date-fns"],
       "files": [
         {
           "path": "registry/alpine/forms/booking-form.tsx",
@@ -130,6 +264,7 @@
       "type": "registry:block",
       "title": "Example Listing Grid",
       "description": "An example listing grid.",
+      "registryDependencies": ["@alpine/listing-card"],
       "files": [
         {
           "path": "registry/alpine/examples/example-listing-grid.tsx",
@@ -142,6 +277,7 @@
       "type": "registry:block",
       "title": "Section with Heading and Listing Grid",
       "description": "An example section with a heading, subheading, and listing grid.",
+      "registryDependencies": ["@alpine/listing-grid", "@alpine/section"],
       "files": [
         {
           "path": "registry/alpine/examples/example-section-listing.tsx",
@@ -154,6 +290,7 @@
       "type": "registry:block",
       "title": "Section with Booking Form",
       "description": "An example section with a booking form.",
+      "registryDependencies": ["@alpine/booking-form", "@alpine/section"],
       "files": [
         {
           "path": "registry/alpine/examples/example-section-booking.tsx",
@@ -166,22 +303,11 @@
       "type": "registry:block",
       "title": "Example Hero Section",
       "description": "An example hero section with a heading, subheading, and two call to action buttons.",
+      "registryDependencies": ["@alpine/hero"],
       "files": [
         {
           "path": "registry/alpine/examples/example-hero.tsx",
           "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "calendar",
-      "type": "registry:ui",
-      "title": "calendar",
-      "description": "A calendar component",
-      "files": [
-        {
-          "path": "registry/alpine/ui/calendar.tsx",
-          "type": "registry:ui"
         }
       ]
     }
