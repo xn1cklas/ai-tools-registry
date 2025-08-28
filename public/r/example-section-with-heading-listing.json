@@ -4,9 +4,7 @@
   "type": "registry:block",
   "title": "Section with Heading and Listing Grid",
   "description": "An example section with a heading, subheading, and listing grid.",
-  "dependencies": [
-    "lucide-react"
-  ],
+  "dependencies": ["lucide-react"],
   "files": [
     {
       "path": "registry/alpine/examples/example-section-with-heading-listing.tsx",

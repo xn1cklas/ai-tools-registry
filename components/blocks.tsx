@@ -8,6 +8,7 @@ import { ExampleSectionWithBookingForm } from "@/registry/alpine/examples/exampl
 import { ExampleSectionWithListing } from "@/registry/alpine/examples/example-section-listing"
 import { ContactForm } from "@/registry/alpine/forms/contact-form"
 import { MainNav } from "@/registry/alpine/navigation/main-nav"
+import { SiteHeader } from "@/registry/alpine/navigation/site-header"
 export const blocks = [
   {
     name: "logo",
@@ -16,6 +17,10 @@ export const blocks = [
   {
     name: "main-nav",
     component: MainNav,
+  },
+  {
+    name: "site-header",
+    component: SiteHeader,
   },
   {
     name: "login-form",

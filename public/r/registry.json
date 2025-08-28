@@ -4,8 +4,9 @@
   "homepage": "https://alpine-registry.vercel.app",
   "items": [
     {
-      "name": "alpine",
+      "name": "style",
       "type": "registry:style",
+      "registryDependencies": ["@shadcn/style"],
       "cssVars": {
         "light": {
           "primary": "oklch(0.63 0.17 149)",
@@ -57,6 +58,24 @@
       "files": [
         {
           "path": "registry/alpine/navigation/main-nav.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "site-header",
+      "type": "registry:block",
+      "title": "Site Header",
+      "description": "A site header component.",
+      "registryDependencies": [
+        "@alpine/style",
+        "@alpine/logo",
+        "@alpine/main-nav",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/alpine/navigation/site-header.tsx",
           "type": "registry:component"
         }
       ]

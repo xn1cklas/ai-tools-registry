@@ -1,8 +1,9 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "alpine",
+  "name": "style",
   "type": "registry:style",
   "dependencies": [],
+  "registryDependencies": ["@shadcn/style"],
   "files": [
     {
       "path": "registry/alpine/rules/registry.mdc",

@@ -1,9 +1,8 @@
 ---
 description: Rules for using components from the registry
-globs: 
+globs:
 alwaysApply: true
 ---
-
 
 ## Rules for using components
 
@@ -18,21 +17,21 @@ Here are some rules to follow when using components in this project:
 When you initialize a new project:
 
 - Make sure to install the DM Sans fonts as follows:
-	1. In the root layout, import DM_Sans from next/font/google.
-	2. Declare the fontSans variables.
-	3. Then add the following to the body tag: `${fontSans.variable} font-sans antialiased`
+  1.  In the root layout, import DM_Sans from next/font/google.
+  2.  Declare the fontSans variables.
+  3.  Then add the following to the body tag: `${fontSans.variable} font-sans antialiased`
 - Here's the code example for setting up the fonts:
-	
-	```tsx
-	import { DM_Sans } from "next/font/google"
 
-	const fontSans = DM_Sans({
+  ```tsx
+  import { DM_Sans } from "next/font/google"
+
+  const fontSans = DM_Sans({
   	variable: "--font-sans",
   	subsets: ["latin"],
-	})
+  })
 
-	<body className={`${fontSans.variable} font-sans antialiased`}>
-	```
+  <body className={`${fontSans.variable} font-sans antialiased`}>
+  ```
 
 ## Image
 
@@ -49,4 +48,3 @@ const nextConfig: NextConfig = {
 
 export default nextConfig;
 ```
-

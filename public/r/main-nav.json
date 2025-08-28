@@ -4,10 +4,7 @@
   "type": "registry:block",
   "title": "Main Nav",
   "description": "A main navigation component.",
-  "dependencies": [
-    "@radix-ui/react-slot",
-    "class-variance-authority"
-  ],
+  "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
   "files": [
     {
       "path": "registry/alpine/navigation/main-nav.tsx",

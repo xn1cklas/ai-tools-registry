@@ -4,9 +4,7 @@
   "type": "registry:block",
   "title": "Example Listing Grid",
   "description": "An example listing grid.",
-  "dependencies": [
-    "lucide-react"
-  ],
+  "dependencies": ["lucide-react"],
   "files": [
     {
       "path": "registry/alpine/examples/example-listing-grid.tsx",
