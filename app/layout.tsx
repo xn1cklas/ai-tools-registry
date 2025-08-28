@@ -4,11 +4,11 @@ import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 import { Providers } from "@/components/providers"
 import { ModeToggle } from "@/components/mode-toggle"
-import { McpSetup } from "@/components/mcp-setup"
 import { Separator } from "@/registry/alpine/ui/separator"
 import Link from "next/link"
 import { Logo } from "@/registry/alpine/branding/logo"
 import { Toaster } from "@/registry/alpine/ui/sonner"
+import { RegistrySetup } from "@/components/registry-setup"
 
 const fontSans = DM_Sans({
   variable: "--font-sans",
@@ -68,7 +68,7 @@ export default function RootLayout({
                 </p>
               </div>
               <div className="ml-auto flex gap-2">
-                <McpSetup />
+                <RegistrySetup />
                 <ModeToggle />
               </div>
             </div>
