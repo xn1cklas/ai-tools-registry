@@ -1,14 +1,14 @@
 "use client"
 
 import * as React from "react"
-import { Separator } from "@/registry/alpine/ui/separator"
-import { Button } from "@/registry/alpine/ui/button"
+import { Separator } from "@/registry/ai-tools/ui/separator"
+import { Button } from "@/registry/ai-tools/ui/button"
 import { AddCommand } from "@/components/add-command"
 import { OpenInV0 } from "@/components/open-in-v0"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { CodeBlock } from "@/components/code-block"
-import { ScrollArea } from "@/registry/alpine/ui/scroll-area"
-import { CheckIcon, CopyIcon } from "lucide-react"
+import { ScrollArea } from "@/registry/ai-tools/ui/scroll-area"
+import { CheckIcon, Code, CopyIcon } from "lucide-react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 
@@ -72,7 +72,7 @@ export function ToolDemoCard({
           </Button>
         </div>
         <ScrollArea className="max-h-96">
-          <CodeBlock code={code} className="leading-5" />
+          <CodeBlock code={code} className="leading-3" />
         </ScrollArea>
       </div>
 
@@ -134,15 +134,13 @@ export function ToolDemoCard({
         ) : view === "output" ? (
           <div className="relative">
             <ScrollArea className="max-h-80">
-              <pre className="text-xs leading-5">
-                {JSON.stringify(json, null, 2)}
-              </pre>
+              <CodeBlock code={JSON.stringify(json, null, 2)} className="text-xs leading-3" />
             </ScrollArea>
           </div>
         ) : (
           <div className="relative">
             <ScrollArea className="max-h-96">
-              <CodeBlock code={componentCode ?? "// No component code available"} className="leading-5" />
+              <CodeBlock code={componentCode ?? "// No component code available"} className="leading-3" />
             </ScrollArea>
           </div>
         )}

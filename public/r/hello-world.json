@@ -7,7 +7,7 @@
   "dependencies": ["zod"],
   "files": [
     {
-      "path": "registry/alpine/hello-world/hello-world.tsx",
+      "path": "registry/ai-tools/hello-world/hello-world.tsx",
       "content": "export function HelloWorld() {\n  return <div>Hello World This totally works 🔥</div>\n}\n",
       "type": "registry:component"
     }

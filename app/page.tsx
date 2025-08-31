@@ -4,19 +4,19 @@ import path from "path"
 import { AddCommand } from "@/components/add-command"
 import { OpenInV0 } from "@/components/open-in-v0"
 import registry from "@/registry.json"
-import { Separator } from "@/registry/alpine/ui/separator"
-import { Button } from "@/registry/alpine/ui/button"
-import { WeatherCard } from "@/registry/alpine/tools/weather/component"
-import { NewsList } from "@/registry/alpine/tools/news/component"
-import { WebSearchList } from "@/registry/alpine/tools/websearch/component"
-import { MarkdownViewer } from "@/registry/alpine/tools/markdown/component"
-import { getWeatherTool, type GetWeatherResult } from "@/registry/alpine/tools/weather/tool"
-import { newsSearchTool, type NewsSearchResult } from "@/registry/alpine/tools/news/tool"
-import { webSearchTool, type WebSearchResult } from "@/registry/alpine/tools/websearch/tool"
-import { markdownTool, type MarkdownResult } from "@/registry/alpine/tools/markdown/tool"
-import { calculatorTool, type CalculatorResult } from "@/registry/alpine/tools/calculator/tool"
-import { translateTool, type TranslateResult } from "@/registry/alpine/tools/translate/tool"
-import { timeNowTool, type TimeNowResult } from "@/registry/alpine/tools/time/tool"
+import { Separator } from "@/registry/ai-tools/ui/separator"
+import { Button } from "@/registry/ai-tools/ui/button"
+import { WeatherCard } from "@/registry/ai-tools/tools/weather/component"
+import { NewsList } from "@/registry/ai-tools/tools/news/component"
+import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
+import { MarkdownViewer } from "@/registry/ai-tools/tools/markdown/component"
+import { getWeatherTool, type GetWeatherResult } from "@/registry/ai-tools/tools/weather/tool"
+import { newsSearchTool, type NewsSearchResult } from "@/registry/ai-tools/tools/news/tool"
+import { webSearchTool, type WebSearchResult } from "@/registry/ai-tools/tools/websearch/tool"
+import { markdownTool, type MarkdownResult } from "@/registry/ai-tools/tools/markdown/tool"
+import { calculatorTool, type CalculatorResult } from "@/registry/ai-tools/tools/calculator/tool"
+import { translateTool, type TranslateResult } from "@/registry/ai-tools/tools/translate/tool"
+import { timeNowTool, type TimeNowResult } from "@/registry/ai-tools/tools/time/tool"
 import { ToolDemoCard } from "@/components/tool-demo-card"
 import { parseExtendedRegistryItem, type ExtendedRegistryItem } from "@/lib/registry-schemas"
 
@@ -100,19 +100,19 @@ export default async function Home() {
   // Read actual registry item source files for copyable code display
   const read = (p: string) => fs.readFile(path.join(process.cwd(), p), "utf8")
   const [codeWeather, codeNews, codeCalc, codeTranslate, codeTime] = await Promise.all([
-    read("registry/alpine/tools/weather/tool.ts"),
-    read("registry/alpine/tools/news/tool.ts"),
-    read("registry/alpine/tools/calculator/tool.ts"),
-    read("registry/alpine/tools/translate/tool.ts"),
-    read("registry/alpine/tools/time/tool.ts"),
+    read("registry/ai-tools/tools/weather/tool.ts"),
+    read("registry/ai-tools/tools/news/tool.ts"),
+    read("registry/ai-tools/tools/calculator/tool.ts"),
+    read("registry/ai-tools/tools/translate/tool.ts"),
+    read("registry/ai-tools/tools/time/tool.ts"),
   ])
   const [codeWeatherCmp, codeNewsCmp, codeWeb, codeWebCmp, codeMd, codeMdCmp] = await Promise.all([
-    read("registry/alpine/tools/weather/component.tsx"),
-    read("registry/alpine/tools/news/component.tsx"),
-    read("registry/alpine/tools/websearch/tool.ts"),
-    read("registry/alpine/tools/websearch/component.tsx"),
-    read("registry/alpine/tools/markdown/tool.ts"),
-    read("registry/alpine/tools/markdown/component.tsx"),
+    read("registry/ai-tools/tools/weather/component.tsx"),
+    read("registry/ai-tools/tools/news/component.tsx"),
+    read("registry/ai-tools/tools/websearch/tool.ts"),
+    read("registry/ai-tools/tools/websearch/component.tsx"),
+    read("registry/ai-tools/tools/markdown/tool.ts"),
+    read("registry/ai-tools/tools/markdown/component.tsx"),
   ])
 
   const items = toolNames

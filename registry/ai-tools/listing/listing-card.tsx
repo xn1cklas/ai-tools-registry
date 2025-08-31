@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/alpine/ui/card"
+} from "@/registry/ai-tools/ui/card"
 import { StarIcon } from "lucide-react"
 import Image from "next/image"
 

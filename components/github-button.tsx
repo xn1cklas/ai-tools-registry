@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/registry/alpine/ui/button";
+import { Button } from "@/registry/ai-tools/ui/button";
 import { GithubIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 

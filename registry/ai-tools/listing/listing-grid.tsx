@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { ListingCard } from "@/registry/alpine/listing/listing-card"
+import { ListingCard } from "@/registry/ai-tools/listing/listing-card"
 
 export function ListingGrid({
   heading,

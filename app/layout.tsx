@@ -4,13 +4,13 @@ import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 import { Providers } from "@/components/providers"
 import { ModeToggle } from "@/components/mode-toggle"
-import { Separator } from "@/registry/alpine/ui/separator"
+import { Separator } from "@/registry/ai-tools/ui/separator"
 import Link from "next/link"
-import { Logo } from "@/registry/alpine/branding/logo"
-import { Toaster } from "@/registry/alpine/ui/sonner"
+import { Logo } from "@/registry/ai-tools/branding/logo"
+import { Toaster } from "@/registry/ai-tools/ui/sonner"
 import { RegistrySetup } from "@/components/registry-setup"
 import { Github, GithubIcon } from "lucide-react"
-import { Button } from "@/registry/alpine/ui/button"
+import { Button } from "@/registry/ai-tools/ui/button"
 import { cn } from "@/lib/utils"
 import { GithubButton } from "@/components/github-button"
 
@@ -19,13 +19,13 @@ const fontSans = DM_Sans({
   subsets: ["latin"],
 })
 
-const title = "Alpine"
+const title = "ai-tools"
 const description = "A example registry for distributing code using shadcn."
 
 export const metadata: Metadata = {
   title: {
     default: `${title} | ${description}`,
-    template: "%s | Alpine",
+    template: "%s | ai-tools",
   },
   description,
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
@@ -64,7 +64,7 @@ export default function RootLayout({
             <div className="max-w-7xl mx-auto flex items-center px-4 py-6">
               <div className="flex items-center gap-4">
                 <Link href="/">
-                  <Logo /> <span className="sr-only">Alpine</span>
+                  <Logo /> <span className="sr-only">ai-tools</span>
                 </Link>
                 <Separator orientation="vertical" className="!h-6" />
                 <p className="text-muted-foreground hidden md:block line-clamp-1 text-sm">

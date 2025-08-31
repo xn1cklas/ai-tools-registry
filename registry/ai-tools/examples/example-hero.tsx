@@ -1,5 +1,5 @@
-import { Hero } from "@/registry/alpine/marketing/hero"
-import { Button } from "@/registry/alpine/ui/button"
+import { Hero } from "@/registry/ai-tools/marketing/hero"
+import { Button } from "@/registry/ai-tools/ui/button"
 
 export function ExampleHero() {
   return (

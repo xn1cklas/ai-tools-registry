@@ -8,7 +8,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/alpine/ui/card"
+} from "@/registry/ai-tools/ui/card"
 
 export function WeatherCard({ data }: { data: GetWeatherResult }) {
   const { location, temperature, unit, condition, high, low, humidity, windKph } = data

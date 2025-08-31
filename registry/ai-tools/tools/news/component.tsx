@@ -8,7 +8,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/alpine/ui/card"
+} from "@/registry/ai-tools/ui/card"
 
 export function NewsList({ data }: { data: NewsSearchResult }) {
   return (

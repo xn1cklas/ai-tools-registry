@@ -1,3 +1,3 @@
 # Registry
 
-This is the registry source for the alpine components.
+This is the registry source for the ai-tools components.

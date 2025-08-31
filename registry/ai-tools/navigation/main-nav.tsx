@@ -1,4 +1,4 @@
-import { Button } from "@/registry/alpine/ui/button"
+import { Button } from "@/registry/ai-tools/ui/button"
 import Link from "next/link"
 
 export function MainNav() {

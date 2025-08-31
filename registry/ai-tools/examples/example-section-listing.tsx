@@ -1,5 +1,5 @@
-import { Section } from "@/registry/alpine/marketing/section"
-import { ListingGrid } from "@/registry/alpine/listing/listing-grid"
+import { Section } from "@/registry/ai-tools/marketing/section"
+import { ListingGrid } from "@/registry/ai-tools/listing/listing-grid"
 
 export function ExampleSectionWithListing() {
   return (

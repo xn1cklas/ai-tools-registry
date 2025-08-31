@@ -1,14 +1,14 @@
-import { Label } from "@/registry/alpine/ui/label"
-import { Input } from "@/registry/alpine/ui/input"
-import { Textarea } from "@/registry/alpine/ui/textarea"
-import { Button } from "@/registry/alpine/ui/button"
+import { Label } from "@/registry/ai-tools/ui/label"
+import { Input } from "@/registry/ai-tools/ui/input"
+import { Textarea } from "@/registry/ai-tools/ui/textarea"
+import { Button } from "@/registry/ai-tools/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/alpine/ui/card"
+} from "@/registry/ai-tools/ui/card"
 
 export function ContactForm() {
   return (

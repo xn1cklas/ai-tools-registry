@@ -10,13 +10,13 @@
   ],
   "files": [
     {
-      "path": "registry/alpine/resend-template/route.ts",
-      "content": "import WelcomeEmail from \"@/registry/alpine/resend-template/components/emails/welcome-message-c7643b\"\nimport { Resend } from \"resend\"\n\nconst resend = new Resend(process.env.RESEND_API_KEY)\n\nexport async function POST() {\n  try {\n    const { data, error } = await resend.emails.send({\n      from: \"alpine <onboarding@resend.dev>\",\n      to: [\"delivered@resend.dev\"],\n      subject: \"Hello world\",\n      react: WelcomeEmail({ name: \"Evil Rabbit\" }),\n    })\n\n    if (error) {\n      return Response.json({ error }, { status: 500 })\n    }\n\n    return Response.json(data)\n  } catch (error) {\n    return Response.json({ error }, { status: 500 })\n  }\n}\n",
+      "path": "registry/ai-tools/resend-template/route.ts",
+      "content": "import WelcomeEmail from \"@/registry/ai-tools/resend-template/components/emails/welcome-message-c7643b\"\nimport { Resend } from \"resend\"\n\nconst resend = new Resend(process.env.RESEND_API_KEY)\n\nexport async function POST() {\n  try {\n    const { data, error } = await resend.emails.send({\n      from: \"ai-tools <onboarding@resend.dev>\",\n      to: [\"delivered@resend.dev\"],\n      subject: \"Hello world\",\n      react: WelcomeEmail({ name: \"Evil Rabbit\" }),\n    })\n\n    if (error) {\n      return Response.json({ error }, { status: 500 })\n    }\n\n    return Response.json(data)\n  } catch (error) {\n    return Response.json({ error }, { status: 500 })\n  }\n}\n",
       "type": "registry:file",
       "target": "app/api/send/route.ts"
     },
     {
-      "path": "registry/alpine/resend-template/.env.example",
+      "path": "registry/ai-tools/resend-template/.env.example",
       "content": "RESEND_API_KEY=",
       "type": "registry:file",
       "target": "~/.env"

@@ -1,4 +1,4 @@
-import { ListingBookingForm } from "@/registry/alpine/forms/booking-form"
+import { ListingBookingForm } from "@/registry/ai-tools/forms/booking-form"
 
 export function ExampleBookingForm() {
   return (

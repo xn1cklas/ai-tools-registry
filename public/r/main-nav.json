@@ -6,8 +6,8 @@
   "description": "A main navigation component.",
   "files": [
     {
-      "path": "registry/alpine/navigation/main-nav.tsx",
-      "content": "import { Button } from \"@/registry/alpine/ui/button\"\nimport Link from \"next/link\"\n\nexport function MainNav() {\n  return (\n    <nav className=\"flex flex-col md:flex-row items-center gap-1\">\n      <Button variant=\"ghost\" size=\"sm\" asChild>\n        <Link href=\"/\">Home</Link>\n      </Button>\n      <Button variant=\"ghost\" size=\"sm\" asChild>\n        <Link href=\"/experiences\">Experiences</Link>\n      </Button>\n      <Button variant=\"ghost\" size=\"sm\" asChild>\n        <Link href=\"/listings\">Listings</Link>\n      </Button>\n      <Button variant=\"ghost\" size=\"sm\" asChild>\n        <Link href=\"/about\">About</Link>\n      </Button>\n      <Button variant=\"ghost\" size=\"sm\" asChild>\n        <Link href=\"/contact\">Contact</Link>\n      </Button>\n    </nav>\n  )\n}\n",
+      "path": "registry/ai-tools/navigation/main-nav.tsx",
+      "content": "import { Button } from \"@/registry/ai-tools/ui/button\"\nimport Link from \"next/link\"\n\nexport function MainNav() {\n  return (\n    <nav className=\"flex flex-col md:flex-row items-center gap-1\">\n      <Button variant=\"ghost\" size=\"sm\" asChild>\n        <Link href=\"/\">Home</Link>\n      </Button>\n      <Button variant=\"ghost\" size=\"sm\" asChild>\n        <Link href=\"/experiences\">Experiences</Link>\n      </Button>\n      <Button variant=\"ghost\" size=\"sm\" asChild>\n        <Link href=\"/listings\">Listings</Link>\n      </Button>\n      <Button variant=\"ghost\" size=\"sm\" asChild>\n        <Link href=\"/about\">About</Link>\n      </Button>\n      <Button variant=\"ghost\" size=\"sm\" asChild>\n        <Link href=\"/contact\">Contact</Link>\n      </Button>\n    </nav>\n  )\n}\n",
       "type": "registry:component"
     }
   ]

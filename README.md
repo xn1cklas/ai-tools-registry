@@ -1,4 +1,4 @@
-# Alpine Registry
+# ai-tools Registry
 
 This is an example registry built using `shadcn/ui`.
 
@@ -6,12 +6,12 @@ It now also includes an installable AI Tools registry (for Node.js) based on the
 
 ## Usage
 
-To install components from the alpine registry, you can use the following remote registries config in your `components.json` file:
+To install components from the ai-tools registry, you can use the following remote registries config in your `components.json` file:
 
 ```json
 {
   "registries": {
-    "@alpine": "https://alpine-registry.vercel.app/api/registry/public/{name}"
+    "@ai-tools": "https://ai-tools-registry.vercel.app/api/registry/public/{name}"
   }
 }
 ```
@@ -19,35 +19,35 @@ To install components from the alpine registry, you can use the following remote
 You can then add items using the following command:
 
 ```bash
-npx shadcn@latest add @alpine/login-form
+npx shadcn@latest add @ai-tools/login-form
 ```
 
-To install the `alpine` design system, you can use the following command:
+To install the `ai-tools` design system, you can use the following command:
 
 ```bash
-npx shadcn@beta add @alpine/design-system
+npx shadcn@beta add @ai-tools/design-system
 ```
 
 ### AI Tools
 
 Example tools you can install:
 
-- `@alpine/tool-get-weather` – AI SDK tool + `WeatherCard` renderer
-- `@alpine/tool-calculator` – simple calculator tool
-- `@alpine/tool-translate` – sample translate tool
-- `@alpine/tool-news-search` – sample news search tool + `NewsList` renderer
-- `@alpine/tool-time-now` – current time for a timezone
+- `@ai-tools/tool-get-weather` – AI SDK tool + `WeatherCard` renderer
+- `@ai-tools/tool-calculator` – simple calculator tool
+- `@ai-tools/tool-translate` – sample translate tool
+- `@ai-tools/tool-news-search` – sample news search tool + `NewsList` renderer
+- `@ai-tools/tool-time-now` – current time for a timezone
 
 Install a tool (example):
 
 ```bash
-npx shadcn@latest add @alpine/tool-get-weather
+npx shadcn@latest add @ai-tools/tool-get-weather
 ```
 
 Or install a pack of all tools:
 
 ```bash
-npx shadcn@latest add @alpine/tool-pack
+npx shadcn@latest add @ai-tools/tool-pack
 ```
 
 Note: The example tools import from `ai` (AI SDK v3) and `zod`. Ensure your app provides these dependencies.

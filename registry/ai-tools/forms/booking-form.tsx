@@ -1,16 +1,16 @@
 "use client"
 
 import * as React from "react"
-import { Button } from "@/registry/alpine/ui/button"
-import { Input } from "@/registry/alpine/ui/input"
-import { Label } from "@/registry/alpine/ui/label"
+import { Button } from "@/registry/ai-tools/ui/button"
+import { Input } from "@/registry/ai-tools/ui/input"
+import { Label } from "@/registry/ai-tools/ui/label"
 import { cn } from "@/lib/utils"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/registry/alpine/ui/popover"
-import { Calendar } from "@/registry/alpine/ui/calendar"
+} from "@/registry/ai-tools/ui/popover"
+import { Calendar } from "@/registry/ai-tools/ui/calendar"
 import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { DateRange } from "react-day-picker"

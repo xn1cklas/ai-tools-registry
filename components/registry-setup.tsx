@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { cn } from "@/lib/utils"
-import { Button } from "@/registry/alpine/ui/button"
+import { Button } from "@/registry/ai-tools/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/registry/alpine/ui/dialog"
+} from "@/registry/ai-tools/ui/dialog"
 import { CheckIcon, CopyIcon } from "lucide-react"
 
 export function RegistrySetup({
@@ -59,7 +59,7 @@ export function RegistrySetup({
         <DialogHeader>
           <DialogTitle>Setup Registry</DialogTitle>
           <DialogDescription>
-            Use the code below to configure the @alpine registry for your
+            Use the code below to configure the @ai-tools registry for your
             project.
             <br />
             Ensure you've set up <a href="https://ui.shadcn.com/" className="underline" target="_blank" rel="noreferrer">shadcn</a> for your project.
@@ -89,7 +89,7 @@ export function RegistrySetup({
         </div>
         <div className="overflow-x-auto bg-muted p-8 rounded-md min-h-[50px]">
           <pre className="text-sm font-mono">
-            <code>npx shadcn@latest add @alpine/[component-name]</code>
+            <code>npx shadcn@latest add @ai-tools/[component-name]</code>
           </pre>
         </div>
         <div className="font-medium">
@@ -106,6 +106,6 @@ export function RegistrySetup({
 }
 
 const registrySetupCode = `"registries": {
-  "@alpine": "${process.env.NEXT_PUBLIC_BASE_URL}/api/registry/public/{name}"
+  "@ai-tools": "${process.env.NEXT_PUBLIC_BASE_URL}/api/registry/public/{name}"
 }
 `

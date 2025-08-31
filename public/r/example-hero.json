@@ -5,12 +5,12 @@
   "title": "Example Hero Section",
   "description": "An example hero section with a heading, subheading, and two call to action buttons.",
   "registryDependencies": [
-    "@alpine/hero"
+    "@ai-tools/hero"
   ],
   "files": [
     {
-      "path": "registry/alpine/examples/example-hero.tsx",
-      "content": "import { Hero } from \"@/registry/alpine/marketing/hero\"\nimport { Button } from \"@/registry/alpine/ui/button\"\n\nexport function ExampleHero() {\n  return (\n    <Hero\n      heading=\"Introducing Co‑Host Network\"\n      subheading=\"Now you can hire a co-host to help. Plus, get more ways to make hosting and planning trips even easier.\"\n      imageUrl=\"https://images.unsplash.com/photo-1697807646004-31ae73a1a625\"\n    >\n      <div className=\"flex gap-2 mt-2\">\n        <Button size=\"lg\">Learn more</Button>\n        <Button size=\"lg\" variant=\"outline\">\n          Get started\n        </Button>\n      </div>\n    </Hero>\n  )\n}\n",
+      "path": "registry/ai-tools/examples/example-hero.tsx",
+      "content": "import { Hero } from \"@/registry/ai-tools/marketing/hero\"\nimport { Button } from \"@/registry/ai-tools/ui/button\"\n\nexport function ExampleHero() {\n  return (\n    <Hero\n      heading=\"Introducing Co‑Host Network\"\n      subheading=\"Now you can hire a co-host to help. Plus, get more ways to make hosting and planning trips even easier.\"\n      imageUrl=\"https://images.unsplash.com/photo-1697807646004-31ae73a1a625\"\n    >\n      <div className=\"flex gap-2 mt-2\">\n        <Button size=\"lg\">Learn more</Button>\n        <Button size=\"lg\" variant=\"outline\">\n          Get started\n        </Button>\n      </div>\n    </Hero>\n  )\n}\n",
       "type": "registry:component"
     }
   ]

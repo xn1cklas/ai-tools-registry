@@ -5,13 +5,13 @@
   "title": "Site Header",
   "description": "A site header component.",
   "registryDependencies": [
-    "@alpine/logo",
-    "@alpine/main-nav"
+    "@ai-tools/logo",
+    "@ai-tools/main-nav"
   ],
   "files": [
     {
-      "path": "registry/alpine/navigation/site-header.tsx",
-      "content": "import { Logo } from \"@/registry/alpine/branding/logo\"\nimport { MainNav } from \"@/registry/alpine/navigation/main-nav\"\nimport { Button } from \"@/registry/alpine/ui/button\"\nimport Link from \"next/link\"\n\nexport function SiteHeader() {\n  return (\n    <header className=\"sticky top-0 z-50 w-full border-b bg-background\">\n      <div className=\"container flex h-16 items-center mx-auto px-4 gap-4\">\n        <Link href=\"/\">\n          <Logo /> <span className=\"sr-only\">Alpine</span>\n        </Link>\n        <MainNav />\n        <div className=\"ml-auto flex items-center gap-4\">\n          <Button>Get Started</Button>\n        </div>\n      </div>\n    </header>\n  )\n}\n",
+      "path": "registry/ai-tools/navigation/site-header.tsx",
+      "content": "import { Logo } from \"@/registry/ai-tools/branding/logo\"\nimport { MainNav } from \"@/registry/ai-tools/navigation/main-nav\"\nimport { Button } from \"@/registry/ai-tools/ui/button\"\nimport Link from \"next/link\"\n\nexport function SiteHeader() {\n  return (\n    <header className=\"sticky top-0 z-50 w-full border-b bg-background\">\n      <div className=\"container flex h-16 items-center mx-auto px-4 gap-4\">\n        <Link href=\"/\">\n          <Logo /> <span className=\"sr-only\">ai-tools</span>\n        </Link>\n        <MainNav />\n        <div className=\"ml-auto flex items-center gap-4\">\n          <Button>Get Started</Button>\n        </div>\n      </div>\n    </header>\n  )\n}\n",
       "type": "registry:component"
     }
   ]

@@ -1,13 +1,13 @@
 import { cn } from "@/lib/utils"
-import { Button } from "@/registry/alpine/ui/button"
+import { Button } from "@/registry/ai-tools/ui/button"
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/registry/alpine/ui/card"
-import { Input } from "@/registry/alpine/ui/input"
-import { Label } from "@/registry/alpine/ui/label"
+} from "@/registry/ai-tools/ui/card"
+import { Input } from "@/registry/ai-tools/ui/input"
+import { Label } from "@/registry/ai-tools/ui/label"
 
 export function LoginForm({
   className,

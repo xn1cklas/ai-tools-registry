@@ -1,20 +1,20 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "alpine",
-  "homepage": "https://alpine-registry.vercel.app",
+  "name": "ai-tools",
+  "homepage": "https://ai-tools-registry.vercel.app",
   "items": [
     {
       "name": "design-system",
       "type": "registry:style",
       "dependencies": ["radix-ui"],
       "registryDependencies": [
-        "@alpine/button",
-        "@alpine/input",
-        "@alpine/calendar",
-        "@alpine/card",
-        "@alpine/label",
-        "@alpine/popover",
-        "@alpine/textarea"
+        "@ai-tools/button",
+        "@ai-tools/input",
+        "@ai-tools/calendar",
+        "@ai-tools/card",
+        "@ai-tools/label",
+        "@ai-tools/popover",
+        "@ai-tools/textarea"
       ],
       "cssVars": {
         "light": {
@@ -29,7 +29,7 @@
       },
       "files": [
         {
-          "path": "registry/alpine/rules/AGENTS.md",
+          "path": "registry/ai-tools/rules/AGENTS.md",
           "type": "registry:file",
           "target": "~/AGENTS.md"
         }
@@ -41,10 +41,10 @@
       "title": "Web Search",
       "description": "AI SDK tool that searches the web. Includes a results renderer.",
       "dependencies": ["zod", "ai"],
-      "registryDependencies": ["@alpine/card"],
+      "registryDependencies": ["@ai-tools/card"],
       "files": [
-        { "path": "registry/alpine/tools/websearch/tool.ts", "type": "registry:file" },
-        { "path": "registry/alpine/tools/websearch/component.tsx", "type": "registry:file" }
+        { "path": "registry/ai-tools/tools/websearch/tool.ts", "type": "registry:file" },
+        { "path": "registry/ai-tools/tools/websearch/component.tsx", "type": "registry:file" }
       ]
     },
     {
@@ -53,10 +53,10 @@
       "title": "Markdown Renderer",
       "description": "AI SDK tool that transports markdown; render with streamdown.",
       "dependencies": ["zod", "ai", "streamdown"],
-      "registryDependencies": ["@alpine/card"],
+      "registryDependencies": ["@ai-tools/card"],
       "files": [
-        { "path": "registry/alpine/tools/markdown/tool.ts", "type": "registry:file" },
-        { "path": "registry/alpine/tools/markdown/component.tsx", "type": "registry:file" }
+        { "path": "registry/ai-tools/tools/markdown/tool.ts", "type": "registry:file" },
+        { "path": "registry/ai-tools/tools/markdown/component.tsx", "type": "registry:file" }
       ]
     },
     {
@@ -66,7 +66,7 @@
       "description": "A button component.",
       "files": [
         {
-          "path": "registry/alpine/ui/button.tsx",
+          "path": "registry/ai-tools/ui/button.tsx",
           "type": "registry:ui"
         }
       ]
@@ -79,7 +79,7 @@
       "dependencies": ["react-day-picker"],
       "files": [
         {
-          "path": "registry/alpine/ui/calendar.tsx",
+          "path": "registry/ai-tools/ui/calendar.tsx",
           "type": "registry:ui"
         }
       ]
@@ -91,7 +91,7 @@
       "description": "A card component.",
       "files": [
         {
-          "path": "registry/alpine/ui/card.tsx",
+          "path": "registry/ai-tools/ui/card.tsx",
           "type": "registry:ui"
         }
       ]
@@ -103,7 +103,7 @@
       "description": "An input component.",
       "files": [
         {
-          "path": "registry/alpine/ui/input.tsx",
+          "path": "registry/ai-tools/ui/input.tsx",
           "type": "registry:ui"
         }
       ]
@@ -115,7 +115,7 @@
       "description": "A label component.",
       "files": [
         {
-          "path": "registry/alpine/ui/label.tsx",
+          "path": "registry/ai-tools/ui/label.tsx",
           "type": "registry:ui"
         }
       ]
@@ -127,7 +127,7 @@
       "description": "A popover component.",
       "files": [
         {
-          "path": "registry/alpine/ui/popover.tsx",
+          "path": "registry/ai-tools/ui/popover.tsx",
           "type": "registry:ui"
         }
       ]
@@ -139,7 +139,7 @@
       "description": "A textarea component.",
       "files": [
         {
-          "path": "registry/alpine/ui/textarea.tsx",
+          "path": "registry/ai-tools/ui/textarea.tsx",
           "type": "registry:ui"
         }
       ]
@@ -151,7 +151,7 @@
       "description": "A login form with email and password fields.",
       "files": [
         {
-          "path": "registry/alpine/auth/login-form.tsx",
+          "path": "registry/ai-tools/auth/login-form.tsx",
           "type": "registry:component"
         }
       ]
@@ -163,7 +163,7 @@
       "description": "A logo component.",
       "files": [
         {
-          "path": "registry/alpine/branding/logo.tsx",
+          "path": "registry/ai-tools/branding/logo.tsx",
           "type": "registry:component"
         }
       ]
@@ -175,7 +175,7 @@
       "description": "A main navigation component.",
       "files": [
         {
-          "path": "registry/alpine/navigation/main-nav.tsx",
+          "path": "registry/ai-tools/navigation/main-nav.tsx",
           "type": "registry:component"
         }
       ]
@@ -185,10 +185,10 @@
       "type": "registry:block",
       "title": "Site Header",
       "description": "A site header component.",
-      "registryDependencies": ["@alpine/logo", "@alpine/main-nav"],
+      "registryDependencies": ["@ai-tools/logo", "@ai-tools/main-nav"],
       "files": [
         {
-          "path": "registry/alpine/navigation/site-header.tsx",
+          "path": "registry/ai-tools/navigation/site-header.tsx",
           "type": "registry:component"
         }
       ]
@@ -200,7 +200,7 @@
       "description": "A section component.",
       "files": [
         {
-          "path": "registry/alpine/marketing/section.tsx",
+          "path": "registry/ai-tools/marketing/section.tsx",
           "type": "registry:component"
         }
       ]
@@ -212,7 +212,7 @@
       "description": "A hero component.",
       "files": [
         {
-          "path": "registry/alpine/marketing/hero.tsx",
+          "path": "registry/ai-tools/marketing/hero.tsx",
           "type": "registry:component"
         }
       ]
@@ -224,7 +224,7 @@
       "description": "A listing card with a name, location, rating, and review count.",
       "files": [
         {
-          "path": "registry/alpine/listing/listing-card.tsx",
+          "path": "registry/ai-tools/listing/listing-card.tsx",
           "type": "registry:component"
         }
       ]
@@ -234,14 +234,14 @@
       "type": "registry:block",
       "title": "Listing Grid",
       "description": "A grid of listing cards.",
-      "registryDependencies": ["@alpine/listing-card"],
+      "registryDependencies": ["@ai-tools/listing-card"],
       "files": [
         {
-          "path": "registry/alpine/listing/listing-grid.tsx",
+          "path": "registry/ai-tools/listing/listing-grid.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/alpine/listing/listing-card.tsx",
+          "path": "registry/ai-tools/listing/listing-card.tsx",
           "type": "registry:component"
         }
       ]
@@ -254,7 +254,7 @@
       "dependencies": ["date-fns"],
       "files": [
         {
-          "path": "registry/alpine/forms/booking-form.tsx",
+          "path": "registry/ai-tools/forms/booking-form.tsx",
           "type": "registry:component"
         }
       ]
@@ -266,7 +266,7 @@
       "description": "A contact form with name, email, and message fields.",
       "files": [
         {
-          "path": "registry/alpine/forms/contact-form.tsx",
+          "path": "registry/ai-tools/forms/contact-form.tsx",
           "type": "registry:component"
         }
       ]
@@ -278,7 +278,7 @@
       "description": "An example listing card.",
       "files": [
         {
-          "path": "registry/alpine/examples/example-listing-card.tsx",
+          "path": "registry/ai-tools/examples/example-listing-card.tsx",
           "type": "registry:component"
         }
       ]
@@ -288,10 +288,10 @@
       "type": "registry:block",
       "title": "Example Listing Grid",
       "description": "An example listing grid.",
-      "registryDependencies": ["@alpine/listing-card"],
+      "registryDependencies": ["@ai-tools/listing-card"],
       "files": [
         {
-          "path": "registry/alpine/examples/example-listing-grid.tsx",
+          "path": "registry/ai-tools/examples/example-listing-grid.tsx",
           "type": "registry:component"
         }
       ]
@@ -301,10 +301,10 @@
       "type": "registry:block",
       "title": "Section with Heading and Listing Grid",
       "description": "An example section with a heading, subheading, and listing grid.",
-      "registryDependencies": ["@alpine/listing-grid", "@alpine/section"],
+      "registryDependencies": ["@ai-tools/listing-grid", "@ai-tools/section"],
       "files": [
         {
-          "path": "registry/alpine/examples/example-section-listing.tsx",
+          "path": "registry/ai-tools/examples/example-section-listing.tsx",
           "type": "registry:component"
         }
       ]
@@ -314,10 +314,10 @@
       "type": "registry:block",
       "title": "Section with Booking Form",
       "description": "An example section with a booking form.",
-      "registryDependencies": ["@alpine/booking-form", "@alpine/section"],
+      "registryDependencies": ["@ai-tools/booking-form", "@ai-tools/section"],
       "files": [
         {
-          "path": "registry/alpine/examples/example-section-booking.tsx",
+          "path": "registry/ai-tools/examples/example-section-booking.tsx",
           "type": "registry:component"
         }
       ]
@@ -327,10 +327,10 @@
       "type": "registry:block",
       "title": "Example Hero Section",
       "description": "An example hero section with a heading, subheading, and two call to action buttons.",
-      "registryDependencies": ["@alpine/hero"],
+      "registryDependencies": ["@ai-tools/hero"],
       "files": [
         {
-          "path": "registry/alpine/examples/example-hero.tsx",
+          "path": "registry/ai-tools/examples/example-hero.tsx",
           "type": "registry:component"
         }
       ]
@@ -340,10 +340,10 @@
       "type": "registry:component",
       "title": "Get Weather",
       "description": "AI SDK tool that returns mock weather for a location. Includes a WeatherCard renderer.",
-      "registryDependencies": ["@alpine/card"],
+      "registryDependencies": ["@ai-tools/card"],
       "files": [
-        { "path": "registry/alpine/tools/get-weather.ts", "type": "registry:file" },
-        { "path": "registry/alpine/tools/components/weather-card.tsx", "type": "registry:file" }
+        { "path": "registry/ai-tools/tools/get-weather.ts", "type": "registry:file" },
+        { "path": "registry/ai-tools/tools/components/weather-card.tsx", "type": "registry:file" }
       ]
     },
     {
@@ -352,7 +352,7 @@
       "title": "Calculator",
       "description": "Simple calculator tool for basic arithmetic.",
       "files": [
-        { "path": "registry/alpine/tools/calculator.ts", "type": "registry:file" }
+        { "path": "registry/ai-tools/tools/calculator.ts", "type": "registry:file" }
       ]
     },
     {
@@ -361,7 +361,7 @@
       "title": "Translate",
       "description": "Translate a string to a target language (mock).",
       "files": [
-        { "path": "registry/alpine/tools/translate.ts", "type": "registry:file" }
+        { "path": "registry/ai-tools/tools/translate.ts", "type": "registry:file" }
       ]
     },
     {
@@ -369,10 +369,10 @@
       "type": "registry:component",
       "title": "News Search",
       "description": "Return recent headlines for a topic (mock). Includes a NewsList renderer.",
-      "registryDependencies": ["@alpine/card"],
+      "registryDependencies": ["@ai-tools/card"],
       "files": [
-        { "path": "registry/alpine/tools/news-search.ts", "type": "registry:file" },
-        { "path": "registry/alpine/tools/components/news-list.tsx", "type": "registry:file" }
+        { "path": "registry/ai-tools/tools/news-search.ts", "type": "registry:file" },
+        { "path": "registry/ai-tools/tools/components/news-list.tsx", "type": "registry:file" }
       ]
     },
     {
@@ -381,7 +381,7 @@
       "title": "Time Now",
       "description": "Get the current time for a timezone.",
       "files": [
-        { "path": "registry/alpine/tools/time-now.ts", "type": "registry:file" }
+        { "path": "registry/ai-tools/tools/time-now.ts", "type": "registry:file" }
       ]
     },
     {
@@ -390,13 +390,13 @@
       "title": "Tool Pack (All)",
       "description": "Install all sample tools and related renderers.",
       "registryDependencies": [
-        "@alpine/tool-get-weather",
-        "@alpine/tool-calculator",
-        "@alpine/tool-translate",
-        "@alpine/tool-news-search",
-        "@alpine/tool-time-now",
-        "@alpine/tool-websearch",
-        "@alpine/tool-markdown"
+        "@ai-tools/tool-get-weather",
+        "@ai-tools/tool-calculator",
+        "@ai-tools/tool-translate",
+        "@ai-tools/tool-news-search",
+        "@ai-tools/tool-time-now",
+        "@ai-tools/tool-websearch",
+        "@ai-tools/tool-markdown"
       ],
       "files": []
     }

@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import type { MarkdownResult } from "./tool"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/registry/alpine/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/registry/ai-tools/ui/card"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 

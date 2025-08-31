@@ -5,13 +5,13 @@
   "title": "Section with Booking Form",
   "description": "An example section with a booking form.",
   "registryDependencies": [
-    "@alpine/booking-form",
-    "@alpine/section"
+    "@ai-tools/booking-form",
+    "@ai-tools/section"
   ],
   "files": [
     {
-      "path": "registry/alpine/examples/example-section-booking.tsx",
-      "content": "import { ListingBookingForm } from \"@/registry/alpine/forms/booking-form\"\nimport { Section } from \"@/registry/alpine/marketing/section\"\nimport Image from \"next/image\"\n\nexport function ExampleSectionWithBookingForm() {\n  return (\n    <Section\n      heading=\"Wishlist-worthy cabins\"\n      subheading=\"From a hillside retreat overlooking the Smokies to a storybook cottage in California’s wine country.\"\n    >\n      <div className=\"flex md:gap-8 flex-col-reverse md:flex-row items-start relative\">\n        <ListingBookingForm\n          heading=\"Cabin Rentals\"\n          subheading=\"Spend some time in the great outdoors\"\n          className=\"md:absolute md:w-md -mt-12 md:mt-0 md:top-12 md:left-12\"\n        />\n        <Image\n          src=\"https://images.unsplash.com/photo-1634663476205-812f96a5705b\"\n          alt=\"Cabin\"\n          width={1200}\n          height={600}\n          className=\"aspect-square md:aspect-[2/1] object-cover rounded-lg\"\n        />\n      </div>\n    </Section>\n  )\n}\n",
+      "path": "registry/ai-tools/examples/example-section-booking.tsx",
+      "content": "import { ListingBookingForm } from \"@/registry/ai-tools/forms/booking-form\"\nimport { Section } from \"@/registry/ai-tools/marketing/section\"\nimport Image from \"next/image\"\n\nexport function ExampleSectionWithBookingForm() {\n  return (\n    <Section\n      heading=\"Wishlist-worthy cabins\"\n      subheading=\"From a hillside retreat overlooking the Smokies to a storybook cottage in California’s wine country.\"\n    >\n      <div className=\"flex md:gap-8 flex-col-reverse md:flex-row items-start relative\">\n        <ListingBookingForm\n          heading=\"Cabin Rentals\"\n          subheading=\"Spend some time in the great outdoors\"\n          className=\"md:absolute md:w-md -mt-12 md:mt-0 md:top-12 md:left-12\"\n        />\n        <Image\n          src=\"https://images.unsplash.com/photo-1634663476205-812f96a5705b\"\n          alt=\"Cabin\"\n          width={1200}\n          height={600}\n          className=\"aspect-square md:aspect-[2/1] object-cover rounded-lg\"\n        />\n      </div>\n    </Section>\n  )\n}\n",
       "type": "registry:component"
     }
   ]

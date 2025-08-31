@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "alpine-styles",
+  "name": "ai-tools-styles",
   "type": "registry:style",
   "files": [],
   "cssVars": {

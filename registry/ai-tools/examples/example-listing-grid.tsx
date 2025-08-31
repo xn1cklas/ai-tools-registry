@@ -1,4 +1,4 @@
-import { ListingGrid } from "@/registry/alpine/listing/listing-grid"
+import { ListingGrid } from "@/registry/ai-tools/listing/listing-grid"
 
 export function ExampleListingGrid() {
   return (

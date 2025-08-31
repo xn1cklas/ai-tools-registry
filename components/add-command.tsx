@@ -1,7 +1,7 @@
 "use client"
 
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
-import { Button } from "@/registry/alpine/ui/button"
+import { Button } from "@/registry/ai-tools/ui/button"
 import { CheckIcon } from "lucide-react"
 import { toast } from "sonner"
 
@@ -14,7 +14,7 @@ export function AddCommand({ name }: { name: string }) {
       size="sm"
       className="rounded-sm !pl-2"
       onClick={() => {
-        copyToClipboard(`npx shadcn@latest add @alpine/${name}`)
+        copyToClipboard(`npx shadcn@latest add @ai-tools/${name}`)
         toast.success(`npx command copied to clipboard`)
       }}
     >
@@ -47,7 +47,7 @@ export function AddCommand({ name }: { name: string }) {
           ></line>
         </svg>
       )}
-      {`@alpine/${name}`}
+      {`@ai-tools/${name}`}
     </Button>
   )
 }

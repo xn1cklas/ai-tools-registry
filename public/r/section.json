@@ -6,7 +6,7 @@
   "description": "A section component.",
   "files": [
     {
-      "path": "registry/alpine/marketing/section.tsx",
+      "path": "registry/ai-tools/marketing/section.tsx",
       "content": "import { cn } from \"@/lib/utils\"\n\nexport function Section({\n  heading,\n  subheading,\n  children,\n  className,\n  ...props\n}: React.ComponentProps<\"div\"> & {\n  heading: string\n  subheading: string\n}) {\n  return (\n    <section\n      className={cn(\"py-10 lg:py-24 gap-6 w-full\", className)}\n      {...props}\n    >\n      <div className=\"container mx-auto flex flex-col gap-8 px-4 w-full\">\n        <div className=\"flex flex-col items-center gap-2 max-w-xl text-center mx-auto text-balance\">\n          <h2 className=\"text-3xl tracking-tighter lg:text-5xl xl:text-6xl font-bold\">\n            {heading}\n          </h2>\n          <p className=\"text-muted-foreground text-balance lg:text-xl\">\n            {subheading}\n          </p>\n        </div>\n        {children}\n      </div>\n    </section>\n  )\n}\n",
       "type": "registry:component"
     }

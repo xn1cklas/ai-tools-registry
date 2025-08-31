@@ -1,5 +1,5 @@
 {
-  "name": "alpine-registry",
+  "name": "ai-tools-registry",
   "version": "0.1.0",
   "private": true,
   "scripts": {

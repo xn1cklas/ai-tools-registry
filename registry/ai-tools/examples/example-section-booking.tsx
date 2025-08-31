@@ -1,5 +1,5 @@
-import { ListingBookingForm } from "@/registry/alpine/forms/booking-form"
-import { Section } from "@/registry/alpine/marketing/section"
+import { ListingBookingForm } from "@/registry/ai-tools/forms/booking-form"
+import { Section } from "@/registry/ai-tools/marketing/section"
 import Image from "next/image"
 
 export function ExampleSectionWithBookingForm() {
