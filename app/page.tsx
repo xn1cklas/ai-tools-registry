@@ -106,9 +106,13 @@ export default async function Home() {
     read("registry/alpine/tools/translate/tool.ts"),
     read("registry/alpine/tools/time/tool.ts"),
   ])
-  const [codeWeb, codeMd] = await Promise.all([
+  const [codeWeatherCmp, codeNewsCmp, codeWeb, codeWebCmp, codeMd, codeMdCmp] = await Promise.all([
+    read("registry/alpine/tools/weather/component.tsx"),
+    read("registry/alpine/tools/news/component.tsx"),
     read("registry/alpine/tools/websearch/tool.ts"),
+    read("registry/alpine/tools/websearch/component.tsx"),
     read("registry/alpine/tools/markdown/tool.ts"),
+    read("registry/alpine/tools/markdown/component.tsx"),
   ])
 
   const items = toolNames
@@ -156,6 +160,7 @@ export default async function Home() {
               registryItem={item}
               json={weatherDemo}
               code={codeWeather}
+              componentCode={codeWeatherCmp}
               renderer={<WeatherCard data={weatherDemo} />}
               heading="Get Weather"
               subheading="Returns weather for a location"
@@ -173,6 +178,7 @@ export default async function Home() {
               registryItem={item}
               json={newsDemo}
               code={codeNews}
+              componentCode={codeNewsCmp}
               renderer={<NewsList data={newsDemo} />}
               heading="News Search"
               subheading="Returns headlines for a topic"
@@ -246,6 +252,7 @@ export default async function Home() {
               registryItem={item}
               json={webDemo}
               code={codeWeb}
+              componentCode={codeWebCmp}
               renderer={<WebSearchList data={webDemo} />}
               heading="Web Search"
               subheading="Search the web and show results"
@@ -267,6 +274,7 @@ export default async function Home() {
               registryItem={item}
               json={mdDemo}
               code={codeMd}
+              componentCode={codeMdCmp}
               renderer={<MarkdownViewer data={mdDemo} />}
               heading="Markdown"
               subheading="Render markdown in your chat view"
