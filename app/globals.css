@@ -115,11 +115,14 @@
 /* ScrollArea: hide scrollbars by default; show while scrolling */
 [data-slot="scroll-area"] {
   scrollbar-width: none; /* Firefox */
+  transition: scrollbar-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 [data-slot="scroll-area"]::-webkit-scrollbar {
   /* WebKit */
   width: 0;
   height: 0;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 [data-slot="scroll-area"][data-scrolling="true"] {
   scrollbar-width: thin;
@@ -131,4 +134,5 @@
 [data-slot="scroll-area"][data-scrolling="true"]::-webkit-scrollbar-thumb {
   background-color: color-mix(in oklch, var(--foreground) 20%, transparent);
   border-radius: 8px;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

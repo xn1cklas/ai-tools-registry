@@ -7,15 +7,18 @@ import { cn } from "@/lib/utils"
 export function CodeBlock({
   code,
   className,
+  disableOverflow = false,
 }: {
   code: string
   className?: string
+  disableOverflow?: boolean
 }) {
   const html = React.useMemo(() => sh(code), [code])
   return (
     <pre
       className={cn(
-        "text-xs overflow-auto whitespace-pre-wrap font-mono",
+        "text-xs whitespace-pre-wrap font-mono",
+        !disableOverflow && "overflow-auto",
         className
       )}
     >

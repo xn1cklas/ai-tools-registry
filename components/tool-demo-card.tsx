@@ -80,7 +80,7 @@ export function ToolDemoCard({
           </Button>
         </div>
         <ScrollArea className="max-h-96">
-          <CodeBlock code={code} className="leading-3" />
+          <CodeBlock code={code} className="leading-3" disableOverflow={true} />
         </ScrollArea>
       </div>
 
@@ -161,6 +161,7 @@ export function ToolDemoCard({
               <CodeBlock
                 code={JSON.stringify(json, null, 2)}
                 className="text-xs leading-3"
+                disableOverflow={true}
               />
             </ScrollArea>
           </div>
@@ -170,6 +171,7 @@ export function ToolDemoCard({
               <CodeBlock
                 code={componentCode ?? "// No component code available"}
                 className="leading-3"
+                disableOverflow={true}
               />
             </ScrollArea>
           </div>
