@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "ai-tools",
-  "homepage": "https://your-deployment.example",
+  "homepage": "https://ai-tools-registry.vercel.app",
   "items": [
     {
       "name": "design-system",
