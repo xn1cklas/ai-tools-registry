@@ -6,6 +6,7 @@ import { Button } from "@/registry/alpine/ui/button"
 import { AddCommand } from "@/components/add-command"
 import { OpenInV0 } from "@/components/open-in-v0"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
+import { CodeBlock } from "@/components/code-block"
 import { CopyIcon } from "lucide-react"
 import { registryItemSchema } from "shadcn/schema"
 import { z } from "zod"
@@ -58,9 +59,7 @@ export function ToolDemoCard({
         >
           <CopyIcon className="h-4 w-4" />
         </Button>
-        <pre className="text-xs overflow-auto whitespace-pre-wrap">
-{code}
-        </pre>
+        <CodeBlock code={code} />
         {isCopied && (
           <div className="absolute bottom-3 right-3 text-xs text-muted-foreground">Copied</div>
         )}

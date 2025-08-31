@@ -316,6 +316,7 @@
       "type": "registry:component",
       "title": "Tool: Get Weather",
       "description": "AI SDK tool that returns mock weather for a location. Includes a WeatherCard renderer.",
+      "registryDependencies": ["@alpine/card"],
       "files": [
         { "path": "registry/alpine/tools/get-weather.ts", "type": "registry:file" },
         { "path": "registry/alpine/tools/components/weather-card.tsx", "type": "registry:file" }
@@ -344,6 +345,7 @@
       "type": "registry:component",
       "title": "Tool: News Search",
       "description": "Return recent headlines for a topic (mock). Includes a NewsList renderer.",
+      "registryDependencies": ["@alpine/card"],
       "files": [
         { "path": "registry/alpine/tools/news-search.ts", "type": "registry:file" },
         { "path": "registry/alpine/tools/components/news-list.tsx", "type": "registry:file" }

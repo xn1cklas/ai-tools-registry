@@ -70,7 +70,14 @@ export default async function Home() {
         {(() => {
           const item = getRegistryItemFromJson("tool-get-weather")
           if (!item) return null
-          const code = `import { tool } from 'ai'\nimport { getWeatherTool } from '@/registry/alpine/tools/get-weather'\n\n// Register with AI SDK\nexport const tools = {\n  [getWeatherTool.name]: tool({\n    description: getWeatherTool.description,\n    parameters: getWeatherTool.parameters,\n    execute: getWeatherTool.execute,\n  }),\n}\n\n// Manual call (for testing)\nconst result = await getWeatherTool.execute({ location: 'San Francisco', unit: 'C' })\nconsole.log(result)`
+          const code = `import { tool, generateText } from 'ai'\nimport { getWeatherTool } from '@/registry/alpine/tools/get-weather'\n\n// Register with AI SDK\nexport const tools = {\n  [getWeatherTool.name]: tool({\n    description: getWeatherTool.description,\n    parameters: getWeatherTool.parameters,\n    execute: getWeatherTool.execute,\n  }),\n}\n\n// Use with an AI model (pseudo)\n/*
+const response = await generateText({
+  model, // e.g. openai('gpt-4o-mini')
+  tools,
+  prompt: 'What\'s the weather in San Francisco in C?'
+})
+console.log(response)
+*/\n\n// Direct call (no model)\nconst result = await getWeatherTool.execute({ location: 'San Francisco', unit: 'C' })\nconsole.log(result)`
           return (
             <ToolDemoCard
               key={item.name}
@@ -88,7 +95,13 @@ export default async function Home() {
         {(() => {
           const item = getRegistryItemFromJson("tool-news-search")
           if (!item) return null
-          const code = `import { tool } from 'ai'\nimport { newsSearchTool } from '@/registry/alpine/tools/news-search'\n\nexport const tools = {\n  [newsSearchTool.name]: tool({\n    description: newsSearchTool.description,\n    parameters: newsSearchTool.parameters,\n    execute: newsSearchTool.execute,\n  }),\n}\n\nconst result = await newsSearchTool.execute({ topic: 'AI', limit: 5 })\nconsole.log(result)`
+          const code = `import { tool, generateText } from 'ai'\nimport { newsSearchTool } from '@/registry/alpine/tools/news-search'\n\nexport const tools = {\n  [newsSearchTool.name]: tool({\n    description: newsSearchTool.description,\n    parameters: newsSearchTool.parameters,\n    execute: newsSearchTool.execute,\n  }),\n}\n\n/*
+const response = await generateText({
+  model,
+  tools,
+  prompt: 'Give me 3 headlines about AI today.'
+})
+*/\n\nconst result = await newsSearchTool.execute({ topic: 'AI', limit: 5 })\nconsole.log(result)`
           return (
             <ToolDemoCard
               key={item.name}
@@ -106,7 +119,9 @@ export default async function Home() {
         {(() => {
           const item = getRegistryItemFromJson("tool-calculator")
           if (!item) return null
-          const code = `import { tool } from 'ai'\nimport { calculatorTool } from '@/registry/alpine/tools/calculator'\n\nexport const tools = {\n  [calculatorTool.name]: tool({\n    description: calculatorTool.description,\n    parameters: calculatorTool.parameters,\n    execute: calculatorTool.execute,\n  }),\n}\n\nconst result = await calculatorTool.execute({ a: 7, b: 3, operator: '+' })\nconsole.log(result)`
+          const code = `import { tool, generateText } from 'ai'\nimport { calculatorTool } from '@/registry/alpine/tools/calculator'\n\nexport const tools = {\n  [calculatorTool.name]: tool({\n    description: calculatorTool.description,\n    parameters: calculatorTool.parameters,\n    execute: calculatorTool.execute,\n  }),\n}\n\n/*
+const response = await generateText({ model, tools, prompt: 'What is 7 + 3?' })
+*/\n\nconst result = await calculatorTool.execute({ a: 7, b: 3, operator: '+' })\nconsole.log(result)`
           return (
             <ToolDemoCard
               key={item.name}
@@ -123,7 +138,9 @@ export default async function Home() {
         {(() => {
           const item = getRegistryItemFromJson("tool-translate")
           if (!item) return null
-          const code = `import { tool } from 'ai'\nimport { translateTool } from '@/registry/alpine/tools/translate'\n\nexport const tools = {\n  [translateTool.name]: tool({\n    description: translateTool.description,\n    parameters: translateTool.parameters,\n    execute: translateTool.execute,\n  }),\n}\n\nconst result = await translateTool.execute({ text: 'Hello, world!', targetLanguage: 'es' })\nconsole.log(result)`
+          const code = `import { tool, generateText } from 'ai'\nimport { translateTool } from '@/registry/alpine/tools/translate'\n\nexport const tools = {\n  [translateTool.name]: tool({\n    description: translateTool.description,\n    parameters: translateTool.parameters,\n    execute: translateTool.execute,\n  }),\n}\n\n/*
+const response = await generateText({ model, tools, prompt: 'Translate "Hello, world!" to Spanish.' })
+*/\n\nconst result = await translateTool.execute({ text: 'Hello, world!', targetLanguage: 'es' })\nconsole.log(result)`
           return (
             <ToolDemoCard
               key={item.name}
@@ -140,7 +157,9 @@ export default async function Home() {
         {(() => {
           const item = getRegistryItemFromJson("tool-time-now")
           if (!item) return null
-          const code = `import { tool } from 'ai'\nimport { timeNowTool } from '@/registry/alpine/tools/time-now'\n\nexport const tools = {\n  [timeNowTool.name]: tool({\n    description: timeNowTool.description,\n    parameters: timeNowTool.parameters,\n    execute: timeNowTool.execute,\n  }),\n}\n\nconst result = await timeNowTool.execute({ timeZone: 'UTC', locale: 'en-US' })\nconsole.log(result)`
+          const code = `import { tool, generateText } from 'ai'\nimport { timeNowTool } from '@/registry/alpine/tools/time-now'\n\nexport const tools = {\n  [timeNowTool.name]: tool({\n    description: timeNowTool.description,\n    parameters: timeNowTool.parameters,\n    execute: timeNowTool.execute,\n  }),\n}\n\n/*
+const response = await generateText({ model, tools, prompt: 'What time is it in UTC?' })
+*/\n\nconst result = await timeNowTool.execute({ timeZone: 'UTC', locale: 'en-US' })\nconsole.log(result)`
           return (
             <ToolDemoCard
               key={item.name}

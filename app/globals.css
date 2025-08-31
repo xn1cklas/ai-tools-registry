@@ -23,6 +23,19 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.72 0.19 150);
+
+  /* Sugar High token colors (light) */
+  --sh-keyword: #7c3aed; /* violet-600 */
+  --sh-identifier: #111827; /* gray-900 */
+  --sh-string: #059669; /* emerald-600 */
+  --sh-class: #2563eb; /* blue-600 */
+  --sh-property: #0ea5e9; /* sky-500 */
+  --sh-entity: #f59e0b; /* amber-500 */
+  --sh-jsxliterals: #16a34a; /* green-600 */
+  --sh-sign: #eab308; /* yellow-500 */
+  --sh-comment: #6b7280; /* gray-500 */
+  --sh-break: #9ca3af; /* gray-400 */
+  --sh-space: #6b7280; /* gray-500 */
 }
 
 .dark {
@@ -44,6 +57,19 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
+
+  /* Sugar High token colors (dark) */
+  --sh-keyword: #a78bfa; /* violet-400 */
+  --sh-identifier: #e5e7eb; /* gray-200 */
+  --sh-string: #34d399; /* emerald-400 */
+  --sh-class: #60a5fa; /* blue-400 */
+  --sh-property: #38bdf8; /* sky-400 */
+  --sh-entity: #fbbf24; /* amber-400 */
+  --sh-jsxliterals: #4ade80; /* green-400 */
+  --sh-sign: #facc15; /* yellow-400 */
+  --sh-comment: #9ca3af; /* gray-400 */
+  --sh-break: #6b7280; /* gray-500 */
+  --sh-space: #9ca3af; /* gray-400 */
 }
 
 @theme inline {
@@ -79,3 +105,6 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Sugar High layout helpers */
+.sh__line { display: block; }
