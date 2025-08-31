@@ -310,6 +310,67 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "tool-get-weather",
+      "type": "registry:component",
+      "title": "Tool: Get Weather",
+      "description": "AI SDK tool that returns mock weather for a location. Includes a WeatherCard renderer.",
+      "files": [
+        { "path": "registry/alpine/tools/get-weather.ts", "type": "registry:file" },
+        { "path": "registry/alpine/tools/components/weather-card.tsx", "type": "registry:file" }
+      ]
+    },
+    {
+      "name": "tool-calculator",
+      "type": "registry:component",
+      "title": "Tool: Calculator",
+      "description": "Simple calculator tool for basic arithmetic.",
+      "files": [
+        { "path": "registry/alpine/tools/calculator.ts", "type": "registry:file" }
+      ]
+    },
+    {
+      "name": "tool-translate",
+      "type": "registry:component",
+      "title": "Tool: Translate",
+      "description": "Translate a string to a target language (mock).",
+      "files": [
+        { "path": "registry/alpine/tools/translate.ts", "type": "registry:file" }
+      ]
+    },
+    {
+      "name": "tool-news-search",
+      "type": "registry:component",
+      "title": "Tool: News Search",
+      "description": "Return recent headlines for a topic (mock). Includes a NewsList renderer.",
+      "files": [
+        { "path": "registry/alpine/tools/news-search.ts", "type": "registry:file" },
+        { "path": "registry/alpine/tools/components/news-list.tsx", "type": "registry:file" }
+      ]
+    },
+    {
+      "name": "tool-time-now",
+      "type": "registry:component",
+      "title": "Tool: Time Now",
+      "description": "Get the current time for a timezone.",
+      "files": [
+        { "path": "registry/alpine/tools/time-now.ts", "type": "registry:file" }
+      ]
+    },
+    {
+      "name": "tool-pack",
+      "type": "registry:block",
+      "title": "Tool Pack (All)",
+      "description": "Install all sample tools and related renderers.",
+      "registryDependencies": [
+        "@alpine/tool-get-weather",
+        "@alpine/tool-calculator",
+        "@alpine/tool-translate",
+        "@alpine/tool-news-search",
+        "@alpine/tool-time-now"
+      ],
+      "files": []
     }
   ]
 }

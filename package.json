@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^5.0.1",
     "@react-email/components": "^0.0.36",
     "@vercel/analytics": "^1.5.0",
+    "ai": "^5.0.28",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",

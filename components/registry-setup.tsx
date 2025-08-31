@@ -104,6 +104,6 @@ export function RegistrySetup({
 }
 
 const registrySetupCode = `"registries": {
-  "@alpine": "${process.env.NEXT_PUBLIC_BASE_URL}/r/{name}.json"
+  "@alpine": "${process.env.NEXT_PUBLIC_BASE_URL}/api/registry/public/{name}"
 }
 `
