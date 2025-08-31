@@ -24,14 +24,21 @@ export type ExtendedRegistryItem = z.infer<typeof baseRegistryItemSchema> & {
   toolMeta?: ToolMeta
 }
 
-export function parseExtendedRegistryItem(raw: unknown): ExtendedRegistryItem | null {
+export function parseExtendedRegistryItem(
+  raw: unknown
+): ExtendedRegistryItem | null {
   const parsed = baseRegistryItemSchema.safeParse(raw)
   if (!parsed.success) return null
   const base = parsed.data
   const rawObj: { creators?: unknown; toolMeta?: unknown } =
-    typeof raw === "object" && raw !== null ? (raw as { creators?: unknown; toolMeta?: unknown }) : {}
+    typeof raw === "object" && raw !== null
+      ? (raw as { creators?: unknown; toolMeta?: unknown })
+      : {}
 
-  const creatorsParse = creatorSchema.array().optional().safeParse(rawObj.creators)
+  const creatorsParse = creatorSchema
+    .array()
+    .optional()
+    .safeParse(rawObj.creators)
   const creators = creatorsParse.success ? creatorsParse.data : undefined
 
   const toolMetaParse = toolMetaSchema.safeParse(rawObj.toolMeta)
