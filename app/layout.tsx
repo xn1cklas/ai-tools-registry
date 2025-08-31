@@ -10,6 +10,7 @@ import { Logo } from "@/registry/ai-tools/branding/logo"
 import { Toaster } from "@/registry/ai-tools/ui/sonner"
 import { RegistrySetup } from "@/components/registry-setup"
 import { GithubButton } from "@/components/github-button"
+import { Text, TextIcon } from "lucide-react"
 
 
 const fontSans = DM_Sans({
@@ -61,8 +62,9 @@ export default function RootLayout({
           <header>
             <div className="max-w-7xl mx-auto flex items-center px-4 py-6">
               <div className="flex items-center gap-4">
-                <Link href="/">
-                  <Logo /> <span className="sr-only">AI Tools</span>
+                <Link href="/" className="flex items-baseline gap-1">
+
+                  <TextIcon /> <span className="font-bold">AI Tools</span>
                 </Link>
                 <Separator orientation="vertical" className="!h-6" />
                 <p className="text-muted-foreground hidden md:block line-clamp-1 text-sm">
