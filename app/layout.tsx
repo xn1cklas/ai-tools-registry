@@ -9,7 +9,7 @@ import Link from "next/link"
 import { Toaster } from "@/registry/ai-tools/ui/sonner"
 import { RegistrySetup } from "@/components/registry-setup"
 import { GithubButton } from "@/components/github-button"
-import { Text, TextIcon } from "lucide-react"
+import { TextIcon } from "lucide-react"
 
 
 const fontSans = DM_Sans({
