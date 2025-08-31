@@ -103,7 +103,7 @@ export function ToolDemoCard({
             <button
               className={cn(
                 "text-xs text-muted-foreground mb-2 pointer-events-auto",
-                view === "output" ? "opacity-100" : "opacity-70",
+                view === "output" ? "opacity-100" : "opacity-70"
               )}
               onClick={() => setView("output")}
             >
