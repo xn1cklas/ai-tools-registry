@@ -62,7 +62,7 @@ export default function RootLayout({
             <div className="max-w-7xl mx-auto flex items-center px-4 py-6">
               <div className="flex items-center gap-4">
                 <Link href="/">
-                  <Logo /> <span className="sr-only">ai-tools</span>
+                  <Logo /> <span className="sr-only">AI Tools</span>
                 </Link>
                 <Separator orientation="vertical" className="!h-6" />
                 <p className="text-muted-foreground hidden md:block line-clamp-1 text-sm">
