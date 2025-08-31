@@ -3,7 +3,10 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-export function ScrollArea({ className, ...props }: React.ComponentProps<"div">) {
+export function ScrollArea({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   const [scrolling, setScrolling] = React.useState(false)
   const timeoutRef = React.useRef<number | null>(null)
 
@@ -13,9 +16,12 @@ export function ScrollArea({ className, ...props }: React.ComponentProps<"div">)
     timeoutRef.current = window.setTimeout(() => setScrolling(false), 900)
   }
 
-  React.useEffect(() => () => {
-    if (timeoutRef.current) window.clearTimeout(timeoutRef.current)
-  }, [])
+  React.useEffect(
+    () => () => {
+      if (timeoutRef.current) window.clearTimeout(timeoutRef.current)
+    },
+    []
+  )
 
   return (
     <div

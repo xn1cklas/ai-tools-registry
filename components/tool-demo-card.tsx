@@ -29,8 +29,10 @@ export function ToolDemoCard({
   heading: string
   subheading?: string
 }) {
-  const { isCopied: isToolCopied, copyToClipboard: copyTool } = useCopyToClipboard()
-  const { isCopied: isRightCopied, copyToClipboard: copyRight } = useCopyToClipboard()
+  const { isCopied: isToolCopied, copyToClipboard: copyTool } =
+    useCopyToClipboard()
+  const { isCopied: isRightCopied, copyToClipboard: copyRight } =
+    useCopyToClipboard()
   const hasRenderer = Boolean(renderer)
   const hasComponentCode = Boolean(componentCode)
   const [view, setView] = React.useState<"output" | "component" | "code">(
@@ -44,7 +46,9 @@ export function ToolDemoCard({
           <div className="text-sm font-medium">{heading}</div>
           <Separator orientation="vertical" className="!h-4 hidden md:flex" />
           {subheading ? (
-            <div className="text-sm text-muted-foreground hidden md:flex">{subheading}</div>
+            <div className="text-sm text-muted-foreground hidden md:flex">
+              {subheading}
+            </div>
           ) : null}
         </div>
         <div className="flex gap-2">
@@ -68,7 +72,11 @@ export function ToolDemoCard({
             aria-label="Copy code"
             title="Copy code"
           >
-            {isToolCopied ? <CheckIcon className="h-4 w-4" /> : <CopyIcon className="h-4 w-4" />}
+            {isToolCopied ? (
+              <CheckIcon className="h-4 w-4" />
+            ) : (
+              <CopyIcon className="h-4 w-4" />
+            )}
           </Button>
         </div>
         <ScrollArea className="max-h-96">
@@ -82,13 +90,19 @@ export function ToolDemoCard({
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <button
-              className={cn("text-xs text-muted-foreground mb-2 pointer-events-auto", view === "component" ? "opacity-100" : "opacity-70")}
+              className={cn(
+                "text-xs text-muted-foreground mb-2 pointer-events-auto",
+                view === "component" ? "opacity-100" : "opacity-70"
+              )}
               onClick={() => setView("component")}
             >
               Component
             </button>
             <button
-              className={cn("text-xs text-muted-foreground mb-2 pointer-events-auto", view === "output" ? "opacity-100" : "opacity-70")}
+              className={cn(
+                "text-xs text-muted-foreground mb-2 pointer-events-auto",
+                view === "output" ? "opacity-100" : "opacity-70"
+              )}
               onClick={() => setView("output")}
             >
               JSON
@@ -119,10 +133,18 @@ export function ToolDemoCard({
               }
             }}
             aria-label="Copy component code"
-            title={hasComponentCode ? "Copy component code" : "No component code available"}
+            title={
+              hasComponentCode
+                ? "Copy component code"
+                : "No component code available"
+            }
             disabled={!hasComponentCode}
           >
-            {isRightCopied ? <CheckIcon className="h-4 w-4" /> : <CopyIcon className="h-4 w-4" />}
+            {isRightCopied ? (
+              <CheckIcon className="h-4 w-4" />
+            ) : (
+              <CopyIcon className="h-4 w-4" />
+            )}
           </Button>
         </div>
 
@@ -134,18 +156,24 @@ export function ToolDemoCard({
         ) : view === "output" ? (
           <div className="relative">
             <ScrollArea className="max-h-80">
-              <CodeBlock code={JSON.stringify(json, null, 2)} className="text-xs leading-3" />
+              <CodeBlock
+                code={JSON.stringify(json, null, 2)}
+                className="text-xs leading-3"
+              />
             </ScrollArea>
           </div>
         ) : (
           <div className="relative">
             <ScrollArea className="max-h-96">
-              <CodeBlock code={componentCode ?? "// No component code available"} className="leading-3" />
+              <CodeBlock
+                code={componentCode ?? "// No component code available"}
+                className="leading-3"
+              />
             </ScrollArea>
           </div>
         )}
       </div>
-    </div >
+    </div>
   )
 }
 

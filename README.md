@@ -10,7 +10,6 @@ Visit the live website: [https://ai-tools-registry.vercel.app/](https://ai-tools
 
 ![AI Tools Registry Website](https://github.com/user-attachments/assets/96f2480d-d9a2-4100-8958-95ae90f40a4a)
 
-
 ## Usage
 
 To install components from the ai-tools registry, add a remote registries config in your `components.json` file (replace the URL with your deployment):

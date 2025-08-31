@@ -23,7 +23,13 @@ export const webSearchTool: /* Tool */ any = {
     lang: z.string().optional(),
     country: z.string().optional(),
   }),
-  execute: async ({ query, limit }: { query: string; limit: number }): Promise<WebSearchResult> => {
+  execute: async ({
+    query,
+    limit,
+  }: {
+    query: string
+    limit: number
+  }): Promise<WebSearchResult> => {
     throw new Error(
       "webSearch not implemented. Connect a web search provider (e.g. Tavily, Brave, Bing) and return { query, results: [{ title, url, snippet?, source? }] }."
     )
@@ -31,4 +37,3 @@ export const webSearchTool: /* Tool */ any = {
 }
 
 export default webSearchTool
-

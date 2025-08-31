@@ -2,7 +2,13 @@
 
 import * as React from "react"
 import type { WebSearchResult } from "./tool"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/registry/ai-tools/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/registry/ai-tools/ui/card"
 
 export function WebSearchList({ data }: { data: WebSearchResult }) {
   return (
@@ -15,14 +21,23 @@ export function WebSearchList({ data }: { data: WebSearchResult }) {
         <ul className="space-y-3">
           {data.results.map((r) => (
             <li key={r.url} className="rounded-md bg-muted p-3">
-              <a href={r.url} className="font-medium hover:underline" target="_blank" rel="noreferrer">
+              <a
+                href={r.url}
+                className="font-medium hover:underline"
+                target="_blank"
+                rel="noreferrer"
+              >
                 {r.title}
               </a>
               {r.source ? (
-                <span className="ml-2 text-xs text-muted-foreground">({r.source})</span>
+                <span className="ml-2 text-xs text-muted-foreground">
+                  ({r.source})
+                </span>
               ) : null}
               {r.snippet ? (
-                <div className="text-xs text-muted-foreground mt-1">{r.snippet}</div>
+                <div className="text-xs text-muted-foreground mt-1">
+                  {r.snippet}
+                </div>
               ) : null}
             </li>
           ))}
@@ -33,4 +48,3 @@ export function WebSearchList({ data }: { data: WebSearchResult }) {
 }
 
 export default WebSearchList
-

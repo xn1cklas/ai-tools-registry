@@ -32,13 +32,13 @@ import type { GetWeatherResult } from "./tool"
 
 ## Exact Places to Update for a New Tool
 
-1) Create the tool files
+1. Create the tool files
 
 - Add `registry/ai-tools/tools/{tool}/tool.ts`
 - (Optional) Add `registry/ai-tools/tools/{tool}/component.tsx` with `"use client"`
 - Keep names consistent: the folder name is the registry item name
 
-2) Export (optional but recommended)
+2. Export (optional but recommended)
 
 - Add a named export in `registry/ai-tools/tools/index.ts` if you want a central index:
 
@@ -47,7 +47,7 @@ export * from "./{tool}/tool"
 // export * from "./{tool}/component" // if you need to re-export the renderer
 ```
 
-3) Register the tool for installation (REQUIRED)
+3. Register the tool for installation (REQUIRED)
 
 - Add an item in the root `registry.json`. Use the folder name as `name` and include one or more `registry:file` entries with a `target` that colocates files in the consumer’s project:
 
@@ -62,22 +62,30 @@ export * from "./{tool}/tool"
   // Optional: add ui primitives used by your renderer
   "registryDependencies": ["@ai-tools/card"],
   "files": [
-    { "path": "registry/ai-tools/tools/{tool}/tool.ts", "type": "registry:file", "target": "~/ai/tools/{tool}/tool.ts" },
-    { "path": "registry/ai-tools/tools/{tool}/component.tsx", "type": "registry:file", "target": "~/ai/tools/{tool}/component.tsx" }
-  ]
+    {
+      "path": "registry/ai-tools/tools/{tool}/tool.ts",
+      "type": "registry:file",
+      "target": "~/ai/tools/{tool}/tool.ts",
+    },
+    {
+      "path": "registry/ai-tools/tools/{tool}/component.tsx",
+      "type": "registry:file",
+      "target": "~/ai/tools/{tool}/component.tsx",
+    },
+  ],
 }
 ```
 
 Important: For `type: "registry:file"`, `target` is REQUIRED by the schema.
 
-4) Add to the homepage (optional)
+4. Add to the homepage (optional)
 
 The homepage showcases selected tools and provides copyable code.
 
 - Update the `toolNames` array in `app/page.tsx` to include your tool’s name (the folder name). This controls both the per-tool demo sections and the “All Tools” grid.
 - If you want a custom demo card with sample output and a component renderer, follow the existing sections as a template (e.g., Weather/News). Provide a demo data fallback so the page renders without external calls.
 
-5) Add to the Tool Pack (optional)
+5. Add to the Tool Pack (optional)
 
 The tool pack installs a curated set of tools via a single item.
 
@@ -126,4 +134,3 @@ Please verify these points before opening a PR:
    - Any dependencies and usage notes
 
 Thank you for helping improve the AI Tools Registry!
-

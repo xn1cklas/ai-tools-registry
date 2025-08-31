@@ -22,14 +22,21 @@ export function NewsList({ data }: { data: NewsSearchResult }) {
           {data.items.map((item) => (
             <li key={item.id} className="rounded-md bg-muted px-3 py-2">
               {item.url ? (
-                <a href={item.url} className="font-medium hover:underline" target="_blank" rel="noreferrer">
+                <a
+                  href={item.url}
+                  className="font-medium hover:underline"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   {item.title}
                 </a>
               ) : (
                 <span className="font-medium">{item.title}</span>
               )}
               {item.publishedAt && (
-                <div className="text-xs text-muted-foreground">{new Date(item.publishedAt).toLocaleString()}</div>
+                <div className="text-xs text-muted-foreground">
+                  {new Date(item.publishedAt).toLocaleString()}
+                </div>
               )}
             </li>
           ))}

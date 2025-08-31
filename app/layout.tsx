@@ -11,14 +11,14 @@ import { RegistrySetup } from "@/components/registry-setup"
 import { GithubButton } from "@/components/github-button"
 import { TextIcon } from "lucide-react"
 
-
 const fontSans = DM_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
 })
 
 const title = "AI Tools Registry"
-const description = "A registry distributing AI Tools and components using shadcn."
+const description =
+  "A registry distributing AI Tools and components using shadcn."
 
 export const metadata: Metadata = {
   title: {
@@ -62,7 +62,6 @@ export default function RootLayout({
             <div className="max-w-7xl mx-auto flex items-center px-4 py-6">
               <div className="flex items-center gap-4">
                 <Link href="/" className="flex items-baseline gap-1">
-
                   <TextIcon /> <span className="font-bold">AI Tools</span>
                 </Link>
                 <Separator orientation="vertical" className="!h-6" />
@@ -82,6 +81,6 @@ export default function RootLayout({
         </Providers>
         <Analytics />
       </body>
-    </html >
+    </html>
   )
 }

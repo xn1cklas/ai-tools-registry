@@ -107,24 +107,28 @@
 }
 
 /* Sugar High layout helpers */
-.sh__line { display: block; line-height: inherit; }
+.sh__line {
+  display: block;
+  line-height: inherit;
+}
 
 /* ScrollArea: hide scrollbars by default; show while scrolling */
-[data-slot="scroll-area"]{
+[data-slot="scroll-area"] {
   scrollbar-width: none; /* Firefox */
 }
-[data-slot="scroll-area"]::-webkit-scrollbar{ /* WebKit */
+[data-slot="scroll-area"]::-webkit-scrollbar {
+  /* WebKit */
   width: 0;
   height: 0;
 }
-[data-slot="scroll-area"][data-scrolling="true"]{
+[data-slot="scroll-area"][data-scrolling="true"] {
   scrollbar-width: thin;
 }
-[data-slot="scroll-area"][data-scrolling="true"]::-webkit-scrollbar{
+[data-slot="scroll-area"][data-scrolling="true"]::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
-[data-slot="scroll-area"][data-scrolling="true"]::-webkit-scrollbar-thumb{
+[data-slot="scroll-area"][data-scrolling="true"]::-webkit-scrollbar-thumb {
   background-color: color-mix(in oklch, var(--foreground) 20%, transparent);
   border-radius: 8px;
 }

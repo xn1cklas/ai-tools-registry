@@ -16,7 +16,7 @@ export function OpenInV0({
       asChild
     >
       <a
-        href={`https://v0.dev/chat/api/open?url=${getRegistryItemUrl(name)}`}
+        href={`https://v0.app/chat/api/open?url=${encodeURIComponent(getRegistryItemUrl(name))}`}
         target="_blank"
         rel="noreferrer"
       >
