@@ -1,5 +1,4 @@
 import { z } from "zod"
-
 import type { Tool } from "ai"
 
 export interface NewsItem {
@@ -14,7 +13,7 @@ export interface NewsSearchResult {
   items: NewsItem[]
 }
 
-export const newsSearchTool = {
+export const newsSearchTool: Tool = {
   name: "newsSearch",
   description: "Return recent headlines related to a topic.",
   inputSchema: z.object({

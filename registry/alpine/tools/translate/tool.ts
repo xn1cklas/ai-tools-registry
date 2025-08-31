@@ -1,14 +1,7 @@
 import { z } from "zod"
-
 import type { Tool } from "ai"
 
-export interface TranslateResult {
-  text: string
-  targetLanguage: string
-  translated: string
-}
-
-export const translateTool = {
+export const translateTool: Tool = {
   name: "translate",
   description: "Translate a given text into a target language.",
   inputSchema: z.object({
@@ -26,6 +19,12 @@ export const translateTool = {
       "translate not implemented. Connect a translation provider and return { text, targetLanguage, translated }."
     )
   },
+}
+
+export interface TranslateResult {
+  text: string
+  targetLanguage: string
+  translated: string
 }
 
 export default translateTool

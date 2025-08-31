@@ -1,13 +1,5 @@
 import { z } from "zod"
-
 import type { Tool } from "ai"
-
-export interface CalculatorResult {
-  a: number
-  b: number
-  operator: "+" | "-" | "*" | "/"
-  result: number
-}
 
 export const calculatorTool = {
   name: "calculator",
@@ -30,6 +22,12 @@ export const calculatorTool = {
       "calculator not implemented. Provide your own implementation to return { a, b, operator, result }."
     )
   },
+}
+export interface CalculatorResult {
+  a: number
+  b: number
+  operator: "+" | "-" | "*" | "/"
+  result: number
 }
 
 export default calculatorTool

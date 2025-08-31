@@ -1,5 +1,4 @@
 import { z } from "zod"
-
 import type { Tool } from "ai"
 
 export interface TimeNowResult {
@@ -8,7 +7,7 @@ export interface TimeNowResult {
   formatted: string
 }
 
-export const timeNowTool = {
+export const timeNowTool: Tool = {
   name: "timeNow",
   description: "Get the current time for a given IANA timezone.",
   inputSchema: z.object({
