@@ -56,7 +56,7 @@ export function ToolDemoCard({
       {/* Left: Always show code with copy */}
       <div className="relative rounded-md bg-background p-4 border">
         <div className="flex items-center justify-between mb-2">
-          <div className="text-xs text-muted-foreground mb-2 ">Usage (code)</div>
+          <div className="text-xs text-muted-foreground mb-2 ">Code</div>
           <Button
             size="icon"
             variant="outline"
@@ -72,12 +72,13 @@ export function ToolDemoCard({
           </Button>
         </div>
         <ScrollArea className="max-h-96">
-          <CodeBlock code={code} className="leading-3" />
+          <CodeBlock code={code} className="leading-5" />
         </ScrollArea>
       </div>
 
       {/* Right: Toggle between component and output (if renderer available) */}
-      <div className="relative rounded-md bg-background p-4 border flex flex-col gap-3">
+      <div className="relative rounded-md bg-background p-4 border flex flex-col">
+        {/* Navigation */}
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <button
@@ -90,7 +91,7 @@ export function ToolDemoCard({
               className={cn("text-xs text-muted-foreground mb-2 pointer-events-auto", view === "output" ? "opacity-100" : "opacity-70")}
               onClick={() => setView("output")}
             >
-              Output (JSON)
+              JSON
             </button>
             <button
               className={cn(
@@ -101,9 +102,10 @@ export function ToolDemoCard({
               onClick={() => hasComponentCode && setView("code")}
               disabled={!hasComponentCode}
             >
-              Code (component)
+              Code
             </button>
           </div>
+          {/* Copy button */}
           <Button
             size="icon"
             variant="outline"
@@ -124,6 +126,7 @@ export function ToolDemoCard({
           </Button>
         </div>
 
+        {/* Content */}
         {view === "component" && hasRenderer ? (
           <div className="min-h-[200px] flex items-center justify-center">
             {renderer}
@@ -138,7 +141,7 @@ export function ToolDemoCard({
           </div>
         ) : (
           <div className="relative">
-            <ScrollArea className="max-h-80">
+            <ScrollArea className="max-h-96">
               <CodeBlock code={componentCode ?? "// No component code available"} className="leading-5" />
             </ScrollArea>
           </div>
