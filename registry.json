@@ -36,7 +36,7 @@
       ]
     },
     {
-      "name": "tool-websearch",
+      "name": "websearch",
       "type": "registry:component",
       "title": "Web Search",
       "description": "AI SDK tool that searches the web. Includes a results renderer.",
@@ -48,7 +48,7 @@
       ]
     },
     {
-      "name": "tool-markdown",
+      "name": "markdown",
       "type": "registry:component",
       "title": "Markdown Renderer",
       "description": "AI SDK tool that transports markdown; render with streamdown.",
@@ -336,7 +336,7 @@
       ]
     },
     {
-      "name": "tool-get-weather",
+      "name": "weather",
       "type": "registry:component",
       "title": "Get Weather",
       "description": "AI SDK tool that returns mock weather for a location. Includes a WeatherCard renderer.",
@@ -347,7 +347,7 @@
       ]
     },
     {
-      "name": "tool-calculator",
+      "name": "calculator",
       "type": "registry:component",
       "title": "Calculator",
       "description": "Simple calculator tool for basic arithmetic.",
@@ -356,7 +356,7 @@
       ]
     },
     {
-      "name": "tool-translate",
+      "name": "translate",
       "type": "registry:component",
       "title": "Translate",
       "description": "Translate a string to a target language (mock).",
@@ -365,7 +365,7 @@
       ]
     },
     {
-      "name": "tool-news-search",
+      "name": "news",
       "type": "registry:component",
       "title": "News Search",
       "description": "Return recent headlines for a topic (mock). Includes a NewsList renderer.",
@@ -376,7 +376,7 @@
       ]
     },
     {
-      "name": "tool-time-now",
+      "name": "time",
       "type": "registry:component",
       "title": "Time Now",
       "description": "Get the current time for a timezone.",
@@ -390,13 +390,13 @@
       "title": "Tool Pack (All)",
       "description": "Install all sample tools and related renderers.",
       "registryDependencies": [
-        "@ai-tools/tool-get-weather",
-        "@ai-tools/tool-calculator",
-        "@ai-tools/tool-translate",
-        "@ai-tools/tool-news-search",
-        "@ai-tools/tool-time-now",
-        "@ai-tools/tool-websearch",
-        "@ai-tools/tool-markdown"
+        "@ai-tools/weather",
+        "@ai-tools/calculator",
+        "@ai-tools/translate",
+        "@ai-tools/news",
+        "@ai-tools/time",
+        "@ai-tools/websearch",
+        "@ai-tools/markdown"
       ],
       "files": []
     }

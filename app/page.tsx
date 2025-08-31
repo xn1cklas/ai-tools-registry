@@ -27,7 +27,7 @@ const getRegistryItemFromJson = React.cache((name: string): ExtendedRegistryItem
 })
 
 const toolNames = [
-  "tool-get-weather",
+  "weather",
   "tool-news-search",
   "tool-calculator",
   "tool-translate",
@@ -129,7 +129,7 @@ export default async function Home() {
           To learn how to use tools, check out the AI SDK docs.
         </p>
         <p className="text-sm text-muted-foreground">
-          To add your own tools to the ai tools registry, file a PR on our public <a href="https://github.com/shadcn/ai-tools-registry" target="_blank" rel="noreferrer" className="underline">GitHub repository</a>.
+          To add your own tools to the AI Tools Registry, file a PR on our public <a href="https://github.com/xn1cklas/ai-tools-registry" target="_blank" rel="noreferrer" className="underline">GitHub repository</a>.
         </p>
         {pack && (
           <div className="flex items-center gap-2 mt-2">
@@ -151,7 +151,7 @@ export default async function Home() {
       <section className="grid grid-cols-1 gap-6">
         {/* Weather */}
         {(() => {
-          const item = getRegistryItemFromJson("tool-get-weather")
+          const item = getRegistryItemFromJson("weather")
           if (!item) return null
           return (
             <ToolDemoCard

@@ -1,24 +1,20 @@
 "use client"
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/registry/ai-tools/ui/button";
-import { GithubIcon } from "lucide-react";
-import { useTheme } from "next-themes";
+import { Button } from "@/registry/ai-tools/ui/button"
+import { GithubIcon } from "lucide-react"
 
-export function GithubButton({
-  className,
-  ...props
-}: React.ComponentProps<typeof Button>) {
-  const { theme, setTheme } = useTheme()
+export function GithubButton(props: React.ComponentProps<typeof Button>) {
   return (
-    <Button
-      variant="secondary"
-      size="icon"
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className={cn("size-8", className)}
-      {...props}
-    >
-      <a href="https://github.com/shadcn/ai-tools-registry" target="_blank" rel="noreferrer" className="underline"><GithubIcon /></a>
+    <Button variant="ghost" size="icon" asChild {...props}>
+      <a
+        href="https://github.com/xn1cklas/ai-tools-registry"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Open GitHub repository"
+        title="Open GitHub repository"
+      >
+        <GithubIcon className="h-4 w-4" />
+      </a>
     </Button>
   )
 }

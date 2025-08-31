@@ -6,7 +6,7 @@ It now also includes an installable AI Tools registry (for Node.js) based on the
 
 ## Usage
 
-To install components from the ai-tools registry, you can use the following remote registries config in your `components.json` file:
+To install components from the ai-tools registry, add a remote registries config in your `components.json` file (replace the URL with your deployment):
 
 ```json
 {
@@ -32,16 +32,16 @@ npx shadcn@beta add @ai-tools/design-system
 
 Example tools you can install:
 
-- `@ai-tools/tool-get-weather` – AI SDK tool + `WeatherCard` renderer
-- `@ai-tools/tool-calculator` – simple calculator tool
-- `@ai-tools/tool-translate` – sample translate tool
-- `@ai-tools/tool-news-search` – sample news search tool + `NewsList` renderer
-- `@ai-tools/tool-time-now` – current time for a timezone
+- `@ai-tools/weather` – AI SDK tool + `WeatherCard` renderer
+- `@ai-tools/calculator` – simple calculator tool
+- `@ai-tools/translate` – sample translate tool
+- `@ai-tools/news` – sample news search tool + `NewsList` renderer
+- `@ai-tools/time` – current time for a timezone
 
 Install a tool (example):
 
 ```bash
-npx shadcn@latest add @ai-tools/tool-get-weather
+npx shadcn@latest add @ai-tools/weather
 ```
 
 Or install a pack of all tools:
