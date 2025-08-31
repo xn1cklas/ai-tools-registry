@@ -8,7 +8,8 @@ It now also includes an installable AI Tools registry (for Node.js) based on the
 
 Visit the live website: [https://ai-tools-registry.vercel.app/](https://ai-tools-registry.vercel.app/)
 
-![AI Tools Registry Website](@ai-tools-website.png)
+![AI Tools Registry Website](https://github.com/user-attachments/assets/96f2480d-d9a2-4100-8958-95ae90f40a4a)
+
 
 ## Usage
 
