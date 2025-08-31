@@ -4,6 +4,7 @@
   "type": "registry:ui",
   "title": "Popover",
   "description": "A popover component.",
+  "dependencies": ["radix-ui"],
   "files": [
     {
       "path": "registry/ai-tools/ui/popover.tsx",

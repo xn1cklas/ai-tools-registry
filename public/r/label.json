@@ -4,6 +4,7 @@
   "type": "registry:ui",
   "title": "Label",
   "description": "A label component.",
+  "dependencies": ["radix-ui"],
   "files": [
     {
       "path": "registry/ai-tools/ui/label.tsx",

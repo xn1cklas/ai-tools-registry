@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calculator",
+  "type": "registry:component",
+  "title": "Calculator",
+  "description": "Simple calculator tool for basic arithmetic.",
+  "dependencies": ["zod", "ai"],
+  "files": [
+    {
+      "path": "registry/ai-tools/tools/calculator/tool.ts",
+      "content": "import { z } from \"zod\"\nimport type { Tool } from \"ai\"\n\nexport const calculatorTool = {\n  name: \"calculator\",\n  description: \"Simple calculator for basic arithmetic.\",\n  inputSchema: z.object({\n    a: z.number(),\n    b: z.number(),\n    operator: z.enum([\"+\", \"-\", \"*\", \"/\"]).default(\"+\"),\n  }),\n  execute: async ({\n    a,\n    b,\n    operator,\n  }: {\n    a: number\n    b: number\n    operator: \"+\" | \"-\" | \"*\" | \"/\"\n  }): Promise<CalculatorResult> => {\n    throw new Error(\n      \"calculator not implemented. Provide your own implementation to return { a, b, operator, result }.\"\n    )\n  },\n}\nexport interface CalculatorResult {\n  a: number\n  b: number\n  operator: \"+\" | \"-\" | \"*\" | \"/\"\n  result: number\n}\n\nexport default calculatorTool\n",
+      "type": "registry:file",
+      "target": "~/ai/tools/calculator/tool.ts"
+    }
+  ]
+}

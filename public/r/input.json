@@ -4,6 +4,7 @@
   "type": "registry:ui",
   "title": "Input",
   "description": "An input component.",
+  "dependencies": [],
   "files": [
     {
       "path": "registry/ai-tools/ui/input.tsx",

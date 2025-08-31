@@ -2,9 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "design-system",
   "type": "registry:style",
-  "dependencies": [
-    "radix-ui"
-  ],
+  "dependencies": ["radix-ui"],
   "registryDependencies": [
     "@ai-tools/button",
     "@ai-tools/input",
@@ -17,7 +15,7 @@
   "files": [
     {
       "path": "registry/ai-tools/rules/AGENTS.md",
-      "content": "# Project Instructions\n\n## Best Practices for Using shadcn MCP server\n\n1. **Always Check Registry First**\n   - Before creating custom components, search the registry for existing solutions\n   - Use `mcp_shadcn_search_items_in_registries` to find relevant components\n   - Check `mcp_shadcn_list_items_in_registries` to see all available options\n\n2. **Component Discovery Workflow**\n   - Start with semantic search using `mcp_shadcn_search_items_in_registries`\n   - View detailed component info with `mcp_shadcn_view_items_in_registries`\n   - Get usage examples with `mcp_shadcn_get_item_examples_from_registries`\n   - Use `mcp_shadcn_get_add_command_for_items` to get installation commands\n\n3. **Component Installation**\n   - Use the provided add commands from the registry\n   - Ensure components are properly imported and configured\n   - Do not install example- components directly, use them as reference to create your components.\n   - Follow the component's usage examples for proper implementation\n   - Do not overwrite ui or registry/ui components unless the user has specifically asked for it\n\n## Quality Assurance\n\n- Always test registry components after installation\n- Verify imports and dependencies are correct\n- Check that styling integrates with your existing design\n- If using next/image, make sure images.remotePatterns is configured in next.config.ts\n\n```tsx\nimport type { NextConfig } from \"next\"\n\nconst nextConfig: NextConfig = {\n  images: {\n    domains: [\"images.unsplash.com\"],\n  },\n}\n\nexport default nextConfig\n```\n",
+      "content": "# AI Tools Registry — Project Guidelines\n\n## Discovery and installation\n\n1. Always check the registry before building a tool from scratch.\n   - Use the remote registry: `https://ai-tools-registry.vercel.app/api/registry/public/{name}`\n   - Install via CLI, for example:\n     ```bash\n     npx shadcn@latest add @ai-tools/weather\n     npx shadcn@latest add @ai-tools/websearch\n     ```\n\n2. Use clear naming that matches folder names (e.g., `weather`, `news`, `time`).\n\n## Colocation and boundaries\n\n- Colocate tool logic and renderer:\n  ```\n  ~/ai/tools/{tool}/\n    ├─ tool.ts        # server/tool logic\n    └─ component.tsx  # optional client renderer\n  ```\n- Mark renderers with `\"use client\"`. Avoid importing client components from server-only contexts.\n- Keep side effects (network I/O) inside tool `execute` on the server; pass plain data to the renderer.\n\n## Schemas and types\n\n- Validate all input/output using Zod; avoid `any`.\n- Ensure every `registry:file` has a `target`. Verify `files[*].path` exists.\n\n## Dependencies\n\n- Tools usually depend on `ai` and `zod`.\n- Renderers may use `react-markdown` + `remark-gfm` when helpful.\n\n## Quality checks\n\n- After installation, verify imports, types, and behavior.\n- Keep changes minimal and consistent with existing code conventions.\n",
       "type": "registry:file",
       "target": "~/AGENTS.md"
     }

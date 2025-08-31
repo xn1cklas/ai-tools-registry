@@ -1,15 +1,29 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "card",
-  "type": "registry:ui",
-  "title": "Card",
-  "description": "A card component.",
-  "dependencies": [],
+  "name": "markdown",
+  "type": "registry:component",
+  "title": "Markdown Renderer",
+  "description": "AI SDK tool that transports markdown; render with streamdown.",
+  "dependencies": ["zod", "ai", "streamdown", "react-markdown", "remark-gfm"],
+  "registryDependencies": ["@ai-tools/card"],
   "files": [
+    {
+      "path": "registry/ai-tools/tools/markdown/tool.ts",
+      "content": "import { z } from \"zod\"\n// eslint-disable-next-line @typescript-eslint/no-unused-vars\nimport type { Tool } from \"ai\"\n\nexport interface MarkdownResult {\n  markdown: string\n}\n\nexport const markdownTool: /* Tool */ any = {\n  name: \"markdown\",\n  description: \"Render Markdown content (recommended in UI).\",\n  inputSchema: z.object({\n    markdown: z.string().min(1),\n  }),\n  execute: async ({\n    markdown,\n  }: {\n    markdown: string\n  }): Promise<MarkdownResult> => {\n    throw new Error(\n      \"markdown not implemented. Use this tool to transport markdown; render with a UI component. Return { markdown }.\"\n    )\n  },\n}\n\nexport default markdownTool\n",
+      "type": "registry:file",
+      "target": "~/ai/tools/markdown/tool.ts"
+    },
+    {
+      "path": "registry/ai-tools/tools/markdown/component.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport type { MarkdownResult } from \"./tool\"\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle,\n} from \"@/registry/ai-tools/ui/card\"\nimport ReactMarkdown from \"react-markdown\"\nimport remarkGfm from \"remark-gfm\"\n\nexport function MarkdownViewer({ data }: { data: MarkdownResult }) {\n  return (\n    <Card className=\"w-full max-w-xl\">\n      <CardHeader>\n        <CardTitle>Markdown</CardTitle>\n        <CardDescription>Rendered with react-markdown</CardDescription>\n      </CardHeader>\n      <CardContent>\n        <div className=\"prose prose-sm dark:prose-invert max-w-none\">\n          <ReactMarkdown remarkPlugins={[remarkGfm]}>\n            {data.markdown}\n          </ReactMarkdown>\n        </div>\n      </CardContent>\n    </Card>\n  )\n}\n\nexport default MarkdownViewer\n",
+      "type": "registry:file",
+      "target": "~/ai/tools/markdown/component.tsx"
+    },
     {
       "path": "registry/ai-tools/ui/card.tsx",
       "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Card({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card\"\n      className={cn(\n        \"bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardHeader({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-header\"\n      className={cn(\n        \"@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardTitle({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-title\"\n      className={cn(\n        \"leading-none tracking-tight text-lg font-semibold\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardDescription({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-description\"\n      className={cn(\"text-muted-foreground text-sm\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction CardAction({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-action\"\n      className={cn(\n        \"col-start-2 row-span-2 row-start-1 self-start justify-self-end\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardContent({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-content\"\n      className={cn(\"px-6\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction CardFooter({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-footer\"\n      className={cn(\"flex items-center px-6 [.border-t]:pt-6\", className)}\n      {...props}\n    />\n  )\n}\n\nexport {\n  Card,\n  CardHeader,\n  CardFooter,\n  CardTitle,\n  CardAction,\n  CardDescription,\n  CardContent,\n}\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": ""
     }
   ]
 }

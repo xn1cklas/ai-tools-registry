@@ -43,8 +43,16 @@
       "dependencies": ["zod", "ai"],
       "registryDependencies": ["@ai-tools/card"],
       "files": [
-        { "path": "registry/ai-tools/tools/websearch/tool.ts", "type": "registry:file", "target": "~/ai/tools/websearch/tool.ts" },
-        { "path": "registry/ai-tools/tools/websearch/component.tsx", "type": "registry:file", "target": "~/ai/tools/websearch/component.tsx" }
+        {
+          "path": "registry/ai-tools/tools/websearch/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/component.tsx"
+        }
       ]
     },
     {
@@ -55,8 +63,16 @@
       "dependencies": ["zod", "ai", "streamdown"],
       "registryDependencies": ["@ai-tools/card"],
       "files": [
-        { "path": "registry/ai-tools/tools/markdown/tool.ts", "type": "registry:file", "target": "~/ai/tools/markdown/tool.ts" },
-        { "path": "registry/ai-tools/tools/markdown/component.tsx", "type": "registry:file", "target": "~/ai/tools/markdown/component.tsx" }
+        {
+          "path": "registry/ai-tools/tools/markdown/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/markdown/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/markdown/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/markdown/component.tsx"
+        }
       ]
     },
     {
@@ -151,8 +167,16 @@
       "description": "AI SDK tool that returns mock weather for a location. Includes a WeatherCard renderer.",
       "registryDependencies": ["@ai-tools/card"],
       "files": [
-        { "path": "registry/ai-tools/tools/weather/tool.ts", "type": "registry:file", "target": "~/ai/tools/weather/tool.ts" },
-        { "path": "registry/ai-tools/tools/weather/component.tsx", "type": "registry:file", "target": "~/ai/tools/weather/component.tsx" }
+        {
+          "path": "registry/ai-tools/tools/weather/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/weather/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/weather/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/weather/component.tsx"
+        }
       ]
     },
     {
@@ -161,7 +185,11 @@
       "title": "Calculator",
       "description": "Simple calculator tool for basic arithmetic.",
       "files": [
-        { "path": "registry/ai-tools/tools/calculator/tool.ts", "type": "registry:file", "target": "~/ai/tools/calculator/tool.ts" }
+        {
+          "path": "registry/ai-tools/tools/calculator/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/calculator/tool.ts"
+        }
       ]
     },
     {
@@ -170,7 +198,11 @@
       "title": "Translate",
       "description": "Translate a string to a target language (mock).",
       "files": [
-        { "path": "registry/ai-tools/tools/translate/tool.ts", "type": "registry:file", "target": "~/ai/tools/translate/tool.ts" }
+        {
+          "path": "registry/ai-tools/tools/translate/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/translate/tool.ts"
+        }
       ]
     },
     {
@@ -180,8 +212,16 @@
       "description": "Return recent headlines for a topic (mock). Includes a NewsList renderer.",
       "registryDependencies": ["@ai-tools/card"],
       "files": [
-        { "path": "registry/ai-tools/tools/news/tool.ts", "type": "registry:file", "target": "~/ai/tools/news/tool.ts" },
-        { "path": "registry/ai-tools/tools/news/component.tsx", "type": "registry:file", "target": "~/ai/tools/news/component.tsx" }
+        {
+          "path": "registry/ai-tools/tools/news/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/news/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/news/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/news/component.tsx"
+        }
       ]
     },
     {
@@ -190,7 +230,11 @@
       "title": "Time Now",
       "description": "Get the current time for a timezone.",
       "files": [
-        { "path": "registry/ai-tools/tools/time/tool.ts", "type": "registry:file", "target": "~/ai/tools/time/tool.ts" }
+        {
+          "path": "registry/ai-tools/tools/time/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/time/tool.ts"
+        }
       ]
     },
     {
@@ -207,7 +251,13 @@
         "@ai-tools/websearch",
         "@ai-tools/markdown"
       ],
-      "files": []
+      "files": [
+        {
+          "path": "registry/ai-tools/packs/tool-pack.md",
+          "type": "registry:file",
+          "target": "~/AI_TOOLS_PACK.md"
+        }
+      ]
     }
   ]
 }

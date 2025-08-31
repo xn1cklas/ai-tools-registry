@@ -4,6 +4,7 @@
   "type": "registry:ui",
   "title": "Button",
   "description": "A button component.",
+  "dependencies": ["radix-ui", "class-variance-authority"],
   "files": [
     {
       "path": "registry/ai-tools/ui/button.tsx",

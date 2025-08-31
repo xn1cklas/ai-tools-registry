@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "translate",
+  "type": "registry:component",
+  "title": "Translate",
+  "description": "Translate a string to a target language (mock).",
+  "dependencies": ["zod", "ai"],
+  "files": [
+    {
+      "path": "registry/ai-tools/tools/translate/tool.ts",
+      "content": "import { z } from \"zod\"\nimport type { Tool } from \"ai\"\n\nexport const translateTool: Tool = {\n  name: \"translate\",\n  description: \"Translate a given text into a target language.\",\n  inputSchema: z.object({\n    text: z.string().min(1),\n    targetLanguage: z.string().default(\"en\"),\n  }),\n  execute: async ({\n    text,\n    targetLanguage,\n  }: {\n    text: string\n    targetLanguage: string\n  }): Promise<TranslateResult> => {\n    throw new Error(\n      \"translate not implemented. Connect a translation provider and return { text, targetLanguage, translated }.\"\n    )\n  },\n}\n\nexport interface TranslateResult {\n  text: string\n  targetLanguage: string\n  translated: string\n}\n\nexport default translateTool\n",
+      "type": "registry:file",
+      "target": "~/ai/tools/translate/tool.ts"
+    }
+  ]
+}

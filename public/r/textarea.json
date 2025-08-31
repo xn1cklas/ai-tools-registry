@@ -4,6 +4,7 @@
   "type": "registry:ui",
   "title": "Textarea",
   "description": "A textarea component.",
+  "dependencies": [],
   "files": [
     {
       "path": "registry/ai-tools/ui/textarea.tsx",
