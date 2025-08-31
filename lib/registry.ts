@@ -31,8 +31,12 @@ export async function getItemFromRegistry(name: string) {
   // v0 can consume to install dependent tools.
   const isPackLike =
     parsed.type === "registry:block" ||
-    (Array.isArray((parsed as any).registryDependencies) &&
-      (parsed as any).registryDependencies.length > 0)
+    (() => {
+      type WithRegistryDependencies = { registryDependencies?: unknown }
+      const candidate = parsed as unknown as WithRegistryDependencies
+      const deps = candidate.registryDependencies
+      return Array.isArray(deps) && deps.length > 0
+    })()
 
   if (!parsed.files?.length) {
     if (isPackLike) {

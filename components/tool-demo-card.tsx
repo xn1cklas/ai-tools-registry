@@ -92,26 +92,28 @@ export function ToolDemoCard({
             <button
               className={cn(
                 "text-xs text-muted-foreground mb-2 pointer-events-auto",
-                view === "component" ? "opacity-100" : "opacity-70"
+                view === "component" ? "opacity-100" : "opacity-70",
+                hasRenderer ? "" : "hidden"
               )}
-              onClick={() => setView("component")}
+              onClick={() => hasRenderer && setView("component")}
+              disabled={!hasRenderer}
             >
               Component
             </button>
             <button
               className={cn(
                 "text-xs text-muted-foreground mb-2 pointer-events-auto",
-                view === "output" ? "opacity-100" : "opacity-70"
+                view === "output" ? "opacity-100" : "opacity-70",
               )}
               onClick={() => setView("output")}
             >
-              JSON
+              Result (JSON)
             </button>
             <button
               className={cn(
                 "text-xs text-muted-foreground mb-2 pointer-events-auto",
                 view === "code" ? "opacity-100" : "opacity-70",
-                hasComponentCode ? "" : "opacity-40 cursor-not-allowed"
+                hasComponentCode ? "" : "hidden"
               )}
               onClick={() => hasComponentCode && setView("code")}
               disabled={!hasComponentCode}
