@@ -44,7 +44,7 @@ export function ToolDemoCard({
           ) : null}
         </div>
         <div className="flex gap-2">
-          <AddCommand registryItem={registryItem} />
+          <AddCommand name={registryItem.name} />
           <OpenInV0 name={registryItem.name} />
         </div>
       </header>

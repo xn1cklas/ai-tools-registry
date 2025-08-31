@@ -1,6 +1,7 @@
 import path from "path"
 import { promises as fs } from "fs"
 import { registryItemSchema } from "shadcn/schema"
+import { parseExtendedRegistryItem } from "@/lib/registry-schemas"
 
 export async function getItemFromRegistry(name: string) {
   const registryData = await import("@/registry.json")
@@ -10,13 +11,16 @@ export async function getItemFromRegistry(name: string) {
     return registry
   }
 
-  const component = registry.items.find((c) => c.name === name)
+  const raw = registry.items.find((c) => c.name === name)
 
-  if (!component) {
+  if (!raw) {
     return null
   }
 
-  const parsed = registryItemSchema.parse(component)
+  // Parse with base schema, then attach any extended fields (creators, toolMeta).
+  const parsedBase = registryItemSchema.parse(raw)
+  const extended = parseExtendedRegistryItem(raw)
+  const parsed = { ...(extended ?? parsedBase) }
 
   if (!parsed) {
     return null

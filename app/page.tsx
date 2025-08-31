@@ -8,16 +8,18 @@ import { Separator } from "@/registry/alpine/ui/separator"
 import { Button } from "@/registry/alpine/ui/button"
 import { WeatherCard } from "@/registry/alpine/tools/weather/component"
 import { NewsList } from "@/registry/alpine/tools/news/component"
-import { getWeatherTool } from "@/registry/alpine/tools/weather/tool"
-import { newsSearchTool } from "@/registry/alpine/tools/news/tool"
-import { calculatorTool } from "@/registry/alpine/tools/calculator/tool"
-import { translateTool } from "@/registry/alpine/tools/translate/tool"
-import { timeNowTool } from "@/registry/alpine/tools/time/tool"
+import { getWeatherTool, type GetWeatherResult } from "@/registry/alpine/tools/weather/tool"
+import { newsSearchTool, type NewsSearchResult } from "@/registry/alpine/tools/news/tool"
+import { calculatorTool, type CalculatorResult } from "@/registry/alpine/tools/calculator/tool"
+import { translateTool, type TranslateResult } from "@/registry/alpine/tools/translate/tool"
+import { timeNowTool, type TimeNowResult } from "@/registry/alpine/tools/time/tool"
 import { ToolDemoCard } from "@/components/tool-demo-card"
+import { parseExtendedRegistryItem, type ExtendedRegistryItem } from "@/lib/registry-schemas"
 
-const getRegistryItemFromJson = React.cache((name: string) => {
+const getRegistryItemFromJson = React.cache((name: string): ExtendedRegistryItem | null => {
   // Be permissive here so the homepage renders even if a registry item
   // doesn't strictly match the shadcn schema (useful while iterating).
+  // @ts-expect-error - registry.items is not typed
   return registry.items.find((item) => item.name === name) ?? null
 })
 
@@ -38,42 +40,51 @@ export default async function Home() {
       return fallback
     }
   }
-  const weatherDemo = await safe(
+  const weatherFallback: GetWeatherResult = {
+    location: "San Francisco",
+    unit: "C",
+    temperature: 21,
+    condition: "Sunny",
+    high: 24,
+    low: 18,
+    humidity: 0.45,
+    windKph: 8,
+    icon: "weather-sun",
+  }
+  const weatherDemo: GetWeatherResult = await safe<GetWeatherResult>(
     () => getWeatherTool.execute({ location: "San Francisco", unit: "C" }),
-    {
-      location: "San Francisco",
-      unit: "C",
-      temperature: 21,
-      condition: "Sunny",
-      high: 24,
-      low: 18,
-      humidity: 0.45,
-      windKph: 8,
-      icon: "weather-sun",
-    }
+    weatherFallback
   )
-  const newsDemo = await safe(
+
+  const newsFallback: NewsSearchResult = {
+    topic: "AI",
+    items: [
+      { id: "ai-1", title: "AI breakthrough announced", url: "https://example.com/ai-1", publishedAt: new Date().toISOString() },
+      { id: "ai-2", title: "New model sets benchmark", url: "https://example.com/ai-2", publishedAt: new Date().toISOString() },
+      { id: "ai-3", title: "Tooling ecosystem expands" },
+    ],
+  }
+  const newsDemo: NewsSearchResult = await safe<NewsSearchResult>(
     () => newsSearchTool.execute({ topic: "AI", limit: 5 }),
-    {
-      topic: "AI",
-      items: [
-        { id: "ai-1", title: "AI breakthrough announced", url: "https://example.com/ai-1", publishedAt: new Date().toISOString() },
-        { id: "ai-2", title: "New model sets benchmark", url: "https://example.com/ai-2", publishedAt: new Date().toISOString() },
-        { id: "ai-3", title: "Tooling ecosystem expands" },
-      ],
-    }
+    newsFallback
   )
-  const calcDemo = await safe(
+
+  const calcFallback: CalculatorResult = { a: 7, b: 3, operator: "+", result: 10 }
+  const calcDemo: CalculatorResult = await safe<CalculatorResult>(
     () => calculatorTool.execute({ a: 7, b: 3, operator: "+" }),
-    { a: 7, b: 3, operator: "+", result: 10 }
+    calcFallback
   )
-  const translateDemo = await safe(
+
+  const translateFallback: TranslateResult = { text: "Hello, world!", targetLanguage: "es", translated: "¡Hola, mundo!" }
+  const translateDemo: TranslateResult = await safe<TranslateResult>(
     () => translateTool.execute({ text: "Hello, world!", targetLanguage: "es" }),
-    { text: "Hello, world!", targetLanguage: "es", translated: "¡Hola, mundo!" }
+    translateFallback
   )
-  const timeDemo = await safe(
+
+  const timeFallback: TimeNowResult = { timeZone: "UTC", iso: new Date().toISOString(), formatted: new Date().toUTCString() }
+  const timeDemo: TimeNowResult = await safe<TimeNowResult>(
     () => timeNowTool.execute({ timeZone: "UTC", locale: "en-US" }),
-    { timeZone: "UTC", iso: new Date().toISOString(), formatted: new Date().toUTCString() }
+    timeFallback
   )
 
   // Read actual registry item source files for copyable code display
@@ -88,7 +99,7 @@ export default async function Home() {
 
   const items = toolNames
     .map((name) => ({ name, item: getRegistryItemFromJson(name) }))
-    .filter((x) => Boolean(x.item)) as { name: string; item: NonNullable<ReturnType<typeof getRegistryItemFromJson>> }[]
+    .filter((x): x is { name: string; item: ExtendedRegistryItem } => x.item !== null)
 
   const pack = getRegistryItemFromJson("tool-pack")
 
@@ -105,7 +116,7 @@ export default async function Home() {
         </p>
         {pack && (
           <div className="flex items-center gap-2 mt-2">
-            <AddCommand registryItem={pack} />
+            <AddCommand name={pack.name} />
             <OpenInV0 name={pack.name} />
             <Button
               variant="ghost"
@@ -218,7 +229,7 @@ export default async function Home() {
                 {item.description}
               </div>
               <div className="flex gap-2 mt-auto">
-                <AddCommand registryItem={item} />
+                <AddCommand name={item.name} />
                 <OpenInV0 name={item.name} />
               </div>
             </div>
