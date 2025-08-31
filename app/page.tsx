@@ -28,12 +28,12 @@ const getRegistryItemFromJson = React.cache((name: string): ExtendedRegistryItem
 
 const toolNames = [
   "weather",
-  "tool-news-search",
-  "tool-calculator",
-  "tool-translate",
-  "tool-time-now",
-  "tool-websearch",
-  "tool-markdown",
+  "news",
+  "calculator",
+  "translate",
+  "time",
+  "websearch",
+  "markdown",
 ]
 
 export default async function Home() {
@@ -167,9 +167,9 @@ export default async function Home() {
           )
         })()}
 
-        {/* News Search */}
+        {/* News */}
         {(() => {
-          const item = getRegistryItemFromJson("tool-news-search")
+          const item = getRegistryItemFromJson("news")
           if (!item) return null
           return (
             <ToolDemoCard
@@ -187,7 +187,7 @@ export default async function Home() {
 
         {/* Calculator */}
         {(() => {
-          const item = getRegistryItemFromJson("tool-calculator")
+          const item = getRegistryItemFromJson("calculator")
           if (!item) return null
           return (
             <ToolDemoCard
@@ -203,7 +203,7 @@ export default async function Home() {
 
         {/* Translate */}
         {(() => {
-          const item = getRegistryItemFromJson("tool-translate")
+          const item = getRegistryItemFromJson("translate")
           if (!item) return null
           return (
             <ToolDemoCard
@@ -217,9 +217,9 @@ export default async function Home() {
           )
         })()}
 
-        {/* Time Now */}
+        {/* Time */}
         {(() => {
-          const item = getRegistryItemFromJson("tool-time-now")
+          const item = getRegistryItemFromJson("time")
           if (!item) return null
           return (
             <ToolDemoCard
@@ -235,7 +235,7 @@ export default async function Home() {
 
         {/* Web Search */}
         {(() => {
-          const item = getRegistryItemFromJson("tool-websearch")
+          const item = getRegistryItemFromJson("websearch")
           if (!item) return null
           const webFallback: WebSearchResult = {
             query: "chatgpt",
@@ -261,7 +261,7 @@ export default async function Home() {
 
         {/* Markdown */}
         {(() => {
-          const item = getRegistryItemFromJson("tool-markdown")
+          const item = getRegistryItemFromJson("markdown")
           if (!item) return null
           const mdFallback: MarkdownResult = {
             markdown: `# Hello World\n\nThis is **markdown**.\n\n- Item one\n- Item two\n\n> Tip: You can copy the tool code from the left.`,
