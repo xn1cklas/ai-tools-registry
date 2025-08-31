@@ -1,8 +1,14 @@
-# ai-tools Registry
+# AI Tools Registry
 
 This is an example registry built using `shadcn/ui`.
 
 It now also includes an installable AI Tools registry (for Node.js) based on the Vercel AI SDK Tool Calling APIs. Tools are distributed as plain files that you can add to your project using the shadcn CLI. Where helpful, a small React component is included to render a tool result (e.g. a weather card).
+
+## Website
+
+Visit the live website: [https://ai-tools-registry.vercel.app/](https://ai-tools-registry.vercel.app/)
+
+![AI Tools Registry Website](@ai-tools-website.png)
 
 ## Usage
 
