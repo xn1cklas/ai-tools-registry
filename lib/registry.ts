@@ -26,7 +26,15 @@ export async function getItemFromRegistry(name: string) {
     return null
   }
 
+  // Allow returning "block" items (e.g. packs) that intentionally have no files
+  // but do define `registryDependencies`. These are valid registry entries that
+  // v0 can consume to install dependent tools.
+  const isPackLike = parsed.type === "registry:block" || (Array.isArray((parsed as any).registryDependencies) && (parsed as any).registryDependencies.length > 0)
+
   if (!parsed.files?.length) {
+    if (isPackLike) {
+      return parsed
+    }
     return null
   }
 
