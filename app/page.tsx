@@ -1,16 +1,18 @@
 import * as React from "react"
+import { promises as fs } from "fs"
+import path from "path"
 import { AddCommand } from "@/components/add-command"
 import { OpenInV0 } from "@/components/open-in-v0"
 import registry from "@/registry.json"
 import { Separator } from "@/registry/alpine/ui/separator"
 import { Button } from "@/registry/alpine/ui/button"
-import { WeatherCard } from "@/registry/alpine/tools/components/weather-card"
-import { NewsList } from "@/registry/alpine/tools/components/news-list"
-import { getWeatherTool } from "@/registry/alpine/tools/get-weather"
-import { newsSearchTool } from "@/registry/alpine/tools/news-search"
-import { calculatorTool } from "@/registry/alpine/tools/calculator"
-import { translateTool } from "@/registry/alpine/tools/translate"
-import { timeNowTool } from "@/registry/alpine/tools/time-now"
+import { WeatherCard } from "@/registry/alpine/tools/weather/component"
+import { NewsList } from "@/registry/alpine/tools/news/component"
+import { getWeatherTool } from "@/registry/alpine/tools/weather/tool"
+import { newsSearchTool } from "@/registry/alpine/tools/news/tool"
+import { calculatorTool } from "@/registry/alpine/tools/calculator/tool"
+import { translateTool } from "@/registry/alpine/tools/translate/tool"
+import { timeNowTool } from "@/registry/alpine/tools/time/tool"
 import { ToolDemoCard } from "@/components/tool-demo-card"
 
 const getRegistryItemFromJson = React.cache((name: string) => {
@@ -28,12 +30,61 @@ const toolNames = [
 ]
 
 export default async function Home() {
-  // Demo data for all tools (runs on server, mock implementations)
-  const weatherDemo = await getWeatherTool.execute({ location: "San Francisco", unit: "C" })
-  const newsDemo = await newsSearchTool.execute({ topic: "AI", limit: 5 })
-  const calcDemo = await calculatorTool.execute({ a: 7, b: 3, operator: "+" })
-  const translateDemo = await translateTool.execute({ text: "Hello, world!", targetLanguage: "es" })
-  const timeDemo = await timeNowTool.execute({ timeZone: "UTC", locale: "en-US" })
+  // Demo data for all tools (runs on server). Tools are shipped unimplemented; use fallbacks for the gallery.
+  const safe = async <T,>(fn: () => Promise<T>, fallback: T): Promise<T> => {
+    try {
+      return await fn()
+    } catch {
+      return fallback
+    }
+  }
+  const weatherDemo = await safe(
+    () => getWeatherTool.execute({ location: "San Francisco", unit: "C" }),
+    {
+      location: "San Francisco",
+      unit: "C",
+      temperature: 21,
+      condition: "Sunny",
+      high: 24,
+      low: 18,
+      humidity: 0.45,
+      windKph: 8,
+      icon: "weather-sun",
+    }
+  )
+  const newsDemo = await safe(
+    () => newsSearchTool.execute({ topic: "AI", limit: 5 }),
+    {
+      topic: "AI",
+      items: [
+        { id: "ai-1", title: "AI breakthrough announced", url: "https://example.com/ai-1", publishedAt: new Date().toISOString() },
+        { id: "ai-2", title: "New model sets benchmark", url: "https://example.com/ai-2", publishedAt: new Date().toISOString() },
+        { id: "ai-3", title: "Tooling ecosystem expands" },
+      ],
+    }
+  )
+  const calcDemo = await safe(
+    () => calculatorTool.execute({ a: 7, b: 3, operator: "+" }),
+    { a: 7, b: 3, operator: "+", result: 10 }
+  )
+  const translateDemo = await safe(
+    () => translateTool.execute({ text: "Hello, world!", targetLanguage: "es" }),
+    { text: "Hello, world!", targetLanguage: "es", translated: "¡Hola, mundo!" }
+  )
+  const timeDemo = await safe(
+    () => timeNowTool.execute({ timeZone: "UTC", locale: "en-US" }),
+    { timeZone: "UTC", iso: new Date().toISOString(), formatted: new Date().toUTCString() }
+  )
+
+  // Read actual registry item source files for copyable code display
+  const read = (p: string) => fs.readFile(path.join(process.cwd(), p), "utf8")
+  const [codeWeather, codeNews, codeCalc, codeTranslate, codeTime] = await Promise.all([
+    read("registry/alpine/tools/weather/tool.ts"),
+    read("registry/alpine/tools/news/tool.ts"),
+    read("registry/alpine/tools/calculator/tool.ts"),
+    read("registry/alpine/tools/translate/tool.ts"),
+    read("registry/alpine/tools/time/tool.ts"),
+  ])
 
   const items = toolNames
     .map((name) => ({ name, item: getRegistryItemFromJson(name) }))
@@ -46,7 +97,11 @@ export default async function Home() {
       <section className="flex flex-col gap-3">
         <h1 className="text-2xl md:text-3xl font-semibold">AI Tools Registry</h1>
         <p className="text-sm text-muted-foreground">
-          Install AI SDK tool definitions (and optional result components) into your project with the shadcn CLI.
+          Install AI SDK tools into your project with the shadcn CLI. Some tools include UI components to render the result in your chat view. <br />
+          To learn how to use tools, check out the AI SDK docs.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          To add your own tools to the ai tools registry, file a PR on our public <a href="https://github.com/shadcn/ai-tools-registry" target="_blank" rel="noreferrer" className="underline">GitHub repository</a>.
         </p>
         {pack && (
           <div className="flex items-center gap-2 mt-2">
@@ -65,27 +120,19 @@ export default async function Home() {
         )}
       </section>
 
-      <section className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <section className="grid grid-cols-1 gap-6">
         {/* Weather */}
         {(() => {
           const item = getRegistryItemFromJson("tool-get-weather")
           if (!item) return null
-          const code = `import { tool, generateText } from 'ai'\nimport { getWeatherTool } from '@/registry/alpine/tools/get-weather'\n\n// Register with AI SDK\nexport const tools = {\n  [getWeatherTool.name]: tool({\n    description: getWeatherTool.description,\n    parameters: getWeatherTool.parameters,\n    execute: getWeatherTool.execute,\n  }),\n}\n\n// Use with an AI model (pseudo)\n/*
-const response = await generateText({
-  model, // e.g. openai('gpt-4o-mini')
-  tools,
-  prompt: 'What\'s the weather in San Francisco in C?'
-})
-console.log(response)
-*/\n\n// Direct call (no model)\nconst result = await getWeatherTool.execute({ location: 'San Francisco', unit: 'C' })\nconsole.log(result)`
           return (
             <ToolDemoCard
               key={item.name}
               registryItem={item}
               json={weatherDemo}
-              code={code}
+              code={codeWeather}
               renderer={<WeatherCard data={weatherDemo} />}
-              heading="Tool: Get Weather"
+              heading="Get Weather"
               subheading="Returns weather for a location"
             />
           )
@@ -95,21 +142,14 @@ console.log(response)
         {(() => {
           const item = getRegistryItemFromJson("tool-news-search")
           if (!item) return null
-          const code = `import { tool, generateText } from 'ai'\nimport { newsSearchTool } from '@/registry/alpine/tools/news-search'\n\nexport const tools = {\n  [newsSearchTool.name]: tool({\n    description: newsSearchTool.description,\n    parameters: newsSearchTool.parameters,\n    execute: newsSearchTool.execute,\n  }),\n}\n\n/*
-const response = await generateText({
-  model,
-  tools,
-  prompt: 'Give me 3 headlines about AI today.'
-})
-*/\n\nconst result = await newsSearchTool.execute({ topic: 'AI', limit: 5 })\nconsole.log(result)`
           return (
             <ToolDemoCard
               key={item.name}
               registryItem={item}
               json={newsDemo}
-              code={code}
+              code={codeNews}
               renderer={<NewsList data={newsDemo} />}
-              heading="Tool: News Search"
+              heading="News Search"
               subheading="Returns headlines for a topic"
             />
           )
@@ -119,16 +159,13 @@ const response = await generateText({
         {(() => {
           const item = getRegistryItemFromJson("tool-calculator")
           if (!item) return null
-          const code = `import { tool, generateText } from 'ai'\nimport { calculatorTool } from '@/registry/alpine/tools/calculator'\n\nexport const tools = {\n  [calculatorTool.name]: tool({\n    description: calculatorTool.description,\n    parameters: calculatorTool.parameters,\n    execute: calculatorTool.execute,\n  }),\n}\n\n/*
-const response = await generateText({ model, tools, prompt: 'What is 7 + 3?' })
-*/\n\nconst result = await calculatorTool.execute({ a: 7, b: 3, operator: '+' })\nconsole.log(result)`
           return (
             <ToolDemoCard
               key={item.name}
               registryItem={item}
               json={calcDemo}
-              code={code}
-              heading="Tool: Calculator"
+              code={codeCalc}
+              heading="Calculator"
               subheading="Basic arithmetic"
             />
           )
@@ -138,16 +175,13 @@ const response = await generateText({ model, tools, prompt: 'What is 7 + 3?' })
         {(() => {
           const item = getRegistryItemFromJson("tool-translate")
           if (!item) return null
-          const code = `import { tool, generateText } from 'ai'\nimport { translateTool } from '@/registry/alpine/tools/translate'\n\nexport const tools = {\n  [translateTool.name]: tool({\n    description: translateTool.description,\n    parameters: translateTool.parameters,\n    execute: translateTool.execute,\n  }),\n}\n\n/*
-const response = await generateText({ model, tools, prompt: 'Translate "Hello, world!" to Spanish.' })
-*/\n\nconst result = await translateTool.execute({ text: 'Hello, world!', targetLanguage: 'es' })\nconsole.log(result)`
           return (
             <ToolDemoCard
               key={item.name}
               registryItem={item}
               json={translateDemo}
-              code={code}
-              heading="Tool: Translate"
+              code={codeTranslate}
+              heading="Translate"
               subheading="Translate text (mock)"
             />
           )
@@ -157,16 +191,13 @@ const response = await generateText({ model, tools, prompt: 'Translate "Hello, w
         {(() => {
           const item = getRegistryItemFromJson("tool-time-now")
           if (!item) return null
-          const code = `import { tool, generateText } from 'ai'\nimport { timeNowTool } from '@/registry/alpine/tools/time-now'\n\nexport const tools = {\n  [timeNowTool.name]: tool({\n    description: timeNowTool.description,\n    parameters: timeNowTool.parameters,\n    execute: timeNowTool.execute,\n  }),\n}\n\n/*
-const response = await generateText({ model, tools, prompt: 'What time is it in UTC?' })
-*/\n\nconst result = await timeNowTool.execute({ timeZone: 'UTC', locale: 'en-US' })\nconsole.log(result)`
           return (
             <ToolDemoCard
               key={item.name}
               registryItem={item}
               json={timeDemo}
-              code={code}
-              heading="Tool: Time Now"
+              code={codeTime}
+              heading="Time Now"
               subheading="Current time for timezone"
             />
           )

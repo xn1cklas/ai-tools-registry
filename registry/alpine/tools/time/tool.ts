@@ -1,5 +1,5 @@
 import { z } from "zod"
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 import type { Tool } from "ai"
 
 export interface TimeNowResult {
@@ -8,7 +8,7 @@ export interface TimeNowResult {
   formatted: string
 }
 
-export const timeNowTool: Tool = {
+export const timeNowTool = {
   name: "timeNow",
   description: "Get the current time for a given IANA timezone.",
   inputSchema: z.object({
@@ -22,17 +22,9 @@ export const timeNowTool: Tool = {
     timeZone: string
     locale: string
   }): Promise<TimeNowResult> => {
-    const date = new Date()
-    const formatted = new Intl.DateTimeFormat(locale, {
-      timeZone,
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      year: "numeric",
-      month: "short",
-      day: "2-digit",
-    }).format(date)
-    return { timeZone, iso: date.toISOString(), formatted }
+    throw new Error(
+      "timeNow not implemented. Use Intl.DateTimeFormat or a time API and return { timeZone, iso, formatted }."
+    )
   },
 }
 

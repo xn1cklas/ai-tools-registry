@@ -314,7 +314,7 @@
     {
       "name": "tool-get-weather",
       "type": "registry:component",
-      "title": "Tool: Get Weather",
+      "title": "Get Weather",
       "description": "AI SDK tool that returns mock weather for a location. Includes a WeatherCard renderer.",
       "registryDependencies": ["@alpine/card"],
       "files": [
@@ -325,7 +325,7 @@
     {
       "name": "tool-calculator",
       "type": "registry:component",
-      "title": "Tool: Calculator",
+      "title": "Calculator",
       "description": "Simple calculator tool for basic arithmetic.",
       "files": [
         { "path": "registry/alpine/tools/calculator.ts", "type": "registry:file" }
@@ -334,7 +334,7 @@
     {
       "name": "tool-translate",
       "type": "registry:component",
-      "title": "Tool: Translate",
+      "title": "Translate",
       "description": "Translate a string to a target language (mock).",
       "files": [
         { "path": "registry/alpine/tools/translate.ts", "type": "registry:file" }
@@ -343,7 +343,7 @@
     {
       "name": "tool-news-search",
       "type": "registry:component",
-      "title": "Tool: News Search",
+      "title": "News Search",
       "description": "Return recent headlines for a topic (mock). Includes a NewsList renderer.",
       "registryDependencies": ["@alpine/card"],
       "files": [
@@ -354,7 +354,7 @@
     {
       "name": "tool-time-now",
       "type": "registry:component",
-      "title": "Tool: Time Now",
+      "title": "Time Now",
       "description": "Get the current time for a timezone.",
       "files": [
         { "path": "registry/alpine/tools/time-now.ts", "type": "registry:file" }

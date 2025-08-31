@@ -7,9 +7,12 @@ import { AddCommand } from "@/components/add-command"
 import { OpenInV0 } from "@/components/open-in-v0"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { CodeBlock } from "@/components/code-block"
-import { CopyIcon } from "lucide-react"
+import { ScrollArea } from "@/registry/alpine/ui/scroll-area"
+import { CheckIcon, CopyIcon } from "lucide-react"
+import { toast } from "sonner"
 import { registryItemSchema } from "shadcn/schema"
 import { z } from "zod"
+import { cn } from "@/lib/utils"
 
 export function ToolDemoCard({
   registryItem,
@@ -48,47 +51,47 @@ export function ToolDemoCard({
 
       {/* Left: Always show code with copy */}
       <div className="relative rounded-md bg-background p-4 border">
-        <div className="text-xs text-muted-foreground mb-2">Usage (code)</div>
-        <Button
-          size="icon"
-          variant="outline"
-          className="absolute top-3 right-3 size-8 rounded-sm"
-          onClick={() => copyToClipboard(code)}
-          aria-label="Copy code"
-          title="Copy code"
-        >
-          <CopyIcon className="h-4 w-4" />
-        </Button>
-        <CodeBlock code={code} />
-        {isCopied && (
-          <div className="absolute bottom-3 right-3 text-xs text-muted-foreground">Copied</div>
-        )}
+        <div className="flex items-center justify-between mb-2">
+          <div className="text-xs text-muted-foreground mb-2 ">Usage (code)</div>
+          <Button
+            size="icon"
+            variant="outline"
+            className=" size-8 rounded-sm"
+            onClick={() => {
+              copyToClipboard(code)
+              toast.success("Code copied to clipboard")
+            }}
+            aria-label="Copy code"
+            title="Copy code"
+          >
+            {isCopied ? <CheckIcon className="h-4 w-4" /> : <CopyIcon className="h-4 w-4" />}
+          </Button>
+        </div>
+        <ScrollArea className="max-h-96">
+          <CodeBlock code={code} />
+        </ScrollArea>
       </div>
 
       {/* Right: Toggle between component and output (if renderer available) */}
       <div className="relative rounded-md bg-background p-4 border flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <div className="text-xs text-muted-foreground">{view === "component" ? "Component" : "Output (JSON)"}</div>
-          {hasRenderer ? (
-            <div className="flex gap-1">
-              <Button
-                size="sm"
-                variant={view === "component" ? "default" : "outline"}
-                className="rounded-sm"
-                onClick={() => setView("component")}
-              >
-                Component
-              </Button>
-              <Button
-                size="sm"
-                variant={view === "output" ? "default" : "outline"}
-                className="rounded-sm"
-                onClick={() => setView("output")}
-              >
-                Output
-              </Button>
-            </div>
-          ) : null}
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <button className={cn("text-xs text-muted-foreground mb-2 pointer-events-auto", view === "component" ? "opacity-100" : "opacity-70")} onClick={() => setView("component")}>Component</button>
+            {hasRenderer ? <button className={cn("text-xs text-muted-foreground mb-2 pointer-events-auto", view === "output" ? "opacity-100" : "opacity-70")} onClick={() => setView("output")}>output (JSON)</button> : null}
+          </div>
+          <Button
+            size="icon"
+            variant="outline"
+            className=" size-8 rounded-sm"
+            onClick={() => {
+              copyToClipboard(code)
+              toast.success("Code copied to clipboard")
+            }}
+            aria-label="Copy code"
+            title="Copy code"
+          >
+            {isCopied ? <CheckIcon className="h-4 w-4" /> : <CopyIcon className="h-4 w-4" />}
+          </Button>
         </div>
 
         {view === "component" && hasRenderer ? (
@@ -97,23 +100,15 @@ export function ToolDemoCard({
           </div>
         ) : (
           <div className="relative">
-            <Button
-              size="icon"
-              variant="outline"
-              className="absolute top-0 right-0 size-8 rounded-sm"
-              onClick={() => copyToClipboard(JSON.stringify(json, null, 2))}
-              aria-label="Copy JSON"
-              title="Copy JSON"
-            >
-              <CopyIcon className="h-4 w-4" />
-            </Button>
-            <pre className="text-xs overflow-auto">
-{JSON.stringify(json, null, 2)}
-            </pre>
+            <ScrollArea className="max-h-80">
+              <pre className="text-xs">
+                {JSON.stringify(json, null, 2)}
+              </pre>
+            </ScrollArea>
           </div>
         )}
       </div>
-    </div>
+    </div >
   )
 }
 

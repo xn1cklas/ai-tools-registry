@@ -1,5 +1,5 @@
 import { z } from "zod"
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 import type { Tool } from "ai"
 
 export interface TranslateResult {
@@ -8,9 +8,9 @@ export interface TranslateResult {
   translated: string
 }
 
-export const translateTool: Tool = {
+export const translateTool = {
   name: "translate",
-  description: "Translate a given text into a target language (demo/mock).",
+  description: "Translate a given text into a target language.",
   inputSchema: z.object({
     text: z.string().min(1),
     targetLanguage: z.string().default("en"),
@@ -22,9 +22,9 @@ export const translateTool: Tool = {
     text: string
     targetLanguage: string
   }): Promise<TranslateResult> => {
-    // Mock translation: annotate rather than call a real API.
-    const translated = `[${targetLanguage}] ${text}`
-    return { text, targetLanguage, translated }
+    throw new Error(
+      "translate not implemented. Connect a translation provider and return { text, targetLanguage, translated }."
+    )
   },
 }
 

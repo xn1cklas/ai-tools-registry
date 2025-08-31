@@ -1,5 +1,5 @@
 import { z } from "zod"
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 import type { Tool } from "ai"
 
 export interface CalculatorResult {
@@ -9,7 +9,7 @@ export interface CalculatorResult {
   result: number
 }
 
-export const calculatorTool: Tool = {
+export const calculatorTool = {
   name: "calculator",
   description: "Simple calculator for basic arithmetic.",
   inputSchema: z.object({
@@ -26,22 +26,9 @@ export const calculatorTool: Tool = {
     b: number
     operator: "+" | "-" | "*" | "/"
   }): Promise<CalculatorResult> => {
-    let result = 0
-    switch (operator) {
-      case "+":
-        result = a + b
-        break
-      case "-":
-        result = a - b
-        break
-      case "*":
-        result = a * b
-        break
-      case "/":
-        result = b === 0 ? NaN : a / b
-        break
-    }
-    return { a, b, operator, result }
+    throw new Error(
+      "calculator not implemented. Provide your own implementation to return { a, b, operator, result }."
+    )
   },
 }
 

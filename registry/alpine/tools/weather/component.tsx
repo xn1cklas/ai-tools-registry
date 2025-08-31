@@ -13,7 +13,7 @@ import {
 export function WeatherCard({ data }: { data: GetWeatherResult }) {
   const { location, temperature, unit, condition, high, low, humidity, windKph } = data
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full max-w-lg">
       <CardHeader>
         <CardTitle>Weather</CardTitle>
         <CardDescription>Powered by your tool</CardDescription>

@@ -9,6 +9,10 @@ import Link from "next/link"
 import { Logo } from "@/registry/alpine/branding/logo"
 import { Toaster } from "@/registry/alpine/ui/sonner"
 import { RegistrySetup } from "@/components/registry-setup"
+import { Github, GithubIcon } from "lucide-react"
+import { Button } from "@/registry/alpine/ui/button"
+import { cn } from "@/lib/utils"
+import { GithubButton } from "@/components/github-button"
 
 const fontSans = DM_Sans({
   variable: "--font-sans",
@@ -64,11 +68,12 @@ export default function RootLayout({
                 </Link>
                 <Separator orientation="vertical" className="!h-6" />
                 <p className="text-muted-foreground hidden md:block line-clamp-1 text-sm">
-                  An example registry for distributing code using shadcn.
+                  Tool definitions and components for the AI SDK.
                 </p>
               </div>
               <div className="ml-auto flex gap-2">
                 <RegistrySetup />
+                <GithubButton />
                 <ModeToggle />
               </div>
             </div>
@@ -78,6 +83,6 @@ export default function RootLayout({
         </Providers>
         <Analytics />
       </body>
-    </html>
+    </html >
   )
 }

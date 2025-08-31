@@ -1,7 +1,5 @@
 import { z } from "zod"
-// AI SDK v3: import { tool } from 'ai'
-// The import is intentionally not resolved here; it will resolve in consumer apps.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 import type { Tool } from "ai"
 
 // Re-export shape for result rendering components
@@ -18,14 +16,13 @@ export interface GetWeatherResult {
 }
 
 // Example tool definition compatible with AI SDK tool calling
-export const getWeatherTool: Tool = {
+export const getWeatherTool = {
   name: "getWeather",
-  description: "Get the current weather for a location (demo/mock).",
+  description: "Get the current weather for a location.",
   inputSchema: z.object({
     location: z.string().describe("City name, address or coordinates"),
     unit: z.enum(["C", "F"]).default("C"),
   }),
-  // Replace with a real API call in your app.
   execute: async ({
     location,
     unit,
@@ -33,23 +30,9 @@ export const getWeatherTool: Tool = {
     location: string
     unit: "C" | "F"
   }): Promise<GetWeatherResult> => {
-    // Deterministic mock values based on input
-    const hash = Array.from(location).reduce((a, c) => a + c.charCodeAt(0), 0)
-    const base = 18 + (hash % 10)
-    const cTemp = base
-    const fTemp = Math.round(cTemp * 1.8 + 32)
-    const temp = unit === "C" ? cTemp : fTemp
-    return {
-      location,
-      unit,
-      temperature: temp,
-      condition: ["Sunny", "Cloudy", "Rain", "Partly Cloudy"][hash % 4],
-      high: temp + 3,
-      low: temp - 2,
-      humidity: ((hash % 60) + 20) / 100,
-      windKph: (hash % 30) + 5,
-      icon: "weather-sun",
-    }
+    throw new Error(
+      "getWeather not implemented. Connect a weather API (e.g. OpenWeather) and return { location, unit, temperature, condition, high, low, humidity, windKph }."
+    )
   },
 }
 

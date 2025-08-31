@@ -1,5 +1,5 @@
 import { z } from "zod"
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 import type { Tool } from "ai"
 
 export interface NewsItem {
@@ -14,9 +14,9 @@ export interface NewsSearchResult {
   items: NewsItem[]
 }
 
-export const newsSearchTool: Tool = {
+export const newsSearchTool = {
   name: "newsSearch",
-  description: "Return recent headlines related to a topic (demo/mock).",
+  description: "Return recent headlines related to a topic.",
   inputSchema: z.object({
     topic: z.string().min(1),
     limit: z.number().min(1).max(20).default(5),
@@ -28,13 +28,9 @@ export const newsSearchTool: Tool = {
     topic: string
     limit: number
   }): Promise<NewsSearchResult> => {
-    const items: NewsItem[] = Array.from({ length: limit }).map((_, i) => ({
-      id: `${topic}-${i + 1}`,
-      title: `${topic} headline ${i + 1}`,
-      url: `https://example.com/${encodeURIComponent(topic)}/${i + 1}`,
-      publishedAt: new Date(Date.now() - i * 3600_000).toISOString(),
-    }))
-    return { topic, items }
+    throw new Error(
+      "newsSearch not implemented. Connect a news provider and return { topic, items: [{ id, title, url?, publishedAt? }] }."
+    )
   },
 }
 
