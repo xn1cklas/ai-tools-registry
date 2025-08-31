@@ -1,26 +1,27 @@
+import { tool } from "ai"
 import { z } from "zod"
-import type { Tool } from "ai"
 
 // Example tool definition compatible with AI SDK tool calling
-export const getWeatherTool: Tool = {
-  name: "getWeather",
+export const getWeatherTool = tool({
   description: "Get the current weather for a location.",
   inputSchema: z.object({
     location: z.string().describe("City name, address or coordinates"),
     unit: z.enum(["C", "F"]).default("C"),
   }),
-  execute: async ({
-    location,
-    unit,
-  }: {
-    location: string
-    unit: "C" | "F"
-  }): Promise<GetWeatherResult> => {
-    throw new Error(
-      "getWeather not implemented. Connect a weather API (e.g. OpenWeather) and return { location, unit, temperature, condition, high, low, humidity, windKph }."
-    )
+  execute: async ({ location, unit }) => {
+    return {
+      location,
+      unit,
+      temperature: 21,
+      condition: "Sunny",
+      high: 24,
+      low: 18,
+      humidity: 0.45,
+      windKph: 8,
+      icon: "weather-sun",
+    }
   },
-}
+})
 
 // Re-export shape for result rendering components
 export interface GetWeatherResult {

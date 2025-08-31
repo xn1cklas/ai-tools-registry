@@ -1,5 +1,5 @@
+import { dynamicTool, tool } from "ai"
 import { z } from "zod"
-import type { Tool } from "ai"
 
 export interface NewsItem {
   id: string
@@ -13,24 +13,25 @@ export interface NewsSearchResult {
   items: NewsItem[]
 }
 
-export const newsSearchTool: Tool = {
-  name: "newsSearch",
+export const newsSearchTool = tool({
   description: "Return recent headlines related to a topic.",
   inputSchema: z.object({
     topic: z.string().min(1),
     limit: z.number().min(1).max(20).default(5),
   }),
-  execute: async ({
-    topic,
-    limit,
-  }: {
-    topic: string
-    limit: number
-  }): Promise<NewsSearchResult> => {
-    throw new Error(
-      "newsSearch not implemented. Connect a news provider and return { topic, items: [{ id, title, url?, publishedAt? }] }."
-    )
+  execute: async ({ topic, limit }) => {
+    return {
+      topic,
+      items: [
+        {
+          id: "1",
+          title: "News",
+          url: "https://www.google.com",
+          publishedAt: "2021-01-01",
+        },
+      ],
+    }
   },
-}
+})
 
 export default newsSearchTool

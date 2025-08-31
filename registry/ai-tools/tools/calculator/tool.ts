@@ -1,28 +1,35 @@
+import { tool } from "ai"
 import { z } from "zod"
-import type { Tool } from "ai"
 
-export const calculatorTool = {
-  name: "calculator",
+export const calculatorTool = tool({
   description: "Simple calculator for basic arithmetic.",
   inputSchema: z.object({
     a: z.number(),
     b: z.number(),
     operator: z.enum(["+", "-", "*", "/"]).default("+"),
   }),
-  execute: async ({
-    a,
-    b,
-    operator,
-  }: {
-    a: number
-    b: number
-    operator: "+" | "-" | "*" | "/"
-  }): Promise<CalculatorResult> => {
-    throw new Error(
-      "calculator not implemented. Provide your own implementation to return { a, b, operator, result }."
-    )
+  execute: async ({ a, b, operator }) => {
+    let result: number
+    switch (operator) {
+      case "+":
+        result = a + b
+        break
+      case "-":
+        result = a - b
+        break
+      case "*":
+        result = a * b
+        break
+      case "/":
+        result = a / b
+        break
+      default:
+        result = a + b
+    }
+    return { a, b, operator, result }
   },
-}
+})
+
 export interface CalculatorResult {
   a: number
   b: number

@@ -1,5 +1,5 @@
+import { tool } from "ai"
 import { z } from "zod"
-import type { Tool } from "ai"
 
 export interface TimeNowResult {
   timeZone: string
@@ -7,24 +7,20 @@ export interface TimeNowResult {
   formatted: string
 }
 
-export const timeNowTool: Tool = {
-  name: "timeNow",
+export const timeNowTool = tool({
   description: "Get the current time for a given IANA timezone.",
   inputSchema: z.object({
     timeZone: z.string().default("UTC"),
     locale: z.string().default("en-US"),
   }),
-  execute: async ({
-    timeZone,
-    locale,
-  }: {
-    timeZone: string
-    locale: string
-  }): Promise<TimeNowResult> => {
-    throw new Error(
-      "timeNow not implemented. Use Intl.DateTimeFormat or a time API and return { timeZone, iso, formatted }."
-    )
+  execute: async ({ timeZone, locale }) => {
+    const now = new Date()
+    return {
+      timeZone,
+      iso: now.toISOString(),
+      formatted: now.toLocaleString(locale, { timeZone }),
+    }
   },
-}
+})
 
 export default timeNowTool
