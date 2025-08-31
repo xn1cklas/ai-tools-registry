@@ -208,25 +208,6 @@ export default async function Home() {
             />
           )
         })()}
-
-        {/* Polar Checkout */}
-        {(() => {
-          const item = getRegistryItemFromJson("polar")
-          if (!item) return null
-          const polarDemo: PolarCheckoutResult = demos.polar.json
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={polarDemo}
-              code={demos.polar.code}
-              componentCode={demos.polar.componentCode}
-              renderer={demos.polar.renderer}
-              heading="Polar Checkout"
-              subheading="Find a product and embed checkout"
-            />
-          )
-        })()}
       </section>
 
       <section className="flex flex-col gap-4">
