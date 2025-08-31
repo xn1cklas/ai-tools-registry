@@ -1,6 +1,6 @@
 # Alpine Registry
 
-This is an example registry built using `shadcn`.
+This is an example registry built using `shadcn/ui`.
 
 ## Usage
 
@@ -17,13 +17,13 @@ To install components from the alpine registry, you can use the following remote
 You can then add items using the following command:
 
 ```bash
-npx shadcn@beta add @alpine/login-form
+npx shadcn@latest add @alpine/login-form
 ```
 
-To install the `alpine` style, you can use the following command:
+To install the `alpine` design system, you can use the following command:
 
 ```bash
-npx shadcn@beta add @alpine/style
+npx shadcn@beta add @alpine/design-system
 ```
 
 ## Development
