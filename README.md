@@ -26,6 +26,10 @@ To install the `alpine` style, you can use the following command:
 npx shadcn@beta add @alpine/style
 ```
 
+## Authentication
+
+To see examples of how to use authentication with the registry, see the [API Routes](./app/api/registry/README.md) documentation.
+
 ## Development
 
 Clone the repository, then install the dependencies and run the development server.
