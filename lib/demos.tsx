@@ -20,7 +20,6 @@ import type { TimeNowResult } from "@/registry/ai-tools/tools/time/tool"
 import { getWeatherTool } from "@/registry/ai-tools/tools/weather/tool"
 import { newsSearchTool } from "@/registry/ai-tools/tools/news/tool"
 
-
 const read = (p: string) => fs.readFile(path.join(process.cwd(), p), "utf8")
 
 const safe = async <T,>(fn: () => Promise<T>, fallback: T): Promise<T> => {
@@ -83,6 +82,7 @@ export async function loadDemos() {
     result: 10,
   }
   const calcDemo = await safe<CalculatorResult>(
+    // @ts-expect-error - calculatorTool is not typed
     () => calculatorTool.execute({ a: 7, b: 3, operator: "+" }),
     calcFallback
   )
@@ -184,6 +184,5 @@ export async function loadDemos() {
       componentCode: codeMdCmp,
       renderer: <MarkdownViewer data={mdDemo} />,
     },
-
   }
 }
