@@ -68,7 +68,7 @@ export function ToolDemoCard({
           </Button>
         </div>
         <ScrollArea className="max-h-96">
-          <CodeBlock code={code} />
+          <CodeBlock code={code} className="leading-3" />
         </ScrollArea>
       </div>
 
@@ -101,7 +101,7 @@ export function ToolDemoCard({
         ) : (
           <div className="relative">
             <ScrollArea className="max-h-80">
-              <pre className="text-xs">
+              <pre className="text-xs leading-5">
                 {JSON.stringify(json, null, 2)}
               </pre>
             </ScrollArea>

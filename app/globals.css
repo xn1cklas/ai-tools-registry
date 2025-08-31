@@ -107,7 +107,7 @@
 }
 
 /* Sugar High layout helpers */
-.sh__line { display: block; }
+.sh__line { display: block; line-height: inherit; }
 
 /* ScrollArea: hide scrollbars by default; show while scrolling */
 [data-slot="scroll-area"]{
