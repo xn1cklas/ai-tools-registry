@@ -144,32 +144,6 @@
         }
       ]
     },
-    
-    {
-      "name": "logo",
-      "type": "registry:block",
-      "title": "Logo",
-      "description": "A logo component.",
-      "files": [
-        {
-          "path": "registry/ai-tools/branding/logo.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     {
       "name": "weather",
       "type": "registry:component",
