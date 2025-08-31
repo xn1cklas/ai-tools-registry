@@ -1,40 +1,39 @@
-# Project Instructions
+# AI Tools Registry — Project Guidelines
 
-## Best Practices for Using shadcn MCP server
+## Discovery and installation
 
-1. **Always Check Registry First**
-   - Before creating custom components, search the registry for existing solutions
-   - Use `mcp_shadcn_search_items_in_registries` to find relevant components
-   - Check `mcp_shadcn_list_items_in_registries` to see all available options
+1. Always check the registry before building a tool from scratch.
+   - Use the remote registry: `https://ai-tools-registry.vercel.app/api/registry/public/{name}`
+   - Install via CLI, for example:
+     ```bash
+     npx shadcn@latest add @ai-tools/weather
+     npx shadcn@latest add @ai-tools/websearch
+     ```
 
-2. **Component Discovery Workflow**
-   - Start with semantic search using `mcp_shadcn_search_items_in_registries`
-   - View detailed component info with `mcp_shadcn_view_items_in_registries`
-   - Get usage examples with `mcp_shadcn_get_item_examples_from_registries`
-   - Use `mcp_shadcn_get_add_command_for_items` to get installation commands
+2. Use clear naming that matches folder names (e.g., `weather`, `news`, `time`).
 
-3. **Component Installation**
-   - Use the provided add commands from the registry
-   - Ensure components are properly imported and configured
-   - Do not install example- components directly, use them as reference to create your components.
-   - Follow the component's usage examples for proper implementation
-   - Do not overwrite ui or registry/ui components unless the user has specifically asked for it
+## Colocation and boundaries
 
-## Quality Assurance
+- Colocate tool logic and renderer:
+  ```
+  ~/ai/tools/{tool}/
+    ├─ tool.ts        # server/tool logic
+    └─ component.tsx  # optional client renderer
+  ```
+- Mark renderers with `"use client"`. Avoid importing client components from server-only contexts.
+- Keep side effects (network I/O) inside tool `execute` on the server; pass plain data to the renderer.
 
-- Always test registry components after installation
-- Verify imports and dependencies are correct
-- Check that styling integrates with your existing design
-- If using next/image, make sure images.remotePatterns is configured in next.config.ts
+## Schemas and types
 
-```tsx
-import type { NextConfig } from "next"
+- Validate all input/output using Zod; avoid `any`.
+- Ensure every `registry:file` has a `target`. Verify `files[*].path` exists.
 
-const nextConfig: NextConfig = {
-  images: {
-    domains: ["images.unsplash.com"],
-  },
-}
+## Dependencies
 
-export default nextConfig
-```
+- Tools usually depend on `ai` and `zod`.
+- Renderers may use `react-markdown` + `remark-gfm` when helpful.
+
+## Quality checks
+
+- After installation, verify imports, types, and behavior.
+- Keep changes minimal and consistent with existing code conventions.
