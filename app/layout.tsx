@@ -11,18 +11,19 @@ import { Toaster } from "@/registry/ai-tools/ui/sonner"
 import { RegistrySetup } from "@/components/registry-setup"
 import { GithubButton } from "@/components/github-button"
 
+
 const fontSans = DM_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
 })
 
-const title = "ai-tools"
-const description = "A example registry for distributing code using shadcn."
+const title = "AI Tools Registry"
+const description = "A registry distributing AI Tools and components using shadcn."
 
 export const metadata: Metadata = {
   title: {
     default: `${title} | ${description}`,
-    template: "%s | ai-tools",
+    template: "%s | AI Tools",
   },
   description,
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
