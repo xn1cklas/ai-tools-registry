@@ -1,6 +1,6 @@
 import { z } from "zod"
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type {} from "ai"
+import type { Tool } from "ai"
 
 export interface CalculatorResult {
   a: number
@@ -9,15 +9,23 @@ export interface CalculatorResult {
   result: number
 }
 
-export const calculatorTool = {
+export const calculatorTool: Tool = {
   name: "calculator",
   description: "Simple calculator for basic arithmetic.",
-  parameters: z.object({
+  inputSchema: z.object({
     a: z.number(),
     b: z.number(),
     operator: z.enum(["+", "-", "*", "/"]).default("+"),
   }),
-  execute: async ({ a, b, operator }: { a: number; b: number; operator: "+" | "-" | "*" | "/" }): Promise<CalculatorResult> => {
+  execute: async ({
+    a,
+    b,
+    operator,
+  }: {
+    a: number
+    b: number
+    operator: "+" | "-" | "*" | "/"
+  }): Promise<CalculatorResult> => {
     let result = 0
     switch (operator) {
       case "+":
@@ -38,4 +46,3 @@ export const calculatorTool = {
 }
 
 export default calculatorTool
-

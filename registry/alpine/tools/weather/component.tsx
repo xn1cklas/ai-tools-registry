@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import type { GetWeatherResult } from "../get-weather"
+import type { GetWeatherResult } from "./tool"
 import {
   Card,
   CardContent,

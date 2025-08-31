@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import type { NewsSearchResult } from "../news-search"
+import type { NewsSearchResult } from "./tool"
 import {
   Card,
   CardContent,

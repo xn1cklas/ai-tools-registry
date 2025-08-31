@@ -1,6 +1,6 @@
 import { z } from "zod"
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type {} from "ai"
+import type { Tool } from "ai"
 
 export interface TimeNowResult {
   timeZone: string
@@ -8,14 +8,20 @@ export interface TimeNowResult {
   formatted: string
 }
 
-export const timeNowTool = {
+export const timeNowTool: Tool = {
   name: "timeNow",
   description: "Get the current time for a given IANA timezone.",
-  parameters: z.object({
+  inputSchema: z.object({
     timeZone: z.string().default("UTC"),
     locale: z.string().default("en-US"),
   }),
-  execute: async ({ timeZone, locale }: { timeZone: string; locale: string }): Promise<TimeNowResult> => {
+  execute: async ({
+    timeZone,
+    locale,
+  }: {
+    timeZone: string
+    locale: string
+  }): Promise<TimeNowResult> => {
     const date = new Date()
     const formatted = new Intl.DateTimeFormat(locale, {
       timeZone,
@@ -31,4 +37,3 @@ export const timeNowTool = {
 }
 
 export default timeNowTool
-
