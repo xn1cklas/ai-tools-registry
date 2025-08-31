@@ -19,34 +19,34 @@ To test the routes, add remote registries in your `components.json` file (replac
 {
   "$schema": "https://ui.shadcn.com/schema.json",
   "registries": {
-    "@public": "https://your-deployment.example/api/registry/public/{name}",
+    "@public": "https://ai-tools-registry.vercel.app/api/registry/public/{name}",
     "@bearer": {
-      "url": "https://your-deployment.example/api/registry/bearer/{name}",
+      "url": "https://ai-tools-registry.vercel.app/api/registry/bearer/{name}",
       "headers": {
         "Authorization": "Bearer ${REGISTRY_BEARER_TOKEN}"
       }
     },
     "@apikey": {
-      "url": "https://your-deployment.example/api/registry/apikey/{name}",
+      "url": "https://ai-tools-registry.vercel.app/api/registry/apikey/{name}",
       "headers": {
         "X-API-Key": "${REGISTRY_API_KEY}"
       }
     },
     "@query": {
-      "url": "https://your-deployment.example/api/registry/query/{name}",
+      "url": "https://ai-tools-registry.vercel.app/api/registry/query/{name}",
       "params": {
         "token": "${REGISTRY_QUERY_TOKEN}"
       }
     },
     "@custom": {
-      "url": "https://your-deployment.example/api/registry/custom/{name}",
+      "url": "https://ai-tools-registry.vercel.app/api/registry/custom/{name}",
       "headers": {
         "X-Client-Id": "${REGISTRY_CLIENT_ID}",
         "X-Client-Secret": "${REGISTRY_CLIENT_SECRET}"
       }
     },
     "@basic": {
-      "url": "https://your-deployment.example/api/registry/basic/{name}",
+      "url": "https://ai-tools-registry.vercel.app/api/registry/basic/{name}",
       "headers": {
         "Authorization": "Basic ${REGISTRY_BASIC_AUTH}"
       }
