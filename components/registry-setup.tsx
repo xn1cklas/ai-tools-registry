@@ -62,7 +62,7 @@ export function RegistrySetup({
             Use the code below to configure the @ai-tools registry for your
             project.
             <br />
-            Ensure you've set up <a href="https://ui.shadcn.com/" className="underline" target="_blank" rel="noreferrer">shadcn</a> for your project.
+            Ensure you&apos;ve set up <a href="https://ui.shadcn.com/" className="underline" target="_blank" rel="noreferrer">shadcn</a> for your project.
           </DialogDescription>
         </DialogHeader>
         <div className="font-medium">

@@ -9,9 +9,6 @@ import Link from "next/link"
 import { Logo } from "@/registry/ai-tools/branding/logo"
 import { Toaster } from "@/registry/ai-tools/ui/sonner"
 import { RegistrySetup } from "@/components/registry-setup"
-import { Github, GithubIcon } from "lucide-react"
-import { Button } from "@/registry/ai-tools/ui/button"
-import { cn } from "@/lib/utils"
 import { GithubButton } from "@/components/github-button"
 
 const fontSans = DM_Sans({

@@ -8,7 +8,7 @@ import { OpenInV0 } from "@/components/open-in-v0"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { CodeBlock } from "@/components/code-block"
 import { ScrollArea } from "@/registry/ai-tools/ui/scroll-area"
-import { CheckIcon, Code, CopyIcon } from "lucide-react"
+import { CheckIcon, CopyIcon } from "lucide-react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 

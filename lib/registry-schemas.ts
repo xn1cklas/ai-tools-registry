@@ -28,12 +28,13 @@ export function parseExtendedRegistryItem(raw: unknown): ExtendedRegistryItem | 
   const parsed = baseRegistryItemSchema.safeParse(raw)
   if (!parsed.success) return null
   const base = parsed.data
-  const creators = creatorSchema.array().optional().safeParse((raw as any)?.creators).success
-    ? ((raw as any)?.creators as Creator[])
-    : undefined
-  const toolMeta = toolMetaSchema.safeParse((raw as any)?.toolMeta).success
-    ? ((raw as any)?.toolMeta as ToolMeta)
-    : undefined
+  const rawObj: { creators?: unknown; toolMeta?: unknown } =
+    typeof raw === "object" && raw !== null ? (raw as { creators?: unknown; toolMeta?: unknown }) : {}
+
+  const creatorsParse = creatorSchema.array().optional().safeParse(rawObj.creators)
+  const creators = creatorsParse.success ? creatorsParse.data : undefined
+
+  const toolMetaParse = toolMetaSchema.safeParse(rawObj.toolMeta)
+  const toolMeta = toolMetaParse.success ? toolMetaParse.data : undefined
   return { ...base, creators, toolMeta }
 }
-
