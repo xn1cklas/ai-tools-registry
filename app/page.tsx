@@ -13,7 +13,6 @@ const getRegistryItemFromJson = React.cache(
   (name: string): ExtendedRegistryItem | null => {
     // Be permissive here so the homepage renders even if a registry item
     // doesn't strictly match the shadcn schema (useful while iterating).
-    // @ts-expect-error - registry.items is not typed
     return registry.items.find((item) => item.name === name) ?? null
   }
 )

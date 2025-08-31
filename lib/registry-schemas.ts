@@ -20,6 +20,18 @@ export type Creator = z.infer<typeof creatorSchema>
 export type ToolMeta = z.infer<typeof toolMetaSchema>
 
 export type ExtendedRegistryItem = z.infer<typeof baseRegistryItemSchema> & {
+  name: string
+  title?: string
+  description?: string
+  type: string
+  files?: Array<{
+    path: string
+    type: string
+    target?: string
+    content?: string
+  }>
+  dependencies?: string[]
+  registryDependencies?: string[]
   creators?: Creator[]
   toolMeta?: ToolMeta
 }
