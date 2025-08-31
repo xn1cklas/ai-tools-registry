@@ -52,6 +52,7 @@ export default async function Home() {
     icon: "weather-sun",
   }
   const weatherDemo: GetWeatherResult = await safe<GetWeatherResult>(
+    // @ts-expect-error - getWeatherTool is not typed
     () => getWeatherTool.execute({ location: "San Francisco", unit: "C" }),
     weatherFallback
   )
@@ -65,6 +66,7 @@ export default async function Home() {
     ],
   }
   const newsDemo: NewsSearchResult = await safe<NewsSearchResult>(
+    // @ts-expect-error - newsSearchTool is not typed
     () => newsSearchTool.execute({ topic: "AI", limit: 5 }),
     newsFallback
   )
@@ -77,12 +79,14 @@ export default async function Home() {
 
   const translateFallback: TranslateResult = { text: "Hello, world!", targetLanguage: "es", translated: "¡Hola, mundo!" }
   const translateDemo: TranslateResult = await safe<TranslateResult>(
+    // @ts-expect-error - translateTool is not typed
     () => translateTool.execute({ text: "Hello, world!", targetLanguage: "es" }),
     translateFallback
   )
 
   const timeFallback: TimeNowResult = { timeZone: "UTC", iso: new Date().toISOString(), formatted: new Date().toUTCString() }
   const timeDemo: TimeNowResult = await safe<TimeNowResult>(
+    // @ts-expect-error - timeNowTool is not typed
     () => timeNowTool.execute({ timeZone: "UTC", locale: "en-US" }),
     timeFallback
   )
