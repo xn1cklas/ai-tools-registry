@@ -8,8 +8,12 @@ import { Separator } from "@/registry/alpine/ui/separator"
 import { Button } from "@/registry/alpine/ui/button"
 import { WeatherCard } from "@/registry/alpine/tools/weather/component"
 import { NewsList } from "@/registry/alpine/tools/news/component"
+import { WebSearchList } from "@/registry/alpine/tools/websearch/component"
+import { MarkdownViewer } from "@/registry/alpine/tools/markdown/component"
 import { getWeatherTool, type GetWeatherResult } from "@/registry/alpine/tools/weather/tool"
 import { newsSearchTool, type NewsSearchResult } from "@/registry/alpine/tools/news/tool"
+import { webSearchTool, type WebSearchResult } from "@/registry/alpine/tools/websearch/tool"
+import { markdownTool, type MarkdownResult } from "@/registry/alpine/tools/markdown/tool"
 import { calculatorTool, type CalculatorResult } from "@/registry/alpine/tools/calculator/tool"
 import { translateTool, type TranslateResult } from "@/registry/alpine/tools/translate/tool"
 import { timeNowTool, type TimeNowResult } from "@/registry/alpine/tools/time/tool"
@@ -29,6 +33,8 @@ const toolNames = [
   "tool-calculator",
   "tool-translate",
   "tool-time-now",
+  "tool-websearch",
+  "tool-markdown",
 ]
 
 export default async function Home() {
@@ -99,6 +105,10 @@ export default async function Home() {
     read("registry/alpine/tools/calculator/tool.ts"),
     read("registry/alpine/tools/translate/tool.ts"),
     read("registry/alpine/tools/time/tool.ts"),
+  ])
+  const [codeWeb, codeMd] = await Promise.all([
+    read("registry/alpine/tools/websearch/tool.ts"),
+    read("registry/alpine/tools/markdown/tool.ts"),
   ])
 
   const items = toolNames
@@ -214,6 +224,52 @@ export default async function Home() {
               code={codeTime}
               heading="Time Now"
               subheading="Current time for timezone"
+            />
+          )
+        })()}
+
+        {/* Web Search */}
+        {(() => {
+          const item = getRegistryItemFromJson("tool-websearch")
+          if (!item) return null
+          const webFallback: WebSearchResult = {
+            query: "chatgpt",
+            results: [
+              { title: "ChatGPT", url: "https://openai.com/index/chatgpt/", snippet: "ChatGPT is an AI model by OpenAI.", source: "openai.com" },
+              { title: "ChatGPT on Wikipedia", url: "https://en.wikipedia.org/wiki/ChatGPT", snippet: "ChatGPT is a chatbot developed by OpenAI...", source: "wikipedia.org" },
+            ],
+          }
+          const webDemo: WebSearchResult = webFallback
+          return (
+            <ToolDemoCard
+              key={item.name}
+              registryItem={item}
+              json={webDemo}
+              code={codeWeb}
+              renderer={<WebSearchList data={webDemo} />}
+              heading="Web Search"
+              subheading="Search the web and show results"
+            />
+          )
+        })()}
+
+        {/* Markdown */}
+        {(() => {
+          const item = getRegistryItemFromJson("tool-markdown")
+          if (!item) return null
+          const mdFallback: MarkdownResult = {
+            markdown: `# Hello World\n\nThis is **markdown**.\n\n- Item one\n- Item two\n\n> Tip: You can copy the tool code from the left.`,
+          }
+          const mdDemo: MarkdownResult = mdFallback
+          return (
+            <ToolDemoCard
+              key={item.name}
+              registryItem={item}
+              json={mdDemo}
+              code={codeMd}
+              renderer={<MarkdownViewer data={mdDemo} />}
+              heading="Markdown"
+              subheading="Render markdown in your chat view"
             />
           )
         })()}

@@ -36,6 +36,30 @@
       ]
     },
     {
+      "name": "tool-websearch",
+      "type": "registry:component",
+      "title": "Web Search",
+      "description": "AI SDK tool that searches the web. Includes a results renderer.",
+      "dependencies": ["zod", "ai"],
+      "registryDependencies": ["@alpine/card"],
+      "files": [
+        { "path": "registry/alpine/tools/websearch/tool.ts", "type": "registry:file" },
+        { "path": "registry/alpine/tools/websearch/component.tsx", "type": "registry:file" }
+      ]
+    },
+    {
+      "name": "tool-markdown",
+      "type": "registry:component",
+      "title": "Markdown Renderer",
+      "description": "AI SDK tool that transports markdown; render with streamdown.",
+      "dependencies": ["zod", "ai", "streamdown"],
+      "registryDependencies": ["@alpine/card"],
+      "files": [
+        { "path": "registry/alpine/tools/markdown/tool.ts", "type": "registry:file" },
+        { "path": "registry/alpine/tools/markdown/component.tsx", "type": "registry:file" }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
@@ -370,7 +394,9 @@
         "@alpine/tool-calculator",
         "@alpine/tool-translate",
         "@alpine/tool-news-search",
-        "@alpine/tool-time-now"
+        "@alpine/tool-time-now",
+        "@alpine/tool-websearch",
+        "@alpine/tool-markdown"
       ],
       "files": []
     }
