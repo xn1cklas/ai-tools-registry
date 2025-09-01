@@ -7,7 +7,6 @@ import { AddCommand } from "@/components/add-command"
 import { OpenInV0 } from "@/components/open-in-v0"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { CodeBlock } from "@/components/code-block"
-import { ScrollArea } from "@/registry/ai-tools/ui/scroll-area"
 import { CheckIcon, CopyIcon } from "lucide-react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
@@ -68,7 +67,11 @@ export function ToolDemoCard({
           <Button
             size="icon"
             variant="outline"
-            className=" size-8 rounded-sm"
+            className={cn(
+              "size-8 rounded-sm",
+              isToolCopied &&
+                "!bg-primary/15 border-primary/25 dark:!bg-primary/15 dark:border-primary/25"
+            )}
             onClick={() => {
               copyTool(code)
               toast.success("Code copied to clipboard")
@@ -76,16 +79,26 @@ export function ToolDemoCard({
             aria-label="Copy code"
             title="Copy code"
           >
-            {isToolCopied ? (
+            <CheckIcon
+              className={cn(
+                "text-primary transition-transform size-4 dark:text-green-500",
+                !isToolCopied && "scale-0"
+              )}
+            />
+            <CopyIcon
+              className={cn(
+                "absolute size-4 transition-transform",
+                isToolCopied && "scale-0"
+              )}
+            />
+            {/* {isToolCopied ? (
               <CheckIcon className="h-4 w-4" />
             ) : (
               <CopyIcon className="h-4 w-4" />
-            )}
+            )} */}
           </Button>
         </div>
-        <ScrollArea className="max-h-96">
-          <CodeBlock code={code} className="leading-3" disableOverflow={true} />
-        </ScrollArea>
+        <CodeBlock code={code} />
       </div>
 
       {/* Right: Toggle between component and output (if renderer available) */}
@@ -129,7 +142,11 @@ export function ToolDemoCard({
           <Button
             size="icon"
             variant="outline"
-            className=" size-8 rounded-sm"
+            className={cn(
+              "size-8 rounded-sm",
+              isRightCopied &&
+                "!bg-primary/15 border-primary/25 dark:!bg-primary/15 dark:border-primary/25"
+            )}
             onClick={() => {
               if (componentCode) {
                 copyRight(componentCode)
@@ -146,11 +163,23 @@ export function ToolDemoCard({
             }
             disabled={!hasComponentCode}
           >
-            {isRightCopied ? (
+            <CheckIcon
+              className={cn(
+                "text-primary transition-transform size-4 dark:text-green-500",
+                !isRightCopied && "scale-0"
+              )}
+            />
+            <CopyIcon
+              className={cn(
+                "absolute transition-transform",
+                isRightCopied && "scale-0"
+              )}
+            />
+            {/* {isRightCopied ? (
               <CheckIcon className="h-4 w-4" />
             ) : (
               <CopyIcon className="h-4 w-4" />
-            )}
+            )} */}
           </Button>
         </div>
 
@@ -161,23 +190,13 @@ export function ToolDemoCard({
           </div>
         ) : view === "output" ? (
           <div className="relative">
-            <ScrollArea className="max-h-80">
-              <CodeBlock
-                code={JSON.stringify(json, null, 2)}
-                className="text-xs leading-3"
-                disableOverflow={true}
-              />
-            </ScrollArea>
+            <CodeBlock code={JSON.stringify(json, null, 2)} />
           </div>
         ) : (
           <div className="relative">
-            <ScrollArea className="max-h-96">
-              <CodeBlock
-                code={componentCode ?? "// No component code available"}
-                className="leading-3"
-                disableOverflow={true}
-              />
-            </ScrollArea>
+            <CodeBlock
+              code={componentCode ?? "// No component code available"}
+            />
           </div>
         )}
       </div>
