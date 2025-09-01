@@ -83,6 +83,8 @@
 }
 
 @theme inline {
+  --font-geist-mono: var(--font-geist-mono);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-ring: var(--ring);
@@ -109,10 +111,15 @@
 
 @layer base {
   * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply selection:bg-primary selection:text-primary-foreground bg-background text-foreground;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
   }
 }
 
@@ -120,29 +127,4 @@
 .sh__line {
   display: block;
   line-height: inherit;
-}
-
-/* ScrollArea: hide scrollbars by default; show while scrolling */
-[data-slot="scroll-area"] {
-  scrollbar-width: none; /* Firefox */
-  transition: scrollbar-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-[data-slot="scroll-area"]::-webkit-scrollbar {
-  /* WebKit */
-  width: 0;
-  height: 0;
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-[data-slot="scroll-area"][data-scrolling="true"] {
-  scrollbar-width: thin;
-}
-[data-slot="scroll-area"][data-scrolling="true"]::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-[data-slot="scroll-area"][data-scrolling="true"]::-webkit-scrollbar-thumb {
-  background-color: color-mix(in oklch, var(--foreground) 20%, transparent);
-  border-radius: 8px;
-  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
