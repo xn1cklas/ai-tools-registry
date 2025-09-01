@@ -57,7 +57,7 @@ Or install a pack of all tools:
 npx shadcn@latest add @ai-tools/tool-pack
 ```
 
-Note: The example tools import from `ai` (AI SDK v3) and `zod`. Ensure your app provides these dependencies.
+Note: The example tools import from `ai` (AI SDK v5) and `zod`. Ensure your app provides these dependencies.
 
 ## Authentication
 
