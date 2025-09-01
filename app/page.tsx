@@ -5,6 +5,7 @@ import registry from "@/registry.json"
 import { Button } from "@/registry/ai-tools/ui/button"
 import type { WebSearchResult } from "@/registry/ai-tools/tools/websearch/tool"
 import type { MarkdownResult } from "@/registry/ai-tools/tools/markdown/tool"
+import type { MermaidResult } from "@/registry/ai-tools/tools/mermaid/tool"
 import { ToolDemoCard } from "@/components/tool-demo-card"
 import type { ExtendedRegistryItem } from "@/lib/registry-schemas"
 import { loadDemos } from "@/lib/demos"
@@ -26,6 +27,7 @@ const toolNames = [
   "time",
   "websearch",
   "markdown",
+  "mermaid",
   "polar",
 ]
 
@@ -121,8 +123,6 @@ export default async function Home() {
             />
           )
         })()}
-
-
 
         {/* News */}
         {(() => {
@@ -224,6 +224,24 @@ export default async function Home() {
               renderer={demos.markdown.renderer}
               heading="Markdown"
               subheading="Render markdown in your chat view"
+            />
+          )
+        })()}
+
+        {/* Mermaid */}
+        {(() => {
+          const item = getRegistryItemFromJson("mermaid")
+          if (!item) return null
+          return (
+            <ToolDemoCard
+              key={item.name}
+              registryItem={item}
+              json={demos.mermaid?.json}
+              code={demos.mermaid?.code}
+              componentCode={demos.mermaid?.componentCode}
+              renderer={demos.mermaid?.renderer}
+              heading="Mermaid Diagram"
+              subheading="Generate diagrams from text definitions"
             />
           )
         })()}

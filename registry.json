@@ -105,6 +105,26 @@
       ]
     },
     {
+      "name": "mermaid",
+      "type": "registry:component",
+      "title": "Mermaid Diagram",
+      "description": "AI SDK tool that generates Mermaid diagrams from text definitions.",
+      "dependencies": ["zod", "ai", "mermaid"],
+      "registryDependencies": ["@ai-tools/card"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/mermaid/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/mermaid/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/mermaid/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/mermaid/component.tsx"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
@@ -279,7 +299,8 @@
         "@ai-tools/time",
         "@ai-tools/websearch",
         "@ai-tools/markdown",
-        "@ai-tools/stats"
+        "@ai-tools/stats",
+        "@ai-tools/mermaid"
       ],
       "files": [
         {

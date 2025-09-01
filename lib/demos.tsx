@@ -8,6 +8,7 @@ import { NewsList } from "@/registry/ai-tools/tools/news/component"
 import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
 import { MarkdownViewer } from "@/registry/ai-tools/tools/markdown/component"
 import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
+import { MermaidDiagram } from "@/registry/ai-tools/tools/mermaid/component"
 
 // Tool types + tools where needed
 import type { GetWeatherResult } from "@/registry/ai-tools/tools/weather/tool"
@@ -21,6 +22,8 @@ import type { TimeNowResult } from "@/registry/ai-tools/tools/time/tool"
 import { getWeatherTool } from "@/registry/ai-tools/tools/weather/tool"
 import { newsSearchTool } from "@/registry/ai-tools/tools/news/tool"
 import type { PublicStatsResult } from "@/registry/ai-tools/tools/stats/tool"
+import type { MermaidResult } from "@/registry/ai-tools/tools/mermaid/tool"
+import { mermaidTool } from "@/registry/ai-tools/tools/mermaid/tool"
 
 const read = (p: string) => fs.readFile(path.join(process.cwd(), p), "utf8")
 
@@ -134,6 +137,29 @@ export async function loadDemos() {
   // Public Stats (USGS) — live client-side fetch in component; no server fetch.
   const statsDemo: PublicStatsResult | null = null
 
+  // Mermaid
+  const mermaidFallback: MermaidResult = {
+    diagram: `graph TD
+    A[Start] --> B{Is it working?}
+    B -->|Yes| C[Great!]
+    B -->|No| D[Debug]
+    D --> A`,
+    theme: "default",
+  }
+  const mermaidDemo = await safe<MermaidResult>(
+    // @ts-expect-error - mermaidTool is not typed
+    () =>
+      mermaidTool.execute({
+        diagram: `graph TD
+    A[Start] --> B{Is it working?}
+    B -->|Yes| C[Great!]
+    B -->|No| D[Debug]
+    D --> A`,
+        theme: "default",
+      }),
+    mermaidFallback
+  )
+
   // Read code for copy blocks
   const [
     codeWeather,
@@ -149,6 +175,8 @@ export async function loadDemos() {
     codeMdCmp,
     codeStats,
     codeStatsCmp,
+    codeMermaid,
+    codeMermaidCmp,
   ] = await Promise.all([
     read("registry/ai-tools/tools/weather/tool.ts"),
     read("registry/ai-tools/tools/news/tool.ts"),
@@ -163,6 +191,8 @@ export async function loadDemos() {
     read("registry/ai-tools/tools/markdown/component.tsx"),
     read("registry/ai-tools/tools/stats/tool.ts"),
     read("registry/ai-tools/tools/stats/component.tsx"),
+    read("registry/ai-tools/tools/mermaid/tool.ts"),
+    read("registry/ai-tools/tools/mermaid/component.tsx"),
   ])
 
   return {
@@ -198,6 +228,12 @@ export async function loadDemos() {
       code: codeStats,
       componentCode: codeStatsCmp,
       renderer: <StatsChart />,
+    },
+    mermaid: {
+      json: mermaidDemo,
+      code: codeMermaid,
+      componentCode: codeMermaidCmp,
+      renderer: <MermaidDiagram data={mermaidDemo} />,
     },
   }
 }
