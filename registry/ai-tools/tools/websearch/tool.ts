@@ -97,8 +97,11 @@ export const webSearchTool = tool({
       acc: DDGTopic[] = []
     ): DDGTopic[] => {
       for (const it of items) {
-        if ("Topics" in it) flatten(it.Topics as DDGRelated[], acc)
-        else acc.push(it)
+        // If group
+        if ((it as DDGRelatedGroup).Topics)
+          flatten((it as DDGRelatedGroup).Topics, acc)
+        else if ((it as DDGTopic).FirstURL && (it as DDGTopic).Text)
+          acc.push(it as DDGTopic)
       }
       return acc
     }

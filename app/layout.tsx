@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { DM_Sans } from "next/font/google"
+import { DM_Sans, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 import { Providers } from "@/components/providers"
@@ -13,6 +13,11 @@ import { TextIcon } from "lucide-react"
 
 const fontSans = DM_Sans({
   variable: "--font-sans",
+  subsets: ["latin"],
+})
+
+const GeistSans = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
 })
 
@@ -56,7 +61,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${fontSans.variable} font-sans antialiased`}>
+      <body
+        className={`${fontSans.variable} ${GeistSans.variable} font-sans antialiased`}
+      >
         <Providers>
           <header>
             <div className="max-w-7xl mx-auto flex items-center px-4 py-6">
