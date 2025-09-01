@@ -110,7 +110,7 @@ const ScrollArea = React.forwardRef<
               ref={viewportRef}
               data-slot="scroll-area-viewport"
               className={cn(
-                "size-full overflow-auto rounded-[inherit]",
+                "size-full overflow-auto rounded-[inherit] relative",
                 viewportClassName
               )}
               tabIndex={0}
@@ -137,7 +137,10 @@ const ScrollArea = React.forwardRef<
             <ScrollAreaPrimitive.Viewport
               ref={viewportRef}
               data-slot="scroll-area-viewport"
-              className={cn("size-full rounded-[inherit]", viewportClassName)}
+              className={cn(
+                "size-full rounded-[inherit] relative",
+                viewportClassName
+              )}
             >
               {children}
             </ScrollAreaPrimitive.Viewport>
@@ -175,11 +178,11 @@ const ScrollBar = React.forwardRef<
       orientation={orientation}
       data-slot="scroll-area-scrollbar"
       className={cn(
-        "hover:bg-muted dark:hover:bg-muted/50 data-[state=visible]:fade-in-0 data-[state=hidden]:fade-out-0 data-[state=visible]:animate-in data-[state=hidden]:animate-out flex touch-none p-px transition-[colors] duration-150 select-none",
+        "hover:bg-muted dark:hover:bg-muted/50 data-[state=visible]:fade-in-0 data-[state=hidden]:fade-out-0 data-[state=visible]:animate-in data-[state=hidden]:animate-out flex touch-none p-px transition-[colors] duration-150 select-none z-20",
         orientation === "vertical" &&
-          "h-full w-2.5 border-l border-l-transparent",
+        "h-full w-2.5 border-l border-l-transparent",
         orientation === "horizontal" &&
-          "h-2.5 flex-col border-t border-t-transparent px-1 pr-1.25",
+        "h-2.5 flex-col border-t border-t-transparent px-1 pr-1.25",
         className
       )}
       {...props}
@@ -219,7 +222,8 @@ const ScrollMask = ({
           } as React.CSSProperties
         }
         className={cn(
-          "pointer-events-none absolute inset-0 z-10",
+          // Top/Bottom fades: avoid overlapping the vertical scrollbar area (right: 2.5)
+          "pointer-events-none absolute inset-y-0 left-0 right-2.5 z-10",
           "before:absolute before:inset-x-0 before:top-0 before:transition-[height,opacity] before:duration-300 before:content-['']",
           "after:absolute after:inset-x-0 after:bottom-0 after:transition-[height,opacity] after:duration-300 after:content-['']",
           "before:h-(--top-fade-height) after:h-(--bottom-fade-height)",
@@ -240,7 +244,8 @@ const ScrollMask = ({
           } as React.CSSProperties
         }
         className={cn(
-          "pointer-events-none absolute inset-0 z-10",
+          // Left/Right fades: avoid overlapping the horizontal scrollbar area (bottom: 2.5)
+          "pointer-events-none absolute inset-x-0 top-0 bottom-2.5 z-10",
           "before:absolute before:inset-y-0 before:left-0 before:transition-[width,opacity] before:duration-300 before:content-['']",
           "after:absolute after:inset-y-0 after:right-0 after:transition-[width,opacity] after:duration-300 after:content-['']",
           "before:w-(--left-fade-width) after:w-(--right-fade-width)",
