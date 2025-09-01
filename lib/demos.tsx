@@ -8,6 +8,7 @@ import { NewsList } from "@/registry/ai-tools/tools/news/component"
 import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
 import { MarkdownViewer } from "@/registry/ai-tools/tools/markdown/component"
 import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
+import { SearchPhotosDisplay } from "@/registry/ai-tools/tools/search-photos/component"
 
 // Tool types + tools where needed
 import type { GetWeatherResult } from "@/registry/ai-tools/tools/weather/tool"
@@ -21,6 +22,8 @@ import type { TimeNowResult } from "@/registry/ai-tools/tools/time/tool"
 import { getWeatherTool } from "@/registry/ai-tools/tools/weather/tool"
 import { newsSearchTool } from "@/registry/ai-tools/tools/news/tool"
 import type { PublicStatsResult } from "@/registry/ai-tools/tools/stats/tool"
+import type { SearchPhotosResult } from "@/registry/ai-tools/tools/search-photos/tool"
+import { searchPhotosTool } from "@/registry/ai-tools/tools/search-photos/tool"
 
 const read = (p: string) => fs.readFile(path.join(process.cwd(), p), "utf8")
 
@@ -134,6 +137,51 @@ export async function loadDemos() {
   // Public Stats (USGS) — live client-side fetch in component; no server fetch.
   const statsDemo: PublicStatsResult | null = null
 
+  // Photo Search
+  const searchPhotosFallback: SearchPhotosResult = {
+    query: "nature",
+    total: 1000,
+    totalPages: 100,
+    photos: [
+      {
+        id: "1",
+        url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop",
+        thumb:
+          "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=150&fit=crop",
+        full: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop",
+        alt: "Beautiful mountain landscape",
+        photographer: "John Doe",
+        photographerUrl: "https://unsplash.com/@johndoe",
+        width: 1200,
+        height: 800,
+        likes: 150,
+        description: "A stunning mountain landscape at sunset",
+        color: "#4A5568",
+      },
+      {
+        id: "2",
+        url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop",
+        thumb:
+          "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=200&h=150&fit=crop",
+        full: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=800&fit=crop",
+        alt: "Forest path in sunlight",
+        photographer: "Jane Smith",
+        photographerUrl: "https://unsplash.com/@janesmith",
+        width: 1200,
+        height: 800,
+        likes: 89,
+        description: "A peaceful forest path bathed in golden sunlight",
+        color: "#2D3748",
+      },
+    ],
+    count: 2,
+  }
+  const searchPhotosDemo = await safe<SearchPhotosResult>(
+    // @ts-expect-error - searchPhotosTool is not typed
+    () => searchPhotosTool.execute({ query: "nature", count: 2 }),
+    searchPhotosFallback
+  )
+
   // Read code for copy blocks
   const [
     codeWeather,
@@ -149,6 +197,8 @@ export async function loadDemos() {
     codeMdCmp,
     codeStats,
     codeStatsCmp,
+    codeSearchPhotos,
+    codeSearchPhotosCmp,
   ] = await Promise.all([
     read("registry/ai-tools/tools/weather/tool.ts"),
     read("registry/ai-tools/tools/news/tool.ts"),
@@ -163,6 +213,8 @@ export async function loadDemos() {
     read("registry/ai-tools/tools/markdown/component.tsx"),
     read("registry/ai-tools/tools/stats/tool.ts"),
     read("registry/ai-tools/tools/stats/component.tsx"),
+    read("registry/ai-tools/tools/search-photos/tool.ts"),
+    read("registry/ai-tools/tools/search-photos/component.tsx"),
   ])
 
   return {
@@ -198,6 +250,12 @@ export async function loadDemos() {
       code: codeStats,
       componentCode: codeStatsCmp,
       renderer: <StatsChart />,
+    },
+    searchPhotos: {
+      json: searchPhotosDemo,
+      code: codeSearchPhotos,
+      componentCode: codeSearchPhotosCmp,
+      renderer: <SearchPhotosDisplay data={searchPhotosDemo} />,
     },
   }
 }

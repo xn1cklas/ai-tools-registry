@@ -5,6 +5,7 @@ import registry from "@/registry.json"
 import { Button } from "@/registry/ai-tools/ui/button"
 import type { WebSearchResult } from "@/registry/ai-tools/tools/websearch/tool"
 import type { MarkdownResult } from "@/registry/ai-tools/tools/markdown/tool"
+import type { SearchPhotosResult } from "@/registry/ai-tools/tools/search-photos/tool"
 import { ToolDemoCard } from "@/components/tool-demo-card"
 import type { ExtendedRegistryItem } from "@/lib/registry-schemas"
 import { loadDemos } from "@/lib/demos"
@@ -26,6 +27,7 @@ const toolNames = [
   "time",
   "websearch",
   "markdown",
+  "search-photos",
   "polar",
 ]
 
@@ -121,8 +123,6 @@ export default async function Home() {
             />
           )
         })()}
-
-
 
         {/* News */}
         {(() => {
@@ -224,6 +224,24 @@ export default async function Home() {
               renderer={demos.markdown.renderer}
               heading="Markdown"
               subheading="Render markdown in your chat view"
+            />
+          )
+        })()}
+
+        {/* Photo Search */}
+        {(() => {
+          const item = getRegistryItemFromJson("search-photos")
+          if (!item) return null
+          return (
+            <ToolDemoCard
+              key={item.name}
+              registryItem={item}
+              json={demos.searchPhotos?.json}
+              code={demos.searchPhotos?.code}
+              componentCode={demos.searchPhotos?.componentCode}
+              renderer={demos.searchPhotos?.renderer}
+              heading="Photo Search"
+              subheading="Search high-quality photos from Unsplash"
             />
           )
         })()}

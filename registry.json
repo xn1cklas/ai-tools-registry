@@ -85,6 +85,26 @@
       ]
     },
     {
+      "name": "search-photos",
+      "type": "registry:component",
+      "title": "Photo Search",
+      "description": "AI SDK tool that searches for high-quality photos using the Unsplash API.",
+      "dependencies": ["zod", "ai"],
+      "registryDependencies": ["@ai-tools/card"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/search-photos/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/search-photos/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/search-photos/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/search-photos/component.tsx"
+        }
+      ]
+    },
+    {
       "name": "markdown",
       "type": "registry:component",
       "title": "Markdown Renderer",
@@ -279,7 +299,8 @@
         "@ai-tools/time",
         "@ai-tools/websearch",
         "@ai-tools/markdown",
-        "@ai-tools/stats"
+        "@ai-tools/stats",
+        "@ai-tools/search-photos"
       ],
       "files": [
         {
