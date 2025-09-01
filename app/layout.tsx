@@ -61,9 +61,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${fontSans.variable} ${GeistSans.variable} font-sans antialiased`}
-      >
+      <body className={`${fontSans.variable} font-sans antialiased min-h-screen flex flex-col`}>
         <Providers>
           <header>
             <div className="max-w-7xl mx-auto flex items-center px-4 py-6">
@@ -83,7 +81,7 @@ export default function RootLayout({
               </div>
             </div>
           </header>
-          {children}
+          <div className="flex-1 flex flex-col">{children}</div>
           <Toaster position="top-center" />
         </Providers>
         <Analytics />
