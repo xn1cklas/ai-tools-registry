@@ -85,6 +85,26 @@
       ]
     },
     {
+      "name": "currency",
+      "type": "registry:component",
+      "title": "Currency Converter",
+      "description": "AI SDK tool that converts currencies with real-time rates, including crypto currencies.",
+      "dependencies": ["zod", "ai"],
+      "registryDependencies": ["@ai-tools/card"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/currency/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/currency/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/currency/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/currency/component.tsx"
+        }
+      ]
+    },
+    {
       "name": "markdown",
       "type": "registry:component",
       "title": "Markdown Renderer",
@@ -279,7 +299,8 @@
         "@ai-tools/time",
         "@ai-tools/websearch",
         "@ai-tools/markdown",
-        "@ai-tools/stats"
+        "@ai-tools/stats",
+        "@ai-tools/currency"
       ],
       "files": [
         {
