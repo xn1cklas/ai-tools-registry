@@ -5,8 +5,14 @@ export const translateTool = tool({
   description: "Translate a given text into a target language.",
   inputSchema: z.object({
     text: z.string().min(1),
-    targetLanguage: z.string().default("en").describe("Target language code e.g. es, fr, de"),
-    sourceLanguage: z.string().default("en").describe("Source language code e.g. en, fr, de"),
+    targetLanguage: z
+      .string()
+      .default("en")
+      .describe("Target language code e.g. es, fr, de"),
+    sourceLanguage: z
+      .string()
+      .default("en")
+      .describe("Source language code e.g. en, fr, de"),
   }),
   execute: async ({ text, targetLanguage, sourceLanguage }) => {
     // Use MyMemory Translation API (free, no key). Requires explicit langpair.

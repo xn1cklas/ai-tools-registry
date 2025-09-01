@@ -59,10 +59,12 @@ export function QRCodeDisplay({ data }: { data: QRCodeResult }) {
             style={{ maxWidth: "300px" }}
           />
         </div>
-        <div className="text-sm text-muted-foreground">
-          Size: {data.size}px
-        </div>
-        <Button onClick={handleDownload} disabled={downloading} className="w-full">
+        <div className="text-sm text-muted-foreground">Size: {data.size}px</div>
+        <Button
+          onClick={handleDownload}
+          disabled={downloading}
+          className="w-full"
+        >
           {downloaded ? (
             <>
               <CheckIcon className="mr-1.5" />

@@ -26,11 +26,16 @@ export const webSearchTool = tool({
     if (!res.ok) throw new Error(`Search API failed: ${res.status}`)
     const data = (await res.json()) as DDGResponse
 
-    const flatten = (items: DDGRelated[] = [], acc: DDGTopic[] = []): DDGTopic[] => {
+    const flatten = (
+      items: DDGRelated[] = [],
+      acc: DDGTopic[] = []
+    ): DDGTopic[] => {
       for (const it of items) {
         // If group
-        if ((it as DDGRelatedGroup).Topics) flatten((it as DDGRelatedGroup).Topics, acc)
-        else if ((it as DDGTopic).FirstURL && (it as DDGTopic).Text) acc.push(it as DDGTopic)
+        if ((it as DDGRelatedGroup).Topics)
+          flatten((it as DDGRelatedGroup).Topics, acc)
+        else if ((it as DDGTopic).FirstURL && (it as DDGTopic).Text)
+          acc.push(it as DDGTopic)
       }
       return acc
     }

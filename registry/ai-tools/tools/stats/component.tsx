@@ -51,7 +51,9 @@ export function StatsChart({ data }: { data?: PublicStatsResult }) {
           { signal: controller.signal }
         )
         if (!res.ok) throw new Error("USGS fetch failed")
-        const json = (await res.json()) as { features?: Array<{ properties?: { time?: number } }> }
+        const json = (await res.json()) as {
+          features?: Array<{ properties?: { time?: number } }>
+        }
         const counts = new Map<string, number>()
         for (const f of json.features ?? []) {
           const t = f?.properties?.time
@@ -75,7 +77,8 @@ export function StatsChart({ data }: { data?: PublicStatsResult }) {
   }, [data])
 
   const source = data ?? live
-  const chartData = source?.series.map((d) => ({ date: d.date, count: d.count })) ?? []
+  const chartData =
+    source?.series.map((d) => ({ date: d.date, count: d.count })) ?? []
 
   return (
     <Card className="w-full max-w-3xl">
@@ -85,12 +88,17 @@ export function StatsChart({ data }: { data?: PublicStatsResult }) {
       </CardHeader>
       <CardContent>
         <ChartContainer config={config} className="aspect-auto h-[300px]">
-          <AreaChart data={chartData} margin={{ left: 8, right: 8, top: 8, bottom: 8 }}>
+          <AreaChart
+            data={chartData}
+            margin={{ left: 8, right: 8, top: 8, bottom: 8 }}
+          >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="date" tick={{ fontSize: 12 }} tickMargin={8} />
             <YAxis
               tickFormatter={(v) =>
-                Intl.NumberFormat(undefined, { notation: "compact" }).format(Number(v))
+                Intl.NumberFormat(undefined, { notation: "compact" }).format(
+                  Number(v)
+                )
               }
               tick={{ fontSize: 12 }}
               tickMargin={8}
@@ -103,7 +111,10 @@ export function StatsChart({ data }: { data?: PublicStatsResult }) {
             <ChartLegend
               verticalAlign="top"
               content={(props: DefaultLegendContentProps) => (
-                <ChartLegendContent verticalAlign="top" payload={props.payload} />
+                <ChartLegendContent
+                  verticalAlign="top"
+                  payload={props.payload}
+                />
               )}
             />
             <Area
@@ -113,7 +124,11 @@ export function StatsChart({ data }: { data?: PublicStatsResult }) {
               fill="var(--color-count)"
               fillOpacity={0.2}
               name="Quakes"
-              dot={{ r: 2, stroke: "var(--color-count)", fill: "var(--color-count)" }}
+              dot={{
+                r: 2,
+                stroke: "var(--color-count)",
+                fill: "var(--color-count)",
+              }}
               activeDot={{ r: 3 }}
             />
           </AreaChart>

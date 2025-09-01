@@ -41,13 +41,17 @@ export function AddCommand({
 
   const githubUrl =
     creator?.githubUrl ??
-    (creator?.url?.includes("github.com") ? creator.url! : `https://github.com/${githubHandle}`)
+    (creator?.url?.includes("github.com")
+      ? creator.url!
+      : `https://github.com/${githubHandle}`)
   const xUrl = creator?.xUrl ?? `https://x.com/${xHandle}`
   const defaultAvatar = "https://avatars.githubusercontent.com/u/64584979?v=4"
   const avatarSrc =
-    (creator?.avatarUrl && creator.avatarUrl.includes("avatars.githubusercontent.com")
+    (creator?.avatarUrl &&
+    creator.avatarUrl.includes("avatars.githubusercontent.com")
       ? creator.avatarUrl
-      : `https://avatars.githubusercontent.com/${githubHandle}`) || defaultAvatar
+      : `https://avatars.githubusercontent.com/${githubHandle}`) ||
+    defaultAvatar
 
   return (
     <span className="inline-flex items-center gap-2">
