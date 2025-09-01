@@ -8,6 +8,7 @@ import type { MarkdownResult } from "@/registry/ai-tools/tools/markdown/tool"
 import { ToolDemoCard } from "@/components/tool-demo-card"
 import type { ExtendedRegistryItem } from "@/lib/registry-schemas"
 import { loadDemos } from "@/lib/demos"
+import PageWideScrollMask from "@/components/page-wide-adaptive-mask"
 
 const getRegistryItemFromJson = React.cache(
   (name: string): ExtendedRegistryItem | null => {
@@ -66,7 +67,7 @@ export default async function Home() {
           .
         </p>
         {pack && (
-          <div className="flex items-center gap-2 mt-2">
+          <div className="flex flex-wrap items-center gap-2 mt-2">
             <AddCommand name={pack.name} creator={pack.creators?.[0]} />
             <OpenInV0 name={pack.name} />
             <Button
@@ -270,6 +271,7 @@ export default async function Home() {
           ))}
         </div>
       </section>
+      <PageWideScrollMask />
     </main>
   )
 }
