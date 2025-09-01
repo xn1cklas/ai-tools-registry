@@ -116,12 +116,16 @@ Example:
       "githubUrl": "https://github.com/jane-on-gh",
       "xUrl": "https://x.com/jane_on_x",
       "avatarUrl": "https://example.com/jane.png",
-      "role": "author"
-    }
+      "role": "author",
+    },
   ],
   "files": [
-    { "path": "registry/ai-tools/tools/websearch/tool.ts", "type": "registry:file", "target": "~/ai/tools/websearch/tool.ts" }
-  ]
+    {
+      "path": "registry/ai-tools/tools/websearch/tool.ts",
+      "type": "registry:file",
+      "target": "~/ai/tools/websearch/tool.ts",
+    },
+  ],
 }
 ```
 
