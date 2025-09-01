@@ -5,6 +5,7 @@ import registry from "@/registry.json"
 import { Button } from "@/registry/ai-tools/ui/button"
 import type { WebSearchResult } from "@/registry/ai-tools/tools/websearch/tool"
 import type { MarkdownResult } from "@/registry/ai-tools/tools/markdown/tool"
+import type { ChartsResult } from "@/registry/ai-tools/tools/charts/tool"
 import { ToolDemoCard } from "@/components/tool-demo-card"
 import type { ExtendedRegistryItem } from "@/lib/registry-schemas"
 import { loadDemos } from "@/lib/demos"
@@ -26,6 +27,7 @@ const toolNames = [
   "time",
   "websearch",
   "markdown",
+  "charts",
   "polar",
 ]
 
@@ -121,8 +123,6 @@ export default async function Home() {
             />
           )
         })()}
-
-
 
         {/* News */}
         {(() => {
@@ -224,6 +224,24 @@ export default async function Home() {
               renderer={demos.markdown.renderer}
               heading="Markdown"
               subheading="Render markdown in your chat view"
+            />
+          )
+        })()}
+
+        {/* Charts */}
+        {(() => {
+          const item = getRegistryItemFromJson("charts")
+          if (!item) return null
+          return (
+            <ToolDemoCard
+              key={item.name}
+              registryItem={item}
+              json={demos.charts?.json}
+              code={demos.charts?.code}
+              componentCode={demos.charts?.componentCode}
+              renderer={demos.charts?.renderer}
+              heading="Data Charts"
+              subheading="Visualize data with interactive charts"
             />
           )
         })()}

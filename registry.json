@@ -85,6 +85,26 @@
       ]
     },
     {
+      "name": "charts",
+      "type": "registry:component",
+      "title": "Data Charts",
+      "description": "AI SDK tool that renders data as interactive charts using recharts.",
+      "dependencies": ["zod", "ai", "recharts"],
+      "registryDependencies": ["@ai-tools/card", "@ai-tools/chart"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/charts/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/charts/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/charts/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/charts/component.tsx"
+        }
+      ]
+    },
+    {
       "name": "markdown",
       "type": "registry:component",
       "title": "Markdown Renderer",
@@ -279,7 +299,8 @@
         "@ai-tools/time",
         "@ai-tools/websearch",
         "@ai-tools/markdown",
-        "@ai-tools/stats"
+        "@ai-tools/stats",
+        "@ai-tools/charts"
       ],
       "files": [
         {
