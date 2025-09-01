@@ -10,9 +10,11 @@ import {
   CardTitle,
 } from "@/registry/ai-tools/ui/card"
 import { Button } from "@/registry/ai-tools/ui/button"
+import { CheckIcon, DownloadIcon } from "lucide-react"
 
 export function QRCodeDisplay({ data }: { data: QRCodeResult }) {
   const [downloading, setDownloading] = React.useState(false)
+  const [downloaded, setDownloaded] = React.useState(false)
 
   const handleDownload = async () => {
     setDownloading(true)
@@ -28,6 +30,9 @@ export function QRCodeDisplay({ data }: { data: QRCodeResult }) {
       a.click()
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
+      setDownloaded(true)
+      // Brief success state similar to copy buttons
+      setTimeout(() => setDownloaded(false), 1200)
     } catch (error) {
       console.error("Failed to download QR code:", error)
     } finally {
@@ -57,12 +62,18 @@ export function QRCodeDisplay({ data }: { data: QRCodeResult }) {
         <div className="text-sm text-muted-foreground">
           Size: {data.size}px
         </div>
-        <Button
-          onClick={handleDownload}
-          disabled={downloading}
-          className="w-full"
-        >
-          {downloading ? "Downloading..." : "Download PNG"}
+        <Button onClick={handleDownload} disabled={downloading} className="w-full">
+          {downloaded ? (
+            <>
+              <CheckIcon className="mr-1.5" />
+              Saved
+            </>
+          ) : (
+            <>
+              <DownloadIcon className="mr-1.5" />
+              {downloading ? "Downloading..." : "Download PNG"}
+            </>
+          )}
         </Button>
       </CardContent>
     </Card>
