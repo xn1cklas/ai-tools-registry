@@ -14,6 +14,7 @@ import { QRCodeDisplay } from "@/registry/ai-tools/tools/qrcode/component"
 import type { GetWeatherResult } from "@/registry/ai-tools/tools/weather/tool"
 import type { NewsSearchResult } from "@/registry/ai-tools/tools/news/tool"
 import type { WebSearchResult } from "@/registry/ai-tools/tools/websearch/tool"
+import { webSearchTool } from "@/registry/ai-tools/tools/websearch/tool"
 import type { MarkdownResult } from "@/registry/ai-tools/tools/markdown/tool"
 import type { CalculatorResult } from "@/registry/ai-tools/tools/calculator/tool"
 import { calculatorTool } from "@/registry/ai-tools/tools/calculator/tool"
@@ -108,25 +109,15 @@ export async function loadDemos() {
   }
   const timeDemo = timeFallback
 
-  // Websearch
-  const webFallback: WebSearchResult = {
-    query: "chatgpt",
-    results: [
-      {
-        title: "ChatGPT",
-        url: "https://openai.com/index/chatgpt/",
-        snippet: "ChatGPT is an AI model by OpenAI.",
-        source: "openai.com",
-      },
-      {
-        title: "ChatGPT on Wikipedia",
-        url: "https://en.wikipedia.org/wiki/ChatGPT",
-        snippet: "ChatGPT is a chatbot developed by OpenAI...",
-        source: "wikipedia.org",
-      },
-    ],
+  // Websearch — live query (no static fallback)
+  let webDemo: WebSearchResult
+  try {
+    // @ts-expect-error - webSearchTool is not typed
+    webDemo = await webSearchTool.execute({ query: "chatgpt", limit: 5 })
+  } catch {
+    // If the live query fails, return an empty result set to keep UI stable
+    webDemo = { query: "chatgpt", results: [] }
   }
-  const webDemo = webFallback
 
   // Markdown
   const mdFallback: MarkdownResult = {

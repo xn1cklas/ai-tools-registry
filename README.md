@@ -59,6 +59,10 @@ npx shadcn@latest add @ai-tools/tool-pack
 
 Note: The example tools import from `ai` (AI SDK v5) and `zod`. Ensure your app provides these dependencies.
 
+### Web Search provider
+
+The `@ai-tools/websearch` tool uses DuckDuckGo Instant Answer by default (no key required). If you set `BRAVE_SEARCH_API_KEY` in your environment, it will automatically use the Brave Search API instead.
+
 ## Authentication
 
 To see examples of how to use authentication with the registry, see the [API Routes](./app/api/registry/README.md) documentation.
