@@ -11,6 +11,7 @@ import {
 } from "@/registry/ai-tools/ui/hover-card"
 import { CheckIcon, ExternalLink, Github } from "lucide-react"
 import { toast } from "sonner"
+import { cn } from "@/lib/utils"
 
 export function AddCommand({
   name,
@@ -132,16 +133,31 @@ export function AddCommand({
       <Button
         variant="outline"
         size="sm"
-        className="rounded-sm !pl-2"
+        className={cn(
+          "rounded-sm !pl-2",
+          isCopied &&
+            "dark:text-green-500 text-primary !bg-primary/15 border-primary/25 dark:!bg-primary/15 dark:border-primary/25"
+        )}
         onClick={() => {
           copyToClipboard(`npx shadcn@latest add @ai-tools/${name}`)
           toast.success(`npx command copied to clipboard`)
         }}
       >
-        {isCopied ? (
-          <CheckIcon />
-        ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+        <div className="relative size-4">
+          <CheckIcon
+            className={cn(
+              "text-primary transition-transform size-4 dark:text-green-500",
+              !isCopied && "scale-0"
+            )}
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 256 256"
+            className={cn(
+              "absolute inset-0 size-4 transition-transform",
+              isCopied && "scale-0"
+            )}
+          >
             <rect width="256" height="256" fill="none"></rect>
             <line
               x1="208"
@@ -166,7 +182,7 @@ export function AddCommand({
               strokeWidth="32"
             ></line>
           </svg>
-        )}
+        </div>
         {`@ai-tools/${name}`}
       </Button>
     </span>
