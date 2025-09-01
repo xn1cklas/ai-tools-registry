@@ -267,6 +267,26 @@
       ]
     },
     {
+      "name": "qrcode",
+      "type": "registry:component",
+      "title": "QR Code Generator",
+      "description": "AI SDK tool that generates QR codes for text or URLs. Includes a QR code display component.",
+      "dependencies": ["zod", "ai", "qrcode", "@types/qrcode"],
+      "registryDependencies": ["@ai-tools/card", "@ai-tools/button"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/qrcode/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/qrcode/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/qrcode/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/qrcode/component.tsx"
+        }
+      ]
+    },
+    {
       "name": "tool-pack",
       "type": "registry:block",
       "title": "Tool Pack (All)",
@@ -279,7 +299,8 @@
         "@ai-tools/time",
         "@ai-tools/websearch",
         "@ai-tools/markdown",
-        "@ai-tools/stats"
+        "@ai-tools/stats",
+        "@ai-tools/qrcode"
       ],
       "files": [
         {

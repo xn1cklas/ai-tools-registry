@@ -26,6 +26,7 @@ const toolNames = [
   "time",
   "websearch",
   "markdown",
+  "qrcode",
   "polar",
 ]
 
@@ -121,8 +122,6 @@ export default async function Home() {
             />
           )
         })()}
-
-
 
         {/* News */}
         {(() => {
@@ -224,6 +223,24 @@ export default async function Home() {
               renderer={demos.markdown.renderer}
               heading="Markdown"
               subheading="Render markdown in your chat view"
+            />
+          )
+        })()}
+
+        {/* QR Code */}
+        {(() => {
+          const item = getRegistryItemFromJson("qrcode")
+          if (!item) return null
+          return (
+            <ToolDemoCard
+              key={item.name}
+              registryItem={item}
+              json={demos.qrcode?.json}
+              code={demos.qrcode?.code}
+              componentCode={demos.qrcode?.componentCode}
+              renderer={demos.qrcode?.renderer}
+              heading="QR Code Generator"
+              subheading="Generate QR codes for text or URLs"
             />
           )
         })()}
