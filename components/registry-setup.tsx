@@ -4,15 +4,17 @@ import * as React from "react"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ai-tools/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/registry/ai-tools/ui/dialog"
+
 import { CheckIcon, CopyIcon } from "lucide-react"
+import {
+  ResponsiveDialog,
+  ResponsiveDialogContent,
+  ResponsiveDialogDescription,
+  ResponsiveDialogHeader,
+  ResponsiveDialogTitle,
+  ResponsiveDialogTrigger,
+} from "@/registry/ai-tools/ui/revola"
+import { ScrollArea } from "@/registry/ai-tools/ui/scroll-area"
 
 export function RegistrySetup({
   className,
@@ -20,8 +22,8 @@ export function RegistrySetup({
   const { isCopied, copyToClipboard } = useCopyToClipboard()
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <ResponsiveDialog>
+      <ResponsiveDialogTrigger asChild>
         <Button variant="ghost" size="sm" className={cn(className)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,63 +56,77 @@ export function RegistrySetup({
           </svg>
           Registry
         </Button>
-      </DialogTrigger>
-      <DialogContent className="md:max-w-3xl">
-        <DialogHeader>
-          <DialogTitle>Setup Registry</DialogTitle>
-          <DialogDescription>
-            Use the code below to configure the @ai-tools registry for your
-            project.
-            <br />
-            Ensure you&apos;ve set up{" "}
-            <a
-              href="https://ui.shadcn.com/"
-              className="underline"
-              target="_blank"
-              rel="noreferrer"
-            >
-              shadcn
-            </a>{" "}
-            for your project.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="font-medium">
-          Copy and paste the code into{" "}
-          <code className="font-mono text-foreground">components.json</code>
-        </div>
-        <div className="relative">
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute bg-background right-4 z-10 top-4 size-8 rounded-md"
-            onClick={() => copyToClipboard(registrySetupCode)}
-          >
-            {isCopied ? <CheckIcon /> : <CopyIcon />}
-          </Button>
-          <div className="overflow-x-auto bg-muted p-8 rounded-md min-h-[120px]">
-            <pre className="text-sm font-mono">
-              <code>{registrySetupCode}</code>
-            </pre>
+      </ResponsiveDialogTrigger>
+      <ResponsiveDialogContent className="rounded-t-xl sm:rounded-xl flex sm:max-h-[min(640px,80dvh)] overflow-hidden flex-col max-h-[85dvh]">
+        <div className="flex flex-col space-y-4 p-6 pt-0 sm:pt-6 overflow-y-auto">
+          <ResponsiveDialogHeader className="text-left">
+            <ResponsiveDialogTitle>Setup Registry</ResponsiveDialogTitle>
+            <ResponsiveDialogDescription>
+              Use the code below to configure the @ai-tools registry for your
+              project.
+              <br />
+              Ensure you&apos;ve set up{" "}
+              <a
+                href="https://ui.shadcn.com/"
+                className="underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                shadcn
+              </a>{" "}
+              for your project.
+            </ResponsiveDialogDescription>
+          </ResponsiveDialogHeader>
+          <div className="font-medium">
+            Copy and paste the code into{" "}
+            <code className="font-mono text-foreground">components.json</code>
           </div>
+          <div className="relative max-w-full min-w-0 flex flex-col">
+            <Button
+              variant="outline"
+              size="icon"
+              className="absolute bg-background right-4 z-10 top-4 size-8 rounded-md"
+              onClick={() => copyToClipboard(registrySetupCode)}
+            >
+              {isCopied ? <CheckIcon /> : <CopyIcon />}
+            </Button>
+            <ScrollArea
+              // viewportClassName="py-6"
+              maskClassName="before:from-muted after:from-muted dark:before:from-card dark:after:from-card"
+              className="bg-muted dark:bg-card rounded-md max-h-[400px] w-full"
+            >
+              <pre className="py-6 w-full text-[13px] font-geist-mono leading-tight">
+                <code className="!px-6 block w-full ">{registrySetupCode}</code>
+              </pre>
+            </ScrollArea>
+          </div>
+          <div className="font-medium">
+            Then use the following command to add components:
+          </div>
+          <ScrollArea
+            viewportClassName="p-6"
+            maskClassName="before:from-muted after:from-muted dark:before:from-card dark:after:from-card"
+            className="bg-muted dark:bg-card rounded-md min-h-[50px] w-full"
+          >
+            <pre className="text-sm font-mono">
+              <code>npx shadcn@latest add @ai-tools/[component-name]</code>
+            </pre>
+          </ScrollArea>
+          <div className="font-medium">
+            To setup the MCP server, run the following command:
+          </div>
+          <ScrollArea
+            viewportClassName="p-6"
+            maskClassName="before:from-muted after:from-muted dark:before:from-card dark:after:from-card"
+            className="bg-muted rounded-md min-h-[50px] w-full dark:bg-card"
+          >
+            <pre className="text-sm font-mono">
+              <code>npx shadcn@latest mcp init</code>
+            </pre>
+          </ScrollArea>
         </div>
-        <div className="font-medium">
-          Then use the following command to add components:
-        </div>
-        <div className="overflow-x-auto bg-muted p-8 rounded-md min-h-[50px]">
-          <pre className="text-sm font-mono">
-            <code>npx shadcn@latest add @ai-tools/[component-name]</code>
-          </pre>
-        </div>
-        <div className="font-medium">
-          To setup the MCP server, run the following command:
-        </div>
-        <div className="overflow-x-auto bg-muted p-8 rounded-md min-h-[50px]">
-          <pre className="text-sm font-mono">
-            <code>npx shadcn@latest mcp init</code>
-          </pre>
-        </div>
-      </DialogContent>
-    </Dialog>
+      </ResponsiveDialogContent>
+    </ResponsiveDialog>
   )
 }
 
