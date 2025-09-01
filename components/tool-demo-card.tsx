@@ -11,6 +11,7 @@ import { ScrollArea } from "@/registry/ai-tools/ui/scroll-area"
 import { CheckIcon, CopyIcon } from "lucide-react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
+import type { ExtendedRegistryItem } from "@/lib/registry-schemas"
 
 export function ToolDemoCard({
   registryItem,
@@ -21,7 +22,7 @@ export function ToolDemoCard({
   heading,
   subheading,
 }: {
-  registryItem: { name: string }
+  registryItem: ExtendedRegistryItem
   json: unknown
   code: string
   componentCode?: string
@@ -52,7 +53,10 @@ export function ToolDemoCard({
           ) : null}
         </div>
         <div className="flex gap-2">
-          <AddCommand name={registryItem.name} />
+          <AddCommand
+            name={registryItem.name}
+            creator={registryItem.creators?.[0]}
+          />
           <OpenInV0 name={registryItem.name} />
         </div>
       </header>

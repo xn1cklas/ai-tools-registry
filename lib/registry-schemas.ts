@@ -6,6 +6,10 @@ export const creatorSchema = z.object({
   handle: z.string().optional(),
   url: z.string().url().optional(),
   avatarUrl: z.string().url().optional(),
+  githubHandle: z.string().optional(),
+  xHandle: z.string().optional(),
+  githubUrl: z.string().url().optional(),
+  xUrl: z.string().url().optional(),
   role: z.enum(["author", "maintainer"]).optional(),
 })
 

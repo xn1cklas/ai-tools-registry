@@ -13,6 +13,7 @@ const getRegistryItemFromJson = React.cache(
   (name: string): ExtendedRegistryItem | null => {
     // Be permissive here so the homepage renders even if a registry item
     // doesn't strictly match the shadcn schema (useful while iterating).
+    // @ts-expect-error registry.items is not typed
     return registry.items.find((item) => item.name === name) ?? null
   }
 )
@@ -27,7 +28,6 @@ const toolNames = [
   "websearch",
   "markdown",
   "qrcode",
-  "polar",
 ]
 
 export default async function Home() {
@@ -66,8 +66,8 @@ export default async function Home() {
           .
         </p>
         {pack && (
-          <div className="flex items-center gap-2 mt-2 flex-wrap">
-            <AddCommand name={pack.name} />
+          <div className="flex items-center gap-2 mt-2">
+            <AddCommand name={pack.name} creator={pack.creators?.[0]} />
             <OpenInV0 name={pack.name} />
             <Button
               variant="ghost"
@@ -263,7 +263,7 @@ export default async function Home() {
                 {item.description}
               </div>
               <div className="flex gap-2 mt-auto">
-                <AddCommand name={item.name} />
+                <AddCommand name={item.name} creator={item.creators?.[0]} />
                 <OpenInV0 name={item.name} />
               </div>
             </div>
