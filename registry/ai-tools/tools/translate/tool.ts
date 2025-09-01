@@ -5,25 +5,20 @@ export const translateTool = tool({
   description: "Translate a given text into a target language.",
   inputSchema: z.object({
     text: z.string().min(1),
-    targetLanguage: z.string().default("en"),
+    targetLanguage: z.string().default("en").describe("Target language code e.g. es, fr, de"),
+    sourceLanguage: z.string().default("en").describe("Source language code e.g. en, fr, de"),
   }),
-  execute: async ({ text, targetLanguage }) => {
-    // Demo translation - in real implementation, this would call a translation API
-    const translations: Record<string, string> = {
-      es: "¡Hola, mundo!",
-      fr: "Bonjour, le monde !",
-      de: "Hallo, Welt!",
-      it: "Ciao, mondo!",
-      pt: "Olá, mundo!",
-      ja: "こんにちは、世界！",
-      ko: "안녕하세요, 세계!",
-      zh: "你好，世界！",
-      ru: "Привет, мир!",
-      ar: "مرحبا بالعالم!",
-    }
+  execute: async ({ text, targetLanguage, sourceLanguage }) => {
+    // Use MyMemory Translation API (free, no key). Requires explicit langpair.
+    const url = `https://api.mymemory.translated.net/get?${new URLSearchParams({
+      q: text,
+      langpair: `${sourceLanguage}|${targetLanguage}`,
+    }).toString()}`
 
-    const translated =
-      translations[targetLanguage] || `[${targetLanguage}] ${text}`
+    const res = await fetch(url)
+    if (!res.ok) throw new Error(`Translate API failed: ${res.status}`)
+    const data = (await res.json()) as MyMemoryResponse
+    const translated = data?.responseData?.translatedText || text
     return { text, targetLanguage, translated }
   },
 })
@@ -32,6 +27,13 @@ export interface TranslateResult {
   text: string
   targetLanguage: string
   translated: string
+}
+
+// MyMemory response type
+interface MyMemoryResponse {
+  responseData: { translatedText: string; match?: number }
+  responseStatus: number
+  matches?: unknown[]
 }
 
 export default translateTool
