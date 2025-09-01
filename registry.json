@@ -89,6 +89,15 @@
       "description": "AI SDK tool that fetches global earthquake counts from USGS and renders a chart.",
       "dependencies": ["zod", "ai", "recharts"],
       "registryDependencies": ["@ai-tools/card", "@ai-tools/chart"],
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/tools/stats/tool.ts",
