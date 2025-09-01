@@ -43,6 +43,11 @@ export function AddCommand({
     creator?.githubUrl ??
     (creator?.url?.includes("github.com") ? creator.url! : `https://github.com/${githubHandle}`)
   const xUrl = creator?.xUrl ?? `https://x.com/${xHandle}`
+  const defaultAvatar = "https://avatars.githubusercontent.com/u/64584979?v=4"
+  const avatarSrc =
+    (creator?.avatarUrl && creator.avatarUrl.includes("avatars.githubusercontent.com")
+      ? creator.avatarUrl
+      : `https://avatars.githubusercontent.com/${githubHandle}`) || defaultAvatar
 
   return (
     <span className="inline-flex items-center gap-2">
@@ -57,10 +62,7 @@ export function AddCommand({
             className="shrink-0"
           >
             <img
-              src={
-                creator?.avatarUrl ??
-                "https://avatars.githubusercontent.com/u/64584979?v=4"
-              }
+              src={avatarSrc}
               alt={creator?.name ?? fallbackHandle ?? "Creator avatar"}
               className="h-8 w-8 rounded-full border"
               loading="lazy"
@@ -71,10 +73,7 @@ export function AddCommand({
         <HoverCardContent>
           <div className="flex items-center gap-3">
             <img
-              src={
-                creator?.avatarUrl ??
-                "https://avatars.githubusercontent.com/u/64584979?v=4"
-              }
+              src={avatarSrc}
               alt={creator?.name ?? fallbackHandle ?? "Creator avatar"}
               className="h-9 w-9 rounded-full border"
               loading="lazy"
