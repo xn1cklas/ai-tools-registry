@@ -36,6 +36,15 @@
       ]
     },
     {
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "Chart UI primitives (container, tooltip, legend).",
+      "files": [
+        { "path": "registry/ai-tools/ui/chart.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
       "name": "websearch",
       "type": "registry:component",
       "title": "Web Search",
@@ -52,6 +61,26 @@
           "path": "registry/ai-tools/tools/websearch/component.tsx",
           "type": "registry:file",
           "target": "~/ai/tools/websearch/component.tsx"
+        }
+      ]
+    },
+    {
+      "name": "stats",
+      "type": "registry:component",
+      "title": "Public Stats",
+      "description": "AI SDK tool that fetches global earthquake counts from USGS and renders a chart.",
+      "dependencies": ["zod", "ai", "recharts"],
+      "registryDependencies": ["@ai-tools/card", "@ai-tools/chart"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/stats/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/stats/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/stats/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/stats/component.tsx"
         }
       ]
     },
@@ -249,7 +278,8 @@
         "@ai-tools/news",
         "@ai-tools/time",
         "@ai-tools/websearch",
-        "@ai-tools/markdown"
+        "@ai-tools/markdown",
+        "@ai-tools/stats"
       ],
       "files": [
         {

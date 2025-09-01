@@ -18,6 +18,7 @@ const getRegistryItemFromJson = React.cache(
 )
 
 const toolNames = [
+  "stats",
   "weather",
   "news",
   "calculator",
@@ -85,6 +86,24 @@ export default async function Home() {
       </section>
 
       <section className="grid grid-cols-1 gap-6">
+        {/* Public Stats */}
+        {(() => {
+          const item = getRegistryItemFromJson("stats")
+          if (!item || !demos.stats) return null
+          return (
+            <ToolDemoCard
+              key={item.name}
+              registryItem={item}
+              json={demos.stats.json}
+              code={demos.stats.code}
+              componentCode={demos.stats.componentCode}
+              renderer={demos.stats.renderer}
+              heading="Public Stats"
+              subheading="Global M5+ earthquakes — last 30 days"
+            />
+          )
+        })()}
+
         {/* Weather */}
         {(() => {
           const item = getRegistryItemFromJson("weather")
@@ -102,6 +121,8 @@ export default async function Home() {
             />
           )
         })()}
+
+
 
         {/* News */}
         {(() => {

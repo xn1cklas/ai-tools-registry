@@ -7,6 +7,7 @@ import { WeatherCard } from "@/registry/ai-tools/tools/weather/component"
 import { NewsList } from "@/registry/ai-tools/tools/news/component"
 import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
 import { MarkdownViewer } from "@/registry/ai-tools/tools/markdown/component"
+import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
 
 // Tool types + tools where needed
 import type { GetWeatherResult } from "@/registry/ai-tools/tools/weather/tool"
@@ -19,6 +20,7 @@ import type { TranslateResult } from "@/registry/ai-tools/tools/translate/tool"
 import type { TimeNowResult } from "@/registry/ai-tools/tools/time/tool"
 import { getWeatherTool } from "@/registry/ai-tools/tools/weather/tool"
 import { newsSearchTool } from "@/registry/ai-tools/tools/news/tool"
+import type { PublicStatsResult } from "@/registry/ai-tools/tools/stats/tool"
 
 const read = (p: string) => fs.readFile(path.join(process.cwd(), p), "utf8")
 
@@ -129,6 +131,9 @@ export async function loadDemos() {
   }
   const mdDemo = mdFallback
 
+  // Public Stats (USGS) — live client-side fetch in component; no server fetch.
+  const statsDemo: PublicStatsResult | null = null
+
   // Read code for copy blocks
   const [
     codeWeather,
@@ -142,6 +147,8 @@ export async function loadDemos() {
     codeWebCmp,
     codeMd,
     codeMdCmp,
+    codeStats,
+    codeStatsCmp,
   ] = await Promise.all([
     read("registry/ai-tools/tools/weather/tool.ts"),
     read("registry/ai-tools/tools/news/tool.ts"),
@@ -154,6 +161,8 @@ export async function loadDemos() {
     read("registry/ai-tools/tools/websearch/component.tsx"),
     read("registry/ai-tools/tools/markdown/tool.ts"),
     read("registry/ai-tools/tools/markdown/component.tsx"),
+    read("registry/ai-tools/tools/stats/tool.ts"),
+    read("registry/ai-tools/tools/stats/component.tsx"),
   ])
 
   return {
@@ -183,6 +192,12 @@ export async function loadDemos() {
       code: codeMd,
       componentCode: codeMdCmp,
       renderer: <MarkdownViewer data={mdDemo} />,
+    },
+    stats: {
+      json: statsDemo,
+      code: codeStats,
+      componentCode: codeStatsCmp,
+      renderer: <StatsChart />,
     },
   }
 }
