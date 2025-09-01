@@ -8,6 +8,7 @@ import { NewsList } from "@/registry/ai-tools/tools/news/component"
 import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
 import { MarkdownViewer } from "@/registry/ai-tools/tools/markdown/component"
 import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
+import { QRCodeDisplay } from "@/registry/ai-tools/tools/qrcode/component"
 
 // Tool types + tools where needed
 import type { GetWeatherResult } from "@/registry/ai-tools/tools/weather/tool"
@@ -21,6 +22,8 @@ import type { TimeNowResult } from "@/registry/ai-tools/tools/time/tool"
 import { getWeatherTool } from "@/registry/ai-tools/tools/weather/tool"
 import { newsSearchTool } from "@/registry/ai-tools/tools/news/tool"
 import type { PublicStatsResult } from "@/registry/ai-tools/tools/stats/tool"
+import type { QRCodeResult } from "@/registry/ai-tools/tools/qrcode/tool"
+import { qrCodeTool } from "@/registry/ai-tools/tools/qrcode/tool"
 
 const read = (p: string) => fs.readFile(path.join(process.cwd(), p), "utf8")
 
@@ -134,6 +137,22 @@ export async function loadDemos() {
   // Public Stats (USGS) — live client-side fetch in component; no server fetch.
   const statsDemo: PublicStatsResult | null = null
 
+  // QR Code
+  const qrFallback: QRCodeResult = {
+    data: "https://ai-tools-registry.vercel.app",
+    size: 300,
+    output: "data:image/png;base64,iVBORw0KGgoAAAANS...", // truncated for demo
+  }
+  const qrDemo = await safe<QRCodeResult>(
+    // @ts-expect-error - qrCodeTool is not typed
+    () =>
+      qrCodeTool.execute({
+        data: "https://ai-tools-registry.vercel.app",
+        size: 300,
+      }),
+    qrFallback
+  )
+
   // Read code for copy blocks
   const [
     codeWeather,
@@ -149,6 +168,8 @@ export async function loadDemos() {
     codeMdCmp,
     codeStats,
     codeStatsCmp,
+    codeQr,
+    codeQrCmp,
   ] = await Promise.all([
     read("registry/ai-tools/tools/weather/tool.ts"),
     read("registry/ai-tools/tools/news/tool.ts"),
@@ -163,6 +184,8 @@ export async function loadDemos() {
     read("registry/ai-tools/tools/markdown/component.tsx"),
     read("registry/ai-tools/tools/stats/tool.ts"),
     read("registry/ai-tools/tools/stats/component.tsx"),
+    read("registry/ai-tools/tools/qrcode/tool.ts"),
+    read("registry/ai-tools/tools/qrcode/component.tsx"),
   ])
 
   return {
@@ -198,6 +221,12 @@ export async function loadDemos() {
       code: codeStats,
       componentCode: codeStatsCmp,
       renderer: <StatsChart />,
+    },
+    qrcode: {
+      json: qrDemo,
+      code: codeQr,
+      componentCode: codeQrCmp,
+      renderer: <QRCodeDisplay data={qrDemo} />,
     },
   }
 }
