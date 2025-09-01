@@ -91,11 +91,6 @@ export function ToolDemoCard({
                 isToolCopied && "scale-0"
               )}
             />
-            {/* {isToolCopied ? (
-              <CheckIcon className="h-4 w-4" />
-            ) : (
-              <CopyIcon className="h-4 w-4" />
-            )} */}
           </Button>
         </div>
         <CodeBlock code={code} />
@@ -175,11 +170,6 @@ export function ToolDemoCard({
                 isRightCopied && "scale-0"
               )}
             />
-            {/* {isRightCopied ? (
-              <CheckIcon className="h-4 w-4" />
-            ) : (
-              <CopyIcon className="h-4 w-4" />
-            )} */}
           </Button>
         </div>
 
