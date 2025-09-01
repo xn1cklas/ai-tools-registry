@@ -38,9 +38,6 @@ importers:
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      prettier:
-        specifier: ^3.6.2
-        version: 3.6.2
       qrcode:
         specifier: ^1.5.4
         version: 1.5.4
@@ -120,6 +117,9 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^5.2.0
         version: 5.2.0(eslint@9.34.0(jiti@2.5.1))
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
       tailwindcss:
         specifier: ^4.1.12
         version: 4.1.12
