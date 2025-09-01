@@ -8,6 +8,7 @@ import { NewsList } from "@/registry/ai-tools/tools/news/component"
 import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
 import { MarkdownViewer } from "@/registry/ai-tools/tools/markdown/component"
 import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
+import { CurrencyDisplay } from "@/registry/ai-tools/tools/currency/component"
 
 // Tool types + tools where needed
 import type { GetWeatherResult } from "@/registry/ai-tools/tools/weather/tool"
@@ -21,6 +22,8 @@ import type { TimeNowResult } from "@/registry/ai-tools/tools/time/tool"
 import { getWeatherTool } from "@/registry/ai-tools/tools/weather/tool"
 import { newsSearchTool } from "@/registry/ai-tools/tools/news/tool"
 import type { PublicStatsResult } from "@/registry/ai-tools/tools/stats/tool"
+import type { CurrencyResult } from "@/registry/ai-tools/tools/currency/tool"
+import { currencyConverterTool } from "@/registry/ai-tools/tools/currency/tool"
 
 const read = (p: string) => fs.readFile(path.join(process.cwd(), p), "utf8")
 
@@ -134,6 +137,23 @@ export async function loadDemos() {
   // Public Stats (USGS) — live client-side fetch in component; no server fetch.
   const statsDemo: PublicStatsResult | null = null
 
+  // Currency
+  const currencyFallback: CurrencyResult = {
+    amount: 100,
+    from: "USD",
+    to: "EUR",
+    rate: 0.85,
+    converted: 85,
+    date: new Date().toISOString().split("T")[0],
+    lastUpdated: new Date().toISOString().split("T")[0],
+  }
+  const currencyDemo = await safe<CurrencyResult>(
+    // @ts-expect-error - currencyConverterTool is not typed
+    () =>
+      currencyConverterTool.execute({ amount: 100, from: "USD", to: "EUR" }),
+    currencyFallback
+  )
+
   // Read code for copy blocks
   const [
     codeWeather,
@@ -149,6 +169,8 @@ export async function loadDemos() {
     codeMdCmp,
     codeStats,
     codeStatsCmp,
+    codeCurrency,
+    codeCurrencyCmp,
   ] = await Promise.all([
     read("registry/ai-tools/tools/weather/tool.ts"),
     read("registry/ai-tools/tools/news/tool.ts"),
@@ -163,6 +185,8 @@ export async function loadDemos() {
     read("registry/ai-tools/tools/markdown/component.tsx"),
     read("registry/ai-tools/tools/stats/tool.ts"),
     read("registry/ai-tools/tools/stats/component.tsx"),
+    read("registry/ai-tools/tools/currency/tool.ts"),
+    read("registry/ai-tools/tools/currency/component.tsx"),
   ])
 
   return {
@@ -198,6 +222,12 @@ export async function loadDemos() {
       code: codeStats,
       componentCode: codeStatsCmp,
       renderer: <StatsChart />,
+    },
+    currency: {
+      json: currencyDemo,
+      code: codeCurrency,
+      componentCode: codeCurrencyCmp,
+      renderer: <CurrencyDisplay data={currencyDemo} />,
     },
   }
 }
