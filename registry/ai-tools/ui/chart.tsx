@@ -124,13 +124,13 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
             ([theme, prefix]) => `
             ${prefix} [data-chart=${id}] {
             ${colorConfig
-                .map(([key, itemConfig]) => {
-                  const color =
-                    itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
-                    itemConfig.color
-                  return color ? `  --color-${key}: ${color};` : null
-                })
-                .join("\n")}
+              .map(([key, itemConfig]) => {
+                const color =
+                  itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
+                  itemConfig.color
+                return color ? `  --color-${key}: ${color};` : null
+              })
+              .join("\n")}
             }
             `
           )
@@ -170,7 +170,7 @@ function ChartTooltipContent({
     const value = (() => {
       const v =
         !labelKey && typeof label === "string"
-          ? config[label as keyof typeof config]?.label ?? label
+          ? (config[label as keyof typeof config]?.label ?? label)
           : itemConfig?.label
 
       return typeof v === "string" || typeof v === "number" ? v : undefined
@@ -347,8 +347,8 @@ function getPayloadConfigFromPayload(
 
   const payloadPayload =
     "payload" in payload &&
-      typeof payload.payload === "object" &&
-      payload.payload !== null
+    typeof payload.payload === "object" &&
+    payload.payload !== null
       ? payload.payload
       : undefined
 

@@ -147,7 +147,9 @@ export async function loadDemos() {
       size: 300,
     })
   } catch (err) {
-    qrError = { error: err instanceof Error ? err.message : "QR code generation failed" }
+    qrError = {
+      error: err instanceof Error ? err.message : "QR code generation failed",
+    }
   }
 
   // Read code for copy blocks

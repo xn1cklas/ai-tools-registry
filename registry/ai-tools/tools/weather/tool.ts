@@ -45,7 +45,10 @@ export const getWeatherTool = tool({
       condition: mapped.condition,
       high: Math.round(Number(daily.temperature_2m_max?.[0])),
       low: Math.round(Number(daily.temperature_2m_min?.[0])),
-      humidity: Math.max(0, Math.min(1, Number(current.relative_humidity_2m) / 100)),
+      humidity: Math.max(
+        0,
+        Math.min(1, Number(current.relative_humidity_2m) / 100)
+      ),
       windKph: Math.round(Number(current.wind_speed_10m)),
       icon: mapped.icon,
     }
@@ -116,7 +119,11 @@ async function geocodeLocation(location: string): Promise<{
   if (coordMatch) {
     const latitude = parseFloat(coordMatch[1])
     const longitude = parseFloat(coordMatch[2])
-    return { latitude, longitude, name: `${latitude.toFixed(3)}, ${longitude.toFixed(3)}` }
+    return {
+      latitude,
+      longitude,
+      name: `${latitude.toFixed(3)}, ${longitude.toFixed(3)}`,
+    }
   }
 
   const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
@@ -127,7 +134,9 @@ async function geocodeLocation(location: string): Promise<{
   const data = (await res.json()) as GeocodeResponse
   const first = data?.results?.[0]
   if (!first) throw new Error(`Location not found: ${location}`)
-  const nameParts = [first.name, first.admin1, first.country_code].filter(Boolean)
+  const nameParts = [first.name, first.admin1, first.country_code].filter(
+    Boolean
+  )
   return {
     latitude: first.latitude,
     longitude: first.longitude,
@@ -135,9 +144,7 @@ async function geocodeLocation(location: string): Promise<{
   }
 }
 
-function mapWeatherCode(
-  code: number
-): { condition: string; icon?: string } {
+function mapWeatherCode(code: number): { condition: string; icon?: string } {
   switch (code) {
     case 0:
       return { condition: "Clear sky", icon: "weather-sun" }
