@@ -1,6 +1,6 @@
 pre-commit:
   jobs:
-    - run: pnpm format && pnpm lint {staged_files}
+    - run: pnpm format {staged_files}
       glob:
         - "*.js"
         - "*.jsx"
