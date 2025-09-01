@@ -4,11 +4,11 @@
   "type": "registry:component",
   "title": "Time Now",
   "description": "Get the current time for a timezone.",
-  "dependencies": ["zod", "ai"],
+  "dependencies": ["ai", "zod"],
   "files": [
     {
       "path": "registry/ai-tools/tools/time/tool.ts",
-      "content": "import { z } from \"zod\"\nimport type { Tool } from \"ai\"\n\nexport interface TimeNowResult {\n  timeZone: string\n  iso: string\n  formatted: string\n}\n\nexport const timeNowTool: Tool = {\n  name: \"timeNow\",\n  description: \"Get the current time for a given IANA timezone.\",\n  inputSchema: z.object({\n    timeZone: z.string().default(\"UTC\"),\n    locale: z.string().default(\"en-US\"),\n  }),\n  execute: async ({\n    timeZone,\n    locale,\n  }: {\n    timeZone: string\n    locale: string\n  }): Promise<TimeNowResult> => {\n    throw new Error(\n      \"timeNow not implemented. Use Intl.DateTimeFormat or a time API and return { timeZone, iso, formatted }.\"\n    )\n  },\n}\n\nexport default timeNowTool\n",
+      "content": "import { tool } from \"ai\"\nimport { z } from \"zod\"\n\nexport interface TimeNowResult {\n  timeZone: string\n  iso: string\n  formatted: string\n}\n\nexport const timeNowTool = tool({\n  description: \"Get the current time for a given IANA timezone.\",\n  inputSchema: z.object({\n    timeZone: z.string().default(\"UTC\"),\n    locale: z.string().default(\"en-US\"),\n  }),\n  execute: async ({ timeZone, locale }) => {\n    const now = new Date()\n    return {\n      timeZone,\n      iso: now.toISOString(),\n      formatted: now.toLocaleString(locale, { timeZone }),\n    }\n  },\n})\n\nexport default timeNowTool\n",
       "type": "registry:file",
       "target": "~/ai/tools/time/tool.ts"
     }

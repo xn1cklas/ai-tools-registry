@@ -4,12 +4,12 @@
   "type": "registry:component",
   "title": "News Search",
   "description": "Return recent headlines for a topic (mock). Includes a NewsList renderer.",
-  "dependencies": ["zod", "ai"],
+  "dependencies": ["ai", "zod"],
   "registryDependencies": ["@ai-tools/card"],
   "files": [
     {
       "path": "registry/ai-tools/tools/news/tool.ts",
-      "content": "import { z } from \"zod\"\nimport type { Tool } from \"ai\"\n\nexport interface NewsItem {\n  id: string\n  title: string\n  url?: string\n  publishedAt?: string\n}\n\nexport interface NewsSearchResult {\n  topic: string\n  items: NewsItem[]\n}\n\nexport const newsSearchTool: Tool = {\n  name: \"newsSearch\",\n  description: \"Return recent headlines related to a topic.\",\n  inputSchema: z.object({\n    topic: z.string().min(1),\n    limit: z.number().min(1).max(20).default(5),\n  }),\n  execute: async ({\n    topic,\n    limit,\n  }: {\n    topic: string\n    limit: number\n  }): Promise<NewsSearchResult> => {\n    throw new Error(\n      \"newsSearch not implemented. Connect a news provider and return { topic, items: [{ id, title, url?, publishedAt? }] }.\"\n    )\n  },\n}\n\nexport default newsSearchTool\n",
+      "content": "import { tool } from \"ai\"\nimport { z } from \"zod\"\n\n// Tool first\nexport const newsSearchTool = tool({\n  description: \"Return recent headlines related to a topic.\",\n  inputSchema: z.object({\n    topic: z.string().min(1),\n    limit: z.number().min(1).max(20).default(5),\n  }),\n  execute: async ({ topic, limit }) => {\n    // Use Hacker News Algolia Search API (no API key required)\n    const url = `https://hn.algolia.com/api/v1/search?${new URLSearchParams({\n      query: topic,\n      tags: \"story\",\n      hitsPerPage: String(limit),\n    }).toString()}`\n\n    const res = await fetch(url)\n    if (!res.ok) throw new Error(`News API failed: ${res.status}`)\n    const data = (await res.json()) as AlgoliaSearchResponse\n\n    const items: NewsItem[] = (data.hits || []).map((h) => ({\n      id: String(h.objectID),\n      title: h.title || h.story_title || \"(untitled)\",\n      url: h.url || h.story_url || undefined,\n      publishedAt: h.created_at || undefined,\n    }))\n\n    return { topic, items }\n  },\n})\n\nexport default newsSearchTool\n\n// Public result shapes for UI\nexport interface NewsItem {\n  id: string\n  title: string\n  url?: string\n  publishedAt?: string\n}\n\nexport interface NewsSearchResult {\n  topic: string\n  items: NewsItem[]\n}\n\n// Response types from Algolia API\ninterface AlgoliaHit {\n  objectID: string\n  title?: string\n  story_title?: string\n  url?: string\n  story_url?: string\n  created_at?: string\n}\n\ninterface AlgoliaSearchResponse {\n  hits: AlgoliaHit[]\n}\n",
       "type": "registry:file",
       "target": "~/ai/tools/news/tool.ts"
     },

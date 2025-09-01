@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "registry/ai-tools/tools/markdown/tool.ts",
-      "content": "import { z } from \"zod\"\n// eslint-disable-next-line @typescript-eslint/no-unused-vars\nimport type { Tool } from \"ai\"\n\nexport interface MarkdownResult {\n  markdown: string\n}\n\nexport const markdownTool: /* Tool */ any = {\n  name: \"markdown\",\n  description: \"Render Markdown content (recommended in UI).\",\n  inputSchema: z.object({\n    markdown: z.string().min(1),\n  }),\n  execute: async ({\n    markdown,\n  }: {\n    markdown: string\n  }): Promise<MarkdownResult> => {\n    throw new Error(\n      \"markdown not implemented. Use this tool to transport markdown; render with a UI component. Return { markdown }.\"\n    )\n  },\n}\n\nexport default markdownTool\n",
+      "content": "import { tool } from \"ai\"\nimport { z } from \"zod\"\n\nexport interface MarkdownResult {\n  markdown: string\n}\n\nexport const markdownTool = tool({\n  description: \"Render Markdown content (recommended in UI).\",\n  inputSchema: z.object({\n    markdown: z.string().min(1),\n  }),\n  execute: async ({ markdown }) => {\n    return { markdown }\n  },\n})\n\nexport default markdownTool\n",
       "type": "registry:file",
       "target": "~/ai/tools/markdown/tool.ts"
     },

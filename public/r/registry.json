@@ -7,6 +7,15 @@
       "name": "design-system",
       "type": "registry:style",
       "dependencies": ["radix-ui"],
+      "creators": [
+        {
+          "name": "shadcn",
+          "handle": "shadcn",
+          "url": "https://github.com/shadcn",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/126524841?v=4",
+          "role": "author"
+        }
+      ],
       "registryDependencies": [
         "@ai-tools/button",
         "@ai-tools/input",
@@ -36,21 +45,12 @@
       ]
     },
     {
-      "name": "polar",
-      "type": "registry:component",
-      "title": "Polar Checkout",
-      "description": "Embed a Polar Checkout button for a product.",
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "Chart UI primitives (container, tooltip, legend).",
       "files": [
-        {
-          "path": "registry/ai-tools/tools/polar/tool.ts",
-          "type": "registry:file",
-          "target": "~/ai/tools/polar/tool.ts"
-        },
-        {
-          "path": "registry/ai-tools/tools/polar/component.tsx",
-          "type": "registry:file",
-          "target": "~/ai/tools/polar/component.tsx"
-        }
+        { "path": "registry/ai-tools/ui/chart.tsx", "type": "registry:ui" }
       ]
     },
     {
@@ -58,6 +58,15 @@
       "type": "registry:component",
       "title": "Web Search",
       "description": "AI SDK tool that searches the web. Includes a results renderer.",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "dependencies": ["zod", "ai"],
       "registryDependencies": ["@ai-tools/card"],
       "files": [
@@ -74,10 +83,39 @@
       ]
     },
     {
+      "name": "stats",
+      "type": "registry:component",
+      "title": "Public Stats",
+      "description": "AI SDK tool that fetches global earthquake counts from USGS and renders a chart.",
+      "dependencies": ["zod", "ai", "recharts"],
+      "registryDependencies": ["@ai-tools/card", "@ai-tools/chart"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/stats/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/stats/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/stats/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/stats/component.tsx"
+        }
+      ]
+    },
+    {
       "name": "markdown",
       "type": "registry:component",
       "title": "Markdown Renderer",
       "description": "AI SDK tool that transports markdown; render with streamdown.",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "dependencies": ["zod", "ai", "streamdown"],
       "registryDependencies": ["@ai-tools/card"],
       "files": [
@@ -98,6 +136,15 @@
       "type": "registry:ui",
       "title": "Button",
       "description": "A button component.",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/ui/button.tsx",
@@ -110,6 +157,15 @@
       "type": "registry:ui",
       "title": "Calendar",
       "description": "A calendar component.",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "dependencies": ["react-day-picker"],
       "files": [
         {
@@ -123,6 +179,15 @@
       "type": "registry:ui",
       "title": "Card",
       "description": "A card component.",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/ui/card.tsx",
@@ -135,6 +200,15 @@
       "type": "registry:ui",
       "title": "Input",
       "description": "An input component.",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/ui/input.tsx",
@@ -147,6 +221,15 @@
       "type": "registry:ui",
       "title": "Label",
       "description": "A label component.",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/ui/label.tsx",
@@ -159,6 +242,15 @@
       "type": "registry:ui",
       "title": "Popover",
       "description": "A popover component.",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/ui/popover.tsx",
@@ -171,6 +263,15 @@
       "type": "registry:ui",
       "title": "Textarea",
       "description": "A textarea component.",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/ui/textarea.tsx",
@@ -183,6 +284,15 @@
       "type": "registry:component",
       "title": "Get Weather",
       "description": "AI SDK tool that returns mock weather for a location. Includes a WeatherCard renderer.",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "registryDependencies": ["@ai-tools/card"],
       "files": [
         {
@@ -202,6 +312,15 @@
       "type": "registry:component",
       "title": "Calculator",
       "description": "Simple calculator tool for basic arithmetic.",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/tools/calculator/tool.ts",
@@ -215,6 +334,15 @@
       "type": "registry:component",
       "title": "Translate",
       "description": "Translate a string to a target language (mock).",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/tools/translate/tool.ts",
@@ -228,6 +356,15 @@
       "type": "registry:component",
       "title": "News Search",
       "description": "Return recent headlines for a topic (mock). Includes a NewsList renderer.",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "registryDependencies": ["@ai-tools/card"],
       "files": [
         {
@@ -247,6 +384,15 @@
       "type": "registry:component",
       "title": "Time Now",
       "description": "Get the current time for a timezone.",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/tools/time/tool.ts",
@@ -256,10 +402,48 @@
       ]
     },
     {
+      "name": "qrcode",
+      "type": "registry:component",
+      "title": "QR Code Generator",
+      "description": "AI SDK tool that generates QR codes for text or URLs. Includes a QR code display component.",
+      "dependencies": ["zod", "ai", "qrcode", "@types/qrcode"],
+      "creators": [
+        {
+          "name": "tobiasbueschel",
+          "handle": "tobiasbueschel",
+          "url": "https://github.com/tobiasbueschel",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/13087421?v=4ntent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
+      "registryDependencies": ["@ai-tools/card", "@ai-tools/button"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/qrcode/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/qrcode/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/qrcode/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/qrcode/component.tsx"
+        }
+      ]
+    },
+    {
       "name": "tool-pack",
       "type": "registry:block",
       "title": "Tool Pack (All)",
       "description": "Install all sample tools and related renderers.",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "registryDependencies": [
         "@ai-tools/weather",
         "@ai-tools/calculator",
@@ -267,7 +451,9 @@
         "@ai-tools/news",
         "@ai-tools/time",
         "@ai-tools/websearch",
-        "@ai-tools/markdown"
+        "@ai-tools/markdown",
+        "@ai-tools/stats",
+        "@ai-tools/qrcode"
       ],
       "files": [
         {
