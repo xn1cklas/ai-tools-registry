@@ -137,21 +137,18 @@ export async function loadDemos() {
   // Public Stats (USGS) — live client-side fetch in component; no server fetch.
   const statsDemo: PublicStatsResult | null = null
 
-  // QR Code
-  const qrFallback: QRCodeResult = {
-    data: "https://ai-tools-registry.vercel.app",
-    size: 300,
-    output: "data:image/png;base64,iVBORw0KGgoAAAANS...", // truncated for demo
-  }
-  const qrDemo = await safe<QRCodeResult>(
+  // QR Code — no fallback, surface errors
+  let qrDemo: QRCodeResult | null = null
+  let qrError: { error: string } | null = null
+  try {
     // @ts-expect-error - qrCodeTool is not typed
-    () =>
-      qrCodeTool.execute({
-        data: "https://ai-tools-registry.vercel.app",
-        size: 300,
-      }),
-    qrFallback
-  )
+    qrDemo = await qrCodeTool.execute({
+      data: "https://ai-tools-registry.vercel.app",
+      size: 300,
+    })
+  } catch (err) {
+    qrError = { error: err instanceof Error ? err.message : "QR code generation failed" }
+  }
 
   // Read code for copy blocks
   const [
@@ -223,10 +220,10 @@ export async function loadDemos() {
       renderer: <StatsChart />,
     },
     qrcode: {
-      json: qrDemo,
+      json: qrDemo ?? qrError,
       code: codeQr,
       componentCode: codeQrCmp,
-      renderer: <QRCodeDisplay data={qrDemo} />,
+      renderer: qrDemo ? <QRCodeDisplay data={qrDemo} /> : undefined,
     },
   }
 }
