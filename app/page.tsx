@@ -65,7 +65,7 @@ export default async function Home() {
           .
         </p>
         {pack && (
-          <div className="flex items-center gap-2 mt-2">
+          <div className="flex items-center gap-2 mt-2 flex-wrap">
             <AddCommand name={pack.name} />
             <OpenInV0 name={pack.name} />
             <Button
