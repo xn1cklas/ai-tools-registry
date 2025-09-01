@@ -12,6 +12,7 @@ export const webSearchTool = tool({
   }),
   execute: async ({ query, limit, lang, country }) => {
     // Prefer Brave Search API if a token is provided, else fall back to DuckDuckGo IA API
+    // You can get up to 2k queries per month for free - https://brave.com/search/api/
     const braveToken = process.env.BRAVE_SEARCH_API_KEY
 
     if (braveToken) {
