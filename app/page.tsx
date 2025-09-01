@@ -8,6 +8,7 @@ import type { MarkdownResult } from "@/registry/ai-tools/tools/markdown/tool"
 import { ToolDemoCard } from "@/components/tool-demo-card"
 import type { ExtendedRegistryItem } from "@/lib/registry-schemas"
 import { loadDemos } from "@/lib/demos"
+import PageWideScrollMask from "@/components/page-wide-adaptive-mask"
 
 const getRegistryItemFromJson = React.cache(
   (name: string): ExtendedRegistryItem | null => {
@@ -270,6 +271,7 @@ export default async function Home() {
           ))}
         </div>
       </section>
+      <PageWideScrollMask />
     </main>
   )
 }
