@@ -56,7 +56,7 @@ export function AddCommand({
   return (
     <span className="inline-flex items-center gap-2">
       <HoverCard>
-        <HoverCardTrigger asChild>
+        <HoverCardTrigger asChild className="hidden md:flex">
           <a
             href={creator?.url ?? githubUrl}
             target="_blank"

@@ -52,7 +52,7 @@ export function ToolDemoCard({
             </div>
           ) : null}
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap justify-end">
           <AddCommand
             name={registryItem.name}
             creator={registryItem.creators?.[0]}
