@@ -8,6 +8,7 @@ import { NewsList } from "@/registry/ai-tools/tools/news/component"
 import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
 import { MarkdownViewer } from "@/registry/ai-tools/tools/markdown/component"
 import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
+import { DataChart } from "@/registry/ai-tools/tools/charts/component"
 
 // Tool types + tools where needed
 import type { GetWeatherResult } from "@/registry/ai-tools/tools/weather/tool"
@@ -21,6 +22,8 @@ import type { TimeNowResult } from "@/registry/ai-tools/tools/time/tool"
 import { getWeatherTool } from "@/registry/ai-tools/tools/weather/tool"
 import { newsSearchTool } from "@/registry/ai-tools/tools/news/tool"
 import type { PublicStatsResult } from "@/registry/ai-tools/tools/stats/tool"
+import type { ChartsResult } from "@/registry/ai-tools/tools/charts/tool"
+import { chartsTool } from "@/registry/ai-tools/tools/charts/tool"
 
 const read = (p: string) => fs.readFile(path.join(process.cwd(), p), "utf8")
 
@@ -134,6 +137,28 @@ export async function loadDemos() {
   // Public Stats (USGS) — live client-side fetch in component; no server fetch.
   const statsDemo: PublicStatsResult | null = null
 
+  // Charts
+  const chartsFallback: ChartsResult = {
+    title: "Monthly Sales Data",
+    data: [
+      { month: "Jan", sales: 4000, revenue: 2400, profit: 2400 },
+      { month: "Feb", sales: 3000, revenue: 1398, profit: 2210 },
+      { month: "Mar", sales: 2000, revenue: 9800, profit: 2290 },
+      { month: "Apr", sales: 2780, revenue: 3908, profit: 2000 },
+      { month: "May", sales: 1890, revenue: 4800, profit: 2181 },
+      { month: "Jun", sales: 2390, revenue: 3800, profit: 2500 },
+    ],
+    chartType: "line",
+    xKey: "month",
+    yKeys: ["sales", "revenue", "profit"],
+    colors: ["#8884d8", "#82ca9d", "#ffc658"],
+  }
+  const chartsDemo = await safe<ChartsResult>(
+    // @ts-expect-error - chartsTool is not typed
+    () => chartsTool.execute(chartsFallback),
+    chartsFallback
+  )
+
   // Read code for copy blocks
   const [
     codeWeather,
@@ -149,6 +174,8 @@ export async function loadDemos() {
     codeMdCmp,
     codeStats,
     codeStatsCmp,
+    codeCharts,
+    codeChartsCmp,
   ] = await Promise.all([
     read("registry/ai-tools/tools/weather/tool.ts"),
     read("registry/ai-tools/tools/news/tool.ts"),
@@ -163,6 +190,8 @@ export async function loadDemos() {
     read("registry/ai-tools/tools/markdown/component.tsx"),
     read("registry/ai-tools/tools/stats/tool.ts"),
     read("registry/ai-tools/tools/stats/component.tsx"),
+    read("registry/ai-tools/tools/charts/tool.ts"),
+    read("registry/ai-tools/tools/charts/component.tsx"),
   ])
 
   return {
@@ -198,6 +227,12 @@ export async function loadDemos() {
       code: codeStats,
       componentCode: codeStatsCmp,
       renderer: <StatsChart />,
+    },
+    charts: {
+      json: chartsDemo,
+      code: codeCharts,
+      componentCode: codeChartsCmp,
+      renderer: <DataChart data={chartsDemo} />,
     },
   }
 }
