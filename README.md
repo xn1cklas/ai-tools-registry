@@ -43,6 +43,7 @@ Example tools you can install:
 - `@ai-tools/translate` – sample translate tool
 - `@ai-tools/news` – sample news search tool + `NewsList` renderer
 - `@ai-tools/time` – current time for a timezone
+- `@ai-tools/stats` – display data using `recharts`
 
 Install a tool (example):
 
