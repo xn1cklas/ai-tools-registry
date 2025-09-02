@@ -3,6 +3,7 @@
   "name": "weather",
   "type": "registry:component",
   "title": "Get Weather",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "AI SDK tool that returns mock weather for a location. Includes a WeatherCard renderer.",
   "dependencies": ["ai", "zod"],
   "registryDependencies": ["@ai-tools/card"],

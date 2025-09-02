@@ -3,6 +3,7 @@
   "name": "input",
   "type": "registry:ui",
   "title": "Input",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "An input component.",
   "dependencies": [],
   "files": [

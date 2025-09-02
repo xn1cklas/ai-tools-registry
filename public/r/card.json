@@ -3,6 +3,7 @@
   "name": "card",
   "type": "registry:ui",
   "title": "Card",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "A card component.",
   "dependencies": [],
   "files": [

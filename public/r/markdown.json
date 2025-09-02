@@ -3,6 +3,7 @@
   "name": "markdown",
   "type": "registry:component",
   "title": "Markdown Renderer",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "AI SDK tool that transports markdown; render with streamdown.",
   "dependencies": ["zod", "ai", "streamdown", "react-markdown", "remark-gfm"],
   "registryDependencies": ["@ai-tools/card"],

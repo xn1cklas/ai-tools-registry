@@ -3,6 +3,7 @@
   "name": "news",
   "type": "registry:component",
   "title": "News Search",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "Return recent headlines for a topic (mock). Includes a NewsList renderer.",
   "dependencies": ["ai", "zod"],
   "registryDependencies": ["@ai-tools/card"],

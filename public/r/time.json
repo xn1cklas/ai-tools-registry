@@ -3,6 +3,7 @@
   "name": "time",
   "type": "registry:component",
   "title": "Time Now",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "Get the current time for a timezone.",
   "dependencies": ["ai", "zod"],
   "files": [

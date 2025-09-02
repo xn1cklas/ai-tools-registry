@@ -3,6 +3,7 @@
   "name": "qrcode",
   "type": "registry:component",
   "title": "QR Code Generator",
+  "author": "Tobias Bueschel <https://github.com/tobiasbueschel>",
   "description": "AI SDK tool that generates QR codes for text or URLs. Includes a QR code display component.",
   "dependencies": [
     "zod",

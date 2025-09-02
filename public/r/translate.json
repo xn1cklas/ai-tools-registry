@@ -3,6 +3,7 @@
   "name": "translate",
   "type": "registry:component",
   "title": "Translate",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "Translate a string to a target language (mock).",
   "dependencies": ["ai", "zod"],
   "files": [

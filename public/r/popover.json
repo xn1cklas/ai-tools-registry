@@ -3,6 +3,7 @@
   "name": "popover",
   "type": "registry:ui",
   "title": "Popover",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "A popover component.",
   "dependencies": ["radix-ui"],
   "files": [

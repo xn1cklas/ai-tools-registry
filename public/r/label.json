@@ -3,6 +3,7 @@
   "name": "label",
   "type": "registry:ui",
   "title": "Label",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "A label component.",
   "dependencies": ["radix-ui"],
   "files": [

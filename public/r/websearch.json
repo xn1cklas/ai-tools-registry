@@ -3,6 +3,7 @@
   "name": "websearch",
   "type": "registry:component",
   "title": "Web Search",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "AI SDK tool that searches the web. Includes a results renderer.",
   "dependencies": ["zod", "ai"],
   "registryDependencies": ["@ai-tools/card"],

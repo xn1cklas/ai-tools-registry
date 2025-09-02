@@ -3,6 +3,7 @@
   "name": "button",
   "type": "registry:ui",
   "title": "Button",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "A button component.",
   "dependencies": ["radix-ui", "class-variance-authority"],
   "files": [

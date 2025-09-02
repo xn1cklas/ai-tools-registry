@@ -3,6 +3,7 @@
   "name": "calendar",
   "type": "registry:ui",
   "title": "Calendar",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "A calendar component.",
   "dependencies": [
     "react-day-picker",

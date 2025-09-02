@@ -3,6 +3,7 @@
   "name": "stats",
   "type": "registry:component",
   "title": "Public Stats",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "AI SDK tool that fetches global earthquake counts from USGS and renders a chart.",
   "dependencies": ["zod", "ai", "recharts"],
   "registryDependencies": ["@ai-tools/card", "@ai-tools/chart"],

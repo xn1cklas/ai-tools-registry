@@ -3,6 +3,7 @@
   "name": "tool-pack",
   "type": "registry:block",
   "title": "Tool Pack (All)",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "Install all sample tools and related renderers.",
   "dependencies": [],
   "registryDependencies": [

@@ -2,6 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "design-system",
   "type": "registry:style",
+  "author": "shadcn",
   "dependencies": ["radix-ui"],
   "registryDependencies": [
     "@ai-tools/button",

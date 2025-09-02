@@ -7,6 +7,7 @@
       "name": "design-system",
       "type": "registry:style",
       "dependencies": ["radix-ui"],
+      "author": "shadcn",
       "creators": [
         {
           "name": "shadcn",
@@ -58,6 +59,7 @@
       "type": "registry:component",
       "title": "Web Search",
       "description": "AI SDK tool that searches the web. Includes a results renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -89,6 +91,7 @@
       "description": "AI SDK tool that fetches global earthquake counts from USGS and renders a chart.",
       "dependencies": ["zod", "ai", "recharts"],
       "registryDependencies": ["@ai-tools/card", "@ai-tools/chart"],
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -116,6 +119,7 @@
       "type": "registry:component",
       "title": "Markdown Renderer",
       "description": "AI SDK tool that transports markdown; render with streamdown.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -145,6 +149,7 @@
       "type": "registry:ui",
       "title": "Button",
       "description": "A button component.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -166,6 +171,7 @@
       "type": "registry:ui",
       "title": "Calendar",
       "description": "A calendar component.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -188,6 +194,7 @@
       "type": "registry:ui",
       "title": "Card",
       "description": "A card component.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -209,6 +216,7 @@
       "type": "registry:ui",
       "title": "Input",
       "description": "An input component.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -230,6 +238,7 @@
       "type": "registry:ui",
       "title": "Label",
       "description": "A label component.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -251,6 +260,7 @@
       "type": "registry:ui",
       "title": "Popover",
       "description": "A popover component.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -272,6 +282,7 @@
       "type": "registry:ui",
       "title": "Textarea",
       "description": "A textarea component.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -293,6 +304,7 @@
       "type": "registry:component",
       "title": "Get Weather",
       "description": "AI SDK tool that returns mock weather for a location. Includes a WeatherCard renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -321,6 +333,7 @@
       "type": "registry:component",
       "title": "Calculator",
       "description": "Simple calculator tool for basic arithmetic.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -343,6 +356,7 @@
       "type": "registry:component",
       "title": "Translate",
       "description": "Translate a string to a target language (mock).",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -365,6 +379,7 @@
       "type": "registry:component",
       "title": "News Search",
       "description": "Return recent headlines for a topic (mock). Includes a NewsList renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -393,6 +408,7 @@
       "type": "registry:component",
       "title": "Time Now",
       "description": "Get the current time for a timezone.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",
@@ -416,6 +432,7 @@
       "title": "QR Code Generator",
       "description": "AI SDK tool that generates QR codes for text or URLs. Includes a QR code display component.",
       "dependencies": ["zod", "ai", "qrcode", "@types/qrcode"],
+      "author": "Tobias Bueschel <https://github.com/tobiasbueschel>",
       "creators": [
         {
           "name": "tobiasbueschel",
@@ -444,6 +461,7 @@
       "type": "registry:block",
       "title": "Tool Pack (All)",
       "description": "Install all sample tools and related renderers.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
         {
           "name": "xn1cklas",

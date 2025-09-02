@@ -3,6 +3,7 @@
   "name": "calculator",
   "type": "registry:component",
   "title": "Calculator",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "Simple calculator tool for basic arithmetic.",
   "dependencies": ["ai", "zod"],
   "files": [
