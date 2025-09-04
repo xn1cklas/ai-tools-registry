@@ -61,7 +61,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${fontSans.variable} font-sans antialiased min-h-screen flex flex-col`}>
+      <body
+        className={`${fontSans.variable} font-sans antialiased min-h-screen flex flex-col`}
+      >
         <Providers>
           <header>
             <div className="max-w-7xl mx-auto flex items-center px-4 py-6">

@@ -9,20 +9,27 @@ import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
 
 export async function loadClientDemos() {
   return {
-    weather: { renderer: <WeatherCard data={{
-      location: "",
-      unit: "C",
-      temperature: 0,
-      condition: "",
-      high: 0,
-      low: 0,
-      humidity: 0,
-      windKph: 0,
-    }} /> },
+    weather: {
+      renderer: (
+        <WeatherCard
+          data={{
+            location: "",
+            unit: "C",
+            temperature: 0,
+            condition: "",
+            high: 0,
+            low: 0,
+            humidity: 0,
+            windKph: 0,
+          }}
+        />
+      ),
+    },
     news: { renderer: <NewsList data={{ topic: "", items: [] }} /> },
-    websearch: { renderer: <WebSearchList data={{ query: "", results: [] }} /> },
+    websearch: {
+      renderer: <WebSearchList data={{ query: "", results: [] }} />,
+    },
     markdown: { renderer: <MarkdownViewer data={{ markdown: "" }} /> },
     stats: { renderer: <StatsChart /> },
   }
 }
-
