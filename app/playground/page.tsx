@@ -8,8 +8,13 @@ import { MarkdownViewer } from "@/registry/ai-tools/tools/markdown/component"
 import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
 import { Button } from "@/registry/ai-tools/ui/button"
 import { Input } from "@/registry/ai-tools/ui/input"
-import { Card, CardContent, CardHeader, CardTitle } from "@/registry/ai-tools/ui/card"
-import { ScrollArea } from "@/registry/ai-tools/ui/scroll-area"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/registry/ai-tools/ui/card"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 type Message =
   | { role: "user"; content: string }
@@ -20,7 +25,9 @@ export default function PlaygroundPage() {
   const [messages, setMessages] = React.useState<Message[]>([])
   const [input, setInput] = React.useState("")
   const [tool, setTool] = React.useState<string>("weather")
-  const [renderers, setRenderers] = React.useState<Record<string, React.ReactNode>>({})
+  const [renderers, setRenderers] = React.useState<
+    Record<string, React.ReactNode>
+  >({})
   const [toolLoading, setToolLoading] = React.useState(false)
 
   React.useEffect(() => {
@@ -39,7 +46,20 @@ export default function PlaygroundPage() {
       .catch(() => {
         // If API fails, provide minimal renderers
         setRenderers({
-          weather: <WeatherCard data={{ location: "", unit: "C", temperature: 0, condition: "", high: 0, low: 0, humidity: 0, windKph: 0 }} />,
+          weather: (
+            <WeatherCard
+              data={{
+                location: "",
+                unit: "C",
+                temperature: 0,
+                condition: "",
+                high: 0,
+                low: 0,
+                humidity: 0,
+                windKph: 0,
+              }}
+            />
+          ),
           news: <NewsList data={{ topic: "", items: [] }} />,
           websearch: <WebSearchList data={{ query: "", results: [] }} />,
           markdown: <MarkdownViewer data={{ markdown: "" }} />,
@@ -88,7 +108,11 @@ export default function PlaygroundPage() {
           <CardTitle>Chat</CardTitle>
         </CardHeader>
         <CardContent className="flex-1 min-h-0 flex flex-col">
-          <ScrollArea ref={areaRef} className="flex-1 min-h-0 pr-2 mb-3" data-slot="scroll-area">
+          <ScrollArea
+            ref={areaRef}
+            className="flex-1 min-h-0 pr-2 mb-3"
+            data-slot="scroll-area"
+          >
             <div className="flex flex-col gap-3">
               {messages.map((m, i) => (
                 <div key={i} className="flex">
@@ -104,7 +128,9 @@ export default function PlaygroundPage() {
                   )}
                   {m.role === "tool" && (
                     <div className="mr-auto rounded-lg border bg-card px-3 py-2 w-full max-w-xl">
-                      <div className="text-xs text-muted-foreground mb-2">Tool: {m.name}</div>
+                      <div className="text-xs text-muted-foreground mb-2">
+                        Tool: {m.name}
+                      </div>
                       <div>{m.renderer}</div>
                     </div>
                   )}
@@ -151,9 +177,14 @@ export default function PlaygroundPage() {
               <option value="markdown">Markdown</option>
               <option value="stats">Public Stats</option>
             </select>
-            <Button variant="outline" onClick={insertTool} disabled={toolLoading}>
+            <Button
+              variant="outline"
+              onClick={insertTool}
+              disabled={toolLoading}
+            >
               {toolLoading ? (
-                <span className="inline-flex items-center">Inserting
+                <span className="inline-flex items-center">
+                  Inserting
                   <span className="ml-2 inline-block h-3 w-3 rounded-full border-2 border-current border-t-transparent animate-spin" />
                 </span>
               ) : (
