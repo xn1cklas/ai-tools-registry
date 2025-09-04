@@ -25,6 +25,8 @@ import { newsSearchTool } from "@/registry/ai-tools/tools/news/tool"
 import type { PublicStatsResult } from "@/registry/ai-tools/tools/stats/tool"
 import type { QRCodeResult } from "@/registry/ai-tools/tools/qrcode/tool"
 import { qrCodeTool } from "@/registry/ai-tools/tools/qrcode/tool"
+import { ToolUIPart } from "ai"
+import { DynamicToolComponent } from "@/registry/ai-tools/tools/fallback/component"
 
 const read = (p: string) => fs.readFile(path.join(process.cwd(), p), "utf8")
 
@@ -178,6 +180,14 @@ export async function loadDemos() {
     read("registry/ai-tools/tools/qrcode/component.tsx"),
   ])
 
+  const part: ToolUIPart = {
+    type: "tool-translate",
+    toolCallId: "tc_demo_1",
+    state: "output-available",
+    input: { text: "Hello", targetLanguage: "es" },
+    output: { translated: "¡Hola!" },
+  }
+
   return {
     weather: {
       json: weatherDemo,
@@ -192,7 +202,11 @@ export async function loadDemos() {
       renderer: <NewsList data={newsDemo} />,
     },
     calculator: { json: calcDemo, code: codeCalc },
-    translate: { json: translateDemo, code: codeTranslate },
+    translate: {
+      json: translateDemo,
+      code: codeTranslate,
+      renderer: <DynamicToolComponent part={part} />,
+    },
     time: { json: timeDemo, code: codeTime },
     websearch: {
       json: webDemo,

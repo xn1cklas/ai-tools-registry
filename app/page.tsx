@@ -170,6 +170,7 @@ export default async function Home() {
               code={demos.translate.code}
               heading="Translate"
               subheading="Translate text (mock)"
+              renderer={demos.translate.renderer}
             />
           )
         })()}
