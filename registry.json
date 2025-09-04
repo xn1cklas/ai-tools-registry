@@ -130,7 +130,10 @@
         }
       ],
       "dependencies": ["zod", "ai", "streamdown"],
-      "registryDependencies": ["@ai-tools/card"],
+      "registryDependencies": [
+        "@ai-tools/card",
+        "https://registry.ai-sdk.dev/response.json"
+      ],
       "files": [
         {
           "path": "registry/ai-tools/tools/markdown/tool.ts",
@@ -348,7 +351,16 @@
           "path": "registry/ai-tools/tools/calculator/tool.ts",
           "type": "registry:file",
           "target": "~/ai/tools/calculator/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/fallback/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/fallback/component.tsx"
         }
+      ],
+      "registryDependencies": [
+        "https://registry.ai-sdk.dev/tool.json",
+        "https://registry.ai-sdk.dev/response.json"
       ]
     },
     {
@@ -371,7 +383,16 @@
           "path": "registry/ai-tools/tools/translate/tool.ts",
           "type": "registry:file",
           "target": "~/ai/tools/translate/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/fallback/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/fallback/component.tsx"
         }
+      ],
+      "registryDependencies": [
+        "https://registry.ai-sdk.dev/tool.json",
+        "https://registry.ai-sdk.dev/response.json"
       ]
     },
     {
@@ -423,7 +444,16 @@
           "path": "registry/ai-tools/tools/time/tool.ts",
           "type": "registry:file",
           "target": "~/ai/tools/time/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/fallback/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/fallback/component.tsx"
         }
+      ],
+      "registryDependencies": [
+        "https://registry.ai-sdk.dev/tool.json",
+        "https://registry.ai-sdk.dev/response.json"
       ]
     },
     {
