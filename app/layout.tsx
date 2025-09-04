@@ -16,11 +16,6 @@ const fontSans = DM_Sans({
   subsets: ["latin"],
 })
 
-const GeistSans = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-})
-
 const title = "AI Tools Registry"
 const description =
   "A registry distributing AI Tools and components using shadcn."
