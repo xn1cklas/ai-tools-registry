@@ -12,7 +12,7 @@ export async function GET() {
       // stats demo is client-fetched in component; expose null to keep shape consistent
       stats: { json: demos.stats?.json ?? null },
     })
-  } catch (err) {
+  } catch (_) {
     return NextResponse.json({ error: "failed" }, { status: 500 })
   }
 }
