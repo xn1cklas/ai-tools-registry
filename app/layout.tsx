@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { DM_Sans, Geist_Mono } from "next/font/google"
+import { DM_Sans } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 import { Providers } from "@/components/providers"
