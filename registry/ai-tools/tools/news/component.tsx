@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import type { NewsSearchResult } from "./tool"
+import type { NewsItem, NewsSearchResult } from "./tool"
 import {
   Card,
   CardContent,
@@ -13,17 +13,16 @@ import { ToolUIPart } from "ai"
 
 export function NewsList(part: ToolUIPart) {
   if (part.type === "tool-news") {
-    // I'm trying to find a way to make this type-safe just from the part.type guard
-    const data = part.output as NewsSearchResult
+    const { topic, items } = part.output as NewsSearchResult
     return (
       <Card className="w-full max-w-lg">
         <CardHeader>
           <CardTitle>News</CardTitle>
-          <CardDescription>Topic: {data.topic}</CardDescription>
+          <CardDescription>Topic: {topic}</CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-2">
-            {data.items.map((item) => (
+            {items.map((item: NewsItem) => (
               <li key={item.id} className="rounded-md bg-muted px-3 py-2">
                 {item.url ? (
                   <a

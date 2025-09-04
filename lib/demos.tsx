@@ -3,7 +3,6 @@ import { promises as fs } from "fs"
 import path from "path"
 
 // Renderers
-import { WeatherCard } from "@/registry/ai-tools/tools/weather/component"
 import { NewsList } from "@/registry/ai-tools/tools/news/component"
 import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
 import { MarkdownViewer } from "@/registry/ai-tools/tools/markdown/component"
@@ -279,7 +278,7 @@ export async function loadDemos() {
       json: weatherDemo,
       code: codeWeather,
       componentCode: codeWeatherCmp,
-      renderer: <WeatherCard {...weatherPart} />,
+      renderer: <DynamicToolComponent part={weatherPart} />,
     },
     news: {
       name: "news",

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import type { PublicStatsResult } from "./tool"
+import type { PublicStatsResult, StatsSeriesPoint } from "./tool"
 import { ToolUIPart } from "ai"
 import {
   Card,
@@ -85,7 +85,10 @@ export function StatsChart(part: ToolUIPart) {
 
   const source = data ?? live
   const chartData =
-    source?.series.map((d) => ({ date: d.date, count: d.count })) ?? []
+    source?.series.map((d: StatsSeriesPoint) => ({
+      date: d.date,
+      count: d.count,
+    })) ?? []
 
   return (
     <Card className="w-full max-w-3xl">

@@ -63,7 +63,7 @@ export const webSearchTool = tool({
 
         const results: WebSearchItem[] = items
           .slice(0, limit)
-          .map((r) => {
+          .map((r: BraveWebResult) => {
             const title = r.title || r.url || "Untitled"
             const url = r.url || ""
             let source: string | undefined
@@ -81,7 +81,7 @@ export const webSearchTool = tool({
               source: source || "Brave",
             }
           })
-          .filter((r) => !!r.url)
+          .filter((r: WebSearchItem) => !!r.url)
 
         if (results.length > 0) {
           return { query, results }

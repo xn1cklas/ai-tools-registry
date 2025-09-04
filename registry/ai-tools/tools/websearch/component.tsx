@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import type { WebSearchResult } from "./tool"
+import type { WebSearchItem, WebSearchResult } from "./tool"
 import { ToolUIPart } from "ai"
 import {
   Card,
@@ -13,16 +13,16 @@ import {
 
 export function WebSearchList(part: ToolUIPart) {
   if (part.type !== "tool-websearch") return <div>Invalid tool type</div>
-  const data = part.output as WebSearchResult
+  const { query, results } = part.output as WebSearchResult
   return (
     <Card className="w-full max-w-xl">
       <CardHeader>
         <CardTitle>Web Search</CardTitle>
-        <CardDescription>Query: {data.query}</CardDescription>
+        <CardDescription>Query: {query}</CardDescription>
       </CardHeader>
       <CardContent>
         <ul className="space-y-3">
-          {data.results.map((r) => (
+          {results.map((r: WebSearchItem) => (
             <li key={r.url} className="rounded-md bg-muted p-3">
               <a
                 href={r.url}
