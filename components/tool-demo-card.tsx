@@ -175,7 +175,7 @@ export function ToolDemoCard({
 
         {/* Content */}
         {view === "component" && hasRenderer ? (
-          <div className="min-h-[200px] flex items-center justify-center">
+          <div className="min-h-[200px] flex items-start justify-center">
             {renderer}
           </div>
         ) : view === "output" ? (
