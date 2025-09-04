@@ -26,7 +26,7 @@ export function DynamicToolComponent({
         // We are having some bundling issues with the Streamdown package, once that is resolved we convert the response to AI Elements Responses
         // <Response>
         // {"```json\n" +
-        <div>JSON.stringify(o ?? {}, null, 2)</div>
+        <div>{JSON.stringify(o ?? {}, null, 2)}</div>
         // + "\n```}"
         // </Response>
       )

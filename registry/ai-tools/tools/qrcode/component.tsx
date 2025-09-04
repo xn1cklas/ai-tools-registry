@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import type { QRCodeResult } from "./tool"
+import { ToolUIPart } from "ai"
 import {
   Card,
   CardContent,
@@ -12,7 +13,9 @@ import {
 import { Button } from "@/registry/ai-tools/ui/button"
 import { CheckIcon, DownloadIcon } from "lucide-react"
 
-export function QRCodeDisplay({ data }: { data: QRCodeResult }) {
+export function QRCodeDisplay(part: ToolUIPart) {
+  if (part.type !== "tool-qrcode") return <div>Invalid tool type</div>
+  const data = part.output as QRCodeResult
   const [downloading, setDownloading] = React.useState(false)
   const [downloaded, setDownloaded] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)

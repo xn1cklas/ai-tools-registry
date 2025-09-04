@@ -2,7 +2,24 @@ import { tool } from "ai"
 import { z } from "zod"
 
 // Tool first
+export const WebSearchItemSchema = z.object({
+  title: z.string(),
+  url: z.string().url(),
+  snippet: z.string().optional(),
+  source: z.string().optional(),
+})
+
+export const WebSearchSchema = z.object({
+  query: z.string(),
+  results: z.array(WebSearchItemSchema),
+})
+
+export type WebSearchItem = z.infer<typeof WebSearchItemSchema>
+export type WebSearchResult = z.infer<typeof WebSearchSchema>
+
+// Tool first
 export const webSearchTool = tool({
+  name: "websearch",
   description: "Search the web and return relevant results.",
   inputSchema: z.object({
     query: z.string().min(1),
@@ -10,6 +27,7 @@ export const webSearchTool = tool({
     lang: z.string().optional(),
     country: z.string().optional(),
   }),
+  outputSchema: WebSearchSchema,
   execute: async ({ query, limit, lang, country }) => {
     // Prefer Brave Search API if a token is provided, else fall back to DuckDuckGo IA API
     // You can get up to 2k queries per month for free - https://brave.com/search/api/
@@ -128,19 +146,6 @@ export const webSearchTool = tool({
 })
 
 export default webSearchTool
-
-// Public result shapes for UI
-export interface WebSearchItem {
-  title: string
-  url: string
-  snippet?: string
-  source?: string
-}
-
-export interface WebSearchResult {
-  query: string
-  results: WebSearchItem[]
-}
 
 // DuckDuckGo Instant Answer types
 // DuckDuckGo Instant Answer types (runtime-validated)

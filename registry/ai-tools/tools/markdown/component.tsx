@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import type { MarkdownResult } from "./tool"
+import { ToolUIPart } from "ai"
 import {
   Card,
   CardContent,
@@ -12,7 +13,9 @@ import {
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 
-export function MarkdownViewer({ data }: { data: MarkdownResult }) {
+export function MarkdownViewer(part: ToolUIPart) {
+  if (part.type !== "tool-markdown") return <div>Invalid tool type</div>
+  const data = part.output as MarkdownResult
   return (
     <Card className="w-full max-w-xl">
       <CardHeader>

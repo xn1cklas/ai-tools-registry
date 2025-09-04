@@ -180,12 +180,95 @@ export async function loadDemos() {
     read("registry/ai-tools/tools/qrcode/component.tsx"),
   ])
 
-  const part: ToolUIPart = {
+  const translatePart: ToolUIPart = {
     type: "tool-translate",
-    toolCallId: "tc_demo_1",
+    toolCallId: "tc_demo_translate",
     state: "output-available",
-    input: { text: "Hello", targetLanguage: "es" },
-    output: { translated: "¡Hola!" },
+    input: { text: "Hello", targetLanguage: "es", sourceLanguage: "en" },
+    output: { text: "Hello", targetLanguage: "es", translated: "¡Hola!" },
+  }
+
+  const newsPart: ToolUIPart = {
+    type: "tool-news",
+    toolCallId: "tc_demo_news",
+    state: "output-available",
+    input: { topic: "AI", limit: 5 },
+    output: {
+      topic: "AI",
+      items: [
+        {
+          id: "ai-1",
+          title: "AI breakthrough announced",
+          url: "https://example.com/ai-1",
+          publishedAt: new Date().toISOString(),
+        },
+        {
+          id: "ai-2",
+          title: "New model sets benchmark",
+          url: "https://example.com/ai-2",
+          publishedAt: new Date().toISOString(),
+        },
+        { id: "ai-3", title: "Tooling ecosystem expands" },
+      ],
+    },
+  }
+
+  const weatherPart: ToolUIPart = {
+    type: "tool-weather",
+    toolCallId: "tc_demo_weather",
+    state: "output-available",
+    input: { location: "San Francisco", unit: "C" },
+    output: weatherDemo,
+  }
+
+  const webSearchPart: ToolUIPart = {
+    type: "tool-websearch",
+    toolCallId: "tc_demo_websearch",
+    state: "output-available",
+    input: { query: "chatgpt", limit: 5 },
+    output: webDemo,
+  }
+
+  const markdownPart: ToolUIPart = {
+    type: "tool-markdown",
+    toolCallId: "tc_demo_markdown",
+    state: "output-available",
+    input: { markdown: mdDemo.markdown },
+    output: mdDemo,
+  }
+
+  const statsPart: ToolUIPart = {
+    type: "tool-stats",
+    toolCallId: "tc_demo_stats",
+    state: "output-available",
+    input: { daysBack: 30, minMagnitude: 5 },
+    output: statsDemo,
+  }
+
+  const qrPart: ToolUIPart | null = qrDemo
+    ? {
+        type: "tool-qrcode",
+        toolCallId: "tc_demo_qrcode",
+        state: "output-available",
+        input: { data: "https://ai-tools-registry.vercel.app", size: 300 },
+        output: qrDemo,
+      }
+    : null
+
+  const calculatorPart: ToolUIPart = {
+    type: "tool-calculator",
+    toolCallId: "tc_demo_calculator",
+    state: "output-available",
+    input: { a: 7, b: 3, operator: "+" },
+    output: calcDemo,
+  }
+
+  const timePart: ToolUIPart = {
+    type: "tool-time",
+    toolCallId: "tc_demo_time",
+    state: "output-available",
+    input: { timeZone: "UTC", locale: "en-US" },
+    output: timeDemo,
   }
 
   return {
@@ -196,7 +279,7 @@ export async function loadDemos() {
       json: weatherDemo,
       code: codeWeather,
       componentCode: codeWeatherCmp,
-      renderer: <WeatherCard data={weatherDemo} />,
+      renderer: <WeatherCard {...weatherPart} />,
     },
     news: {
       name: "news",
@@ -205,7 +288,7 @@ export async function loadDemos() {
       json: newsDemo,
       code: codeNews,
       componentCode: codeNewsCmp,
-      renderer: <NewsList data={newsDemo} />,
+      renderer: <NewsList {...newsPart} />,
     },
     calculator: {
       name: "calculator",
@@ -213,6 +296,7 @@ export async function loadDemos() {
       subheading: "Basic arithmetic",
       json: calcDemo,
       code: codeCalc,
+      renderer: <DynamicToolComponent part={calculatorPart} />,
     },
     translate: {
       name: "translate",
@@ -220,7 +304,7 @@ export async function loadDemos() {
       subheading: "Translate text (mock)",
       json: translateDemo,
       code: codeTranslate,
-      renderer: <DynamicToolComponent part={part} />,
+      renderer: <DynamicToolComponent part={translatePart} />,
     },
     time: {
       name: "time",
@@ -228,6 +312,7 @@ export async function loadDemos() {
       subheading: "Current time for timezone",
       json: timeDemo,
       code: codeTime,
+      renderer: <DynamicToolComponent part={timePart} />,
     },
     websearch: {
       name: "websearch",
@@ -236,7 +321,7 @@ export async function loadDemos() {
       json: webDemo,
       code: codeWeb,
       componentCode: codeWebCmp,
-      renderer: <WebSearchList data={webDemo} />,
+      renderer: <WebSearchList {...webSearchPart} />,
     },
     markdown: {
       name: "markdown",
@@ -245,7 +330,7 @@ export async function loadDemos() {
       json: mdDemo,
       code: codeMd,
       componentCode: codeMdCmp,
-      renderer: <MarkdownViewer data={mdDemo} />,
+      renderer: <MarkdownViewer {...markdownPart} />,
     },
     stats: {
       name: "stats",
@@ -254,7 +339,7 @@ export async function loadDemos() {
       json: statsDemo,
       code: codeStats,
       componentCode: codeStatsCmp,
-      renderer: <StatsChart />,
+      renderer: <StatsChart {...statsPart} />,
     },
     qrcode: {
       name: "qrcode",
@@ -263,7 +348,7 @@ export async function loadDemos() {
       json: qrDemo ?? qrError,
       code: codeQr,
       componentCode: codeQrCmp,
-      renderer: qrDemo ? <QRCodeDisplay data={qrDemo} /> : undefined,
+      renderer: qrPart ? <QRCodeDisplay {...qrPart} /> : undefined,
     },
     entries: [
       // display order

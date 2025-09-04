@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import type { WebSearchResult } from "./tool"
+import { ToolUIPart } from "ai"
 import {
   Card,
   CardContent,
@@ -10,7 +11,9 @@ import {
   CardTitle,
 } from "@/registry/ai-tools/ui/card"
 
-export function WebSearchList({ data }: { data: WebSearchResult }) {
+export function WebSearchList(part: ToolUIPart) {
+  if (part.type !== "tool-websearch") return <div>Invalid tool type</div>
+  const data = part.output as WebSearchResult
   return (
     <Card className="w-full max-w-xl">
       <CardHeader>

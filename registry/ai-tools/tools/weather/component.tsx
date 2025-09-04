@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import type { GetWeatherResult } from "./tool"
+import { ToolUIPart } from "ai"
 import {
   Card,
   CardContent,
@@ -10,7 +11,9 @@ import {
   CardTitle,
 } from "@/registry/ai-tools/ui/card"
 
-export function WeatherCard({ data }: { data: GetWeatherResult }) {
+export function WeatherCard(part: ToolUIPart) {
+  if (part.type !== "tool-weather") return <div>Invalid tool type</div>
+  const data = part.output as GetWeatherResult
   const {
     location,
     temperature,

@@ -1,7 +1,16 @@
 import { tool } from "ai"
 import { z } from "zod"
 
+export const TranslateSchema = z.object({
+  text: z.string(),
+  targetLanguage: z.string(),
+  translated: z.string(),
+})
+
+export type TranslateResult = z.infer<typeof TranslateSchema>
+
 export const translateTool = tool({
+  name: "translate",
   description: "Translate a given text into a target language.",
   inputSchema: z.object({
     text: z.string().min(1),
@@ -14,6 +23,7 @@ export const translateTool = tool({
       .default("en")
       .describe("Source language code e.g. en, fr, de"),
   }),
+  outputSchema: TranslateSchema,
   execute: async ({ text, targetLanguage, sourceLanguage }) => {
     // Use MyMemory Translation API (free, no key). Requires explicit langpair.
     const url = `https://api.mymemory.translated.net/get?${new URLSearchParams({
@@ -28,12 +38,6 @@ export const translateTool = tool({
     return { text, targetLanguage, translated }
   },
 })
-
-export interface TranslateResult {
-  text: string
-  targetLanguage: string
-  translated: string
-}
 
 // MyMemory response type
 interface MyMemoryResponse {
