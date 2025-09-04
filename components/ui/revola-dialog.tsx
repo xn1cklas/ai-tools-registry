@@ -1,8 +1,10 @@
+// this is a special dialog built by Sameer https://revola.sameerjs.com/docs
+
 "use client"
 
 import * as React from "react"
 
-import * as DialogPrimitive from "@radix-ui/react-dialog"
+import { Dialog as DialogPrimitive } from "radix-ui"
 import { Drawer as DrawerPrimitive, Content as VaulDrawerContent } from "vaul"
 import { X } from "lucide-react"
 import { cva } from "class-variance-authority"

@@ -14,7 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/ai-tools/ui/card"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea } from "@/components/ui/lina-scroll-area"
 
 type Message =
   | { role: "user"; content: string }

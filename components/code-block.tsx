@@ -3,7 +3,7 @@
 import * as React from "react"
 import { highlight as sh } from "sugar-high"
 import { cn } from "@/lib/utils"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea } from "@/components/ui/lina-scroll-area"
 
 type CodeBlockProps = {
   code: string

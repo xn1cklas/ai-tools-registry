@@ -13,8 +13,8 @@ import {
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
   ResponsiveDialogTrigger,
-} from "@/components/ui/revola"
-import { ScrollArea } from "@/components/ui/scroll-area"
+} from "@/components/ui/revola-dialog"
+import { ScrollArea } from "@/components/ui/lina-scroll-area"
 
 export function RegistrySetup({
   className,
