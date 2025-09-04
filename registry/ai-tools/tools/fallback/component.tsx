@@ -1,6 +1,6 @@
 "use client"
 
-import { Response } from "@/registry/ai-elements/response"
+// import { Response } from "@/registry/ai-elements/response"
 import {
   Tool,
   ToolContent,
@@ -20,15 +20,23 @@ export function DynamicToolComponent({
   part: ToolUIPart
   formatOutput?: Formatter
 }) {
+  const render = formatOutput
+    ? formatOutput
+    : (o: unknown) => (
+        // We are having some bundling issues with the Streamdown package, once that is resolved we convert the response to AI Elements Responses
+        // <Response>
+        // {"```json\n" +
+        <div>JSON.stringify(o ?? {}, null, 2)</div>
+        // + "\n```}"
+        // </Response>
+      )
+
   return (
     <Tool defaultOpen={true}>
       <ToolHeader type={part.type} state={part.state} />
       <ToolContent>
         <ToolInput input={part.input} />
-        <ToolOutput
-          output={JSON.stringify(part.output)}
-          errorText={part.errorText}
-        />
+        <ToolOutput output={render(part.output)} errorText={part.errorText} />
       </ToolContent>
     </Tool>
   )
