@@ -23,9 +23,7 @@ export function MarkdownViewer(part: ToolUIPart) {
       </CardHeader>
       <CardContent>
         <div className="prose prose-sm dark:prose-invert max-w-none">
-          {/* <Response> */}
-          {markdown}
-          {/* </Response> */}
+          <Response>{markdown}</Response>
         </div>
       </CardContent>
     </Card>
