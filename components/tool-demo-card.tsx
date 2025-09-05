@@ -3,6 +3,14 @@
 import * as React from "react"
 import { Separator } from "@/registry/ai-tools/ui/separator"
 import { Button } from "@/registry/ai-tools/ui/button"
+import { Badge } from "@/registry/ai-tools/ui/badge"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/registry/ai-tools/ui/select"
 import { AddCommand } from "@/components/add-command"
 import { OpenInV0 } from "@/components/open-in-v0"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
@@ -20,6 +28,8 @@ export function ToolDemoCard({
   renderer,
   heading,
   subheading,
+  variants,
+  variantRegistryItems,
 }: {
   registryItem: ExtendedRegistryItem
   json: unknown
@@ -28,6 +38,14 @@ export function ToolDemoCard({
   renderer?: React.ReactNode
   heading: string
   subheading?: string
+  variants?: Array<{
+    key: string
+    label: string
+    json: unknown
+    code: string
+    renderer?: React.ReactNode
+  }>
+  variantRegistryItems?: Record<string, ExtendedRegistryItem | undefined>
 }) {
   const { isCopied: isToolCopied, copyToClipboard: copyTool } =
     useCopyToClipboard()
@@ -38,29 +56,71 @@ export function ToolDemoCard({
   const [view, setView] = React.useState<"output" | "component" | "code">(
     hasRenderer ? "component" : "output"
   )
+  const hasVariants = Array.isArray(variants) && variants.length > 0
+  const [variantKey, setVariantKey] = React.useState<string>(
+    hasVariants ? variants![0]!.key : "default"
+  )
+  const activeVariant = React.useMemo(() => {
+    if (!hasVariants) return null
+    return variants!.find((v) => v.key === variantKey) || variants![0]
+  }, [hasVariants, variants, variantKey])
+  const activeRegistryItem = React.useMemo(() => {
+    if (!hasVariants) return registryItem
+    const mapped = variantRegistryItems?.[variantKey]
+    return mapped ?? registryItem
+  }, [hasVariants, variantRegistryItems, variantKey, registryItem])
+
+  const requiresApiKey = React.useMemo(() => {
+    if (hasVariants) return ["brave", "exa", "perplexity"].includes(variantKey)
+    const n = activeRegistryItem.name
+    return /websearch-(brave|exa|perplexity)/.test(n)
+  }, [hasVariants, variantKey, activeRegistryItem.name])
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border rounded-lg p-4 bg-muted/30">
       <header className="md:col-span-2 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="text-sm font-medium">{heading}</div>
-          <Separator orientation="vertical" className="!h-4 hidden md:flex" />
-          {subheading ? (
-            <div className="text-sm text-muted-foreground hidden md:flex">
-              {subheading}
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <div className="text-sm font-medium">{heading}</div>
+            <Separator orientation="vertical" className="!h-4 hidden md:flex" />
+            {subheading ? (
+              <div className="text-sm text-muted-foreground hidden md:flex">
+                {subheading}
+              </div>
+            ) : null}
+          </div>
+          {hasVariants && (
+            <div className="flex items-center gap-2">
+              <Select value={variantKey} onValueChange={setVariantKey}>
+                <SelectTrigger size="sm" className="w-[142px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {variants!.map((v) => (
+                    <SelectItem key={v.key} value={v.key}>
+                      {v.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {requiresApiKey && (
+                <Badge variant="secondary" className="text-[10px]">
+                  API key required
+                </Badge>
+              )}
             </div>
-          ) : null}
+          )}
         </div>
-        <div className="flex gap-2 flex-wrap justify-end">
+        <div className="flex gap-2 flex-wrap justify-end items-center">
           <AddCommand
-            name={registryItem.name}
-            creator={registryItem.creators?.[0]}
+            name={activeRegistryItem.name}
+            creator={activeRegistryItem.creators?.[0]}
           />
-          <OpenInV0 name={registryItem.name} />
+          <OpenInV0 name={activeRegistryItem.name} />
         </div>
       </header>
 
-      {/* Left: Always show code with copy */}
+      {/* Left: Code with copy; switches with variant if provided */}
       <div className="relative rounded-md bg-background p-4 border">
         <div className="flex items-center justify-between mb-2">
           <div className="text-xs text-muted-foreground mb-2 ">Code</div>
@@ -73,7 +133,10 @@ export function ToolDemoCard({
                 "!bg-primary/15 border-primary/25 dark:!bg-primary/15 dark:border-primary/25"
             )}
             onClick={() => {
-              copyTool(code)
+              const activeCode = hasVariants
+                ? (activeVariant?.code ?? code)
+                : code
+              copyTool(activeCode)
               toast.success("Code copied to clipboard")
             }}
             aria-label="Copy code"
@@ -93,7 +156,7 @@ export function ToolDemoCard({
             />
           </Button>
         </div>
-        <CodeBlock code={code} />
+        <CodeBlock code={hasVariants ? (activeVariant?.code ?? code) : code} />
       </div>
 
       {/* Right: Toggle between component and output (if renderer available) */}
@@ -176,11 +239,17 @@ export function ToolDemoCard({
         {/* Content */}
         {view === "component" && hasRenderer ? (
           <div className="min-h-[200px] flex items-start justify-center">
-            {renderer}
+            {hasVariants ? (activeVariant?.renderer ?? renderer) : renderer}
           </div>
         ) : view === "output" ? (
           <div className="relative">
-            <CodeBlock code={JSON.stringify(json, null, 2)} />
+            <CodeBlock
+              code={JSON.stringify(
+                hasVariants ? (activeVariant?.json ?? json) : json,
+                null,
+                2
+              )}
+            />
           </div>
         ) : (
           <div className="relative">

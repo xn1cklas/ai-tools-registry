@@ -1,16 +1,16 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "websearch",
+  "name": "websearch-exa",
   "type": "registry:component",
-  "title": "Web Search",
+  "title": "Web Search (EXA)",
   "author": "Nicklas Scharpff <https://n1cklas.com>",
-  "description": "AI SDK tool that searches the web. Includes a results renderer.",
+  "description": "Web search via EXA API (requires EXA_API_KEY). Shares renderer.",
   "dependencies": ["zod", "ai"],
   "registryDependencies": ["@ai-tools/card"],
   "files": [
     {
-      "path": "registry/ai-tools/tools/websearch/tool.ts",
-      "content": "import { tool } from \"ai\"\nimport { z } from \"zod\"\n\nexport const WebSearchItemSchema = z.object({\n  title: z.string(),\n  url: z.string().url(),\n  snippet: z.string().optional(),\n  source: z.string().optional(),\n})\n\nexport const WebSearchSchema = z.object({\n  query: z.string(),\n  results: z.array(WebSearchItemSchema),\n})\n\nexport type WebSearchItem = z.infer<typeof WebSearchItemSchema>\nexport type WebSearchResult = z.infer<typeof WebSearchSchema>\n\nexport const webSearchTool = tool({\n  name: \"websearch\",\n  description: \"Search the web and return relevant results.\",\n  inputSchema: z.object({\n    query: z.string().min(1),\n    limit: z.number().min(1).max(20).default(5),\n    lang: z.string().optional(),\n    country: z.string().optional(),\n  }),\n  outputSchema: WebSearchSchema,\n  execute: async ({ query, limit, lang, country }) => {\n    const results: WebSearchItem[] = []\n    return { query, results }\n  },\n})\n\nexport default webSearchTool\n",
+      "path": "registry/ai-tools/tools/websearch/websearch-exa-tool.ts",
+      "content": "import { tool } from \"ai\"\nimport { z } from \"zod\"\n\nimport { WebSearchSchema, WebSearchItem } from \"./schema\"\n\nconst ExaSearchHitSchema = z\n  .object({\n    title: z.string().optional(),\n    url: z.string().url().optional(),\n    text: z.string().optional(),\n    snippet: z.string().optional(),\n  })\n  .passthrough()\n\nconst ExaSearchResponseSchema = z\n  .object({\n    results: z.array(ExaSearchHitSchema).optional(),\n  })\n  .passthrough()\n\nexport const webSearchExaTool = tool({\n  name: \"websearch-exa\",\n  description:\n    \"Search the web using EXA Search API. Requires EXA_API_KEY. See https://docs.exa.ai/reference/getting-started\",\n  inputSchema: z.object({\n    query: z.string().min(1),\n    limit: z.number().min(1).max(20).default(5),\n  }),\n  outputSchema: WebSearchSchema,\n  execute: async ({ query, limit }) => {\n    const apiKey = process.env.EXA_API_KEY\n    if (!apiKey) {\n      throw new Error(\n        \"EXA_API_KEY is required to use the EXA websearch provider\"\n      )\n    }\n\n    const res = await fetch(\"https://api.exa.ai/search\", {\n      method: \"POST\",\n      headers: {\n        Authorization: `Bearer ${apiKey}`,\n        \"Content-Type\": \"application/json\",\n      },\n      body: JSON.stringify({\n        query,\n        numResults: limit,\n      }),\n    })\n\n    if (!res.ok) throw new Error(`EXA API failed: ${res.status}`)\n    const data = ExaSearchResponseSchema.parse(await res.json())\n\n    const results: WebSearchItem[] = (data.results || [])\n      .slice(0, limit)\n      .map((r) => {\n        const url = r.url || \"\"\n        let source: string | undefined\n        try {\n          source = url ? new URL(url).hostname : undefined\n        } catch {\n          source = undefined\n        }\n        return {\n          title: r.title || url || \"Untitled\",\n          url,\n          snippet: r.snippet || r.text || undefined,\n          source,\n        }\n      })\n      .filter((r) => !!r.url)\n\n    return { query, results }\n  },\n})\n\nexport default webSearchExaTool\n",
       "type": "registry:file",
       "target": "~/ai/tools/websearch/tool.ts"
     },

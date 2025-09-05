@@ -7,6 +7,9 @@ settings:
 importers:
   .:
     dependencies:
+      "@ai-sdk/perplexity":
+        specifier: ^2.0.8
+        version: 2.0.8(zod@4.1.5)
       "@radix-ui/react-use-controllable-state":
         specifier: ^1.2.2
         version: 1.2.2(@types/react@19.1.12)(react@19.1.1)
@@ -137,6 +140,15 @@ packages:
     resolution:
       {
         integrity: sha512-kIecMd0nN7p0YTvrU2wDXtqGp5K+Et4K2+2tVBMA3e7H72FzCOtmC7Rkn87InUX2C72xcXDrObV0ne8QpW6FnA==,
+      }
+    engines: { node: ">=18" }
+    peerDependencies:
+      zod: ^3.25.76 || ^4
+
+  "@ai-sdk/perplexity@2.0.8":
+    resolution:
+      {
+        integrity: sha512-e24PUYXMoXPFhglzO17FEafr2+NljKS8ivHP5Tk0R+aiElfOSqDEjSDsxyL6aBFKzX+Bnrlr33FwfVwz8Ozt2Q==,
       }
     engines: { node: ">=18" }
     peerDependencies:
@@ -8148,6 +8160,12 @@ packages:
 
 snapshots:
   "@ai-sdk/gateway@1.0.16(zod@4.1.5)":
+    dependencies:
+      "@ai-sdk/provider": 2.0.0
+      "@ai-sdk/provider-utils": 3.0.8(zod@4.1.5)
+      zod: 4.1.5
+
+  "@ai-sdk/perplexity@2.0.8(zod@4.1.5)":
     dependencies:
       "@ai-sdk/provider": 2.0.0
       "@ai-sdk/provider-utils": 3.0.8(zod@4.1.5)

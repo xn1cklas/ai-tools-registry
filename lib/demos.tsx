@@ -14,6 +14,10 @@ import type { GetWeatherResult } from "@/registry/ai-tools/tools/weather/tool"
 import type { NewsSearchResult } from "@/registry/ai-tools/tools/news/tool"
 import type { WebSearchResult } from "@/registry/ai-tools/tools/websearch/tool"
 import { webSearchTool } from "@/registry/ai-tools/tools/websearch/tool"
+import { webSearchBraveTool } from "@/registry/ai-tools/tools/websearch/websearch-brave-tool"
+import { webSearchDDGTool } from "@/registry/ai-tools/tools/websearch/websearch-duckduckgo-tool"
+import { webSearchExaTool } from "@/registry/ai-tools/tools/websearch/websearch-exa-tool"
+import { webSearchPerplexityTool } from "@/registry/ai-tools/tools/websearch/websearch-perplexity-tool"
 import type { MarkdownResult } from "@/registry/ai-tools/tools/markdown/tool"
 import type { CalculatorResult } from "@/registry/ai-tools/tools/calculator/tool"
 import { calculatorTool } from "@/registry/ai-tools/tools/calculator/tool"
@@ -110,14 +114,52 @@ export async function loadDemos() {
   }
   const timeDemo = timeFallback
 
-  // Websearch — live query (no static fallback)
+  // Websearch — live queries per provider (best-effort)
   let webDemo: WebSearchResult
+  let webDemoBrave: WebSearchResult | null = null
+  let webDemoDDG: WebSearchResult | null = null
+  let webDemoExa: WebSearchResult | null = null
+  let webDemoPerplexity: WebSearchResult | null = null
   try {
     // @ts-expect-error - webSearchTool is not typed
     webDemo = await webSearchTool.execute({ query: "chatgpt", limit: 5 })
   } catch {
     // If the live query fails, return an empty result set to keep UI stable
     webDemo = { query: "chatgpt", results: [] }
+  }
+
+  try {
+    // @ts-expect-error - webSearchBraveTool is not typed
+    webDemoBrave = await webSearchBraveTool.execute({
+      query: "chatgpt",
+      limit: 5,
+    })
+  } catch {
+    webDemoBrave = null
+  }
+
+  try {
+    // @ts-expect-error - webSearchDDGTool is not typed
+    webDemoDDG = await webSearchDDGTool.execute({ query: "chatgpt", limit: 5 })
+  } catch {
+    webDemoDDG = null
+  }
+
+  try {
+    // @ts-expect-error - webSearchExaTool is not typed
+    webDemoExa = await webSearchExaTool.execute({ query: "chatgpt", limit: 5 })
+  } catch {
+    webDemoExa = null
+  }
+
+  try {
+    // @ts-expect-error - webSearchPerplexityTool is not typed
+    webDemoPerplexity = await webSearchPerplexityTool.execute({
+      query: "chatgpt",
+      limit: 5,
+    })
+  } catch {
+    webDemoPerplexity = null
   }
 
   // Markdown
@@ -155,6 +197,10 @@ export async function loadDemos() {
     codeNewsCmp,
     codeWeb,
     codeWebCmp,
+    codeWebBrave,
+    codeWebDDG,
+    codeWebExa,
+    codeWebPerplexity,
     codeMd,
     codeMdCmp,
     codeStats,
@@ -171,6 +217,10 @@ export async function loadDemos() {
     read("registry/ai-tools/tools/news/component.tsx"),
     read("registry/ai-tools/tools/websearch/tool.ts"),
     read("registry/ai-tools/tools/websearch/component.tsx"),
+    read("registry/ai-tools/tools/websearch/websearch-brave-tool.ts"),
+    read("registry/ai-tools/tools/websearch/websearch-duckduckgo-tool.ts"),
+    read("registry/ai-tools/tools/websearch/websearch-exa-tool.ts"),
+    read("registry/ai-tools/tools/websearch/websearch-perplexity-tool.ts"),
     read("registry/ai-tools/tools/markdown/tool.ts"),
     read("registry/ai-tools/tools/markdown/component.tsx"),
     read("registry/ai-tools/tools/stats/tool.ts"),
@@ -321,6 +371,69 @@ export async function loadDemos() {
       code: codeWeb,
       componentCode: codeWebCmp,
       renderer: <WebSearchList {...webSearchPart} />,
+      variants: [
+        {
+          key: "ddg",
+          label: "DuckDuckGo",
+          json: webDemoDDG ?? webDemo,
+          code: codeWebDDG,
+          renderer: (
+            <WebSearchList
+              type="tool-websearch-ddg"
+              toolCallId="tc_demo_websearch_ddg"
+              state="output-available"
+              input={{ query: "chatgpt", limit: 5 }}
+              output={webDemoDDG ?? webDemo}
+            />
+          ),
+        },
+        {
+          key: "brave",
+          label: "Brave",
+          json: webDemoBrave ?? webDemo,
+          code: codeWebBrave,
+          renderer: (
+            <WebSearchList
+              type="tool-websearch-brave"
+              toolCallId="tc_demo_websearch_brave"
+              state="output-available"
+              input={{ query: "chatgpt", limit: 5 }}
+              output={webDemoBrave ?? webDemoDDG}
+            />
+          ),
+        },
+
+        {
+          key: "exa",
+          label: "EXA",
+          json: webDemoExa ?? webDemo,
+          code: codeWebExa,
+          renderer: (
+            <WebSearchList
+              type="tool-websearch-exa"
+              toolCallId="tc_demo_websearch_exa"
+              state="output-available"
+              input={{ query: "chatgpt", limit: 5 }}
+              output={webDemoExa ?? webDemoDDG}
+            />
+          ),
+        },
+        {
+          key: "perplexity",
+          label: "Perplexity",
+          json: webDemoPerplexity ?? webDemoDDG,
+          code: codeWebPerplexity,
+          renderer: (
+            <WebSearchList
+              type="tool-websearch-perplexity"
+              toolCallId="tc_demo_websearch_perplexity"
+              state="output-available"
+              input={{ query: "chatgpt", limit: 5 }}
+              output={webDemoPerplexity ?? webDemoDDG}
+            />
+          ),
+        },
+      ],
     },
     markdown: {
       name: "markdown",

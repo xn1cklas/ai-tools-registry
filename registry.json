@@ -81,6 +81,115 @@
           "path": "registry/ai-tools/tools/websearch/component.tsx",
           "type": "registry:file",
           "target": "~/ai/tools/websearch/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/schema.ts"
+        }
+      ]
+    },
+    {
+      "name": "websearch-perplexity",
+      "type": "registry:component",
+      "title": "Web Search (Perplexity)",
+      "description": "Web search via Perplexity Sonar using Vercel AI SDK (requires Perplexity API key). Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "dependencies": ["zod", "ai", "@ai-sdk/perplexity"],
+      "registryDependencies": ["@ai-tools/card"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/websearch/websearch-perplexity-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/schema.ts"
+        }
+      ]
+    },
+    {
+      "name": "websearch-exa",
+      "type": "registry:component",
+      "title": "Web Search (EXA)",
+      "description": "Web search via EXA API (requires EXA_API_KEY). Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "dependencies": ["zod", "ai"],
+      "registryDependencies": ["@ai-tools/card"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/websearch/websearch-exa-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/schema.ts"
+        }
+      ]
+    },
+    {
+      "name": "websearch-brave",
+      "type": "registry:component",
+      "title": "Web Search (Brave)",
+      "description": "Web search via Brave Search API (requires BRAVE_SEARCH_API_KEY). Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "dependencies": ["zod", "ai"],
+      "registryDependencies": ["@ai-tools/card"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/websearch/websearch-brave-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/schema.ts"
+        }
+      ]
+    },
+    {
+      "name": "websearch-ddg",
+      "type": "registry:component",
+      "title": "Web Search (DuckDuckGo)",
+      "description": "Web search via DuckDuckGo Instant Answer (no key). Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "dependencies": ["zod", "ai"],
+      "registryDependencies": ["@ai-tools/card"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/websearch/websearch-duckduckgo-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/schema.ts"
         }
       ]
     },

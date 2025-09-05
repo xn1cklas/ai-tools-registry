@@ -1,16 +1,16 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "websearch",
+  "name": "websearch-perplexity",
   "type": "registry:component",
-  "title": "Web Search",
+  "title": "Web Search (Perplexity)",
   "author": "Nicklas Scharpff <https://n1cklas.com>",
-  "description": "AI SDK tool that searches the web. Includes a results renderer.",
-  "dependencies": ["zod", "ai"],
+  "description": "Web search via Perplexity Sonar using Vercel AI SDK (requires Perplexity API key). Shares renderer.",
+  "dependencies": ["zod", "ai", "@ai-sdk/perplexity"],
   "registryDependencies": ["@ai-tools/card"],
   "files": [
     {
-      "path": "registry/ai-tools/tools/websearch/tool.ts",
-      "content": "import { tool } from \"ai\"\nimport { z } from \"zod\"\n\nexport const WebSearchItemSchema = z.object({\n  title: z.string(),\n  url: z.string().url(),\n  snippet: z.string().optional(),\n  source: z.string().optional(),\n})\n\nexport const WebSearchSchema = z.object({\n  query: z.string(),\n  results: z.array(WebSearchItemSchema),\n})\n\nexport type WebSearchItem = z.infer<typeof WebSearchItemSchema>\nexport type WebSearchResult = z.infer<typeof WebSearchSchema>\n\nexport const webSearchTool = tool({\n  name: \"websearch\",\n  description: \"Search the web and return relevant results.\",\n  inputSchema: z.object({\n    query: z.string().min(1),\n    limit: z.number().min(1).max(20).default(5),\n    lang: z.string().optional(),\n    country: z.string().optional(),\n  }),\n  outputSchema: WebSearchSchema,\n  execute: async ({ query, limit, lang, country }) => {\n    const results: WebSearchItem[] = []\n    return { query, results }\n  },\n})\n\nexport default webSearchTool\n",
+      "path": "registry/ai-tools/tools/websearch/websearch-perplexity-tool.ts",
+      "content": "import { tool, generateObject } from \"ai\"\nimport { z } from \"zod\"\n\nimport { WebSearchSchema, WebSearchResult } from \"./schema\"\n\nexport const webSearchPerplexityTool = tool({\n  name: \"websearch-perplexity\",\n  description:\n    \"Search the web using Perplexity Sonar via Vercel AI SDK. Requires Perplexity API key. See Vercel docs.\",\n  inputSchema: z.object({\n    query: z.string().min(1),\n    limit: z.number().min(1).max(20).default(5),\n  }),\n  outputSchema: WebSearchSchema,\n  execute: async ({ query, limit }) => {\n    // Use Sonar (or Sonar Pro) for search-grounded results\n\n    const { object } = await generateObject({\n      model: \"perplexity/sonar\",\n      schema: WebSearchSchema,\n      system:\n        \"You are a search assistant. Return strictly the JSON schema provided. For each result include title, url, a short snippet, and a source hostname.\",\n      prompt: `Search the web for: ${query}. Return up to ${limit} high-quality, diverse results with proper URLs.`,\n    })\n\n    // Ensure limit is respected in case the model over-returns\n    const normalized: WebSearchResult = {\n      query,\n      results: (object.results || []).slice(0, limit).map((r) => {\n        let source = r.source\n        if (!source) {\n          try {\n            source = new URL(r.url).hostname\n          } catch {\n            source = undefined\n          }\n        }\n        return { title: r.title, url: r.url, snippet: r.snippet, source }\n      }),\n    }\n    return normalized\n  },\n})\n\nexport default webSearchPerplexityTool\n",
       "type": "registry:file",
       "target": "~/ai/tools/websearch/tool.ts"
     },

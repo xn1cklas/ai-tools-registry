@@ -92,6 +92,26 @@ export default async function Home() {
           if (!entry) return null
           const item = getRegistryItemFromJson(entry.name)
           if (!item) return null
+          // Provide registry items map for variants when present
+          const variantRegistryItems = entry.variants
+            ? Object.fromEntries(
+                entry.variants.map((v: { key: string }) => {
+                  const item = getRegistryItemFromJson(
+                    v.key === "brave"
+                      ? "websearch-brave"
+                      : v.key === "ddg"
+                        ? "websearch-ddg"
+                        : v.key === "exa"
+                          ? "websearch-exa"
+                          : v.key === "perplexity"
+                            ? "websearch-perplexity"
+                            : "websearch"
+                  )
+                  return [v.key, item]
+                })
+              )
+            : undefined
+
           return (
             <ToolDemoCard
               key={item.name}
@@ -102,6 +122,8 @@ export default async function Home() {
               renderer={entry.renderer}
               heading={entry.heading}
               subheading={entry.subheading}
+              variants={entry.variants}
+              variantRegistryItems={variantRegistryItems}
             />
           )
         })}

@@ -7,7 +7,13 @@ export async function GET() {
     return NextResponse.json({
       weather: { json: demos.weather.json },
       news: { json: demos.news.json },
-      websearch: { json: demos.websearch.json },
+      // expose provider demo jsons for playground if needed later
+      websearchBrave: { json: demos.websearch.variants?.[1]?.json ?? null },
+      websearchDDG: { json: demos.websearch.variants?.[2]?.json ?? null },
+      websearchExa: { json: demos.websearch.variants?.[3]?.json ?? null },
+      websearchPerplexity: {
+        json: demos.websearch.variants?.[4]?.json ?? null,
+      },
       markdown: { json: demos.markdown.json },
       // stats demo is client-fetched in component; expose null to keep shape consistent
       stats: { json: demos.stats?.json ?? null },
