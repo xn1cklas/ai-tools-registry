@@ -30,6 +30,7 @@ export function ToolDemoCard({
   subheading,
   variants,
   variantRegistryItems,
+  isNew,
 }: {
   registryItem: ExtendedRegistryItem
   json: unknown
@@ -46,6 +47,7 @@ export function ToolDemoCard({
     renderer?: React.ReactNode
   }>
   variantRegistryItems?: Record<string, ExtendedRegistryItem | undefined>
+  isNew?: boolean
 }) {
   const { isCopied: isToolCopied, copyToClipboard: copyTool } =
     useCopyToClipboard()
@@ -76,8 +78,19 @@ export function ToolDemoCard({
     return /websearch-(brave|exa|perplexity)/.test(n)
   }, [hasVariants, variantKey, activeRegistryItem.name])
 
+  const NewBadge = () => {
+    return (
+      <div className="pointer-events-none absolute -top-3.5 -left-5">
+        <div className="text-xs font-bold rounded-full dark:bg-indigo-400 bg-indigo-200 border border-border px-2.5 py-1 uppercase text-foreground shadow-md ring-1 ring-white/60 dark:ring-white/10">
+          New
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border rounded-lg p-4 bg-muted/30">
+    <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 border rounded-lg p-6 bg-muted/30">
+      {isNew ? <NewBadge /> : null}
       <header className="md:col-span-2 flex items-center justify-between">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">

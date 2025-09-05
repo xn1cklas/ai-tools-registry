@@ -320,7 +320,40 @@ export async function loadDemos() {
     output: timeDemo,
   }
 
-  return {
+  type DemoEntry = {
+    isNew?: boolean
+    name: string
+    heading: string
+    subheading?: string
+    json: unknown
+    code: string
+    componentCode?: string
+    renderer?: React.ReactNode
+    variants?: Array<{
+      key: string
+      label: string
+      json: unknown
+      code: string
+      renderer?: React.ReactNode
+    }>
+  }
+
+  const baseline = [
+    // display order baseline; will be dynamically sorted with new-first
+    "stats",
+    "weather",
+    "news",
+    "calculator",
+    "translate",
+    "time",
+    "websearch",
+    "markdown",
+    "qrcode",
+  ] as const
+
+  type DemoKey = (typeof baseline)[number]
+
+  const demos: Record<DemoKey, DemoEntry> = {
     weather: {
       name: "weather",
       heading: "Get Weather",
@@ -371,6 +404,7 @@ export async function loadDemos() {
       code: codeWeb,
       componentCode: codeWebCmp,
       renderer: <WebSearchList {...webSearchPart} />,
+      isNew: true,
       variants: [
         {
           key: "ddg",
@@ -462,17 +496,17 @@ export async function loadDemos() {
       componentCode: codeQrCmp,
       renderer: qrPart ? <QRCodeDisplay {...qrPart} /> : undefined,
     },
-    entries: [
-      // display order
-      "stats",
-      "weather",
-      "news",
-      "calculator",
-      "translate",
-      "time",
-      "websearch",
-      "markdown",
-      "qrcode",
-    ],
+  }
+
+  const entries: DemoKey[] = [...baseline].sort((a, b) => {
+    const aNew = demos[a]?.isNew ? 1 : 0
+    const bNew = demos[b]?.isNew ? 1 : 0
+    if (aNew !== bNew) return bNew - aNew
+    return 0
+  })
+
+  return {
+    ...demos,
+    entries,
   }
 }

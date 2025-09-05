@@ -124,6 +124,7 @@ export default async function Home() {
               subheading={entry.subheading}
               variants={entry.variants}
               variantRegistryItems={variantRegistryItems}
+              isNew={Boolean(entry.isNew)}
             />
           )
         })}
