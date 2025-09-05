@@ -80,8 +80,8 @@ export function ToolDemoCard({
 
   const NewBadge = () => {
     return (
-      <div className="pointer-events-none absolute -top-3.5 -left-5">
-        <div className="text-xs font-bold rounded-full dark:bg-indigo-400 bg-indigo-200 border border-border px-2.5 py-1 uppercase text-foreground shadow-md ring-1 ring-white/60 dark:ring-white/10">
+      <div className="pointer-events-none absolute -top-3.5 -left-2.5 xl:-left-5">
+        <div className="text-xs font-bold rounded-full dark:bg-indigo-400 bg-indigo-200  darkborder-indigo-900 border-indigo-300 px-2.5 py-1 uppercase text-foreground shadow-md ring-1 ring-white/60 dark:ring-white/10">
           New
         </div>
       </div>
