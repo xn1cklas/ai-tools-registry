@@ -14,11 +14,11 @@ export function CodeBlock({ code, className }: CodeBlockProps) {
   const html = React.useMemo(() => sh(code), [code])
 
   return (
-    <ScrollArea className="flex flex-col overflow-hidden max-h-96">
+    <ScrollArea className="flex flex-col overflow-hidden max-h-128">
       <pre className={cn("py-2", className)}>
         <code
           dangerouslySetInnerHTML={{ __html: html }}
-          className="font-geist-mono text-[13px] leading-2.5"
+          className="font-geist-mono text-[13px] leading-0.5"
         />
       </pre>
     </ScrollArea>

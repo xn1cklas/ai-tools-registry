@@ -25,13 +25,7 @@ To install components from the ai-tools registry, add a remote registries config
 You can then add items using the following command:
 
 ```bash
-npx shadcn@latest add @ai-tools/login-form
-```
-
-To install the `ai-tools` design system, you can use the following command:
-
-```bash
-npx shadcn@beta add @ai-tools/design-system
+npx shadcn@latest add @ai-tools/web-search
 ```
 
 ### AI Tools

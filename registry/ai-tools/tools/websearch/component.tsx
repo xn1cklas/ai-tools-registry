@@ -1,7 +1,8 @@
 "use client"
 
 import * as React from "react"
-import type { WebSearchResult } from "./tool"
+import type { WebSearchItem, WebSearchResult } from "./schema"
+import { ToolUIPart } from "ai"
 import {
   Card,
   CardContent,
@@ -10,16 +11,17 @@ import {
   CardTitle,
 } from "@/registry/ai-tools/ui/card"
 
-export function WebSearchList({ data }: { data: WebSearchResult }) {
+export function WebSearchList(part: ToolUIPart) {
+  const { query, results } = part.output as WebSearchResult
   return (
     <Card className="w-full max-w-xl">
       <CardHeader>
         <CardTitle>Web Search</CardTitle>
-        <CardDescription>Query: {data.query}</CardDescription>
+        <CardDescription>Query: {query}</CardDescription>
       </CardHeader>
       <CardContent>
         <ul className="space-y-3">
-          {data.results.map((r) => (
+          {results.map((r: WebSearchItem) => (
             <li key={r.url} className="rounded-md bg-muted p-3">
               <a
                 href={r.url}

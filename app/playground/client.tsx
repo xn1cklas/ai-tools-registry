@@ -36,11 +36,72 @@ export default function Playground() {
       .then((r) => r.json())
       .then((d) => {
         setRenderers({
-          weather: <WeatherCard data={d.weather.json} />,
-          news: <NewsList data={d.news.json} />,
-          websearch: <WebSearchList data={d.websearch.json} />,
-          markdown: <MarkdownViewer data={d.markdown.json} />,
-          stats: <StatsChart data={d.stats?.json ?? undefined} />,
+          weather: (
+            <WeatherCard
+              type="tool-weather"
+              toolCallId="demo-weather"
+              state="output-available"
+              input={{
+                location: d.weather.json.location,
+                unit: d.weather.json.unit,
+              }}
+              output={d.weather.json}
+            />
+          ),
+          news: (
+            <NewsList
+              type="tool-news"
+              toolCallId="demo-news"
+              state="output-available"
+              input={{
+                // best-effort reconstruction of input for demo purposes
+                topic: d.news.json.topic,
+                limit: Array.isArray(d.news.json.items)
+                  ? d.news.json.items.length || 5
+                  : 5,
+              }}
+              output={d.news.json}
+            />
+          ),
+          websearch: (
+            <WebSearchList
+              type="tool-websearch"
+              toolCallId="demo-websearch"
+              state="output-available"
+              input={{
+                query: d.websearch.json.query,
+                limit: Array.isArray(d.websearch.json.results)
+                  ? d.websearch.json.results.length || 5
+                  : 5,
+              }}
+              output={d.websearch.json}
+            />
+          ),
+          markdown: (
+            <MarkdownViewer
+              type="tool-markdown"
+              toolCallId="demo-markdown"
+              state="output-available"
+              input={{ markdown: d.markdown.json.markdown }}
+              output={d.markdown.json}
+            />
+          ),
+          stats: d.stats?.json ? (
+            <StatsChart
+              type="tool-stats"
+              toolCallId="demo-stats"
+              state="output-available"
+              input={{ daysBack: 30, minMagnitude: 5 }}
+              output={d.stats.json}
+            />
+          ) : (
+            <StatsChart
+              type="tool-stats"
+              toolCallId="demo-stats"
+              state="input-streaming"
+              input={undefined}
+            />
+          ),
         })
       })
       .catch(() => {
@@ -48,7 +109,11 @@ export default function Playground() {
         setRenderers({
           weather: (
             <WeatherCard
-              data={{
+              type="tool-weather"
+              toolCallId="demo-weather"
+              state="output-available"
+              input={{ location: "", unit: "C" }}
+              output={{
                 location: "",
                 unit: "C",
                 temperature: 0,
@@ -60,10 +125,41 @@ export default function Playground() {
               }}
             />
           ),
-          news: <NewsList data={{ topic: "", items: [] }} />,
-          websearch: <WebSearchList data={{ query: "", results: [] }} />,
-          markdown: <MarkdownViewer data={{ markdown: "" }} />,
-          stats: <StatsChart />,
+          news: (
+            <NewsList
+              type="tool-news"
+              toolCallId="demo-news"
+              state="output-available"
+              input={{ topic: "", limit: 0 }}
+              output={{ topic: "", items: [] }}
+            />
+          ),
+          websearch: (
+            <WebSearchList
+              type="tool-websearch"
+              toolCallId="demo-websearch"
+              state="output-available"
+              input={{ query: "", limit: 0 }}
+              output={{ query: "", results: [] }}
+            />
+          ),
+          markdown: (
+            <MarkdownViewer
+              type="tool-markdown"
+              toolCallId="demo-markdown"
+              state="output-available"
+              input={{ markdown: "" }}
+              output={{ markdown: "" }}
+            />
+          ),
+          stats: (
+            <StatsChart
+              type="tool-stats"
+              toolCallId="demo-stats"
+              state="input-streaming"
+              input={undefined}
+            />
+          ),
         })
       })
   }, [])

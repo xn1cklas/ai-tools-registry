@@ -3,8 +3,6 @@ import { AddCommand } from "@/components/add-command"
 import { OpenInV0 } from "@/components/open-in-v0"
 import registry from "@/registry.json"
 import { Button } from "@/registry/ai-tools/ui/button"
-import type { WebSearchResult } from "@/registry/ai-tools/tools/websearch/tool"
-import type { MarkdownResult } from "@/registry/ai-tools/tools/markdown/tool"
 import { ToolDemoCard } from "@/components/tool-demo-card"
 import type { ExtendedRegistryItem } from "@/lib/registry-schemas"
 import { loadDemos } from "@/lib/demos"
@@ -88,163 +86,47 @@ export default async function Home() {
       </section>
 
       <section className="grid grid-cols-1 gap-6">
-        {/* Public Stats */}
-        {(() => {
-          const item = getRegistryItemFromJson("stats")
-          if (!item || !demos.stats) return null
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={demos.stats.json}
-              code={demos.stats.code}
-              componentCode={demos.stats.componentCode}
-              renderer={demos.stats.renderer}
-              heading="Public Stats"
-              subheading="Global M5+ earthquakes — last 30 days"
-            />
-          )
-        })()}
-
-        {/* Weather */}
-        {(() => {
-          const item = getRegistryItemFromJson("weather")
+        {demos.entries.map((name: string) => {
+          // @ts-expect-error indexer access to dynamic key
+          const entry = demos[name]
+          if (!entry) return null
+          const item = getRegistryItemFromJson(entry.name)
           if (!item) return null
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={demos.weather.json}
-              code={demos.weather.code}
-              componentCode={demos.weather.componentCode}
-              renderer={demos.weather.renderer}
-              heading="Get Weather"
-              subheading="Returns weather for a location"
-            />
-          )
-        })()}
+          // Provide registry items map for variants when present
+          const variantRegistryItems = entry.variants
+            ? Object.fromEntries(
+                entry.variants.map((v: { key: string }) => {
+                  const item = getRegistryItemFromJson(
+                    v.key === "brave"
+                      ? "websearch-brave"
+                      : v.key === "ddg"
+                        ? "websearch-ddg"
+                        : v.key === "exa"
+                          ? "websearch-exa"
+                          : v.key === "perplexity"
+                            ? "websearch-perplexity"
+                            : "websearch"
+                  )
+                  return [v.key, item]
+                })
+              )
+            : undefined
 
-        {/* News */}
-        {(() => {
-          const item = getRegistryItemFromJson("news")
-          if (!item) return null
           return (
             <ToolDemoCard
               key={item.name}
               registryItem={item}
-              json={demos.news.json}
-              code={demos.news.code}
-              componentCode={demos.news.componentCode}
-              renderer={demos.news.renderer}
-              heading="News Search"
-              subheading="Returns headlines for a topic"
+              json={entry.json}
+              code={entry.code}
+              componentCode={entry.componentCode}
+              renderer={entry.renderer}
+              heading={entry.heading}
+              subheading={entry.subheading}
+              variants={entry.variants}
+              variantRegistryItems={variantRegistryItems}
             />
           )
-        })()}
-
-        {/* Calculator */}
-        {(() => {
-          const item = getRegistryItemFromJson("calculator")
-          if (!item) return null
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={demos.calculator.json}
-              code={demos.calculator.code}
-              heading="Calculator"
-              subheading="Basic arithmetic"
-            />
-          )
-        })()}
-
-        {/* Translate */}
-        {(() => {
-          const item = getRegistryItemFromJson("translate")
-          if (!item) return null
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={demos.translate.json}
-              code={demos.translate.code}
-              heading="Translate"
-              subheading="Translate text (mock)"
-            />
-          )
-        })()}
-
-        {/* Time */}
-        {(() => {
-          const item = getRegistryItemFromJson("time")
-          if (!item) return null
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={demos.time.json}
-              code={demos.time.code}
-              heading="Time Now"
-              subheading="Current time for timezone"
-            />
-          )
-        })()}
-
-        {/* Web Search */}
-        {(() => {
-          const item = getRegistryItemFromJson("websearch")
-          if (!item) return null
-          const webDemo: WebSearchResult = demos.websearch.json
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={webDemo}
-              code={demos.websearch.code}
-              componentCode={demos.websearch.componentCode}
-              renderer={demos.websearch.renderer}
-              heading="Web Search"
-              subheading="Search the web and show results"
-            />
-          )
-        })()}
-
-        {/* Markdown */}
-        {(() => {
-          const item = getRegistryItemFromJson("markdown")
-          if (!item) return null
-          const mdDemo: MarkdownResult = demos.markdown.json
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={mdDemo}
-              code={demos.markdown.code}
-              componentCode={demos.markdown.componentCode}
-              renderer={demos.markdown.renderer}
-              heading="Markdown"
-              subheading="Render markdown in your chat view"
-            />
-          )
-        })()}
-
-        {/* QR Code */}
-        {(() => {
-          const item = getRegistryItemFromJson("qrcode")
-          if (!item) return null
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={demos.qrcode?.json}
-              code={demos.qrcode?.code}
-              componentCode={demos.qrcode?.componentCode}
-              renderer={demos.qrcode?.renderer}
-              heading="QR Code Generator"
-              subheading="Generate QR codes for text or URLs"
-            />
-          )
-        })()}
+        })}
       </section>
 
       <section className="flex flex-col gap-4">

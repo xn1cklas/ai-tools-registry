@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import type { GetWeatherResult } from "./tool"
+import type { ToolUIPart } from "ai"
 import {
   Card,
   CardContent,
@@ -9,8 +9,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/ai-tools/ui/card"
+import { GetWeatherResult } from "./tool"
 
-export function WeatherCard({ data }: { data: GetWeatherResult }) {
+export function WeatherCard(part: ToolUIPart) {
+  if (part.type !== "tool-weather") return <div>Invalid tool type</div>
+  if (part.state === "output-error") {
+    return <div>Error: {part.errorText || "Unknown error"}</div>
+  }
+  if (part.state !== "output-available") {
+    return (
+      <Card className="w-full max-w-lg">
+        <CardHeader>
+          <CardTitle>Weather</CardTitle>
+          <CardDescription>Loading...</CardDescription>
+        </CardHeader>
+      </Card>
+    )
+  }
   const {
     location,
     temperature,
@@ -20,7 +35,7 @@ export function WeatherCard({ data }: { data: GetWeatherResult }) {
     low,
     humidity,
     windKph,
-  } = data
+  } = part.output as GetWeatherResult
   return (
     <Card className="w-full max-w-lg">
       <CardHeader>

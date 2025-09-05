@@ -1,7 +1,8 @@
 "use client"
 
 import * as React from "react"
-import type { PublicStatsResult } from "./tool"
+import type { PublicStatsResult, StatsSeriesPoint } from "./tool"
+import { ToolUIPart } from "ai"
 import {
   Card,
   CardContent,
@@ -25,7 +26,13 @@ import type {
 } from "recharts/types/component/DefaultTooltipContent"
 import type { Props as DefaultLegendContentProps } from "recharts/types/component/DefaultLegendContent"
 
-export function StatsChart({ data }: { data?: PublicStatsResult }) {
+export function StatsChart(part: ToolUIPart) {
+  // This component can render with provided data or fetch live if none.
+  // When used as a Tool UI part, expect part.type and output present.
+  const data =
+    part.type === "tool-stats"
+      ? (part.output as PublicStatsResult | null)
+      : undefined
   const config: ChartConfig = {
     // Use design system chart color for higher contrast in both themes
     count: { label: "Quakes", color: "var(--border)" },
@@ -78,7 +85,10 @@ export function StatsChart({ data }: { data?: PublicStatsResult }) {
 
   const source = data ?? live
   const chartData =
-    source?.series.map((d) => ({ date: d.date, count: d.count })) ?? []
+    source?.series.map((d: StatsSeriesPoint) => ({
+      date: d.date,
+      count: d.count,
+    })) ?? []
 
   return (
     <Card className="w-full max-w-3xl">
