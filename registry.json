@@ -46,6 +46,84 @@
       ]
     },
     {
+      "name": "image",
+      "type": "registry:component",
+      "title": "Image Generation",
+      "description": "AI SDK tool that generates images from text prompts. Includes a grid renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "dependencies": ["zod", "ai", "@ai-sdk/openai"],
+      "registryDependencies": ["@ai-tools/card"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/image/image-openai-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/schema.ts"
+        }
+      ]
+    },
+    {
+      "name": "image-openai",
+      "type": "registry:component",
+      "title": "Image Generation (OpenAI)",
+      "description": "Generate images using OpenAI via Vercel AI SDK. Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "dependencies": ["zod", "ai", "@ai-sdk/openai"],
+      "registryDependencies": ["@ai-tools/card"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/image/image-openai-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/schema.ts"
+        }
+      ]
+    },
+    {
+      "name": "image-fal",
+      "type": "registry:component",
+      "title": "Image Generation (FAL.ai)",
+      "description": "Generate images using FAL.ai via Vercel AI SDK. Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "dependencies": ["zod", "ai", "@ai-sdk/fal"],
+      "registryDependencies": ["@ai-tools/card"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/image/image-fal-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/schema.ts"
+        }
+      ]
+    },
+    {
       "name": "chart",
       "type": "registry:ui",
       "title": "Chart",

@@ -8,6 +8,7 @@ import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
 import { MarkdownViewer } from "@/registry/ai-tools/tools/markdown/component"
 import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
 import { QRCodeDisplay } from "@/registry/ai-tools/tools/qrcode/component"
+import { ImageGrid } from "@/registry/ai-tools/tools/image/component"
 
 // Tool types + tools where needed
 import type { GetWeatherResult } from "@/registry/ai-tools/tools/weather/tool"
@@ -28,6 +29,7 @@ import { newsSearchTool } from "@/registry/ai-tools/tools/news/tool"
 import type { PublicStatsResult } from "@/registry/ai-tools/tools/stats/tool"
 import type { QRCodeResult } from "@/registry/ai-tools/tools/qrcode/tool"
 import { qrCodeTool } from "@/registry/ai-tools/tools/qrcode/tool"
+import type { ImageResult } from "@/registry/ai-tools/tools/image/schema"
 import { ToolUIPart } from "ai"
 import { DynamicToolComponent } from "@/registry/ai-tools/tools/fallback/component"
 
@@ -186,6 +188,17 @@ export async function loadDemos() {
     }
   }
 
+  // Image generation — do not call live providers in demo; show placeholder output
+  const imageDemo: ImageResult = {
+    provider: "demo",
+    prompt: "A serene landscape with mountains at sunrise",
+    images: [
+      { url: "https://picsum.photos/seed/ai-tools-1/640/640" },
+      { url: "https://picsum.photos/seed/ai-tools-2/640/640" },
+    ],
+    aspectRatio: "1:1",
+  }
+
   // Read code for copy blocks
   const [
     codeWeather,
@@ -207,6 +220,11 @@ export async function loadDemos() {
     codeStatsCmp,
     codeQr,
     codeQrCmp,
+    codeImg,
+    codeImgCmp,
+    codeImgOpenAI,
+    codeImgFal,
+    codeImgRunware,
   ] = await Promise.all([
     read("registry/ai-tools/tools/weather/tool.ts"),
     read("registry/ai-tools/tools/news/tool.ts"),
@@ -227,6 +245,11 @@ export async function loadDemos() {
     read("registry/ai-tools/tools/stats/component.tsx"),
     read("registry/ai-tools/tools/qrcode/tool.ts"),
     read("registry/ai-tools/tools/qrcode/component.tsx"),
+    read("registry/ai-tools/tools/image/tool.ts"),
+    read("registry/ai-tools/tools/image/component.tsx"),
+    read("registry/ai-tools/tools/image/image-openai-tool.ts"),
+    read("registry/ai-tools/tools/image/image-fal-tool.ts"),
+    read("registry/ai-tools/tools/image/image-runware-tool.ts"),
   ])
 
   const translatePart: ToolUIPart = {
@@ -320,6 +343,14 @@ export async function loadDemos() {
     output: timeDemo,
   }
 
+  const imagePart: ToolUIPart = {
+    type: "tool-image",
+    toolCallId: "tc_demo_image",
+    state: "output-available",
+    input: { prompt: imageDemo.prompt, n: 2, aspectRatio: "1:1" },
+    output: imageDemo,
+  }
+
   type DemoEntry = {
     isNew?: boolean
     name: string
@@ -347,6 +378,7 @@ export async function loadDemos() {
     "translate",
     "time",
     "websearch",
+    "image",
     "markdown",
     "qrcode",
   ] as const
@@ -464,6 +496,63 @@ export async function loadDemos() {
               state="output-available"
               input={{ query: "chatgpt", limit: 5 }}
               output={webDemoPerplexity ?? webDemoDDG}
+            />
+          ),
+        },
+      ],
+    },
+    image: {
+      name: "image",
+      heading: "Image Generation",
+      subheading: "Generate images from text prompts",
+      json: imageDemo,
+      code: codeImg,
+      componentCode: codeImgCmp,
+      renderer: <ImageGrid {...imagePart} />,
+      isNew: true,
+      variants: [
+        {
+          key: "openai",
+          label: "OpenAI",
+          json: imageDemo,
+          code: codeImgOpenAI,
+          renderer: (
+            <ImageGrid
+              type="tool-image-openai"
+              toolCallId="tc_demo_image_openai"
+              state="output-available"
+              input={{ prompt: imageDemo.prompt, n: 2, aspectRatio: "1:1" }}
+              output={imageDemo}
+            />
+          ),
+        },
+        {
+          key: "fal",
+          label: "FAL.ai",
+          json: imageDemo,
+          code: codeImgFal,
+          renderer: (
+            <ImageGrid
+              type="tool-image-fal"
+              toolCallId="tc_demo_image_fal"
+              state="output-available"
+              input={{ prompt: imageDemo.prompt, n: 2, aspectRatio: "1:1" }}
+              output={imageDemo}
+            />
+          ),
+        },
+        {
+          key: "runware",
+          label: "Runware",
+          json: imageDemo,
+          code: codeImgRunware,
+          renderer: (
+            <ImageGrid
+              type="tool-image-runware"
+              toolCallId="tc_demo_image_runware"
+              state="output-available"
+              input={{ prompt: imageDemo.prompt, n: 2, aspectRatio: "1:1" }}
+              output={imageDemo}
             />
           ),
         },

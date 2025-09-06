@@ -13,6 +13,8 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache"
   },
   "dependencies": {
+    "@ai-sdk/fal": "^1.0.12",
+    "@ai-sdk/openai": "^2.0.24",
     "@ai-sdk/perplexity": "^2.0.8",
     "@radix-ui/react-use-controllable-state": "^1.2.2",
     "@vercel/analytics": "^1.5.0",

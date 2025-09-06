@@ -73,9 +73,17 @@ export function ToolDemoCard({
   }, [hasVariants, variantRegistryItems, variantKey, registryItem])
 
   const requiresApiKey = React.useMemo(() => {
-    if (hasVariants) return ["brave", "exa", "perplexity"].includes(variantKey)
+    if (hasVariants)
+      return [
+        "brave",
+        "exa",
+        "perplexity",
+        "openai",
+        "fal",
+        "runware",
+      ].includes(variantKey)
     const n = activeRegistryItem.name
-    return /websearch-(brave|exa|perplexity)/.test(n)
+    return /websearch-(brave|exa|perplexity)|image-(openai|fal|runware)/.test(n)
   }, [hasVariants, variantKey, activeRegistryItem.name])
 
   const NewBadge = () => {
