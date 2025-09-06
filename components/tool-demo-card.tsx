@@ -117,7 +117,7 @@ export function ToolDemoCard({
                 </SelectContent>
               </Select>
               {requiresApiKey && (
-                <Badge variant="secondary" className="text-[10px]">
+                <Badge variant="secondary" className="text-xs">
                   API key required
                 </Badge>
               )}
