@@ -1,4 +1,14 @@
-import { getWeatherTool } from "@/registry/ai-tools/tools"
+import {
+  getWeatherTool,
+  newsSearchTool,
+  webSearchTool,
+  markdownTool,
+  calculatorTool,
+  translateTool,
+  timeNowTool,
+  publicStatsTool,
+  qrCodeTool,
+} from "@/registry/ai-tools/tools"
 import webSearchDDGTool from "@/registry/ai-tools/tools/websearch/websearch-duckduckgo-tool"
 import { convertToModelMessages, streamText, type UIMessage } from "ai"
 import { notFound } from "next/navigation"
@@ -15,11 +25,20 @@ export async function POST(req: Request) {
     await req.json()
 
   const result = streamText({
-    model: model,
+    model,
     messages: convertToModelMessages(messages),
     tools: {
-      getWeatherTool,
-      webSearchDDGTool,
+      // Prefer keys matching tool name for clarity; the tool name is also embedded in each tool.
+      weather: getWeatherTool,
+      news: newsSearchTool,
+      websearch: webSearchTool,
+      "websearch-ddg": webSearchDDGTool,
+      markdown: markdownTool,
+      calculator: calculatorTool,
+      translate: translateTool,
+      time: timeNowTool,
+      stats: publicStatsTool,
+      qrcode: qrCodeTool,
     },
   })
 
