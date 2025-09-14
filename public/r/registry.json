@@ -18,13 +18,13 @@
         }
       ],
       "registryDependencies": [
-        "@https://ai-tools-registry.vercel.app/r/button.json",
-        "@https://ai-tools-registry.vercel.app/r/input.json",
-        "@https://ai-tools-registry.vercel.app/r/calendar.json",
-        "@https://ai-tools-registry.vercel.app/r/card.json",
-        "@https://ai-tools-registry.vercel.app/r/label.json",
-        "@https://ai-tools-registry.vercel.app/r/popover.json",
-        "@https://ai-tools-registry.vercel.app/r/textarea.json"
+        "https://ai-tools-registry.vercel.app/r/button.json",
+        "https://ai-tools-registry.vercel.app/r/input.json",
+        "https://ai-tools-registry.vercel.app/r/calendar.json",
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/label.json",
+        "https://ai-tools-registry.vercel.app/r/popover.json",
+        "https://ai-tools-registry.vercel.app/r/textarea.json"
       ],
       "cssVars": {
         "light": {
@@ -71,7 +71,7 @@
       ],
       "dependencies": ["zod", "ai"],
       "registryDependencies": [
-        "@https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json"
       ],
       "files": [
         {
@@ -99,7 +99,7 @@
       "author": "Nicklas Scharpff <https://n1cklas.com>",
       "dependencies": ["zod", "ai", "@ai-sdk/perplexity"],
       "registryDependencies": [
-        "@https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json"
       ],
       "files": [
         {
@@ -127,7 +127,7 @@
       "author": "Nicklas Scharpff <https://n1cklas.com>",
       "dependencies": ["zod", "ai"],
       "registryDependencies": [
-        "@https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json"
       ],
       "files": [
         {
@@ -155,7 +155,7 @@
       "author": "Nicklas Scharpff <https://n1cklas.com>",
       "dependencies": ["zod", "ai"],
       "registryDependencies": [
-        "@https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json"
       ],
       "files": [
         {
@@ -183,7 +183,7 @@
       "author": "Nicklas Scharpff <https://n1cklas.com>",
       "dependencies": ["zod", "ai"],
       "registryDependencies": [
-        "@https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json"
       ],
       "files": [
         {
@@ -210,8 +210,8 @@
       "description": "AI SDK tool that fetches global earthquake counts from USGS and renders a chart.",
       "dependencies": ["zod", "ai", "recharts"],
       "registryDependencies": [
-        "@https://ai-tools-registry.vercel.app/r/card.json",
-        "@https://ai-tools-registry.vercel.app/r/chart.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/chart.json"
       ],
       "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
@@ -253,7 +253,7 @@
       ],
       "dependencies": ["zod", "ai", "streamdown"],
       "registryDependencies": [
-        "@https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/card.json",
         "https://registry.ai-sdk.dev/response.json"
       ],
       "files": [
@@ -440,7 +440,7 @@
         }
       ],
       "registryDependencies": [
-        "@https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json"
       ],
       "files": [
         {
@@ -535,7 +535,7 @@
         }
       ],
       "registryDependencies": [
-        "@https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json"
       ],
       "files": [
         {
@@ -599,8 +599,8 @@
         }
       ],
       "registryDependencies": [
-        "@https://ai-tools-registry.vercel.app/r/card.json",
-        "@https://ai-tools-registry.vercel.app/r/button.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/button.json"
       ],
       "files": [
         {
@@ -631,15 +631,15 @@
         }
       ],
       "registryDependencies": [
-        "@https://ai-tools-registry.vercel.app/r/weather.json",
-        "@https://ai-tools-registry.vercel.app/r/calculator.json",
-        "@https://ai-tools-registry.vercel.app/r/translate",
-        "@https://ai-tools-registry.vercel.app/r/news.json",
-        "@https://ai-tools-registry.vercel.app/r/time.json",
-        "@https://ai-tools-registry.vercel.app/r/websearch.json",
-        "@https://ai-tools-registry.vercel.app/r/markdown.json",
-        "@https://ai-tools-registry.vercel.app/r/stats.json",
-        "@https://ai-tools-registry.vercel.app/r/qrcode.json"
+        "https://ai-tools-registry.vercel.app/r/weather.json",
+        "https://ai-tools-registry.vercel.app/r/calculator.json",
+        "https://ai-tools-registry.vercel.app/r/translate",
+        "https://ai-tools-registry.vercel.app/r/news.json",
+        "https://ai-tools-registry.vercel.app/r/time.json",
+        "https://ai-tools-registry.vercel.app/r/websearch.json",
+        "https://ai-tools-registry.vercel.app/r/markdown.json",
+        "https://ai-tools-registry.vercel.app/r/stats.json",
+        "https://ai-tools-registry.vercel.app/r/qrcode.json"
       ],
       "files": [
         {

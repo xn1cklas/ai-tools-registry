@@ -6,7 +6,7 @@
   "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "Web search via Perplexity Sonar using Vercel AI SDK (requires Perplexity API key). Shares renderer.",
   "dependencies": ["zod", "ai", "@ai-sdk/perplexity"],
-  "registryDependencies": ["@https://ai-tools-registry.vercel.app/r/card.json"],
+  "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card.json"],
   "files": [
     {
       "path": "registry/ai-tools/tools/websearch/websearch-perplexity-tool.ts",

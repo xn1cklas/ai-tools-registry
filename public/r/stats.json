@@ -7,8 +7,8 @@
   "description": "AI SDK tool that fetches global earthquake counts from USGS and renders a chart.",
   "dependencies": ["zod", "ai", "recharts"],
   "registryDependencies": [
-    "@https://ai-tools-registry.vercel.app/r/card.json",
-    "@https://ai-tools-registry.vercel.app/r/chart.json"
+    "https://ai-tools-registry.vercel.app/r/card.json",
+    "https://ai-tools-registry.vercel.app/r/chart.json"
   ],
   "files": [
     {

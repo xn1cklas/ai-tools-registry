@@ -15,8 +15,8 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "@https://ai-tools-registry.vercel.app/r/card.json",
-    "@https://ai-tools-registry.vercel.app/r/button.json"
+    "https://ai-tools-registry.vercel.app/r/card.json",
+    "https://ai-tools-registry.vercel.app/r/button.json"
   ],
   "files": [
     {

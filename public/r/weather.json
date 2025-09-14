@@ -6,7 +6,7 @@
   "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "AI SDK tool that returns mock weather for a location. Includes a WeatherCard renderer.",
   "dependencies": ["ai", "zod"],
-  "registryDependencies": ["@https://ai-tools-registry.vercel.app/r/card.json"],
+  "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card.json"],
   "files": [
     {
       "path": "registry/ai-tools/tools/weather/tool.ts",
