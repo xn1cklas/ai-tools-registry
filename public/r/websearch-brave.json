@@ -6,7 +6,7 @@
   "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "Web search via Brave Search API (requires BRAVE_SEARCH_API_KEY). Shares renderer.",
   "dependencies": ["zod", "ai"],
-  "registryDependencies": ["@ai-tools/card"],
+  "registryDependencies": ["@https://ai-tools-registry.vercel.app/r/card"],
   "files": [
     {
       "path": "registry/ai-tools/tools/websearch/websearch-brave-tool.ts",
