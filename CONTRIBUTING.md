@@ -185,3 +185,14 @@ Please verify these points before opening a PR:
    - Any dependencies and usage notes
 
 Thank you for helping improve the AI Tools Registry!
+
+## open in v0 workaround
+
+Registry namespaces are currently not supported by v0, follow this [thread](https://github.com/shadcn-ui/alpine-registry/issues/5) for updates.
+
+How to resolve this for now
+
+- Use static item URLs: `https://ai-tools-registry.vercel.app/r/{name}.json` (URL-encode for “Open in v0”).
+- In `registry.json`, set `registryDependencies` to absolute URLs and include `.json` instead of `@ai-tools/{component}`
+
+More context and rationale: https://github.com/shadcn-ui/alpine-registry/issues/5
