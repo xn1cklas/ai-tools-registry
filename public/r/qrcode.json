@@ -14,7 +14,10 @@
     "class-variance-authority",
     "lucide-react"
   ],
-  "registryDependencies": ["@ai-tools/card", "@ai-tools/button"],
+  "registryDependencies": [
+    "@https://ai-tools-registry.vercel.app/r/card",
+    "@https://ai-tools-registry.vercel.app/r/button"
+  ],
   "files": [
     {
       "path": "registry/ai-tools/tools/qrcode/tool.ts",

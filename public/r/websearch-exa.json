@@ -6,7 +6,7 @@
   "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "Web search via EXA API (requires EXA_API_KEY). Shares renderer.",
   "dependencies": ["zod", "ai"],
-  "registryDependencies": ["@ai-tools/card"],
+  "registryDependencies": ["@https://ai-tools-registry.vercel.app/r/card"],
   "files": [
     {
       "path": "registry/ai-tools/tools/websearch/websearch-exa-tool.ts",

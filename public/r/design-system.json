@@ -5,13 +5,13 @@
   "author": "shadcn",
   "dependencies": ["radix-ui"],
   "registryDependencies": [
-    "@ai-tools/button",
-    "@ai-tools/input",
-    "@ai-tools/calendar",
-    "@ai-tools/card",
-    "@ai-tools/label",
-    "@ai-tools/popover",
-    "@ai-tools/textarea"
+    "@https://ai-tools-registry.vercel.app/r/button",
+    "@https://ai-tools-registry.vercel.app/r/input",
+    "@https://ai-tools-registry.vercel.app/r/calendar",
+    "@https://ai-tools-registry.vercel.app/r/card",
+    "@https://ai-tools-registry.vercel.app/r/label",
+    "@https://ai-tools-registry.vercel.app/r/popover",
+    "@https://ai-tools-registry.vercel.app/r/textarea"
   ],
   "files": [
     {

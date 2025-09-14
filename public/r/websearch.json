@@ -6,7 +6,7 @@
   "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "AI SDK tool that searches the web. Includes a results renderer.",
   "dependencies": ["zod", "ai"],
-  "registryDependencies": ["@ai-tools/card"],
+  "registryDependencies": ["@https://ai-tools-registry.vercel.app/r/card"],
   "files": [
     {
       "path": "registry/ai-tools/tools/websearch/tool.ts",
