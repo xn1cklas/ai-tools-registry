@@ -6,7 +6,7 @@
   "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "Return recent headlines for a topic (mock). Includes a NewsList renderer.",
   "dependencies": ["ai", "zod"],
-  "registryDependencies": ["@https://ai-tools-registry.vercel.app/r/card"],
+  "registryDependencies": ["@https://ai-tools-registry.vercel.app/r/card.json"],
   "files": [
     {
       "path": "registry/ai-tools/tools/news/tool.ts",

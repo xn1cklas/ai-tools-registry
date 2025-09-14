@@ -7,15 +7,15 @@
   "description": "Install all sample tools and related renderers.",
   "dependencies": [],
   "registryDependencies": [
-    "@https://ai-tools-registry.vercel.app/r/weather",
-    "@https://ai-tools-registry.vercel.app/r/calculator",
+    "@https://ai-tools-registry.vercel.app/r/weather.json",
+    "@https://ai-tools-registry.vercel.app/r/calculator.json",
     "@https://ai-tools-registry.vercel.app/r/translate",
-    "@https://ai-tools-registry.vercel.app/r/news",
-    "@https://ai-tools-registry.vercel.app/r/time",
-    "@https://ai-tools-registry.vercel.app/r/websearch",
-    "@https://ai-tools-registry.vercel.app/r/markdown",
-    "@https://ai-tools-registry.vercel.app/r/stats",
-    "@https://ai-tools-registry.vercel.app/r/qrcode"
+    "@https://ai-tools-registry.vercel.app/r/news.json",
+    "@https://ai-tools-registry.vercel.app/r/time.json",
+    "@https://ai-tools-registry.vercel.app/r/websearch.json",
+    "@https://ai-tools-registry.vercel.app/r/markdown.json",
+    "@https://ai-tools-registry.vercel.app/r/stats.json",
+    "@https://ai-tools-registry.vercel.app/r/qrcode.json"
   ],
   "files": [
     {
