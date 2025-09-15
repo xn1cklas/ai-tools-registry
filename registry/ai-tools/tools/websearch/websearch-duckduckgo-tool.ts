@@ -1,4 +1,4 @@
-import { tool } from "ai"
+import { UIToolInvocation, tool } from "ai"
 import { z } from "zod"
 
 import { WebSearchSchema, WebSearchItem } from "./schema"
@@ -91,3 +91,5 @@ export const DDGResponseSchema = z
   .passthrough()
 
 export type DDGResponse = z.infer<typeof DDGResponseSchema>
+
+export type WebSearchToolType = UIToolInvocation<typeof webSearchDDGTool>

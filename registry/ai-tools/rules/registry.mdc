@@ -19,8 +19,8 @@ alwaysApply: true
 - Mark renderers with "use client"; do not import client components from server-only contexts.
 - Validate inputs/outputs with Zod; avoid any.
 - Ensure every registry:file entry includes a target and each files[*].path exists.
-- Use names that match folder names (e.g., weather, news, time, markdown, websearch).
-- Common deps: ai and zod. Renderers may use react-markdown and remark-gfm.
+- Use names that match folder names (e.g., weather, news, websearch).
+- Common deps: ai and zod.
 
 ### Install examples
 

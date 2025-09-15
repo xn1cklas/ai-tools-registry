@@ -1,4 +1,4 @@
-import { tool } from "ai"
+import { UIToolInvocation, tool } from "ai"
 import { z } from "zod"
 
 export const WebSearchItemSchema = z.object({
@@ -33,3 +33,5 @@ export const webSearchTool = tool({
 })
 
 export default webSearchTool
+
+export type WebSearchToolType = UIToolInvocation<typeof webSearchTool>

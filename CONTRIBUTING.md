@@ -163,10 +163,9 @@ Please verify these points before opening a PR:
 
 ## Naming & Dependencies
 
-- Keep tool names short, lowercase, and folder-aligned: `weather`, `news`, `time`, `markdown`, `websearch`.
+- Keep tool names short, lowercase, and folder-aligned: `weather`, `news`, `websearch`.
 - Common dependencies:
   - `ai` and `zod` for tool logic
-  - `react-markdown` + `remark-gfm` for markdown renderers (optional)
 
 ## Docs & Rules
 

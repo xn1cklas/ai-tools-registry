@@ -5,28 +5,41 @@ import path from "path"
 // Renderers
 import { NewsList } from "@/registry/ai-tools/tools/news/component"
 import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
-import { MarkdownViewer } from "@/registry/ai-tools/tools/markdown/component"
 import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
 import { QRCodeDisplay } from "@/registry/ai-tools/tools/qrcode/component"
 
 // Tool types + tools where needed
-import type { GetWeatherResult } from "@/registry/ai-tools/tools/weather/tool"
-import type { NewsSearchResult } from "@/registry/ai-tools/tools/news/tool"
-import type { WebSearchResult } from "@/registry/ai-tools/tools/websearch/tool"
+import type {
+  GetWeatherResult,
+  WeatherToolType,
+} from "@/registry/ai-tools/tools/weather/tool"
+import type {
+  NewsSearchResult,
+  NewsToolType,
+} from "@/registry/ai-tools/tools/news/tool"
+import type {
+  WebSearchResult,
+  WebSearchToolType,
+} from "@/registry/ai-tools/tools/websearch/tool"
 import { webSearchTool } from "@/registry/ai-tools/tools/websearch/tool"
 import { webSearchBraveTool } from "@/registry/ai-tools/tools/websearch/websearch-brave-tool"
 import { webSearchDDGTool } from "@/registry/ai-tools/tools/websearch/websearch-duckduckgo-tool"
 import { webSearchExaTool } from "@/registry/ai-tools/tools/websearch/websearch-exa-tool"
 import { webSearchPerplexityTool } from "@/registry/ai-tools/tools/websearch/websearch-perplexity-tool"
-import type { MarkdownResult } from "@/registry/ai-tools/tools/markdown/tool"
-import type { TimeNowResult } from "@/registry/ai-tools/tools/time/tool"
+
 import { getWeatherTool } from "@/registry/ai-tools/tools/weather/tool"
 import { newsSearchTool } from "@/registry/ai-tools/tools/news/tool"
-import type { PublicStatsResult } from "@/registry/ai-tools/tools/stats/tool"
-import type { QRCodeResult } from "@/registry/ai-tools/tools/qrcode/tool"
+import type {
+  PublicStatsResult,
+  StatsToolType,
+} from "@/registry/ai-tools/tools/stats/tool"
+import { publicStatsTool } from "@/registry/ai-tools/tools/stats/tool"
+import type {
+  QRCodeResult,
+  QRCodeToolType,
+} from "@/registry/ai-tools/tools/qrcode/tool"
 import { qrCodeTool } from "@/registry/ai-tools/tools/qrcode/tool"
-import { ToolUIPart } from "ai"
-import { DynamicToolComponent } from "@/registry/ai-tools/tools/fallback/component"
+import WeatherCard from "@/registry/ai-tools/tools/weather/component"
 
 const read = (p: string) => fs.readFile(path.join(process.cwd(), p), "utf8")
 
@@ -82,14 +95,6 @@ export async function loadDemos() {
     newsFallback
   )
 
-  // Time Now
-  const timeFallback: TimeNowResult = {
-    timeZone: "UTC",
-    iso: new Date().toISOString(),
-    formatted: new Date().toUTCString(),
-  }
-  const timeDemo = timeFallback
-
   // Websearch — live queries per provider (best-effort)
   let webDemo: WebSearchResult
   let webDemoBrave: WebSearchResult | null = null
@@ -138,17 +143,20 @@ export async function loadDemos() {
     webDemoPerplexity = null
   }
 
-  // Markdown
-  const mdFallback: MarkdownResult = {
-    markdown: `# Hello World\n\nThis is **markdown**.\n\n- Item one\n- Item two\n\n> Tip: You can copy the tool code from the left.`,
-  }
-  const mdDemo = mdFallback
-
-  // Public Stats (USGS) — live client-side fetch in component; no server fetch.
-  const statsDemo: PublicStatsResult | null = null
+  // Public Stats (USGS)
+  const statsFallback: PublicStatsResult = { title: "Public Stats", series: [] }
+  const statsDemo = await safe<PublicStatsResult>(
+    // @ts-expect-error - publicStatsTool is not typed
+    () => publicStatsTool.execute({ daysBack: 30, minMagnitude: 5 }),
+    statsFallback
+  )
 
   // QR Code — no fallback, surface errors
-  let qrDemo: QRCodeResult | null = null
+  let qrDemo: QRCodeResult = {
+    data: "https://ai-tools-registry.vercel.app",
+    size: 300,
+    output: "https://ai-tools-registry.vercel.app",
+  }
   let qrError: { error: string } | null = null
   try {
     // @ts-expect-error - qrCodeTool is not typed
@@ -166,7 +174,6 @@ export async function loadDemos() {
   const [
     codeWeather,
     codeNews,
-    codeTime,
     codeWeatherCmp,
     codeNewsCmp,
     codeWeb,
@@ -175,8 +182,6 @@ export async function loadDemos() {
     codeWebDDG,
     codeWebExa,
     codeWebPerplexity,
-    codeMd,
-    codeMdCmp,
     codeStats,
     codeStatsCmp,
     codeQr,
@@ -184,7 +189,6 @@ export async function loadDemos() {
   ] = await Promise.all([
     read("registry/ai-tools/tools/weather/tool.ts"),
     read("registry/ai-tools/tools/news/tool.ts"),
-    read("registry/ai-tools/tools/time/tool.ts"),
     read("registry/ai-tools/tools/weather/component.tsx"),
     read("registry/ai-tools/tools/news/component.tsx"),
     read("registry/ai-tools/tools/websearch/tool.ts"),
@@ -193,16 +197,13 @@ export async function loadDemos() {
     read("registry/ai-tools/tools/websearch/websearch-duckduckgo-tool.ts"),
     read("registry/ai-tools/tools/websearch/websearch-exa-tool.ts"),
     read("registry/ai-tools/tools/websearch/websearch-perplexity-tool.ts"),
-    read("registry/ai-tools/tools/markdown/tool.ts"),
-    read("registry/ai-tools/tools/markdown/component.tsx"),
     read("registry/ai-tools/tools/stats/tool.ts"),
     read("registry/ai-tools/tools/stats/component.tsx"),
     read("registry/ai-tools/tools/qrcode/tool.ts"),
     read("registry/ai-tools/tools/qrcode/component.tsx"),
   ])
 
-  const newsPart: ToolUIPart = {
-    type: "tool-news",
+  const newsPart: NewsToolType = {
     toolCallId: "tc_demo_news",
     state: "output-available",
     input: { topic: "AI", limit: 5 },
@@ -226,54 +227,32 @@ export async function loadDemos() {
     },
   }
 
-  const weatherPart: ToolUIPart = {
-    type: "tool-weather",
+  const weatherPart: WeatherToolType = {
     toolCallId: "tc_demo_weather",
     state: "output-available",
     input: { location: "San Francisco", unit: "C" },
     output: weatherDemo,
   }
 
-  const webSearchPart: ToolUIPart = {
-    type: "tool-websearch",
+  const webSearchPart: WebSearchToolType = {
     toolCallId: "tc_demo_websearch",
     state: "output-available",
     input: { query: "chatgpt", limit: 5 },
     output: webDemo,
   }
 
-  const markdownPart: ToolUIPart = {
-    type: "tool-markdown",
-    toolCallId: "tc_demo_markdown",
-    state: "output-available",
-    input: { markdown: mdDemo.markdown },
-    output: mdDemo,
-  }
-
-  const statsPart: ToolUIPart = {
-    type: "tool-stats",
+  const statsPart: StatsToolType = {
     toolCallId: "tc_demo_stats",
     state: "output-available",
     input: { daysBack: 30, minMagnitude: 5 },
-    output: statsDemo,
+    output: statsDemo ?? { title: "Public Stats", series: [] },
   }
 
-  const qrPart: ToolUIPart | null = qrDemo
-    ? {
-        type: "tool-qrcode",
-        toolCallId: "tc_demo_qrcode",
-        state: "output-available",
-        input: { data: "https://ai-tools-registry.vercel.app", size: 300 },
-        output: qrDemo,
-      }
-    : null
-
-  const timePart: ToolUIPart = {
-    type: "tool-time",
-    toolCallId: "tc_demo_time",
+  const qrPart: QRCodeToolType = {
+    toolCallId: "tc_demo_qrcode",
     state: "output-available",
-    input: { timeZone: "UTC", locale: "en-US" },
-    output: timeDemo,
+    input: { data: "https://ai-tools-registry.vercel.app", size: 300 },
+    output: qrDemo,
   }
 
   type DemoEntry = {
@@ -299,9 +278,7 @@ export async function loadDemos() {
     "stats",
     "weather",
     "news",
-    "time",
     "websearch",
-    "markdown",
     "qrcode",
   ] as const
 
@@ -315,7 +292,7 @@ export async function loadDemos() {
       json: weatherDemo,
       code: codeWeather,
       componentCode: codeWeatherCmp,
-      renderer: <DynamicToolComponent part={weatherPart} />,
+      renderer: <WeatherCard {...weatherPart} />,
     },
     news: {
       name: "news",
@@ -326,14 +303,7 @@ export async function loadDemos() {
       componentCode: codeNewsCmp,
       renderer: <NewsList {...newsPart} />,
     },
-    time: {
-      name: "time",
-      heading: "Time Now",
-      subheading: "Current time for timezone",
-      json: timeDemo,
-      code: codeTime,
-      renderer: <DynamicToolComponent part={timePart} />,
-    },
+
     websearch: {
       name: "websearch",
       heading: "Web Search",
@@ -351,7 +321,6 @@ export async function loadDemos() {
           code: codeWebDDG,
           renderer: (
             <WebSearchList
-              type="tool-websearch-ddg"
               toolCallId="tc_demo_websearch_ddg"
               state="output-available"
               input={{ query: "chatgpt", limit: 5 }}
@@ -366,11 +335,12 @@ export async function loadDemos() {
           code: codeWebBrave,
           renderer: (
             <WebSearchList
-              type="tool-websearch-brave"
               toolCallId="tc_demo_websearch_brave"
               state="output-available"
               input={{ query: "chatgpt", limit: 5 }}
-              output={webDemoBrave ?? webDemoDDG}
+              output={
+                webDemoBrave ?? webDemoDDG ?? { query: "chatgpt", results: [] }
+              }
             />
           ),
         },
@@ -382,11 +352,12 @@ export async function loadDemos() {
           code: codeWebExa,
           renderer: (
             <WebSearchList
-              type="tool-websearch-exa"
               toolCallId="tc_demo_websearch_exa"
               state="output-available"
               input={{ query: "chatgpt", limit: 5 }}
-              output={webDemoExa ?? webDemoDDG}
+              output={
+                webDemoExa ?? webDemoDDG ?? { query: "chatgpt", results: [] }
+              }
             />
           ),
         },
@@ -397,25 +368,19 @@ export async function loadDemos() {
           code: codeWebPerplexity,
           renderer: (
             <WebSearchList
-              type="tool-websearch-perplexity"
               toolCallId="tc_demo_websearch_perplexity"
               state="output-available"
               input={{ query: "chatgpt", limit: 5 }}
-              output={webDemoPerplexity ?? webDemoDDG}
+              output={
+                webDemoPerplexity ??
+                webDemoDDG ?? { query: "chatgpt", results: [] }
+              }
             />
           ),
         },
       ],
     },
-    markdown: {
-      name: "markdown",
-      heading: "Markdown",
-      subheading: "Render markdown in your chat view",
-      json: mdDemo,
-      code: codeMd,
-      componentCode: codeMdCmp,
-      renderer: <MarkdownViewer {...markdownPart} />,
-    },
+
     stats: {
       name: "stats",
       heading: "Public Stats",
@@ -432,7 +397,7 @@ export async function loadDemos() {
       json: qrDemo ?? qrError,
       code: codeQr,
       componentCode: codeQrCmp,
-      renderer: qrPart ? <QRCodeDisplay {...qrPart} /> : undefined,
+      renderer: <QRCodeDisplay {...qrPart} />,
     },
   }
 

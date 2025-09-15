@@ -1,4 +1,4 @@
-import { tool } from "ai"
+import { UIToolInvocation, tool } from "ai"
 import { z } from "zod"
 
 // Fetch global earthquake counts (per day) from USGS for the last N days
@@ -74,3 +74,5 @@ export const publicStatsTool = tool({
 })
 
 export default publicStatsTool
+
+export type StatsToolType = UIToolInvocation<typeof publicStatsTool>

@@ -1,4 +1,4 @@
-import { tool } from "ai"
+import { UIToolInvocation, tool } from "ai"
 import { z } from "zod"
 
 export const NewsItemSchema = z.object({
@@ -64,3 +64,5 @@ interface AlgoliaHit {
 interface AlgoliaSearchResponse {
   hits: AlgoliaHit[]
 }
+
+export type NewsToolType = UIToolInvocation<typeof newsSearchTool>

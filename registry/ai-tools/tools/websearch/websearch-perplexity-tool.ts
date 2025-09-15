@@ -1,5 +1,5 @@
 import { perplexity } from "@ai-sdk/perplexity"
-import { tool, generateObject } from "ai"
+import { tool, generateObject, UIToolInvocation } from "ai"
 import { z } from "zod"
 
 import { WebSearchSchema, WebSearchResult } from "./schema"
@@ -44,3 +44,5 @@ export const webSearchPerplexityTool = tool({
 })
 
 export default webSearchPerplexityTool
+
+export type WebSearchToolType = UIToolInvocation<typeof webSearchPerplexityTool>

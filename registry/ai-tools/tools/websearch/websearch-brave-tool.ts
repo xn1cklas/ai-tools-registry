@@ -1,4 +1,4 @@
-import { tool } from "ai"
+import { UIToolInvocation, tool } from "ai"
 import { z } from "zod"
 
 import { WebSearchItem, WebSearchSchema } from "./schema"
@@ -107,3 +107,5 @@ export const BraveSearchSchema = z
   .passthrough()
 
 export type BraveWebResult = z.infer<typeof BraveWebResultSchema>
+
+export type WebSearchToolType = UIToolInvocation<typeof webSearchBraveTool>

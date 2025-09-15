@@ -8,19 +8,15 @@
   "dependencies": [],
   "registryDependencies": [
     "https://ai-tools-registry.vercel.app/r/weather.json",
-    "https://ai-tools-registry.vercel.app/r/calculator.json",
-    "https://ai-tools-registry.vercel.app/r/translate",
     "https://ai-tools-registry.vercel.app/r/news.json",
-    "https://ai-tools-registry.vercel.app/r/time.json",
     "https://ai-tools-registry.vercel.app/r/websearch.json",
-    "https://ai-tools-registry.vercel.app/r/markdown.json",
     "https://ai-tools-registry.vercel.app/r/stats.json",
     "https://ai-tools-registry.vercel.app/r/qrcode.json"
   ],
   "files": [
     {
       "path": "registry/ai-tools/packs/tool-pack.md",
-      "content": "---\ntitle: Tool Pack\ndescription: Installs all sample AI tools and related renderers.\n---\n\nThis pack bundles the sample AI tools so you can install them together.\n\nIncluded tools:\n\n- @ai-tools/weather\n- @ai-tools/news\n- @ai-tools/time\n- @ai-tools/websearch\n- @ai-tools/markdown\n\nUsage:\n\n- With the shadcn CLI, reference the remote registry and select `tool-pack`.\n- In v0, use the Open in v0 button or the API URL for this item.\n",
+      "content": "---\ntitle: Tool Pack\ndescription: Installs all sample AI tools and related renderers.\n---\n\nThis pack bundles the sample AI tools so you can install them together.\n\nIncluded tools:\n\n- @ai-tools/weather\n- @ai-tools/news\n- @ai-tools/websearch\n- @ai-tools/stats\n- @ai-tools/qrcode\n\nUsage:\n\n- With the shadcn CLI, reference the remote registry and select `tool-pack`.\n- In v0, use the Open in v0 button or the API URL for this item.\n",
       "type": "registry:file",
       "target": "~/AI_TOOLS_PACK.md"
     }

@@ -9,9 +9,9 @@ Included tools:
 
 - @ai-tools/weather
 - @ai-tools/news
-- @ai-tools/time
 - @ai-tools/websearch
-- @ai-tools/markdown
+- @ai-tools/stats
+- @ai-tools/qrcode
 
 Usage:
 

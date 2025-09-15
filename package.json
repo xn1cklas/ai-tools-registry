@@ -16,7 +16,7 @@
     "@ai-sdk/perplexity": "^2.0.8",
     "@radix-ui/react-use-controllable-state": "^1.2.2",
     "@vercel/analytics": "^1.5.0",
-    "ai": "^5.0.28",
+    "ai": "^5.0.44",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",

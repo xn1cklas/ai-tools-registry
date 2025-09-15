@@ -14,7 +14,7 @@ export async function GET() {
       websearchPerplexity: {
         json: demos.websearch.variants?.[4]?.json ?? null,
       },
-      markdown: { json: demos.markdown.json },
+
       // stats demo is client-fetched in component; expose null to keep shape consistent
       stats: { json: demos.stats?.json ?? null },
     })

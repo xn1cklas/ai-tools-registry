@@ -1,4 +1,4 @@
-import { tool } from "ai"
+import { UIToolInvocation, tool } from "ai"
 import { z } from "zod"
 
 // Tool definition first
@@ -195,3 +195,5 @@ function mapWeatherCode(code: number): { condition: string; icon?: string } {
 }
 
 export default getWeatherTool
+
+export type WeatherToolType = UIToolInvocation<typeof getWeatherTool>

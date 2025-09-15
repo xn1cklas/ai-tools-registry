@@ -1,8 +1,7 @@
 "use client"
 
 import * as React from "react"
-import type { WebSearchItem, WebSearchResult } from "./schema"
-import { ToolUIPart } from "ai"
+import type { WebSearchItem } from "./schema"
 import {
   Card,
   CardContent,
@@ -10,9 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/ai-tools/ui/card"
+import type { WebSearchToolType } from "./tool"
 
-export function WebSearchList(part: ToolUIPart) {
-  const { query, results } = part.output as WebSearchResult
+export function WebSearchList(part: WebSearchToolType) {
+  if (part.output === undefined) return <div>Invalid tool type</div>
+  const { query, results } = part.output
   return (
     <Card className="w-full max-w-xl">
       <CardHeader>

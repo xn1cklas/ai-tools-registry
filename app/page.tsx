@@ -17,15 +17,7 @@ const getRegistryItemFromJson = React.cache(
   }
 )
 
-const toolNames = [
-  "stats",
-  "weather",
-  "news",
-  "time",
-  "websearch",
-  "markdown",
-  "qrcode",
-]
+const toolNames = ["stats", "weather", "news", "websearch", "qrcode"]
 
 export default async function Home() {
   const demos = await loadDemos()

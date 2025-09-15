@@ -1,4 +1,4 @@
-import { tool } from "ai"
+import { UIToolInvocation, tool } from "ai"
 import { z } from "zod"
 import QRCode from "qrcode"
 
@@ -42,3 +42,5 @@ export const qrCodeTool = tool({
   },
 })
 export default qrCodeTool
+
+export type QRCodeToolType = UIToolInvocation<typeof qrCodeTool>

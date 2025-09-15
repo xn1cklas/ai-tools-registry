@@ -4,7 +4,6 @@ import * as React from "react"
 import { WeatherCard } from "@/registry/ai-tools/tools/weather/component"
 import { NewsList } from "@/registry/ai-tools/tools/news/component"
 import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
-import { MarkdownViewer } from "@/registry/ai-tools/tools/markdown/component"
 import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
 import { Button } from "@/registry/ai-tools/ui/button"
 import { Input } from "@/registry/ai-tools/ui/input"
@@ -38,7 +37,6 @@ export default function Playground() {
         setRenderers({
           weather: (
             <WeatherCard
-              type="tool-weather"
               toolCallId="demo-weather"
               state="output-available"
               input={{
@@ -50,7 +48,6 @@ export default function Playground() {
           ),
           news: (
             <NewsList
-              type="tool-news"
               toolCallId="demo-news"
               state="output-available"
               input={{
@@ -65,7 +62,6 @@ export default function Playground() {
           ),
           websearch: (
             <WebSearchList
-              type="tool-websearch"
               toolCallId="demo-websearch"
               state="output-available"
               input={{
@@ -77,18 +73,9 @@ export default function Playground() {
               output={d.websearch.json}
             />
           ),
-          markdown: (
-            <MarkdownViewer
-              type="tool-markdown"
-              toolCallId="demo-markdown"
-              state="output-available"
-              input={{ markdown: d.markdown.json.markdown }}
-              output={d.markdown.json}
-            />
-          ),
+
           stats: d.stats?.json ? (
             <StatsChart
-              type="tool-stats"
               toolCallId="demo-stats"
               state="output-available"
               input={{ daysBack: 30, minMagnitude: 5 }}
@@ -96,7 +83,6 @@ export default function Playground() {
             />
           ) : (
             <StatsChart
-              type="tool-stats"
               toolCallId="demo-stats"
               state="input-streaming"
               input={undefined}
@@ -109,7 +95,6 @@ export default function Playground() {
         setRenderers({
           weather: (
             <WeatherCard
-              type="tool-weather"
               toolCallId="demo-weather"
               state="output-available"
               input={{ location: "", unit: "C" }}
@@ -127,7 +112,6 @@ export default function Playground() {
           ),
           news: (
             <NewsList
-              type="tool-news"
               toolCallId="demo-news"
               state="output-available"
               input={{ topic: "", limit: 0 }}
@@ -136,25 +120,15 @@ export default function Playground() {
           ),
           websearch: (
             <WebSearchList
-              type="tool-websearch"
               toolCallId="demo-websearch"
               state="output-available"
               input={{ query: "", limit: 0 }}
               output={{ query: "", results: [] }}
             />
           ),
-          markdown: (
-            <MarkdownViewer
-              type="tool-markdown"
-              toolCallId="demo-markdown"
-              state="output-available"
-              input={{ markdown: "" }}
-              output={{ markdown: "" }}
-            />
-          ),
+
           stats: (
             <StatsChart
-              type="tool-stats"
               toolCallId="demo-stats"
               state="input-streaming"
               input={undefined}
@@ -270,7 +244,7 @@ export default function Playground() {
               <option value="weather">Weather</option>
               <option value="news">News</option>
               <option value="websearch">Web Search</option>
-              <option value="markdown">Markdown</option>
+
               <option value="stats">Public Stats</option>
             </select>
             <Button
