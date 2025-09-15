@@ -20,7 +20,7 @@
   "files": [
     {
       "path": "registry/ai-tools/packs/tool-pack.md",
-      "content": "---\ntitle: Tool Pack\ndescription: Installs all sample AI tools and related renderers.\n---\n\nThis pack bundles the sample AI tools so you can install them together.\n\nIncluded tools:\n\n- @ai-tools/weather\n- @ai-tools/calculator\n- @ai-tools/translate\n- @ai-tools/news\n- @ai-tools/time\n- @ai-tools/websearch\n- @ai-tools/markdown\n\nUsage:\n\n- With the shadcn CLI, reference the remote registry and select `tool-pack`.\n- In v0, use the Open in v0 button or the API URL for this item.\n",
+      "content": "---\ntitle: Tool Pack\ndescription: Installs all sample AI tools and related renderers.\n---\n\nThis pack bundles the sample AI tools so you can install them together.\n\nIncluded tools:\n\n- @ai-tools/weather\n- @ai-tools/news\n- @ai-tools/time\n- @ai-tools/websearch\n- @ai-tools/markdown\n\nUsage:\n\n- With the shadcn CLI, reference the remote registry and select `tool-pack`.\n- In v0, use the Open in v0 button or the API URL for this item.\n",
       "type": "registry:file",
       "target": "~/AI_TOOLS_PACK.md"
     }

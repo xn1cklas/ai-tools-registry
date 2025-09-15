@@ -19,9 +19,6 @@ import { webSearchDDGTool } from "@/registry/ai-tools/tools/websearch/websearch-
 import { webSearchExaTool } from "@/registry/ai-tools/tools/websearch/websearch-exa-tool"
 import { webSearchPerplexityTool } from "@/registry/ai-tools/tools/websearch/websearch-perplexity-tool"
 import type { MarkdownResult } from "@/registry/ai-tools/tools/markdown/tool"
-import type { CalculatorResult } from "@/registry/ai-tools/tools/calculator/tool"
-import { calculatorTool } from "@/registry/ai-tools/tools/calculator/tool"
-import type { TranslateResult } from "@/registry/ai-tools/tools/translate/tool"
 import type { TimeNowResult } from "@/registry/ai-tools/tools/time/tool"
 import { getWeatherTool } from "@/registry/ai-tools/tools/weather/tool"
 import { newsSearchTool } from "@/registry/ai-tools/tools/news/tool"
@@ -84,27 +81,6 @@ export async function loadDemos() {
     () => newsSearchTool.execute({ topic: "AI", limit: 5 }),
     newsFallback
   )
-
-  // Calculator
-  const calcFallback: CalculatorResult = {
-    a: 7,
-    b: 3,
-    operator: "+",
-    result: 10,
-  }
-  const calcDemo = await safe<CalculatorResult>(
-    // @ts-expect-error - calculatorTool is not typed
-    () => calculatorTool.execute({ a: 7, b: 3, operator: "+" }),
-    calcFallback
-  )
-
-  // Translate
-  const translateFallback: TranslateResult = {
-    text: "Hello, world!",
-    targetLanguage: "es",
-    translated: "¡Hola, mundo!",
-  }
-  const translateDemo = translateFallback
 
   // Time Now
   const timeFallback: TimeNowResult = {
@@ -190,8 +166,6 @@ export async function loadDemos() {
   const [
     codeWeather,
     codeNews,
-    codeCalc,
-    codeTranslate,
     codeTime,
     codeWeatherCmp,
     codeNewsCmp,
@@ -210,8 +184,6 @@ export async function loadDemos() {
   ] = await Promise.all([
     read("registry/ai-tools/tools/weather/tool.ts"),
     read("registry/ai-tools/tools/news/tool.ts"),
-    read("registry/ai-tools/tools/calculator/tool.ts"),
-    read("registry/ai-tools/tools/translate/tool.ts"),
     read("registry/ai-tools/tools/time/tool.ts"),
     read("registry/ai-tools/tools/weather/component.tsx"),
     read("registry/ai-tools/tools/news/component.tsx"),
@@ -228,14 +200,6 @@ export async function loadDemos() {
     read("registry/ai-tools/tools/qrcode/tool.ts"),
     read("registry/ai-tools/tools/qrcode/component.tsx"),
   ])
-
-  const translatePart: ToolUIPart = {
-    type: "tool-translate",
-    toolCallId: "tc_demo_translate",
-    state: "output-available",
-    input: { text: "Hello", targetLanguage: "es", sourceLanguage: "en" },
-    output: { text: "Hello", targetLanguage: "es", translated: "¡Hola!" },
-  }
 
   const newsPart: ToolUIPart = {
     type: "tool-news",
@@ -304,14 +268,6 @@ export async function loadDemos() {
       }
     : null
 
-  const calculatorPart: ToolUIPart = {
-    type: "tool-calculator",
-    toolCallId: "tc_demo_calculator",
-    state: "output-available",
-    input: { a: 7, b: 3, operator: "+" },
-    output: calcDemo,
-  }
-
   const timePart: ToolUIPart = {
     type: "tool-time",
     toolCallId: "tc_demo_time",
@@ -343,8 +299,6 @@ export async function loadDemos() {
     "stats",
     "weather",
     "news",
-    "calculator",
-    "translate",
     "time",
     "websearch",
     "markdown",
@@ -371,22 +325,6 @@ export async function loadDemos() {
       code: codeNews,
       componentCode: codeNewsCmp,
       renderer: <NewsList {...newsPart} />,
-    },
-    calculator: {
-      name: "calculator",
-      heading: "Calculator",
-      subheading: "Basic arithmetic",
-      json: calcDemo,
-      code: codeCalc,
-      renderer: <DynamicToolComponent part={calculatorPart} />,
-    },
-    translate: {
-      name: "translate",
-      heading: "Translate",
-      subheading: "Translate text (mock)",
-      json: translateDemo,
-      code: codeTranslate,
-      renderer: <DynamicToolComponent part={translatePart} />,
     },
     time: {
       name: "time",

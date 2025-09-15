@@ -33,8 +33,6 @@ npx shadcn@latest add @ai-tools/web-search
 Example tools you can install:
 
 - `@ai-tools/weather` – AI SDK tool + `WeatherCard` renderer
-- `@ai-tools/calculator` – simple calculator tool
-- `@ai-tools/translate` – sample translate tool
 - `@ai-tools/news` – sample news search tool + `NewsList` renderer
 - `@ai-tools/time` – current time for a timezone
 - `@ai-tools/stats` – display data using `recharts`

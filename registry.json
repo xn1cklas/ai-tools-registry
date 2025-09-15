@@ -456,70 +456,6 @@
       ]
     },
     {
-      "name": "calculator",
-      "type": "registry:component",
-      "title": "Calculator",
-      "description": "Simple calculator tool for basic arithmetic.",
-      "author": "Nicklas Scharpff <https://n1cklas.com>",
-      "creators": [
-        {
-          "name": "xn1cklas",
-          "handle": "xn1cklas",
-          "url": "https://github.com/xn1cklas",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
-          "role": "author"
-        }
-      ],
-      "files": [
-        {
-          "path": "registry/ai-tools/tools/calculator/tool.ts",
-          "type": "registry:file",
-          "target": "~/ai/tools/calculator/tool.ts"
-        },
-        {
-          "path": "registry/ai-tools/tools/fallback/component.tsx",
-          "type": "registry:file",
-          "target": "~/ai/tools/fallback/component.tsx"
-        }
-      ],
-      "registryDependencies": [
-        "https://registry.ai-sdk.dev/tool.json",
-        "https://registry.ai-sdk.dev/response.json"
-      ]
-    },
-    {
-      "name": "translate",
-      "type": "registry:component",
-      "title": "Translate",
-      "description": "Translate a string to a target language (mock).",
-      "author": "Nicklas Scharpff <https://n1cklas.com>",
-      "creators": [
-        {
-          "name": "xn1cklas",
-          "handle": "xn1cklas",
-          "url": "https://github.com/xn1cklas",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
-          "role": "author"
-        }
-      ],
-      "files": [
-        {
-          "path": "registry/ai-tools/tools/translate/tool.ts",
-          "type": "registry:file",
-          "target": "~/ai/tools/translate/tool.ts"
-        },
-        {
-          "path": "registry/ai-tools/tools/fallback/component.tsx",
-          "type": "registry:file",
-          "target": "~/ai/tools/fallback/component.tsx"
-        }
-      ],
-      "registryDependencies": [
-        "https://registry.ai-sdk.dev/tool.json",
-        "https://registry.ai-sdk.dev/response.json"
-      ]
-    },
-    {
       "name": "news",
       "type": "registry:component",
       "title": "News Search",
@@ -548,38 +484,6 @@
           "type": "registry:file",
           "target": "~/ai/tools/news/component.tsx"
         }
-      ]
-    },
-    {
-      "name": "time",
-      "type": "registry:component",
-      "title": "Time Now",
-      "description": "Get the current time for a timezone.",
-      "author": "Nicklas Scharpff <https://n1cklas.com>",
-      "creators": [
-        {
-          "name": "xn1cklas",
-          "handle": "xn1cklas",
-          "url": "https://github.com/xn1cklas",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
-          "role": "author"
-        }
-      ],
-      "files": [
-        {
-          "path": "registry/ai-tools/tools/time/tool.ts",
-          "type": "registry:file",
-          "target": "~/ai/tools/time/tool.ts"
-        },
-        {
-          "path": "registry/ai-tools/tools/fallback/component.tsx",
-          "type": "registry:file",
-          "target": "~/ai/tools/fallback/component.tsx"
-        }
-      ],
-      "registryDependencies": [
-        "https://registry.ai-sdk.dev/tool.json",
-        "https://registry.ai-sdk.dev/response.json"
       ]
     },
     {

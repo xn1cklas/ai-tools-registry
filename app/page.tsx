@@ -21,8 +21,6 @@ const toolNames = [
   "stats",
   "weather",
   "news",
-  "calculator",
-  "translate",
   "time",
   "websearch",
   "markdown",
