@@ -42,6 +42,7 @@ import type {
 import { qrCodeTool } from "@/registry/ai-tools/tools/qrcode/tool"
 import type { ImageResult } from "@/registry/ai-tools/tools/image/schema"
 import WeatherCard from "@/registry/ai-tools/tools/weather/component"
+import { ImageToolType } from "@/registry/ai-tools/tools/image/tool"
 
 const read = (p: string) => fs.readFile(path.join(process.cwd(), p), "utf8")
 
@@ -278,8 +279,7 @@ export async function loadDemos() {
     output: qrDemo,
   }
 
-  const imagePart: any = {
-    type: "tool-image",
+  const imagePart: ImageToolType = {
     toolCallId: "tc_demo_image",
     state: "output-available",
     input: { prompt: imageDemo.prompt, n: 2, aspectRatio: "1:1" },
@@ -311,7 +311,6 @@ export async function loadDemos() {
     "news",
     "websearch",
     "image",
-    "markdown",
     "qrcode",
   ] as const
 
@@ -430,7 +429,6 @@ export async function loadDemos() {
           code: codeImgOpenAI,
           renderer: (
             <ImageGrid
-              type="tool-image-openai"
               toolCallId="tc_demo_image_openai"
               state="output-available"
               input={{ prompt: imageDemo.prompt, n: 2, aspectRatio: "1:1" }}
@@ -445,7 +443,6 @@ export async function loadDemos() {
           code: codeImgFal,
           renderer: (
             <ImageGrid
-              type="tool-image-fal"
               toolCallId="tc_demo_image_fal"
               state="output-available"
               input={{ prompt: imageDemo.prompt, n: 2, aspectRatio: "1:1" }}
@@ -460,7 +457,6 @@ export async function loadDemos() {
           code: codeImgRunware,
           renderer: (
             <ImageGrid
-              type="tool-image-runware"
               toolCallId="tc_demo_image_runware"
               state="output-available"
               input={{ prompt: imageDemo.prompt, n: 2, aspectRatio: "1:1" }}
@@ -469,15 +465,6 @@ export async function loadDemos() {
           ),
         },
       ],
-    },
-    markdown: {
-      name: "markdown",
-      heading: "Markdown",
-      subheading: "Render markdown in your chat view",
-      json: mdDemo,
-      code: codeMd,
-      componentCode: codeMdCmp,
-      renderer: <MarkdownViewer {...markdownPart} />,
     },
     stats: {
       name: "stats",

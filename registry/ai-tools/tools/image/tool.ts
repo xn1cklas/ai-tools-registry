@@ -1,4 +1,4 @@
-import { tool } from "ai"
+import { UIToolInvocation, tool } from "ai"
 
 import {
   ImageResultSchema,
@@ -27,3 +27,4 @@ export const imageTool = tool({
 })
 
 export default imageTool
+export type ImageToolType = UIToolInvocation<typeof imageTool>

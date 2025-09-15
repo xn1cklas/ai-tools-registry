@@ -9,10 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/ai-tools/ui/card"
+import { ImageToolType } from "./tool"
 
-export function ImageGrid(part: ToolUIPart) {
+export function ImageGrid(part: ImageToolType) {
   if (!part.output) return null
-  const { images, provider, prompt, aspectRatio } = part.output as ImageResult
+  const { images, provider, prompt, aspectRatio } = part.output
 
   return (
     <Card className="w-full max-w-3xl">

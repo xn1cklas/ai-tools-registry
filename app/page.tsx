@@ -17,7 +17,7 @@ const getRegistryItemFromJson = React.cache(
   }
 )
 
-const toolNames = ["stats", "weather", "news", "websearch", "qrcode"]
+const toolNames = ["stats", "weather", "news", "websearch", "image", "qrcode"]
 
 export default async function Home() {
   const demos = await loadDemos()
@@ -86,17 +86,29 @@ export default async function Home() {
           const variantRegistryItems = entry.variants
             ? Object.fromEntries(
                 entry.variants.map((v: { key: string }) => {
-                  const item = getRegistryItemFromJson(
-                    v.key === "brave"
-                      ? "websearch-brave"
-                      : v.key === "ddg"
-                        ? "websearch-ddg"
-                        : v.key === "exa"
-                          ? "websearch-exa"
-                          : v.key === "perplexity"
-                            ? "websearch-perplexity"
-                            : "websearch"
-                  )
+                  let targetName = entry.name
+                  if (entry.name === "websearch") {
+                    targetName =
+                      v.key === "brave"
+                        ? "websearch-brave"
+                        : v.key === "ddg"
+                          ? "websearch-ddg"
+                          : v.key === "exa"
+                            ? "websearch-exa"
+                            : v.key === "perplexity"
+                              ? "websearch-perplexity"
+                              : "websearch"
+                  } else if (entry.name === "image") {
+                    targetName =
+                      v.key === "openai"
+                        ? "image-openai"
+                        : v.key === "fal"
+                          ? "image-fal"
+                          : v.key === "runware"
+                            ? "image-runware"
+                            : "image"
+                  }
+                  const item = getRegistryItemFromJson(targetName)
                   return [v.key, item]
                 })
               )
