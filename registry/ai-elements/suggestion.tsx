@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/registry/ai-tools/ui/button"
-import { ScrollArea, ScrollBar } from "@/components/ui/lina-scroll-area"
+import { ScrollArea, ScrollBar } from "@/registry/ai-tools/ui/scroll-area"
 import { cn } from "@/lib/utils"
 import type { ComponentProps } from "react"
 
