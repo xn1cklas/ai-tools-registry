@@ -9,9 +9,70 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/ai-tools/ui/card"
+import { Loader } from "@/registry/ai-elements/loader"
+import { CodeBlock } from "@/registry/ai-elements/code-block"
+import {
+  Sources,
+  SourcesContent,
+  SourcesTrigger,
+  Source as SourcesItem,
+} from "@/registry/ai-elements/sources"
 
 export function NewsList(part: NewsToolType) {
-  if (part.output === undefined) return <div>Invalid tool type</div>
+  if (part.state === "input-streaming") {
+    return (
+      <Card className="w-full max-w-lg">
+        <CardHeader>
+          <CardTitle>News</CardTitle>
+          <CardDescription>Waiting for topic…</CardDescription>
+        </CardHeader>
+        <CardContent className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Loader /> Preparing request
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (part.state === "input-available") {
+    return (
+      <Card className="w-full max-w-lg">
+        <CardHeader>
+          <CardTitle>News</CardTitle>
+          <CardDescription>Fetching…</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Loader /> Running tool
+          </div>
+          {part.input ? (
+            <div className="rounded-md bg-muted/50">
+              <CodeBlock
+                code={JSON.stringify(part.input, null, 2)}
+                language="json"
+              />
+            </div>
+          ) : null}
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (part.state === "output-error") {
+    return (
+      <Card className="w-full max-w-lg">
+        <CardHeader>
+          <CardTitle>News</CardTitle>
+          <CardDescription>Error</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="rounded-md bg-destructive/10 text-destructive p-3 text-sm">
+            {part.errorText || "An error occurred while fetching news."}
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+  if (part.output === undefined) return null
   const { topic, items } = part.output
   return (
     <Card className="w-full max-w-lg">
@@ -43,6 +104,20 @@ export function NewsList(part: NewsToolType) {
             </li>
           ))}
         </ul>
+        {items.some((i) => i.url) ? (
+          <div className="mt-3">
+            <Sources>
+              <SourcesTrigger count={items.filter((i) => i.url).length} />
+              <SourcesContent>
+                {items
+                  .filter((i) => i.url)
+                  .map((i) => (
+                    <SourcesItem key={i.id} href={i.url!} title={i.title} />
+                  ))}
+              </SourcesContent>
+            </Sources>
+          </div>
+        ) : null}
       </CardContent>
     </Card>
   )

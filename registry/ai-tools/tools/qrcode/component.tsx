@@ -11,9 +11,65 @@ import {
 } from "@/registry/ai-tools/ui/card"
 import { Button } from "@/registry/ai-tools/ui/button"
 import { CheckIcon, DownloadIcon } from "lucide-react"
+import { Loader } from "@/registry/ai-elements/loader"
+import { CodeBlock } from "@/registry/ai-elements/code-block"
 
 export function QRCodeDisplay(part: QRCodeToolType) {
-  if (part.output === undefined) return <div>Invalid tool type</div>
+  if (part.state === "input-streaming") {
+    return (
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>QR Code</CardTitle>
+          <CardDescription>Waiting for data…</CardDescription>
+        </CardHeader>
+        <CardContent className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Loader /> Preparing request
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (part.state === "input-available") {
+    return (
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>QR Code</CardTitle>
+          <CardDescription>Generating…</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Loader /> Running tool
+          </div>
+          {part.input ? (
+            <div className="rounded-md bg-muted/50">
+              <CodeBlock
+                code={JSON.stringify(part.input, null, 2)}
+                language="json"
+              />
+            </div>
+          ) : null}
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (part.state === "output-error") {
+    return (
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>QR Code</CardTitle>
+          <CardDescription>Error</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="rounded-md bg-destructive/10 text-destructive p-3 text-sm">
+            {part.errorText ||
+              "An error occurred while generating the QR code."}
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+  if (part.output === undefined) return null
   const data = part.output
   const [downloading, setDownloading] = React.useState(false)
   const [downloaded, setDownloaded] = React.useState(false)

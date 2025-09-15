@@ -17,6 +17,9 @@ export const toolMetaSchema = z
   .object({
     kind: z.literal("tool"),
     hasRenderer: z.boolean().optional(),
+    demoHeading: z.string().optional(),
+    demoSubheading: z.string().optional(),
+    isNew: z.boolean().optional(),
   })
   .optional()
 

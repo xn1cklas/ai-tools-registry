@@ -4,55 +4,13 @@
   "homepage": "https://ai-tools-registry.vercel.app",
   "items": [
     {
-      "name": "design-system",
-      "type": "registry:style",
-      "dependencies": ["radix-ui"],
-      "author": "shadcn",
-      "creators": [
-        {
-          "name": "shadcn",
-          "handle": "shadcn",
-          "url": "https://github.com/shadcn",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/126524841?v=4",
-          "role": "author"
-        }
-      ],
-      "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/button.json",
-        "https://ai-tools-registry.vercel.app/r/input.json",
-        "https://ai-tools-registry.vercel.app/r/calendar.json",
-        "https://ai-tools-registry.vercel.app/r/card.json",
-        "https://ai-tools-registry.vercel.app/r/label.json",
-        "https://ai-tools-registry.vercel.app/r/popover.json",
-        "https://ai-tools-registry.vercel.app/r/textarea.json"
-      ],
-      "cssVars": {
-        "light": {
-          "primary": "oklch(0.63 0.17 149)",
-          "primary-foreground": "oklch(0.985 0 0)",
-          "radius": "0.825rem"
-        },
-        "dark": {
-          "primary": "oklch(0.63 0.17 149)",
-          "primary-foreground": "oklch(0.985 0 0)"
-        }
-      },
-      "files": [
-        {
-          "path": "registry/ai-tools/rules/AGENTS.md",
-          "type": "registry:file",
-          "target": "~/AGENTS.md"
-        }
-      ]
-    },
-    {
       "name": "image",
       "type": "registry:component",
       "title": "Image Generation",
       "description": "AI SDK tool that generates images from text prompts. Includes a grid renderer.",
       "author": "Nicklas Scharpff <https://n1cklas.com>",
       "dependencies": ["zod", "ai", "@ai-sdk/openai"],
-      "registryDependencies": ["@ai-tools/card"],
+      "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
       "files": [
         {
           "path": "registry/ai-tools/tools/image/image-openai-tool.ts",
@@ -69,7 +27,12 @@
           "type": "registry:file",
           "target": "~/ai/tools/image/schema.ts"
         }
-      ]
+      ],
+      "toolMeta": {
+        "kind": "tool",
+        "demoHeading": "Image Generation",
+        "demoSubheading": "Generate images from text prompts"
+      }
     },
     {
       "name": "image-openai",
@@ -78,7 +41,7 @@
       "description": "Generate images using OpenAI via Vercel AI SDK. Shares renderer.",
       "author": "Nicklas Scharpff <https://n1cklas.com>",
       "dependencies": ["zod", "ai", "@ai-sdk/openai"],
-      "registryDependencies": ["@ai-tools/card"],
+      "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
       "files": [
         {
           "path": "registry/ai-tools/tools/image/image-openai-tool.ts",
@@ -95,7 +58,12 @@
           "type": "registry:file",
           "target": "~/ai/tools/image/schema.ts"
         }
-      ]
+      ],
+      "toolMeta": {
+        "kind": "tool",
+        "demoHeading": "Image Generation (OpenAI)",
+        "demoSubheading": "Generate with OpenAI"
+      }
     },
     {
       "name": "image-fal",
@@ -104,7 +72,7 @@
       "description": "Generate images using FAL.ai via Vercel AI SDK. Shares renderer.",
       "author": "Nicklas Scharpff <https://n1cklas.com>",
       "dependencies": ["zod", "ai", "@ai-sdk/fal"],
-      "registryDependencies": ["@ai-tools/card"],
+      "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
       "files": [
         {
           "path": "registry/ai-tools/tools/image/image-fal-tool.ts",
@@ -121,7 +89,74 @@
           "type": "registry:file",
           "target": "~/ai/tools/image/schema.ts"
         }
-      ]
+      ],
+      "toolMeta": {
+        "kind": "tool",
+        "demoHeading": "Image Generation (FAL.ai)",
+        "demoSubheading": "Generate with FAL.ai"
+      }
+    },
+    {
+      "name": "image-runware",
+      "type": "registry:component",
+      "title": "Image Generation (Runware)",
+      "description": "Generate images using Runware via Vercel AI SDK. Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "dependencies": ["zod", "ai", "@runware/ai-sdk-provider"],
+      "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/image/image-runware-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/schema.ts"
+        }
+      ],
+      "toolMeta": {
+        "kind": "tool",
+        "demoHeading": "Image Generation (Runware)",
+        "demoSubheading": "Generate with Runware"
+      }
+    },
+    {
+      "name": "image-gemini",
+      "type": "registry:component",
+      "title": "Image Generation",
+      "description": "Generate images using Google Gemini via Vercel AI Gateway. Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "dependencies": ["zod", "ai", "@ai-sdk/openai"],
+      "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/image/image-gemini-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/schema.ts"
+        }
+      ],
+      "toolMeta": {
+        "kind": "tool",
+        "demoHeading": "Image Generation",
+        "demoSubheading": "Generate with Gemini"
+      }
     },
     {
       "name": "chart",
@@ -167,7 +202,12 @@
           "type": "registry:file",
           "target": "~/ai/tools/websearch/schema.ts"
         }
-      ]
+      ],
+      "toolMeta": {
+        "kind": "tool",
+        "demoHeading": "Web Search",
+        "demoSubheading": "Search the web and show results"
+      }
     },
     {
       "name": "websearch-perplexity",
@@ -195,7 +235,8 @@
           "type": "registry:file",
           "target": "~/ai/tools/websearch/schema.ts"
         }
-      ]
+      ],
+      "toolMeta": { "kind": "tool" }
     },
     {
       "name": "websearch-exa",
@@ -223,7 +264,8 @@
           "type": "registry:file",
           "target": "~/ai/tools/websearch/schema.ts"
         }
-      ]
+      ],
+      "toolMeta": { "kind": "tool" }
     },
     {
       "name": "websearch-brave",
@@ -251,7 +293,8 @@
           "type": "registry:file",
           "target": "~/ai/tools/websearch/schema.ts"
         }
-      ]
+      ],
+      "toolMeta": { "kind": "tool" }
     },
     {
       "name": "websearch-ddg",

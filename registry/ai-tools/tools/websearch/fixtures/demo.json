@@ -1,0 +1,23 @@
+{
+  "query": "chatgpt",
+  "results": [
+    {
+      "title": "ChatGPT — OpenAI",
+      "url": "https://openai.com/chatgpt",
+      "snippet": "ChatGPT is a conversational AI model developed by OpenAI that can assist with a wide range of tasks.",
+      "source": "openai.com"
+    },
+    {
+      "title": "What is ChatGPT?",
+      "url": "https://en.wikipedia.org/wiki/ChatGPT",
+      "snippet": "ChatGPT is a generative artificial intelligence chatbot developed by OpenAI and launched in November 2022.",
+      "source": "wikipedia.org"
+    },
+    {
+      "title": "Introducing ChatGPT",
+      "url": "https://openai.com/index/chatgpt/",
+      "snippet": "We’ve trained a model called ChatGPT which interacts in a conversational way.",
+      "source": "openai.com"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "topic": "AI",
+  "items": [
+    {
+      "id": "ai-1",
+      "title": "AI breakthrough announced",
+      "url": "https://example.com/ai-1",
+      "publishedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "ai-2",
+      "title": "New model sets benchmark",
+      "url": "https://example.com/ai-2",
+      "publishedAt": "2024-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "ai-3",
+      "title": "Tooling ecosystem expands"
+    }
+  ]
+}

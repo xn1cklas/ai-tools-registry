@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/ai-tools/ui/card"
+import { Loader } from "@/registry/ai-elements/loader"
 import {
   ChartContainer,
   ChartLegend,
@@ -26,6 +27,50 @@ import type {
 import type { Props as DefaultLegendContentProps } from "recharts/types/component/DefaultLegendContent"
 
 export function StatsChart(part: StatsToolType) {
+  if (part.state === "input-streaming") {
+    return (
+      <Card className="w-full max-w-3xl">
+        <CardHeader>
+          <CardTitle>Public Stats</CardTitle>
+          <CardDescription>Waiting for parameters…</CardDescription>
+        </CardHeader>
+        <CardContent className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Loader /> Preparing request
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (part.state === "input-available") {
+    return (
+      <Card className="w-full max-w-3xl">
+        <CardHeader>
+          <CardTitle>Public Stats</CardTitle>
+          <CardDescription>Loading…</CardDescription>
+        </CardHeader>
+        <CardContent className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Loader /> Running tool
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (part.state === "output-error") {
+    return (
+      <Card className="w-full max-w-3xl">
+        <CardHeader>
+          <CardTitle>Public Stats</CardTitle>
+          <CardDescription>Error</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="rounded-md bg-destructive/10 text-destructive p-3 text-sm">
+            {part.errorText || "An error occurred while loading stats."}
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+
   if (!part.output) {
     return (
       <Card className="w-full max-w-3xl">

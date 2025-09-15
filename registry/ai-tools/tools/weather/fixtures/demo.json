@@ -1,0 +1,11 @@
+{
+  "location": "San Francisco",
+  "unit": "C",
+  "temperature": 21,
+  "condition": "Sunny",
+  "high": 24,
+  "low": 18,
+  "humidity": 0.45,
+  "windKph": 8,
+  "icon": "weather-sun"
+}

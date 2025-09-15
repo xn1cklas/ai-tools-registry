@@ -5,8 +5,8 @@ import { ImageResultSchema, ImageInputSchema } from "./schema"
 import type { ImageResult, ImageItem } from "./schema"
 
 export const imageRunwareTool = tool({
-  name: "image-fal",
-  description: "Generate images using FAL.ai via Vercel AI SDK (flux/schnell).",
+  name: "image-runware",
+  description: "Generate images using Runware via Vercel AI SDK (Flux models).",
   inputSchema: ImageInputSchema,
   outputSchema: ImageResultSchema,
   execute: async ({

@@ -1,0 +1,9 @@
+{
+  "provider": "demo",
+  "prompt": "A serene landscape with mountains at sunrise",
+  "images": [
+    { "url": "https://picsum.photos/seed/ai-tools-1/640/640" },
+    { "url": "https://picsum.photos/seed/ai-tools-2/640/640" }
+  ],
+  "aspectRatio": "1:1"
+}
