@@ -5,8 +5,9 @@ import registry from "@/registry.json"
 import { Button } from "@/registry/ai-tools/ui/button"
 import { ToolDemoCard } from "@/components/tool-demo-card"
 import type { ExtendedRegistryItem } from "@/lib/registry-schemas"
-import { loadDemos } from "@/lib/demos"
 import PageWideScrollMask from "@/components/page-wide-adaptive-mask"
+import { resolveVariantRegistryName } from "@/lib/utils"
+import { loadDemosFromRegistry } from "@/lib/demos-helpers"
 
 const getRegistryItemFromJson = React.cache(
   (name: string): ExtendedRegistryItem | null => {
@@ -20,10 +21,15 @@ const getRegistryItemFromJson = React.cache(
 const toolNames = ["stats", "weather", "news", "websearch", "image", "qrcode"]
 
 export default async function Home() {
-  const demos = await loadDemos()
+  const demos = await loadDemosFromRegistry()
 
-  const items = toolNames
-    .map((name) => ({ name, item: getRegistryItemFromJson(name) }))
+  // Discover displayed tools dynamically from registry via toolMeta.kind === "tool"
+  const registryItems = (await import("@/registry.json")).default as {
+    items: Array<{ name: string; toolMeta?: { kind?: string } }>
+  }
+  const items = registryItems.items
+    .filter((x) => x.toolMeta?.kind === "tool")
+    .map((x) => ({ name: x.name, item: getRegistryItemFromJson(x.name) }))
     .filter(
       (x): x is { name: string; item: ExtendedRegistryItem } => x.item !== null
     )
@@ -86,28 +92,10 @@ export default async function Home() {
           const variantRegistryItems = entry.variants
             ? Object.fromEntries(
                 entry.variants.map((v: { key: string }) => {
-                  let targetName = entry.name
-                  if (entry.name === "websearch") {
-                    targetName =
-                      v.key === "brave"
-                        ? "websearch-brave"
-                        : v.key === "ddg"
-                          ? "websearch-ddg"
-                          : v.key === "exa"
-                            ? "websearch-exa"
-                            : v.key === "perplexity"
-                              ? "websearch-perplexity"
-                              : "websearch"
-                  } else if (entry.name === "image") {
-                    targetName =
-                      v.key === "openai"
-                        ? "image-openai"
-                        : v.key === "fal"
-                          ? "image-fal"
-                          : v.key === "runware"
-                            ? "image-runware"
-                            : "image"
-                  }
+                  const targetName = resolveVariantRegistryName(
+                    entry.name,
+                    v.key
+                  )
                   const item = getRegistryItemFromJson(targetName)
                   return [v.key, item]
                 })
@@ -122,6 +110,7 @@ export default async function Home() {
               code={entry.code}
               componentCode={entry.componentCode}
               renderer={entry.renderer}
+              states={entry.states}
               heading={entry.heading}
               subheading={entry.subheading}
               variants={entry.variants}
@@ -149,7 +138,7 @@ export default async function Home() {
                 {item.description}
               </div>
               <div className="flex gap-2 mt-auto">
-                <AddCommand name={item.name} creator={item.creators?.[0]} />
+                <AddCommand name={item.name} />
                 <OpenInV0 name={item.name} />
               </div>
             </div>
