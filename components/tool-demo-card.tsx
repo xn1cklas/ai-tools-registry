@@ -94,12 +94,15 @@ export function ToolDemoCard({
         "brave",
         "exa",
         "perplexity",
+        "firecrawl",
         "openai",
         "fal",
         "runware",
       ].includes(variantKey)
     const n = activeRegistryItem.name
-    return /websearch-(brave|exa|perplexity)|image-(openai|fal|runware)/.test(n)
+    return /websearch-(brave|exa|perplexity|firecrawl)|image-(openai|fal|runware)/.test(
+      n
+    )
   }, [hasVariants, variantKey, activeRegistryItem.name])
 
   const isImageTool = React.useMemo(() => {
@@ -123,7 +126,7 @@ export function ToolDemoCard({
   return (
     <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 border rounded-lg p-6 bg-muted/30">
       {isNew ? <NewBadge /> : null}
-      <header className="md:col-span-2 flex items-center justify-between">
+      <header className="md:col-span-2 flex items-center justify-between flex-wrap gap-2">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <div className="text-sm font-medium">{heading}</div>
