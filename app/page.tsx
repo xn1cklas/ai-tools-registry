@@ -9,7 +9,7 @@ import PageWideScrollMask from "@/components/page-wide-adaptive-mask"
 import { resolveVariantRegistryName } from "@/lib/utils"
 import { loadDemosFromRegistry } from "@/lib/demos-helpers"
 
-const getRegistryItemFromJson = React.cache(
+export const getRegistryItemFromJson = React.cache(
   (name: string): ExtendedRegistryItem | null => {
     // Be permissive here so the homepage renders even if a registry item
     // doesn't strictly match the shadcn schema (useful while iterating).
@@ -17,8 +17,6 @@ const getRegistryItemFromJson = React.cache(
     return registry.items.find((item) => item.name === name) ?? null
   }
 )
-
-const toolNames = ["stats", "weather", "news", "websearch", "image", "qrcode"]
 
 export default async function Home() {
   const demos = await loadDemosFromRegistry()
