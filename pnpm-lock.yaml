@@ -10,6 +10,9 @@ importers:
       "@ai-sdk/fal":
         specifier: ^1.0.12
         version: 1.0.12(zod@4.1.5)
+      "@ai-sdk/google":
+        specifier: ^2.0.14
+        version: 2.0.14(zod@4.1.5)
       "@ai-sdk/openai":
         specifier: ^2.0.24
         version: 2.0.24(zod@4.1.5)
@@ -209,6 +212,15 @@ packages:
     resolution:
       {
         integrity: sha512-ynV7WxpRK2zWLGkdOtrU2hW22mBVkEYVS3iMg1+ZGmAYSgzCqzC74bfOJZ2GU1UdcrFWUsFI9qAYjsPkd+AebA==,
+      }
+    engines: { node: ">=18" }
+    peerDependencies:
+      zod: ^3.25.76 || ^4
+
+  "@ai-sdk/google@2.0.14":
+    resolution:
+      {
+        integrity: sha512-OCBBkEUq1RNLkbJuD+ejqGsWDD0M5nRyuFWDchwylxy0J4HSsAiGNhutNYVTdnqmNw+r9LyZlkyZ1P4YfAfLdg==,
       }
     engines: { node: ">=18" }
     peerDependencies:
@@ -7975,6 +7987,12 @@ snapshots:
       zod: 4.1.5
 
   "@ai-sdk/gateway@1.0.23(zod@4.1.5)":
+    dependencies:
+      "@ai-sdk/provider": 2.0.0
+      "@ai-sdk/provider-utils": 3.0.9(zod@4.1.5)
+      zod: 4.1.5
+
+  "@ai-sdk/google@2.0.14(zod@4.1.5)":
     dependencies:
       "@ai-sdk/provider": 2.0.0
       "@ai-sdk/provider-utils": 3.0.9(zod@4.1.5)
