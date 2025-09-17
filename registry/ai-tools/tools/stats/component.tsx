@@ -21,7 +21,8 @@ import {
 import { AreaChart, Area, CartesianGrid, XAxis, YAxis } from "recharts"
 import type { Props as DefaultLegendContentProps } from "recharts/types/component/DefaultLegendContent"
 
-export function StatsChart(part: StatsToolType) {
+export function StatsChart({ invocation }: { invocation: StatsToolType }) {
+  const part = invocation
   if (part.state === "input-streaming") {
     return (
       <Card className="w-full max-w-3xl">
