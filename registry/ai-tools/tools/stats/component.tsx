@@ -19,11 +19,6 @@ import {
   type ChartConfig,
 } from "@/registry/ai-tools/ui/chart"
 import { AreaChart, Area, CartesianGrid, XAxis, YAxis } from "recharts"
-import type { TooltipContentProps } from "recharts/types/component/Tooltip"
-import type {
-  NameType,
-  ValueType,
-} from "recharts/types/component/DefaultTooltipContent"
 import type { Props as DefaultLegendContentProps } from "recharts/types/component/DefaultLegendContent"
 
 export function StatsChart(part: StatsToolType) {
@@ -120,11 +115,7 @@ export function StatsChart(part: StatsToolType) {
               tick={{ fontSize: 12 }}
               tickMargin={8}
             />
-            <ChartTooltip
-              content={(props: TooltipContentProps<ValueType, NameType>) => (
-                <ChartTooltipContent {...props} />
-              )}
-            />
+            <ChartTooltip content={<ChartTooltipContent />} />
             <ChartLegend
               verticalAlign="top"
               content={(props: DefaultLegendContentProps) => (

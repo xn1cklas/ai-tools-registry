@@ -1,4 +1,8 @@
-import { tool, experimental_generateImage as generateImage } from "ai"
+import {
+  tool,
+  experimental_generateImage as generateImage,
+  type UIToolInvocation,
+} from "ai"
 import { runware } from "@runware/ai-sdk-provider"
 
 import { ImageResultSchema, ImageInputSchema } from "./schema"
@@ -73,4 +77,4 @@ const Flux = {
   Flux11ProUltra: "bfl:2@2",
 } as const
 
-export default imageRunwareTool
+export type ImageRunwareToolType = UIToolInvocation<typeof imageRunwareTool>

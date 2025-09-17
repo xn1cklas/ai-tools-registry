@@ -41,6 +41,5 @@ export const qrCodeTool = tool({
     return result
   },
 })
-export default qrCodeTool
 
 export type QRCodeToolType = UIToolInvocation<typeof qrCodeTool>

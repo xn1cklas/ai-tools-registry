@@ -1,5 +1,9 @@
 import { fal } from "@ai-sdk/fal"
-import { tool, experimental_generateImage as generateImage } from "ai"
+import {
+  tool,
+  experimental_generateImage as generateImage,
+  type UIToolInvocation,
+} from "ai"
 
 import {
   ImageResultSchema,
@@ -68,4 +72,4 @@ export const imageFalTool = tool({
   },
 })
 
-export default imageFalTool
+export type ImageFalToolType = UIToolInvocation<typeof imageFalTool>

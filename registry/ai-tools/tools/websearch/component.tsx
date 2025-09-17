@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/ai-tools/ui/card"
-import type { WebSearchToolType } from "./tool"
 import { Loader } from "@/registry/ai-elements/loader"
 import { CodeBlock } from "@/registry/ai-elements/code-block"
 import {
@@ -31,8 +30,14 @@ import {
   SourcesTrigger,
   Source as SourcesItem,
 } from "@/registry/ai-elements/sources"
+import { WebSearchToolInvocation } from "./tool"
 
-export function WebSearchList(part: WebSearchToolType) {
+export function WebSearchList({
+  invocation,
+}: {
+  invocation: WebSearchToolInvocation
+}) {
+  const part = invocation
   if (part.state === "input-streaming") {
     return (
       <Card className="w-full max-w-xl">

@@ -18,7 +18,8 @@ import {
   Source as SourcesItem,
 } from "@/registry/ai-elements/sources"
 
-export function NewsList(part: NewsToolType) {
+export function NewsList({ invocation }: { invocation: NewsToolType }) {
+  const part = invocation
   if (part.state === "input-streaming") {
     return (
       <Card className="w-full max-w-lg">

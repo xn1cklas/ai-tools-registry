@@ -1,5 +1,9 @@
 import { openai } from "@ai-sdk/openai"
-import { tool, experimental_generateImage as generateImage } from "ai"
+import {
+  tool,
+  experimental_generateImage as generateImage,
+  type UIToolInvocation,
+} from "ai"
 
 import {
   ImageResultSchema,
@@ -68,4 +72,4 @@ export const imageOpenAITool = tool({
   },
 })
 
-export default imageOpenAITool
+export type ImageOpenAIToolType = UIToolInvocation<typeof imageOpenAITool>

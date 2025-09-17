@@ -1,7 +1,6 @@
 "use client"
 
 import type { ImageInput, ImageResult } from "./schema"
-import type { ToolUIPart } from "ai"
 import {
   Card,
   CardContent,
@@ -17,7 +16,8 @@ import { Badge } from "@/registry/ai-tools/ui/badge"
 import { useImageDemoControls } from "./demo-controls"
 import { Skeleton } from "@/registry/ai-tools/ui/skeleton"
 
-export function ImageGrid(part: ImageToolType) {
+export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
+  const part = invocation
   const controls = useImageDemoControls()
   const desiredCount = Math.max(1, Math.min(4, controls?.count ?? 3))
   const desiredAR = controls?.aspectRatio ?? "1:1"

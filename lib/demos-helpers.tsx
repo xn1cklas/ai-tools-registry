@@ -4,15 +4,11 @@ import path from "path"
 
 import { getItemFromRegistry } from "@/lib/registry"
 import { resolveVariantRegistryName } from "@/lib/utils"
+import type { ExtendedRegistryItem } from "@/lib/registry-schemas"
+import type { UIToolInvocation, Tool, UITool } from "ai"
 
-// Renderer modules are imported dynamically from registry item files
-// Also import base renderers as a fallback to ensure bundling
-import WeatherCard from "@/registry/ai-tools/tools/weather/component"
-import { NewsList } from "@/registry/ai-tools/tools/news/component"
-import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
-import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
-import { QRCodeDisplay } from "@/registry/ai-tools/tools/qrcode/component"
-import { ImageGrid } from "@/registry/ai-tools/tools/image/component"
+// Renderer modules are imported dynamically from registry item files.
+// No static knowledge of specific tools here to keep this file generic.
 
 // Tools used for server-side demo generation where needed
 import { qrCodeTool } from "@/registry/ai-tools/tools/qrcode/tool"
@@ -37,28 +33,70 @@ export type DemoEntry = {
   isNew?: boolean
 }
 
-async function importRendererFromItem(item: any, name: string) {
-  const file = item?.files?.find((x: any) =>
-    x.path.endsWith(`/tools/${name}/component.tsx`)
-  )
-  const importPath = file
-    ? `@/${file.path}`
-    : `@/registry/ai-tools/tools/${name}/component.tsx`
-  try {
-    const mod = await import(importPath)
-    const Cmp = mod.default as React.ComponentType<any>
-    return Cmp
-  } catch {
-    const fallback: Record<string, React.ComponentType<any> | undefined> = {
-      weather: WeatherCard,
-      news: NewsList,
-      websearch: WebSearchList,
-      stats: StatsChart,
-      qrcode: QRCodeDisplay,
-      image: ImageGrid,
-    }
-    return fallback[name]
+type AnyUITool = Tool | UITool
+
+type InvocationState = UIToolInvocation<AnyUITool>["state"]
+
+type RendererComponent = React.ComponentType<{
+  invocation: UIToolInvocation<AnyUITool>
+}>
+
+type PossibleModuleShape = {
+  default?: unknown
+  [exportName: string]: unknown
+}
+
+type RegistryFile = { path: string; content?: string }
+
+type RegistryLikeItem = {
+  name?: string
+  title?: string
+  description?: string
+  toolMeta?: {
+    isNew?: boolean
+    demoHeading?: string
+    demoSubheading?: string
   }
+  files?: RegistryFile[]
+}
+
+function isRendererComponent(value: unknown): value is RendererComponent {
+  return typeof value === "function"
+}
+
+async function importRendererFromItem(
+  _item: RegistryLikeItem,
+  name: string
+): Promise<RendererComponent | undefined> {
+  const selectCmp = (mod: unknown): RendererComponent | undefined => {
+    if (!mod || typeof mod !== "object") return undefined
+    const m = mod as PossibleModuleShape
+    if (isRendererComponent(m.default)) return m.default
+    const candidateKey = Object.keys(m).find((k) =>
+      /^(?:[A-Z]|_)[A-Za-z0-9_]*$/.test(k)
+    )
+    const candidate = candidateKey ? (m[candidateKey] as unknown) : undefined
+    return isRendererComponent(candidate) ? candidate : undefined
+  }
+  // Try importing the concrete component file; ensure bundling via webpackInclude
+  try {
+    const mod = (await import(
+      /* webpackInclude: /registry\/ai-tools\/tools\/[^/]+\/component\.(tsx|jsx|js)$/ */
+      `@/registry/ai-tools/tools/${name}/component.tsx`
+    )) as unknown
+    const Cmp = selectCmp(mod)
+    if (Cmp) return Cmp
+  } catch {}
+  // Fallback: import the tool's index, then pick a React-looking export
+  try {
+    const mod = (await import(
+      /* webpackInclude: /registry\/ai-tools\/tools\/[^/]+\/index\.(ts|js)$/ */
+      `@/registry/ai-tools/tools/${name}`
+    )) as unknown
+    const Cmp = selectCmp(mod)
+    if (Cmp) return Cmp
+  } catch {}
+  return undefined
 }
 
 async function readJson<T>(p: string, fallback: T): Promise<T> {
@@ -73,27 +111,29 @@ async function readJson<T>(p: string, fallback: T): Promise<T> {
 function buildPart(name: string, output: unknown) {
   return {
     toolCallId: `tc_demo_${name}`,
-    state: "output-available",
+    state: "output-available" as InvocationState,
     input: {},
     output,
-  }
+  } as unknown as UIToolInvocation<AnyUITool>
 }
 
-async function codeFromItem(item: any, endsWith: string) {
-  const f = item?.files?.find((x: any) => x.path.endsWith(endsWith))
+async function codeFromItem(item: RegistryLikeItem, endsWith: string) {
+  const f = item?.files?.find((x) => x.path.endsWith(endsWith))
   return f?.content ?? ""
 }
 
-async function codeFromVariantItem(variantItem: any, baseName: string) {
+async function codeFromVariantItem(
+  variantItem: RegistryLikeItem,
+  baseName: string
+) {
   if (!variantItem?.files) return ""
   // Prefer any tool file inside the base tool directory
   const preferred = variantItem.files.find(
-    (x: any) =>
-      x.path.includes(`/tools/${baseName}/`) && x.path.endsWith("tool.ts")
+    (x) => x.path.includes(`/tools/${baseName}/`) && x.path.endsWith("tool.ts")
   )
   if (preferred?.content) return preferred.content
   // Fallback to any file ending in tool.ts
-  const anyTool = variantItem.files.find((x: any) => x.path.endsWith("tool.ts"))
+  const anyTool = variantItem.files.find((x) => x.path.endsWith("tool.ts"))
   return anyTool?.content ?? ""
 }
 
@@ -192,31 +232,39 @@ async function discoverVariants(baseName: string) {
 }
 
 export async function buildDemos(names: string[]) {
-  const items = await Promise.all(names.map((n) => getItemFromRegistry(n)))
+  const items = (await Promise.all(
+    names.map((n) => getItemFromRegistry(n))
+  )) as Array<ExtendedRegistryItem | null>
 
   const demosEntries = await Promise.all(
     names.map(async (name, idx) => {
-      const item = items[idx]
+      const item = items[idx] as ExtendedRegistryItem | null
+      const itemLike = (item ?? {}) as RegistryLikeItem
       const json = await loadBaseFixture(name)
-      const heading =
-        (item as any)?.toolMeta?.demoHeading || (item as any)?.title || name
+      const heading = itemLike?.toolMeta?.demoHeading || itemLike?.title || name
       const subheading =
-        (item as any)?.toolMeta?.demoSubheading || (item as any)?.description
-      const code = await codeFromItem(item, `/tools/${name}/tool.ts`)
+        itemLike?.toolMeta?.demoSubheading || itemLike?.description
+      const code = await codeFromItem(itemLike, `/tools/${name}/tool.ts`)
       const componentCode = await codeFromItem(
-        item,
+        itemLike,
         `/tools/${name}/component.tsx`
       )
-      const RendererCmp = await importRendererFromItem(item, name)
+      const RendererCmp = await importRendererFromItem(itemLike, name)
       const basePart = buildPart(name, json)
-      const renderer = RendererCmp ? <RendererCmp {...basePart} /> : undefined
+      const renderer = RendererCmp ? (
+        <RendererCmp invocation={basePart} />
+      ) : undefined
 
-      const STATE_OPTIONS = [
+      const STATE_OPTIONS: ReadonlyArray<{
+        key: string
+        label: string
+        state: InvocationState
+      }> = [
         { key: "completed", label: "Completed", state: "output-available" },
         { key: "running", label: "Running", state: "input-available" },
         { key: "pending", label: "Pending", state: "input-streaming" },
         { key: "error", label: "Error", state: "output-error" },
-      ] as const
+      ]
       const states = RendererCmp
         ? STATE_OPTIONS.map((opt) => {
             const part = {
@@ -225,11 +273,11 @@ export async function buildDemos(names: string[]) {
               output: opt.state === "output-available" ? json : undefined,
               errorText:
                 opt.state === "output-error" ? "Demo error" : undefined,
-            }
+            } as unknown as UIToolInvocation<AnyUITool>
             return {
               key: opt.key,
               label: opt.label,
-              renderer: <RendererCmp {...part} />,
+              renderer: <RendererCmp invocation={part} />,
             }
           })
         : undefined
@@ -238,12 +286,18 @@ export async function buildDemos(names: string[]) {
       const variantResults = await Promise.all(
         discovered.map(async ({ key, label }) => {
           const variantName = resolveVariantRegistryName(name, key)
-          const variantItem = await getItemFromRegistry(variantName)
-          const variantCode = await codeFromVariantItem(variantItem, name)
+          const variantItem = (await getItemFromRegistry(
+            variantName
+          )) as ExtendedRegistryItem | null
+          const variantItemLike = (variantItem ?? {}) as RegistryLikeItem
+          const variantCode = await codeFromVariantItem(variantItemLike, name)
           if (!variantCode) return null
-          const part = { ...basePart, toolCallId: `tc_demo_${name}_${key}` }
+          const part = {
+            ...basePart,
+            toolCallId: `tc_demo_${name}_${key}`,
+          } as unknown as UIToolInvocation<AnyUITool>
           const variantRenderer = RendererCmp ? (
-            <RendererCmp {...part} />
+            <RendererCmp invocation={part} />
           ) : undefined
           const variantStates = RendererCmp
             ? STATE_OPTIONS.map((opt) => {
@@ -253,11 +307,11 @@ export async function buildDemos(names: string[]) {
                   output: opt.state === "output-available" ? json : undefined,
                   errorText:
                     opt.state === "output-error" ? "Demo error" : undefined,
-                }
+                } as unknown as UIToolInvocation<AnyUITool>
                 return {
                   key: opt.key,
                   label: opt.label,
-                  renderer: <RendererCmp {...vpart} />,
+                  renderer: <RendererCmp invocation={vpart} />,
                 }
               })
             : undefined
@@ -285,7 +339,7 @@ export async function buildDemos(names: string[]) {
         renderer,
         states,
         variants: variants.length ? variants : undefined,
-        isNew: (item as any)?.toolMeta?.isNew === true,
+        isNew: itemLike?.toolMeta?.isNew === true,
       }
       return entry
     })

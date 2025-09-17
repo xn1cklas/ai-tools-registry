@@ -194,6 +194,4 @@ function mapWeatherCode(code: number): { condition: string; icon?: string } {
   }
 }
 
-export default getWeatherTool
-
 export type WeatherToolType = UIToolInvocation<typeof getWeatherTool>

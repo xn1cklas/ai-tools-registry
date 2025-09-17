@@ -1,5 +1,8 @@
-import { tool, experimental_generateImage as generateImage } from "ai"
-import { createOpenAI } from "@ai-sdk/openai"
+import {
+  tool,
+  experimental_generateImage as generateImage,
+  type UIToolInvocation,
+} from "ai"
 
 import {
   ImageResultSchema,
@@ -7,26 +10,7 @@ import {
   ImageItem,
   ImageInputSchema,
 } from "./schema"
-
-// NOTE:
-// We use the OpenAI provider configured to point at Vercel AI Gateway.
-// This assumes the Gateway supports OpenAI-compatible image generation for
-// the model id `google/gemini-2.5-flash-image-preview`.
-//
-// Required env:
-// - AI_GATEWAY_API_KEY (Gateway API key)
-// Optional env:
-// - AI_GATEWAY_BASE_URL (override base URL; defaults to Gateway)
-
-const gatewayBaseURL =
-  process.env.AI_GATEWAY_BASE_URL || "https://ai-gateway.vercel.sh/v1/ai"
-
-const gatewayOpenAI = createOpenAI({
-  baseURL: gatewayBaseURL,
-  apiKey: process.env.AI_GATEWAY_API_KEY,
-  // Set a custom name to make it clear in metadata/logs.
-  name: "gateway",
-})
+import { google } from "@ai-sdk/google"
 
 export const imageGatewayGeminiTool = tool({
   name: "image-gemini",
@@ -56,12 +40,8 @@ export const imageGatewayGeminiTool = tool({
         ? (aspectRatio as `${number}:${number}`)
         : undefined
 
-    // Important: this relies on Gateway exposing OpenAI-compatible image generation
-    // for the Gemini image model id below. If it is not available in your Gateway
-    // project, this call will fail and you may need to switch once
-    // `@ai-sdk/gateway` exposes an image model helper.
     const { images }: { images: GeneratedImage[] } = await generateImage({
-      model: gatewayOpenAI.image("google/gemini-2.5-flash-image-preview"),
+      model: google.image("imagen-3.0-generate-002"),
       prompt,
       ...(ar ? { aspectRatio: ar } : {}),
       ...(typeof seed === "number" ? { seed } : {}),
@@ -95,4 +75,6 @@ export const imageGatewayGeminiTool = tool({
   },
 })
 
-export default imageGatewayGeminiTool
+export type ImageGatewayGeminiToolType = UIToolInvocation<
+  typeof imageGatewayGeminiTool
+>

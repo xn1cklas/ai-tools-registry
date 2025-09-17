@@ -14,7 +14,8 @@ import { CheckIcon, DownloadIcon } from "lucide-react"
 import { Loader } from "@/registry/ai-elements/loader"
 import { CodeBlock } from "@/registry/ai-elements/code-block"
 
-export function QRCodeDisplay(part: QRCodeToolType) {
+export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
+  const part = invocation
   if (part.state === "input-streaming") {
     return (
       <Card className="w-full max-w-md">

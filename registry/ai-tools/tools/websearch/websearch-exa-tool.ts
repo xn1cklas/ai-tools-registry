@@ -73,6 +73,4 @@ export const webSearchExaTool = tool({
   },
 })
 
-export default webSearchExaTool
-
-export type WebSearchToolType = UIToolInvocation<typeof webSearchExaTool>
+export type WebSearchToolInvocation = UIToolInvocation<typeof webSearchExaTool>

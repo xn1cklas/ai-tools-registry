@@ -15,12 +15,7 @@ import { AddCommand } from "@/components/add-command"
 import { OpenInV0 } from "@/components/open-in-v0"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { CodeBlock } from "@/components/code-block"
-import {
-  CheckIcon,
-  CopyIcon,
-  ChevronDown as ChevronDownIcon,
-  ChevronUp as ChevronUpIcon,
-} from "lucide-react"
+import { CheckIcon, CopyIcon } from "lucide-react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import type { ExtendedRegistryItem } from "@/lib/registry-schemas"
@@ -53,6 +48,7 @@ export function ToolDemoCard({
     json: unknown
     code: string
     renderer?: React.ReactNode
+    states?: Array<{ key: string; label: string; renderer: React.ReactNode }>
   }>
   variantRegistryItems?: Record<string, ExtendedRegistryItem | undefined>
   isNew?: boolean
@@ -377,10 +373,9 @@ export function ToolDemoCard({
             >
               {hasVariants
                 ? // prefer variant state renderer if provided
-                  ((activeVariant && (activeVariant as any).states
-                    ? ((activeVariant as any).states.find(
-                        (s: any) => s.key === stateKey
-                      )?.renderer ?? activeVariant?.renderer)
+                  ((activeVariant && activeVariant.states
+                    ? (activeVariant.states.find((s) => s.key === stateKey)
+                        ?.renderer ?? activeVariant?.renderer)
                     : activeVariant?.renderer) ?? renderer)
                 : hasStates
                   ? (states!.find((s) => s.key === stateKey)?.renderer ??

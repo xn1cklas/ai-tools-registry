@@ -13,7 +13,8 @@ import { Loader } from "@/registry/ai-elements/loader"
 import { CodeBlock } from "@/registry/ai-elements/code-block"
 import { Badge } from "@/registry/ai-tools/ui/badge"
 
-export function WeatherCard(part: WeatherToolType) {
+export function WeatherCard({ invocation }: { invocation: WeatherToolType }) {
+  const part = invocation
   // Handle tool invocation states
   if (part.state === "input-streaming") {
     return (
@@ -131,5 +132,3 @@ export function WeatherCard(part: WeatherToolType) {
     </Card>
   )
 }
-
-export default WeatherCard

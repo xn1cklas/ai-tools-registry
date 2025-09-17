@@ -32,6 +32,4 @@ export const webSearchTool = tool({
   },
 })
 
-export default webSearchTool
-
-export type WebSearchToolType = UIToolInvocation<typeof webSearchTool>
+export type WebSearchToolInvocation = UIToolInvocation<typeof webSearchTool>
