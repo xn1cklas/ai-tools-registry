@@ -523,7 +523,10 @@ export const PromptInputTools = ({
   <div
     className={cn(
       "flex items-center gap-1",
-      "[&_button:first-child]:rounded-bl-xl",
+      // Ensure the first interactive element's bottom-left radius matches the form's rounded-xl
+      "[&>*:first-child]:!rounded-bl-lg",
+      // If the first child is a wrapper (e.g., DropdownMenuTrigger), also target its inner button
+      "[&>*:first-child_[data-slot=button]]:!rounded-bl-lg",
       className
     )}
     {...props}
@@ -571,7 +574,7 @@ export const PromptInputActionMenuTrigger = ({
   ...props
 }: PromptInputActionMenuTriggerProps) => (
   <DropdownMenuTrigger asChild>
-    <PromptInputButton className={className} {...props}>
+    <PromptInputButton className={cn("!rounded-bl-md", className)} {...props}>
       {children ?? <PlusIcon className="size-4" />}
     </PromptInputButton>
   </DropdownMenuTrigger>
