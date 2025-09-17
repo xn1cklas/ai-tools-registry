@@ -91,7 +91,7 @@ export function ToolDemoCard({
   return (
     <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 border rounded-lg p-6 bg-muted/30">
       {isNew ? <NewBadge /> : null}
-      <header className="md:col-span-2 flex items-center justify-between">
+      <header className="md:col-span-2 flex items-center justify-between flex-wrap gap-2">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <div className="text-sm font-medium">{heading}</div>
