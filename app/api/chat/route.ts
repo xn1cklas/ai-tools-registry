@@ -82,7 +82,8 @@ export async function POST(req: Request) {
 
   // Simulated streaming using fixtures when not in live mode
   if (isLivemode === false) {
-    const toolCallId = "tool-call-1"
+    const toolCallId =
+      "tool-call-" + Math.random().toString(36).substring(2, 15)
     const headers = {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
