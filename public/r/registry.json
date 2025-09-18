@@ -62,7 +62,9 @@
         }
       ],
       "dependencies": ["zod", "ai", "@ai-sdk/openai"],
-      "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
       "files": [
         {
           "path": "registry/ai-tools/tools/image/image-openai-tool.ts",
