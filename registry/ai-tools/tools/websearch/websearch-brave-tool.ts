@@ -72,8 +72,6 @@ export const webSearchBraveTool = tool({
   },
 })
 
-export default webSearchBraveTool
-
 export const BraveProfileSchema = z
   .object({
     name: z.string().optional(),
@@ -108,4 +106,6 @@ export const BraveSearchSchema = z
 
 export type BraveWebResult = z.infer<typeof BraveWebResultSchema>
 
-export type WebSearchToolType = UIToolInvocation<typeof webSearchBraveTool>
+export type WebSearchToolInvocation = UIToolInvocation<
+  typeof webSearchBraveTool
+>

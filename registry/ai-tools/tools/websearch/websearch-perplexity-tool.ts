@@ -43,6 +43,6 @@ export const webSearchPerplexityTool = tool({
   },
 })
 
-export default webSearchPerplexityTool
-
-export type WebSearchToolType = UIToolInvocation<typeof webSearchPerplexityTool>
+export type WebSearchToolInvocation = UIToolInvocation<
+  typeof webSearchPerplexityTool
+>

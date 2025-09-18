@@ -4,7 +4,7 @@
 
 import * as React from "react"
 
-import { Dialog as DialogPrimitive } from "radix-ui"
+import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { Drawer as DrawerPrimitive, Content as VaulDrawerContent } from "vaul"
 import { X } from "lucide-react"
 import { cva } from "class-variance-authority"

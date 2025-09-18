@@ -45,8 +45,6 @@ export const newsSearchTool = tool({
   },
 })
 
-export default newsSearchTool
-
 // Public result shapes for UI
 export type NewsItem = z.infer<typeof NewsItemSchema>
 export type NewsSearchResult = z.infer<typeof NewsSearchSchema>

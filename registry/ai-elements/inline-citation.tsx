@@ -3,9 +3,9 @@
 import { Badge } from "@/registry/ai-tools/ui/badge"
 import {
   Carousel,
+  type CarouselApi,
   CarouselContent,
   CarouselItem,
-  type CarouselApi,
 } from "@/registry/ai-tools/ui/carousel"
 import {
   HoverCard,

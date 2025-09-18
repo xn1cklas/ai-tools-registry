@@ -1,269 +1,419 @@
 "use client"
 
-import * as React from "react"
-import { WeatherCard } from "@/registry/ai-tools/tools/weather/component"
-import { NewsList } from "@/registry/ai-tools/tools/news/component"
-import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
-import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
-import { Button } from "@/registry/ai-tools/ui/button"
-import { Input } from "@/registry/ai-tools/ui/input"
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/registry/ai-tools/ui/card"
-import { ScrollArea } from "@/components/ui/lina-scroll-area"
+  Conversation,
+  ConversationContent,
+  ConversationEmptyState,
+  ConversationScrollButton,
+} from "@/registry/ai-elements/conversation"
+import { Message, MessageContent } from "@/registry/ai-elements/message"
+import {
+  PromptInputTextarea,
+  PromptInputSubmit,
+  PromptInputAttachment,
+  PromptInput,
+  PromptInputBody,
+  PromptInputAttachments,
+  PromptInputActionMenuContent,
+  PromptInputToolbar,
+  PromptInputTools,
+  PromptInputActionMenuTrigger,
+  PromptInputActionAddAttachments,
+  PromptInputActionMenu,
+  type PromptInputMessage,
+  PromptInputActionMenuItem,
+  PromptInputButton,
+  PromptInputModelSelect,
+  PromptInputModelSelectTrigger,
+  PromptInputModelSelectContent,
+  PromptInputModelSelectItem,
+  PromptInputModelSelectValue,
+} from "@/registry/ai-elements/prompt-input"
+import { MessageSquare, X } from "lucide-react"
+import { useState } from "react"
+import type { ToolUIPart } from "ai"
+import { useChat } from "@ai-sdk/react"
+import { Response } from "@/registry/ai-elements/response"
+import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
+import type { WebSearchToolInvocation } from "@/registry/ai-tools/tools/websearch"
+import { DemoImageGrid } from "@/registry/ai-tools/tools/image/demo-wrapper"
+import type {
+  ImageToolType,
+  ImageFalToolType,
+  ImageOpenAIToolType,
+  ImageRunwareToolType,
+  ImageGatewayGeminiToolType,
+} from "@/registry/ai-tools/tools/image"
+import { NewsList } from "@/registry/ai-tools/tools/news/component"
+import type { NewsToolType } from "@/registry/ai-tools/tools/news"
+import { WeatherCard } from "@/registry/ai-tools/tools/weather/component"
+import type { WeatherToolType } from "@/registry/ai-tools/tools/weather"
+import { QRCodeDisplay } from "@/registry/ai-tools/tools/qrcode/component"
+import type { QRCodeToolType } from "@/registry/ai-tools/tools/qrcode"
+import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
+import type { StatsToolType } from "@/registry/ai-tools/tools/stats"
+import {
+  Tool as ToolContainer,
+  ToolHeader,
+  ToolContent,
+  ToolInput,
+  ToolOutput,
+} from "@/registry/ai-elements/tool"
 
-type Message =
-  | { role: "user"; content: string }
-  | { role: "assistant"; content: string }
-  | { role: "tool"; name: string; renderer: React.ReactNode }
+import {
+  Cloud,
+  Newspaper,
+  Search,
+  BarChart3,
+  QrCode,
+  Image as ImageIcon,
+} from "lucide-react"
 
-export default function Playground() {
-  const [messages, setMessages] = React.useState<Message[]>([])
-  const [input, setInput] = React.useState("")
-  const [tool, setTool] = React.useState<string>("weather")
-  const [renderers, setRenderers] = React.useState<
-    Record<string, React.ReactNode>
-  >({})
-  const [toolLoading, setToolLoading] = React.useState(false)
+type ToolMeta = { name: string; label: string }
 
-  React.useEffect(() => {
-    // Fetch demo JSON from server API to match homepage demos
-    fetch("/api/demos")
-      .then((r) => r.json())
-      .then((d) => {
-        setRenderers({
-          weather: (
-            <WeatherCard
-              toolCallId="demo-weather"
-              state="output-available"
-              input={{
-                location: d.weather.json.location,
-                unit: d.weather.json.unit,
-              }}
-              output={d.weather.json}
-            />
-          ),
-          news: (
-            <NewsList
-              toolCallId="demo-news"
-              state="output-available"
-              input={{
-                // best-effort reconstruction of input for demo purposes
-                topic: d.news.json.topic,
-                limit: Array.isArray(d.news.json.items)
-                  ? d.news.json.items.length || 5
-                  : 5,
-              }}
-              output={d.news.json}
-            />
-          ),
-          websearch: (
-            <WebSearchList
-              toolCallId="demo-websearch"
-              state="output-available"
-              input={{
-                query: d.websearch.json.query,
-                limit: Array.isArray(d.websearch.json.results)
-                  ? d.websearch.json.results.length || 5
-                  : 5,
-              }}
-              output={d.websearch.json}
-            />
-          ),
+const ICONS: Record<string, React.ReactNode> = {
+  weather: <Cloud className="size-4" />,
+  news: <Newspaper className="size-4" />,
+  websearch: <Search className="size-4" />,
+  stats: <BarChart3 className="size-4" />,
+  qrcode: <QrCode className="size-4" />,
+  image: <ImageIcon className="size-4" />,
+}
 
-          stats: d.stats?.json ? (
-            <StatsChart
-              toolCallId="demo-stats"
-              state="output-available"
-              input={{ daysBack: 30, minMagnitude: 5 }}
-              output={d.stats.json}
-            />
-          ) : (
-            <StatsChart
-              toolCallId="demo-stats"
-              state="input-streaming"
-              input={undefined}
-            />
-          ),
-        })
-      })
-      .catch(() => {
-        // If API fails, provide minimal renderers
-        setRenderers({
-          weather: (
-            <WeatherCard
-              toolCallId="demo-weather"
-              state="output-available"
-              input={{ location: "", unit: "C" }}
-              output={{
-                location: "",
-                unit: "C",
-                temperature: 0,
-                condition: "",
-                high: 0,
-                low: 0,
-                humidity: 0,
-                windKph: 0,
-              }}
-            />
-          ),
-          news: (
-            <NewsList
-              toolCallId="demo-news"
-              state="output-available"
-              input={{ topic: "", limit: 0 }}
-              output={{ topic: "", items: [] }}
-            />
-          ),
-          websearch: (
-            <WebSearchList
-              toolCallId="demo-websearch"
-              state="output-available"
-              input={{ query: "", limit: 0 }}
-              output={{ query: "", results: [] }}
-            />
-          ),
+const PROVIDER_OPTIONS: Record<
+  string,
+  Array<{ value: string; label: string }>
+> = {
+  image: [
+    { value: "image-openai", label: "OpenAI" },
+    { value: "image-fal", label: "FAL" },
+    { value: "image-runware", label: "Runware" },
+    { value: "image-gemini", label: "Gemini" },
+  ],
+  websearch: [
+    { value: "websearch-ddg", label: "DuckDuckGo" },
+    { value: "websearch-brave", label: "Brave" },
+    { value: "websearch-exa", label: "Exa" },
+    { value: "websearch-perplexity", label: "Perplexity" },
+    { value: "websearch-firecrawl", label: "Firecrawl" },
+  ],
+}
 
-          stats: (
-            <StatsChart
-              toolCallId="demo-stats"
-              state="input-streaming"
-              input={undefined}
-            />
-          ),
-        })
-      })
-  }, [])
+const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
+  const [input, setInput] = useState("")
+  const { messages, status, sendMessage } = useChat()
+  const [activeTool, setActiveTool] = useState<ToolMeta | null>(null)
+  const [activeToolProvider, setActiveToolProvider] = useState<string | null>(
+    null
+  )
+  const [imageCount, setImageCount] = useState<string>("1")
+  const [imageAspect, setImageAspect] = useState<string>("1:1")
 
-  const send = () => {
-    if (!input.trim()) return
-    setMessages((m) => [...m, { role: "user", content: input }])
+  const handleSubmit = (
+    message: PromptInputMessage,
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault()
+    const text = (message.text ?? input).trim()
+    const hasText = Boolean(text)
+    const hasAttachments = Boolean(message.files?.length)
+
+    if (!(hasText || hasAttachments)) {
+      return
+    }
+
+    sendMessage(
+      { text: hasText ? text : "Sent with attachments", files: message.files },
+      {
+        body: {
+          isLivemode: false,
+          ...(activeToolProvider
+            ? { activeToolProviderName: activeToolProvider }
+            : {}),
+          ...(activeTool
+            ? {
+                toolChoice: { type: "tool", toolName: activeTool.name },
+                activeToolName: activeTool.name,
+                activeToolParams:
+                  activeTool.name === "image"
+                    ? { n: Number(imageCount), aspectRatio: imageAspect }
+                    : undefined,
+              }
+            : {}),
+        },
+      }
+    )
     setInput("")
-    // Mock assistant echo
-    setTimeout(() => {
-      setMessages((m) => [...m, { role: "assistant", content: "Got it!" }])
-    }, 200)
   }
-
-  const insertTool = () => {
-    const renderer = renderers[tool]
-    if (!renderer) return
-    setToolLoading(true)
-    // Simulate ChatGPT-like thinking before tool result arrives
-    setTimeout(() => {
-      setMessages((m) => [...m, { role: "tool", name: tool, renderer }])
-      setToolLoading(false)
-    }, 1200)
-  }
-
-  const areaRef = React.useRef<HTMLDivElement | null>(null)
-  React.useEffect(() => {
-    const el = areaRef.current
-    if (!el) return
-    el.scrollTop = el.scrollHeight
-  }, [messages, toolLoading])
 
   return (
-    <main className="max-w-5xl w-full mx-auto px-4 py-8 flex flex-col gap-4 flex-1 min-h-0">
-      <h1 className="text-2xl font-semibold">Playground</h1>
-      <p className="text-sm text-muted-foreground">
-        Mock chat view for testing tool renderers. No AI key required.
-      </p>
+    <div className="max-w-4xl mx-auto p-6 relative size-full rounded-lg border h-[calc(100vh-84px)] lg:h-[calc(100vh-104px)] max-h-screen">
+      <div className="flex flex-col h-full">
+        <Conversation>
+          <ConversationContent>
+            {messages.length === 0 ? (
+              <ConversationEmptyState
+                icon={<MessageSquare className="size-12" />}
+                title="Start a conversation"
+                description="Type a message below to begin chatting"
+              />
+            ) : (
+              messages.map((message) => {
+                const isToolPart = (part: unknown): part is ToolUIPart => {
+                  return (
+                    !!part &&
+                    typeof part === "object" &&
+                    "state" in part &&
+                    "type" in part &&
+                    "toolCallId" in part
+                  )
+                }
 
-      <Card className="flex-1 min-h-0 flex flex-col">
-        <CardHeader className="pb-2">
-          <CardTitle>Chat</CardTitle>
-        </CardHeader>
-        <CardContent className="flex-1 min-h-0 flex flex-col">
-          <ScrollArea
-            ref={areaRef}
-            className="flex-1 min-h-0 pr-2 mb-3"
-            data-slot="scroll-area"
-          >
-            <div className="flex flex-col gap-3">
-              {messages.map((m, i) => (
-                <div key={i} className="flex">
-                  {m.role === "user" && (
-                    <div className="ml-auto rounded-lg bg-primary/10 px-3 py-2">
-                      <div className="text-sm">{m.content}</div>
-                    </div>
-                  )}
-                  {m.role === "assistant" && (
-                    <div className="mr-auto rounded-lg bg-muted px-3 py-2">
-                      <div className="text-sm">{m.content}</div>
-                    </div>
-                  )}
-                  {m.role === "tool" && (
-                    <div className="mr-auto rounded-lg border bg-card px-3 py-2 w-full max-w-xl">
-                      <div className="text-xs text-muted-foreground mb-2">
-                        Tool: {m.name}
-                      </div>
-                      <div>{m.renderer}</div>
-                    </div>
-                  )}
-                </div>
-              ))}
-              {toolLoading && (
-                <div className="flex">
-                  <div className="mr-auto rounded-lg bg-muted px-3 py-2">
-                    <div className="text-sm flex items-center gap-2">
-                      <span className="inline-flex gap-1 items-end">
-                        <span className="h-1.5 w-1.5 rounded-full bg-foreground/70 animate-bounce [animation-delay:-200ms]"></span>
-                        <span className="h-2 w-2 rounded-full bg-foreground/70 animate-bounce [animation-delay:-100ms]"></span>
-                        <span className="h-2.5 w-2.5 rounded-full bg-foreground/70 animate-bounce"></span>
-                      </span>
-                      <span className="text-muted-foreground">Thinking…</span>
-                    </div>
+                type TextPart = { type: "text"; text: string }
+                const isTextPart = (part: unknown): part is TextPart => {
+                  return (
+                    !!part &&
+                    typeof part === "object" &&
+                    (part as { type?: unknown }).type === "text" &&
+                    "text" in part
+                  )
+                }
+
+                const textParts = message.parts.filter(isTextPart)
+                const toolParts = message.parts.filter(isToolPart)
+
+                return (
+                  <div key={message.id}>
+                    {textParts.length > 0 ? (
+                      <Message from={message.role}>
+                        <MessageContent>
+                          {textParts.map((part, i) => (
+                            <Response key={`${message.id}-text-${i}`}>
+                              {part.text}
+                            </Response>
+                          ))}
+                        </MessageContent>
+                      </Message>
+                    ) : null}
+
+                    {toolParts.map((p, i) => {
+                      const t = String(p.type || "")
+                      if (t.startsWith("tool-websearch")) {
+                        return (
+                          <WebSearchList
+                            key={`${message.id}-tool-${i}`}
+                            invocation={p as WebSearchToolInvocation}
+                          />
+                        )
+                      }
+                      if (t.startsWith("tool-image")) {
+                        return (
+                          <DemoImageGrid
+                            key={`${message.id}-tool-${i}`}
+                            invocation={
+                              p as
+                                | ImageToolType
+                                | ImageFalToolType
+                                | ImageOpenAIToolType
+                                | ImageRunwareToolType
+                                | ImageGatewayGeminiToolType
+                            }
+                          />
+                        )
+                      }
+                      if (t.startsWith("tool-news")) {
+                        return (
+                          <NewsList
+                            key={`${message.id}-tool-${i}`}
+                            invocation={p as NewsToolType}
+                          />
+                        )
+                      }
+                      if (t.startsWith("tool-weather")) {
+                        return (
+                          <WeatherCard
+                            key={`${message.id}-tool-${i}`}
+                            invocation={p as WeatherToolType}
+                          />
+                        )
+                      }
+                      if (t.startsWith("tool-qrcode")) {
+                        return (
+                          <QRCodeDisplay
+                            key={`${message.id}-tool-${i}`}
+                            invocation={p as QRCodeToolType}
+                          />
+                        )
+                      }
+                      if (t.startsWith("tool-stats")) {
+                        return (
+                          <StatsChart
+                            key={`${message.id}-tool-${i}`}
+                            invocation={p as StatsToolType}
+                          />
+                        )
+                      }
+                      return (
+                        <ToolContainer
+                          key={`${message.id}-tool-${i}`}
+                          defaultOpen
+                        >
+                          <ToolHeader
+                            type={p.type as `tool-${string}`}
+                            state={p.state}
+                          />
+                          <ToolContent>
+                            <ToolInput input={p.input} />
+                            <ToolOutput
+                              output={p.output}
+                              errorText={p.errorText}
+                            />
+                          </ToolContent>
+                        </ToolContainer>
+                      )
+                    })}
                   </div>
-                </div>
-              )}
-            </div>
-          </ScrollArea>
+                )
+              })
+            )}
+          </ConversationContent>
+          <ConversationScrollButton />
+        </Conversation>
 
-          <div className="flex items-center gap-2 mt-auto">
-            <Input
-              placeholder="Type a message..."
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") send()
+        <PromptInput
+          onSubmit={handleSubmit}
+          className="mt-0 relative"
+          globalDrop
+          multiple
+        >
+          <PromptInputBody>
+            <PromptInputAttachments>
+              {(attachment) => <PromptInputAttachment data={attachment} />}
+            </PromptInputAttachments>
+            <PromptInputTextarea
+              onChange={(e) => {
+                setInput(e.target.value)
               }}
+              value={input}
             />
-            <Button onClick={send}>Send</Button>
-          </div>
-
-          <div className="flex items-center gap-2 mt-3">
-            <select
-              className="border rounded-md px-2 py-1 bg-background text-sm"
-              value={tool}
-              onChange={(e) => setTool(e.target.value)}
-            >
-              <option value="weather">Weather</option>
-              <option value="news">News</option>
-              <option value="websearch">Web Search</option>
-
-              <option value="stats">Public Stats</option>
-            </select>
-            <Button
-              variant="outline"
-              onClick={insertTool}
-              disabled={toolLoading}
-            >
-              {toolLoading ? (
-                <span className="inline-flex items-center">
-                  Inserting
-                  <span className="ml-2 inline-block h-3 w-3 rounded-full border-2 border-current border-t-transparent animate-spin" />
-                </span>
-              ) : (
-                "Insert Tool Result"
-              )}
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </main>
+          </PromptInputBody>
+          <PromptInputToolbar>
+            <PromptInputTools>
+              <PromptInputActionMenu>
+                <PromptInputActionMenuTrigger />
+                <PromptInputActionMenuContent>
+                  {tools?.map((t) => (
+                    <PromptInputActionMenuItem
+                      key={t.name}
+                      onClick={() => {
+                        setActiveTool(t)
+                        if (t.name === "image") {
+                          setActiveToolProvider("image-openai")
+                        } else if (t.name === "websearch") {
+                          setActiveToolProvider("websearch-ddg")
+                        } else {
+                          setActiveToolProvider(null)
+                        }
+                      }}
+                    >
+                      <span className="inline-flex items-center gap-2">
+                        <div className="mr-2">{ICONS[t.name]}</div>
+                        <span>{t.label}</span>
+                      </span>
+                    </PromptInputActionMenuItem>
+                  ))}
+                  <PromptInputActionAddAttachments />
+                </PromptInputActionMenuContent>
+              </PromptInputActionMenu>
+              {activeTool ? (
+                <>
+                  <PromptInputButton
+                    onClick={() => {
+                      setActiveTool(null)
+                      setActiveToolProvider(null)
+                    }}
+                    variant="secondary"
+                    className="group"
+                  >
+                    <div className="mr-2 size-4 group-hover:hidden">
+                      {ICONS[activeTool.name]}
+                    </div>
+                    <div className="mr-2 size-4 hidden group-hover:block">
+                      <X className="size-4" />
+                    </div>
+                    <span>{activeTool.label}</span>
+                  </PromptInputButton>
+                  {activeTool.name === "image" ||
+                  activeTool.name === "websearch" ? (
+                    <div className="hidden md:flex items-center gap-2">
+                      <PromptInputModelSelect
+                        value={
+                          activeToolProvider ??
+                          (activeTool.name === "image"
+                            ? "image-openai"
+                            : "websearch-ddg")
+                        }
+                        onValueChange={setActiveToolProvider}
+                      >
+                        <PromptInputModelSelectTrigger className="w-[112px]">
+                          <PromptInputModelSelectValue />
+                        </PromptInputModelSelectTrigger>
+                        <PromptInputModelSelectContent>
+                          {PROVIDER_OPTIONS[activeTool.name]?.map((opt) => (
+                            <PromptInputModelSelectItem
+                              key={opt.value}
+                              value={opt.value}
+                            >
+                              {opt.label}
+                            </PromptInputModelSelectItem>
+                          ))}
+                        </PromptInputModelSelectContent>
+                      </PromptInputModelSelect>
+                    </div>
+                  ) : null}
+                  {activeTool.name === "image" ? (
+                    <div className="hidden md:flex items-center gap-1">
+                      <PromptInputModelSelect
+                        value={imageCount}
+                        onValueChange={setImageCount}
+                      >
+                        <PromptInputModelSelectTrigger className="w-[56px]">
+                          <PromptInputModelSelectValue />
+                        </PromptInputModelSelectTrigger>
+                        <PromptInputModelSelectContent>
+                          {["1", "2", "3", "4"].map((n) => (
+                            <PromptInputModelSelectItem key={n} value={n}>
+                              {n}
+                            </PromptInputModelSelectItem>
+                          ))}
+                        </PromptInputModelSelectContent>
+                      </PromptInputModelSelect>
+                      <PromptInputModelSelect
+                        value={imageAspect}
+                        onValueChange={setImageAspect}
+                      >
+                        <PromptInputModelSelectTrigger className="w-[72px]">
+                          <PromptInputModelSelectValue />
+                        </PromptInputModelSelectTrigger>
+                        <PromptInputModelSelectContent>
+                          {["1:1", "3:2", "4:3", "16:9", "9:16"].map((r) => (
+                            <PromptInputModelSelectItem key={r} value={r}>
+                              {r}
+                            </PromptInputModelSelectItem>
+                          ))}
+                        </PromptInputModelSelectContent>
+                      </PromptInputModelSelect>
+                    </div>
+                  ) : null}
+                </>
+              ) : null}
+            </PromptInputTools>
+            <PromptInputSubmit disabled={false} status={status} />
+          </PromptInputToolbar>
+        </PromptInput>
+      </div>
+    </div>
   )
 }
+
+export default ConversationDemo

@@ -60,8 +60,6 @@ export const webSearchDDGTool = tool({
   },
 })
 
-export default webSearchDDGTool
-
 export const DDGTopicSchema = z
   .object({
     FirstURL: z.string().url(),
@@ -92,4 +90,4 @@ export const DDGResponseSchema = z
 
 export type DDGResponse = z.infer<typeof DDGResponseSchema>
 
-export type WebSearchToolType = UIToolInvocation<typeof webSearchDDGTool>
+export type WebSearchToolInvocation = UIToolInvocation<typeof webSearchDDGTool>
