@@ -9,6 +9,15 @@
       "title": "Image Generation",
       "description": "AI SDK tool that generates images from text prompts. Includes a grid renderer.",
       "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "dependencies": ["zod", "ai", "@ai-sdk/openai"],
       "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
       "files": [
@@ -31,7 +40,8 @@
       "toolMeta": {
         "kind": "tool",
         "demoHeading": "Image Generation",
-        "demoSubheading": "Generate images from text prompts"
+        "demoSubheading": "Generate images from text prompts",
+        "isNew": true
       }
     },
     {
@@ -40,6 +50,15 @@
       "title": "Image Generation (OpenAI)",
       "description": "Generate images using OpenAI via Vercel AI SDK. Shares renderer.",
       "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "dependencies": ["zod", "ai", "@ai-sdk/openai"],
       "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
       "files": [
@@ -62,7 +81,8 @@
       "toolMeta": {
         "kind": "tool",
         "demoHeading": "Image Generation (OpenAI)",
-        "demoSubheading": "Generate with OpenAI"
+        "demoSubheading": "Generate with OpenAI",
+        "isNew": true
       }
     },
     {
@@ -71,6 +91,15 @@
       "title": "Image Generation (FAL.ai)",
       "description": "Generate images using FAL.ai via Vercel AI SDK. Shares renderer.",
       "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "dependencies": ["zod", "ai", "@ai-sdk/fal"],
       "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
       "files": [
@@ -93,7 +122,8 @@
       "toolMeta": {
         "kind": "tool",
         "demoHeading": "Image Generation (FAL.ai)",
-        "demoSubheading": "Generate with FAL.ai"
+        "demoSubheading": "Generate with FAL.ai",
+        "isNew": true
       }
     },
     {
@@ -102,6 +132,15 @@
       "title": "Image Generation (Runware)",
       "description": "Generate images using Runware via Vercel AI SDK. Shares renderer.",
       "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "dependencies": ["zod", "ai", "@runware/ai-sdk-provider"],
       "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
       "files": [
@@ -124,16 +163,26 @@
       "toolMeta": {
         "kind": "tool",
         "demoHeading": "Image Generation (Runware)",
-        "demoSubheading": "Generate with Runware"
+        "demoSubheading": "Generate with Runware",
+        "isNew": true
       }
     },
     {
       "name": "image-gemini",
       "type": "registry:component",
-      "title": "Image Generation",
-      "description": "Generate images using Google Gemini via Vercel AI Gateway. Shares renderer.",
+      "title": "Image Generation (Gemini)",
+      "description": "Generate images using Google Gemini via Vercel AI SDK. Shares renderer.",
       "author": "Nicklas Scharpff <https://n1cklas.com>",
-      "dependencies": ["zod", "ai", "@ai-sdk/openai"],
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
+      "dependencies": ["zod", "ai", "@ai-sdk/google"],
       "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
       "files": [
         {
@@ -155,7 +204,8 @@
       "toolMeta": {
         "kind": "tool",
         "demoHeading": "Image Generation",
-        "demoSubheading": "Generate with Gemini"
+        "demoSubheading": "Generate with Gemini",
+        "isNew": true
       }
     },
     {
