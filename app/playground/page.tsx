@@ -10,9 +10,11 @@ export default async function PlaygroundPage() {
   if (!featureFlags.playgroundEnabled) {
     return notFound()
   }
-  const tools = demos.entries.map((name) => {
-    const item = getItemFromHome(name)
-    return { name, label: item?.title || name }
-  })
+  const tools = await Promise.all(
+    demos.entries.map(async (name) => {
+      const item = await getItemFromHome(name)
+      return { name, label: item?.title || name }
+    })
+  )
   return <PlaygroundClient tools={tools} />
 }

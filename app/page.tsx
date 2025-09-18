@@ -1,38 +1,78 @@
-import * as React from "react"
 import { AddCommand } from "@/components/add-command"
 import { OpenInV0 } from "@/components/open-in-v0"
-import registry from "@/registry.json"
 import { Button } from "@/registry/ai-tools/ui/button"
 import { ToolDemoCard } from "@/components/tool-demo-card"
 import type { ExtendedRegistryItem } from "@/lib/registry-schemas"
 import PageWideScrollMask from "@/components/page-wide-adaptive-mask"
 import { resolveVariantRegistryName } from "@/lib/utils"
-import { loadDemosFromRegistry } from "@/lib/demos-helpers"
+import { loadDemosFromRegistry, type DemoEntry } from "@/lib/demos-helpers"
+import { cache } from "react"
 
-export const getRegistryItemFromJson = React.cache(
-  (name: string): ExtendedRegistryItem | null => {
-    // Be permissive here so the homepage renders even if a registry item
-    // doesn't strictly match the shadcn schema (useful while iterating).
-    // @ts-expect-error registry.items is not typed
-    return registry.items.find((item) => item.name === name) ?? null
+type RegistryJson = {
+  items: Array<ExtendedRegistryItem & { toolMeta?: { kind?: string } }>
+}
+
+const getRegistryData = cache(async (): Promise<RegistryJson> => {
+  return (await import("@/registry.json")).default as RegistryJson
+})
+
+export const getRegistryItemFromJson = cache(
+  async (name: string): Promise<ExtendedRegistryItem | null> => {
+    const registry = await getRegistryData()
+    const match = registry.items.find((item) => item.name === name)
+    return (match ?? null) as ExtendedRegistryItem | null
   }
 )
 
 export default async function Home() {
-  const demos = await loadDemosFromRegistry()
+  const [demosRecord, registryData] = await Promise.all([
+    loadDemosFromRegistry(),
+    getRegistryData(),
+  ])
 
-  // Discover displayed tools dynamically from registry via toolMeta.kind === "tool"
-  const registryItems = (await import("@/registry.json")).default as {
-    items: Array<{ name: string; toolMeta?: { kind?: string } }>
+  const registryMap = new Map<string, ExtendedRegistryItem>()
+  for (const raw of registryData.items) {
+    if (raw?.name) {
+      registryMap.set(raw.name, raw)
+    }
   }
-  const items = registryItems.items
-    .filter((x) => x.toolMeta?.kind === "tool")
-    .map((x) => ({ name: x.name, item: getRegistryItemFromJson(x.name) }))
-    .filter(
-      (x): x is { name: string; item: ExtendedRegistryItem } => x.item !== null
-    )
 
-  const pack = getRegistryItemFromJson("tool-pack")
+  const demoOrder = demosRecord.entries ?? []
+  const demos = demosRecord as unknown as Record<string, DemoEntry>
+
+  const preparedDemos = demoOrder
+    .map((name) => {
+      const entry = demos[name]
+      if (!entry) return null
+      const item = registryMap.get(entry.name)
+      if (!item) return null
+
+      const variantRegistryItems = entry.variants
+        ? (Object.fromEntries(
+            entry.variants.map((variant) => {
+              const targetName = resolveVariantRegistryName(
+                entry.name,
+                variant.key
+              )
+              return [variant.key, registryMap.get(targetName)] as const
+            })
+          ) as Record<string, ExtendedRegistryItem | undefined>)
+        : undefined
+
+      return { entry, item, variantRegistryItems }
+    })
+    .filter(Boolean) as Array<{
+    entry: DemoEntry
+    item: ExtendedRegistryItem
+    variantRegistryItems?: Record<string, ExtendedRegistryItem | undefined>
+  }>
+
+  const tools = registryData.items
+    .filter((tool) => tool.toolMeta?.kind === "tool" && tool.name)
+    .map((tool) => registryMap.get(tool.name))
+    .filter((item): item is ExtendedRegistryItem => Boolean(item))
+
+  const pack = registryMap.get("tool-pack") ?? null
 
   return (
     <main className="max-w-7xl mx-auto flex flex-col px-4 py-8 flex-1 gap-10 md:gap-12">
@@ -80,49 +120,28 @@ export default async function Home() {
       </section>
 
       <section className="grid grid-cols-1 gap-6">
-        {demos.entries.map((name: string) => {
-          // @ts-expect-error indexer access to dynamic key
-          const entry = demos[name]
-          if (!entry) return null
-          const item = getRegistryItemFromJson(entry.name)
-          if (!item) return null
-          // Provide registry items map for variants when present
-          const variantRegistryItems = entry.variants
-            ? Object.fromEntries(
-                entry.variants.map((v: { key: string }) => {
-                  const targetName = resolveVariantRegistryName(
-                    entry.name,
-                    v.key
-                  )
-                  const item = getRegistryItemFromJson(targetName)
-                  return [v.key, item]
-                })
-              )
-            : undefined
-
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={entry.json}
-              code={entry.code}
-              componentCode={entry.componentCode}
-              renderer={entry.renderer}
-              states={entry.states}
-              heading={entry.heading}
-              subheading={entry.subheading}
-              variants={entry.variants}
-              variantRegistryItems={variantRegistryItems}
-              isNew={Boolean(entry.isNew)}
-            />
-          )
-        })}
+        {preparedDemos.map(({ entry, item, variantRegistryItems }) => (
+          <ToolDemoCard
+            key={item.name}
+            registryItem={item}
+            json={entry.json}
+            code={entry.code}
+            componentCode={entry.componentCode}
+            renderer={entry.renderer}
+            states={entry.states}
+            heading={entry.heading}
+            subheading={entry.subheading}
+            variants={entry.variants}
+            variantRegistryItems={variantRegistryItems}
+            isNew={Boolean(entry.isNew)}
+          />
+        ))}
       </section>
 
       <section className="flex flex-col gap-4">
         <div className="text-sm font-medium">All Tools</div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {items.map(({ item }) => (
+          {tools.map((item) => (
             <div
               key={item.name}
               className="border rounded-lg p-4 bg-muted/30 flex flex-col gap-3"
