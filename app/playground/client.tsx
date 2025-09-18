@@ -37,6 +37,7 @@ import { Response } from "@/registry/ai-elements/response"
 import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
 import type { WebSearchToolInvocation } from "@/registry/ai-tools/tools/websearch"
 import { DemoImageGrid } from "@/registry/ai-tools/tools/image/demo-wrapper"
+import { ImageDemoControlsProvider } from "@/registry/ai-tools/tools/image/demo-controls"
 import type {
   ImageToolType,
   ImageFalToolType,
@@ -136,7 +137,11 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                 activeToolName: activeTool.name,
                 activeToolParams:
                   activeTool.name === "image"
-                    ? { n: Number(imageCount), aspectRatio: imageAspect }
+                    ? {
+                        prompt: text,
+                        n: Number(imageCount),
+                        aspectRatio: imageAspect,
+                      }
                     : undefined,
               }
             : {}),
@@ -208,17 +213,24 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                       }
                       if (t.startsWith("tool-image")) {
                         return (
-                          <DemoImageGrid
+                          <ImageDemoControlsProvider
                             key={`${message.id}-tool-${i}`}
-                            invocation={
-                              p as
-                                | ImageToolType
-                                | ImageFalToolType
-                                | ImageOpenAIToolType
-                                | ImageRunwareToolType
-                                | ImageGatewayGeminiToolType
-                            }
-                          />
+                            value={{
+                              count: Number(imageCount) || 1,
+                              aspectRatio: imageAspect,
+                            }}
+                          >
+                            <DemoImageGrid
+                              invocation={
+                                p as
+                                  | ImageToolType
+                                  | ImageFalToolType
+                                  | ImageOpenAIToolType
+                                  | ImageRunwareToolType
+                                  | ImageGatewayGeminiToolType
+                              }
+                            />
+                          </ImageDemoControlsProvider>
                         )
                       }
                       if (t.startsWith("tool-news")) {
