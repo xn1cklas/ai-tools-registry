@@ -86,7 +86,7 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
 
   if (part.state === "input-streaming") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-lg animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
         {renderHeader("Generated Images", "Waiting for prompt…")}
         <CardContent className={cn(contentBaseClass, "space-y-4")}>
           <div className={`grid gap-4 ${gridColsForCount(desiredCount)}`}>
@@ -102,7 +102,7 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
 
   if (part.state === "input-available") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-3xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
         {renderHeader("Generated Images", "Generating…")}
         <CardContent className={cn(contentBaseClass, "space-y-4")}>
           <div className={`grid gap-4 ${gridColsForCount(desiredCount)}`}>
@@ -126,7 +126,7 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
 
   if (part.state === "output-error") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-3xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
         {renderHeader("Generated Images", "Error")}
         <CardContent
           className={cn(
@@ -152,7 +152,7 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
   const gridCols = gridColsForCount(displayCount)
 
   return (
-    <Card className={cn(cardBaseClass, "max-w-3xl animate-in fade-in-50")}>
+    <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
       {renderHeader(
         "Generated Images",
         prompt ? `“${prompt}”` : undefined,

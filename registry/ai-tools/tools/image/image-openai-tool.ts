@@ -40,17 +40,15 @@ export const imageOpenAITool = tool({
     const { images }: { images: GeneratedImage[] } = await generateImage({
       model: openai.image("openai/gpt-image-1"),
       prompt,
-      ...(ar ? { aspectRatio: ar } : {}),
-      ...(typeof seed === "number" ? { seed } : {}),
-      ...(typeof n === "number" ? { n } : {}),
-      ...(negativePrompt ? { negativePrompt } : {}),
-      ...(referenceImageUrl
-        ? {
-            images: [
-              { type: "inputImage", image: referenceImageUrl },
-            ] as Array<{ type: "inputImage"; image: string }>,
-          }
-        : {}),
+      aspectRatio: ar,
+      seed,
+      n,
+      providerOptions: {
+        negativePrompt:
+          typeof negativePrompt === "string"
+            ? { value: negativePrompt }
+            : negativePrompt || {},
+      },
     })
 
     const out: ImageItem[] = (images || []).map((img) => ({
