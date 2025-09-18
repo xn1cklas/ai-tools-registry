@@ -131,8 +131,9 @@ export async function POST(req: Request) {
 
       return new Response(
         simulateReadableStream({
-          initialDelayInMs: 200,
-          chunkDelayInMs: 150,
+          // Add a small delay so tool loading states are visible
+          initialDelayInMs: 300,
+          chunkDelayInMs: 900,
           chunks,
         }).pipeThrough(new TextEncoderStream()),
         { status: 200, headers }
