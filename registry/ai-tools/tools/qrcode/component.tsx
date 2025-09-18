@@ -2,29 +2,70 @@
 
 import * as React from "react"
 import type { QRCodeToolType } from "./tool"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/registry/ai-tools/ui/card"
 import { Button } from "@/registry/ai-tools/ui/button"
 import { CheckIcon, DownloadIcon } from "lucide-react"
 import { Loader } from "@/registry/ai-elements/loader"
 import { CodeBlock } from "@/registry/ai-elements/code-block"
+import { cn } from "@/lib/utils"
+import { Card, CardContent, CardHeader } from "@/registry/ai-tools/ui/card"
+import { Skeleton } from "@/registry/ai-tools/ui/skeleton"
 
 export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
   const part = invocation
+  const cardBaseClass =
+    "not-prose flex w-full flex-col gap-0 overflow-hidden border border-border/50 bg-background/95 py-0 text-foreground shadow-sm"
+  const headerBaseClass =
+    "flex flex-col gap-2 border-b border-border/50 px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
+  const contentBaseClass = "px-6 py-5"
+  const renderHeader = (
+    title: React.ReactNode,
+    description?: React.ReactNode,
+    actions?: React.ReactNode
+  ) => {
+    const descriptionNode =
+      typeof description === "string" ? (
+        <p className="text-xs text-muted-foreground">{description}</p>
+      ) : (
+        (description ?? null)
+      )
+
+    return (
+      <CardHeader className={headerBaseClass}>
+        {(title || descriptionNode) && (
+          <div className="space-y-1">
+            {title ? (
+              <h3 className="text-sm font-semibold leading-none tracking-tight text-foreground">
+                {title}
+              </h3>
+            ) : null}
+            {descriptionNode}
+          </div>
+        )}
+        {actions ? (
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            {actions}
+          </div>
+        ) : null}
+      </CardHeader>
+    )
+  }
   if (part.state === "input-streaming") {
     return (
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>QR Code</CardTitle>
-          <CardDescription>Waiting for data…</CardDescription>
-        </CardHeader>
-        <CardContent className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Loader /> Preparing request
+      <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
+        {renderHeader("QR Code", "Waiting for data…")}
+        <CardContent
+          className={cn(
+            contentBaseClass,
+            "space-y-4 text-sm text-muted-foreground"
+          )}
+        >
+          <div className="flex items-center gap-2">
+            <Loader /> Preparing request
+          </div>
+          <div className="space-y-3">
+            <Skeleton className="mx-auto h-[220px] w-[210px] rounded-2xl" />
+            <Skeleton className="h-10 w-full rounded-lg" />
+          </div>
         </CardContent>
       </Card>
     )
@@ -32,17 +73,18 @@ export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
 
   if (part.state === "input-available") {
     return (
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>QR Code</CardTitle>
-          <CardDescription>Generating…</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-3">
+      <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
+        {renderHeader("QR Code", "Generating…")}
+        <CardContent className={cn(contentBaseClass, "space-y-4")}>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Loader /> Running tool
           </div>
+          <div className="space-y-3">
+            <Skeleton className="mx-auto h-[220px] w-[210px] rounded-2xl" />
+            <Skeleton className="h-10 w-full rounded-lg" />
+          </div>
           {part.input ? (
-            <div className="rounded-md bg-muted/50">
+            <div className="rounded-md border border-border/40 bg-muted/40">
               <CodeBlock
                 code={JSON.stringify(part.input, null, 2)}
                 language="json"
@@ -56,13 +98,10 @@ export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
 
   if (part.state === "output-error") {
     return (
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>QR Code</CardTitle>
-          <CardDescription>Error</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="rounded-md bg-destructive/10 text-destructive p-3 text-sm">
+      <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
+        {renderHeader("QR Code", "Error")}
+        <CardContent className={contentBaseClass}>
+          <div className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
             {part.errorText ||
               "An error occurred while generating the QR code."}
           </div>
@@ -103,18 +142,25 @@ export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
   }
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>QR Code</CardTitle>
-        <CardDescription>
-          {data.data.length > 50 ? `${data.data.slice(0, 50)}...` : data.data}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col items-center gap-4">
+    <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
+      {renderHeader(
+        "QR Code",
+        data.data.length > 50 ? `${data.data.slice(0, 50)}…` : data.data
+      )}
+      <CardContent
+        className={cn(
+          contentBaseClass,
+          "flex flex-col items-center gap-4 pb-6"
+        )}
+      >
         <div
-          className="w-full rounded-lg bg-white p-4"
+          className="relative w-full max-w-[280px] overflow-hidden rounded-2xl border border-border/40 bg-background/80 p-4 shadow-inner"
           style={{ maxWidth: `${data.size}px` }}
         >
+          <div
+            className="absolute inset-0 rounded-2xl bg-gradient-to-br from-muted/40 to-transparent"
+            aria-hidden
+          />
           <img
             src={data.output}
             alt={`QR code encoding ${
@@ -126,7 +172,7 @@ export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
             height={data.size}
             loading="lazy"
             decoding="async"
-            className="h-auto w-full"
+            className="relative z-10 h-auto w-full"
           />
         </div>
         <div className="text-sm text-muted-foreground">Size: {data.size}px</div>
@@ -160,7 +206,7 @@ export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
           <div
             role="status"
             aria-live="assertive"
-            className="w-full text-sm text-red-600"
+            className="w-full text-sm text-destructive"
           >
             {error}
           </div>
