@@ -182,10 +182,12 @@ export async function POST(req: Request) {
     // Provide a hint via system when forcing a specific tool with params
     system:
       activeToolName && activeToolParams
-        ? `Use the ${activeToolName} tool with these parameters if appropriate: ${JSON.stringify(
+        ? `You MUST call the ${activeToolName} tool and pass exactly these JSON arguments: ${JSON.stringify(
             activeToolParams
-          )}`
-        : undefined,
+          )}. Do not change or omit fields.`
+        : activeToolName
+          ? `You MUST call the ${activeToolName} tool.`
+          : undefined,
   })
 
   return result.toUIMessageStreamResponse()

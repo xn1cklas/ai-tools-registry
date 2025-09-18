@@ -3,11 +3,8 @@
 import * as React from "react"
 import { ImageGrid } from "./component"
 import type { ImageToolType } from "./tool"
-import { useImageDemoControls } from "./demo-controls"
 
 export function DemoImageGrid({ invocation }: { invocation: ImageToolType }) {
-  const controls = useImageDemoControls()
-
   // Stable shuffle: only recompute when the images list actually changes (not on AR changes)
   const imagesSignature = React.useMemo(() => {
     const list = invocation.output?.images ?? []
@@ -30,32 +27,20 @@ export function DemoImageGrid({ invocation }: { invocation: ImageToolType }) {
 
   let derivedInvocation: ImageToolType
   if (invocation.state === "output-available" && invocation.output) {
+    // Preserve the original input (n, aspectRatio, etc.) used for this invocation
+    // to keep aspect ratio sticky per message. Only shuffle images for nicer layout.
     derivedInvocation = {
       ...invocation,
       state: "output-available",
-      input: {
-        ...(invocation.input || {}),
-        ...(controls?.count ? { n: controls.count } : {}),
-        ...(controls?.aspectRatio ? { aspectRatio: controls.aspectRatio } : {}),
-      },
       output: {
         ...invocation.output,
         images: imgs,
-        aspectRatio:
-          controls?.aspectRatio ||
-          invocation.output.aspectRatio ||
-          invocation.input?.aspectRatio,
       },
     }
   } else {
-    derivedInvocation = {
-      ...invocation,
-      input: {
-        ...(invocation.input || {}),
-        ...(controls?.count ? { n: controls.count } : {}),
-        ...(controls?.aspectRatio ? { aspectRatio: controls.aspectRatio } : {}),
-      },
-    } as ImageToolType
+    // For pre-output states, rely solely on the invocation input
+    // (provided by the tool-input-available event) for placeholders.
+    derivedInvocation = { ...invocation }
   }
 
   return <ImageGrid invocation={derivedInvocation} />
