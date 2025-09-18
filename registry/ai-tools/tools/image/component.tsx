@@ -107,11 +107,16 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
   }
   if (!part.output) return null
   const { images, provider, prompt, aspectRatio } = part.output
-  const count = controls?.count ?? Math.min(images.length, 3)
   const ar = controls?.aspectRatio ?? aspectRatio ?? "1:1"
+  // Render exactly the number of generated images, capped by desiredCount
+  const displayCount = Math.min(images.length, desiredCount)
+  const gridCols =
+    displayCount === 1
+      ? "grid-cols-1"
+      : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
 
   return (
-    <Card className="w-full max-w-3xl">
+    <Card className={`w-fit-content max-w-3xl`}>
       <CardHeader>
         <CardTitle>Generated Images</CardTitle>
         <CardDescription>
@@ -126,8 +131,8 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: desiredCount }).map((_, i) => {
+        <div className={`grid ${gridCols} gap-4`}>
+          {Array.from({ length: displayCount }).map((_, i) => {
             const img = images[i]
             const src = img?.url
               ? img.url
@@ -140,17 +145,12 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
                 className="overflow-hidden rounded-md border bg-background w-full"
                 style={{ aspectRatio: toAspectRatio(ar) as any }}
               >
-                {img ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={src}
-                    alt={prompt}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
-                  />
-                ) : (
-                  <Skeleton className="h-full w-full" />
-                )}
+                <img
+                  src={src}
+                  alt={prompt}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
               </div>
             )
           })}
