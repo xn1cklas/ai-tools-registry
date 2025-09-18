@@ -33,6 +33,12 @@ import { MessageSquare, X } from "lucide-react"
 import { useState } from "react"
 import { useChat } from "@ai-sdk/react"
 import { Response } from "@/registry/ai-elements/response"
+import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
+import { ImageGrid } from "@/registry/ai-tools/tools/image/component"
+import { NewsList } from "@/registry/ai-tools/tools/news/component"
+import { WeatherCard } from "@/registry/ai-tools/tools/weather/component"
+import { QRCodeDisplay } from "@/registry/ai-tools/tools/qrcode/component"
+import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
 import {
   Tool as ToolContainer,
   ToolHeader,
@@ -160,6 +166,55 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                         "type" in p &&
                         "toolCallId" in p
                       if (isToolPart) {
+                        const t = String(p.type || "")
+                        if (t.startsWith("tool-websearch")) {
+                          return (
+                            <WebSearchList
+                              key={`${message.id}-${i}`}
+                              invocation={p as any}
+                            />
+                          )
+                        }
+                        if (t.startsWith("tool-image")) {
+                          return (
+                            <ImageGrid
+                              key={`${message.id}-${i}`}
+                              invocation={p as any}
+                            />
+                          )
+                        }
+                        if (t.startsWith("tool-news")) {
+                          return (
+                            <NewsList
+                              key={`${message.id}-${i}`}
+                              invocation={p as any}
+                            />
+                          )
+                        }
+                        if (t.startsWith("tool-weather")) {
+                          return (
+                            <WeatherCard
+                              key={`${message.id}-${i}`}
+                              invocation={p as any}
+                            />
+                          )
+                        }
+                        if (t.startsWith("tool-qrcode")) {
+                          return (
+                            <QRCodeDisplay
+                              key={`${message.id}-${i}`}
+                              invocation={p as any}
+                            />
+                          )
+                        }
+                        if (t.startsWith("tool-stats")) {
+                          return (
+                            <StatsChart
+                              key={`${message.id}-${i}`}
+                              invocation={p as any}
+                            />
+                          )
+                        }
                         return (
                           <ToolContainer key={`${message.id}-${i}`} defaultOpen>
                             <ToolHeader type={p.type} state={p.state} />
