@@ -392,7 +392,7 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                         value={imageAspect}
                         onValueChange={setImageAspect}
                       >
-                        <PromptInputModelSelectTrigger className="w-[72px]">
+                        <PromptInputModelSelectTrigger className="w-[74px]">
                           <PromptInputModelSelectValue />
                         </PromptInputModelSelectTrigger>
                         <PromptInputModelSelectContent>
