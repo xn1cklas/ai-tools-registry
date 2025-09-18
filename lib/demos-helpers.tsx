@@ -12,6 +12,8 @@ import type { UIToolInvocation, Tool, UITool } from "ai"
 
 // Tools used for server-side demo generation where needed
 import { qrCodeTool } from "@/registry/ai-tools/tools/qrcode/tool"
+import { DemoImageGrid } from "@/registry/ai-tools/tools/image/demo-wrapper"
+import type { ImageToolType } from "@/registry/ai-tools/tools/image"
 
 export type DemoEntry = {
   name: string
@@ -192,18 +194,6 @@ async function loadBaseFixture(name: string) {
         })
       }
     }
-    case "image":
-      return readJson(basePath, {
-        provider: "demo",
-        prompt: "A serene landscape with mountains at sunrise",
-        images: [
-          { url: "https://avatars.githubusercontent.com/haydenbleasel" },
-          { url: "https://avatars.githubusercontent.com/shadcn" },
-          { url: "https://avatars.githubusercontent.com/nicoalbanese" },
-          { url: "https://avatars.githubusercontent.com/rauchg" },
-        ],
-        aspectRatio: "1:1",
-      })
     default:
       return readJson(basePath, {})
   }
@@ -254,7 +244,11 @@ export async function buildDemos(names: string[]) {
       const RendererCmp = await importRendererFromItem(itemLike, name)
       const basePart = buildPart(name, json)
       const renderer = RendererCmp ? (
-        <RendererCmp invocation={basePart} />
+        name === "image" ? (
+          <DemoImageGrid invocation={basePart as unknown as ImageToolType} />
+        ) : (
+          <RendererCmp invocation={basePart} />
+        )
       ) : undefined
 
       const STATE_OPTIONS: ReadonlyArray<{
@@ -279,7 +273,14 @@ export async function buildDemos(names: string[]) {
             return {
               key: opt.key,
               label: opt.label,
-              renderer: <RendererCmp invocation={part} />,
+              renderer:
+                name === "image" ? (
+                  <DemoImageGrid
+                    invocation={part as unknown as ImageToolType}
+                  />
+                ) : (
+                  <RendererCmp invocation={part} />
+                ),
             }
           })
         : undefined
@@ -299,7 +300,11 @@ export async function buildDemos(names: string[]) {
             toolCallId: `tc_demo_${name}_${key}`,
           } as unknown as UIToolInvocation<AnyUITool>
           const variantRenderer = RendererCmp ? (
-            <RendererCmp invocation={part} />
+            name === "image" ? (
+              <DemoImageGrid invocation={part as unknown as ImageToolType} />
+            ) : (
+              <RendererCmp invocation={part} />
+            )
           ) : undefined
           const variantStates = RendererCmp
             ? STATE_OPTIONS.map((opt) => {
@@ -313,7 +318,14 @@ export async function buildDemos(names: string[]) {
                 return {
                   key: opt.key,
                   label: opt.label,
-                  renderer: <RendererCmp invocation={vpart} />,
+                  renderer:
+                    name === "image" ? (
+                      <DemoImageGrid
+                        invocation={vpart as unknown as ImageToolType}
+                      />
+                    ) : (
+                      <RendererCmp invocation={vpart} />
+                    ),
                 }
               })
             : undefined

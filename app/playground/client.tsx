@@ -36,7 +36,7 @@ import { useChat } from "@ai-sdk/react"
 import { Response } from "@/registry/ai-elements/response"
 import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
 import type { WebSearchToolInvocation } from "@/registry/ai-tools/tools/websearch"
-import { ImageGrid } from "@/registry/ai-tools/tools/image/component"
+import { DemoImageGrid } from "@/registry/ai-tools/tools/image/demo-wrapper"
 import type {
   ImageToolType,
   ImageFalToolType,
@@ -208,7 +208,7 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                       }
                       if (t.startsWith("tool-image")) {
                         return (
-                          <ImageGrid
+                          <DemoImageGrid
                             key={`${message.id}-tool-${i}`}
                             invocation={
                               p as
