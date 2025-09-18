@@ -157,106 +157,114 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                 description="Type a message below to begin chatting"
               />
             ) : (
-              messages.map((message) => (
-                <Message from={message.role} key={message.id}>
-                  <MessageContent>
-                    {message.parts.map((part, i) => {
-                      // Text part
-                      if (part.type === "text") {
+              messages.map((message) => {
+                const textParts = message.parts.filter(
+                  (part) => part.type === "text"
+                )
+                const toolParts = message.parts.filter((part) => {
+                  const p = part as any
+                  return (
+                    p &&
+                    typeof p === "object" &&
+                    "state" in p &&
+                    "type" in p &&
+                    "toolCallId" in p
+                  )
+                }) as any[]
+
+                return (
+                  <div key={message.id}>
+                    {textParts.length > 0 ? (
+                      <Message from={message.role}>
+                        <MessageContent>
+                          {textParts.map((part, i) => (
+                            <Response key={`${message.id}-text-${i}`}>
+                              {(part as any).text}
+                            </Response>
+                          ))}
+                        </MessageContent>
+                      </Message>
+                    ) : null}
+
+                    {toolParts.map((p, i) => {
+                      const t = String((p as any).type || "")
+                      if (t.startsWith("tool-websearch")) {
                         return (
-                          <Response key={`${message.id}-${i}`}>
-                            {part.text}
-                          </Response>
+                          <WebSearchList
+                            key={`${message.id}-tool-${i}`}
+                            invocation={p as WebSearchToolInvocation}
+                          />
                         )
                       }
-
-                      // Generic tool invocation rendering if present
-                      const p = part
-                      const isToolPart =
-                        p &&
-                        typeof p === "object" &&
-                        "state" in p &&
-                        "type" in p &&
-                        "toolCallId" in p
-                      if (isToolPart) {
-                        const t = String(p.type || "")
-                        if (t.startsWith("tool-websearch")) {
-                          return (
-                            <WebSearchList
-                              key={`${message.id}-${i}`}
-                              invocation={p as WebSearchToolInvocation}
-                            />
-                          )
-                        }
-                        if (t.startsWith("tool-image")) {
-                          return (
-                            <ImageGrid
-                              key={`${message.id}-${i}`}
-                              invocation={
-                                p as
-                                  | ImageToolType
-                                  | ImageFalToolType
-                                  | ImageOpenAIToolType
-                                  | ImageRunwareToolType
-                                  | ImageGatewayGeminiToolType
-                              }
-                            />
-                          )
-                        }
-                        if (t.startsWith("tool-news")) {
-                          return (
-                            <NewsList
-                              key={`${message.id}-${i}`}
-                              invocation={p as NewsToolType}
-                            />
-                          )
-                        }
-                        if (t.startsWith("tool-weather")) {
-                          return (
-                            <WeatherCard
-                              key={`${message.id}-${i}`}
-                              invocation={p as WeatherToolType}
-                            />
-                          )
-                        }
-                        if (t.startsWith("tool-qrcode")) {
-                          return (
-                            <QRCodeDisplay
-                              key={`${message.id}-${i}`}
-                              invocation={p as QRCodeToolType}
-                            />
-                          )
-                        }
-                        if (t.startsWith("tool-stats")) {
-                          return (
-                            <StatsChart
-                              key={`${message.id}-${i}`}
-                              invocation={p as StatsToolType}
-                            />
-                          )
-                        }
+                      if (t.startsWith("tool-image")) {
                         return (
-                          <ToolContainer key={`${message.id}-${i}`} defaultOpen>
-                            <ToolHeader
-                              type={p.type as `tool-${string}`}
-                              state={p.state}
-                            />
-                            <ToolContent>
-                              <ToolInput input={p.input} />
-                              <ToolOutput
-                                output={p.output}
-                                errorText={p.errorText}
-                              />
-                            </ToolContent>
-                          </ToolContainer>
+                          <ImageGrid
+                            key={`${message.id}-tool-${i}`}
+                            invocation={
+                              p as
+                                | ImageToolType
+                                | ImageFalToolType
+                                | ImageOpenAIToolType
+                                | ImageRunwareToolType
+                                | ImageGatewayGeminiToolType
+                            }
+                          />
                         )
                       }
-
-                      return null
+                      if (t.startsWith("tool-news")) {
+                        return (
+                          <NewsList
+                            key={`${message.id}-tool-${i}`}
+                            invocation={p as NewsToolType}
+                          />
+                        )
+                      }
+                      if (t.startsWith("tool-weather")) {
+                        return (
+                          <WeatherCard
+                            key={`${message.id}-tool-${i}`}
+                            invocation={p as WeatherToolType}
+                          />
+                        )
+                      }
+                      if (t.startsWith("tool-qrcode")) {
+                        return (
+                          <QRCodeDisplay
+                            key={`${message.id}-tool-${i}`}
+                            invocation={p as QRCodeToolType}
+                          />
+                        )
+                      }
+                      if (t.startsWith("tool-stats")) {
+                        return (
+                          <StatsChart
+                            key={`${message.id}-tool-${i}`}
+                            invocation={p as StatsToolType}
+                          />
+                        )
+                      }
+                      return (
+                        <ToolContainer
+                          key={`${message.id}-tool-${i}`}
+                          defaultOpen
+                        >
+                          <ToolHeader
+                            type={(p as any).type as `tool-${string}`}
+                            state={(p as any).state}
+                          />
+                          <ToolContent>
+                            <ToolInput input={(p as any).input} />
+                            <ToolOutput
+                              output={(p as any).output}
+                              errorText={(p as any).errorText}
+                            />
+                          </ToolContent>
+                        </ToolContainer>
+                      )
                     })}
-                  </MessageContent>
-                </Message>
-              ))
+                  </div>
+                )
+              })
             )}
           </ConversationContent>
           <ConversationScrollButton />
