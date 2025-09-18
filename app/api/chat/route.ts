@@ -1,5 +1,16 @@
-import { streamText, UIMessage, convertToModelMessages } from "ai"
+import {
+  streamText,
+  UIMessage,
+  convertToModelMessages,
+  simulateReadableStream,
+} from "ai"
 import * as Tools from "@/registry/ai-tools/tools"
+import websearchFixture from "@/registry/ai-tools/tools/websearch/fixtures/demo.json"
+import imageFixture from "@/registry/ai-tools/tools/image/fixtures/demo.json"
+import newsFixture from "@/registry/ai-tools/tools/news/fixtures/demo.json"
+import qrcodeFixture from "@/registry/ai-tools/tools/qrcode/fixtures/demo.json"
+import statsFixture from "@/registry/ai-tools/tools/stats/fixtures/demo.json"
+import weatherFixture from "@/registry/ai-tools/tools/weather/fixtures/demo.json"
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30
@@ -10,6 +21,7 @@ export async function POST(req: Request) {
     activeToolName,
     activeToolParams,
     activeToolProviderName,
+    isLivemode,
   }: {
     messages: UIMessage[]
     activeToolName?:
@@ -19,6 +31,7 @@ export async function POST(req: Request) {
       | "stats"
       | "qrcode"
       | "image"
+    isLivemode?: boolean
     activeToolParams?: unknown
     activeToolProviderName?:
       | "image-openai"
@@ -66,6 +79,89 @@ export async function POST(req: Request) {
       image: (imageToolToUse as any)?.name,
     },
   })
+
+  // Simulated streaming using fixtures when not in live mode
+  if (isLivemode === false) {
+    const toolCallId = "tool-call-1"
+    const headers = {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache",
+      Connection: "keep-alive",
+      "x-vercel-ai-ui-message-stream": "v1",
+    }
+
+    if (activeToolName) {
+      const output =
+        activeToolName === "websearch"
+          ? (websearchFixture as any)
+          : activeToolName === "image"
+            ? (imageFixture as any)
+            : activeToolName === "news"
+              ? (newsFixture as any)
+              : activeToolName === "qrcode"
+                ? (qrcodeFixture as any)
+                : activeToolName === "stats"
+                  ? (statsFixture as any)
+                  : activeToolName === "weather"
+                    ? (weatherFixture as any)
+                    : undefined
+
+      const chunks: string[] = []
+      chunks.push(`data: ${JSON.stringify({ type: "start" })}\n\n`)
+      chunks.push(
+        `data: ${JSON.stringify({
+          type: "tool-input-available",
+          toolCallId,
+          toolName: activeToolName,
+          input: activeToolParams ?? {},
+        })}\n\n`
+      )
+      if (output !== undefined) {
+        chunks.push(
+          `data: ${JSON.stringify({
+            type: "tool-output-available",
+            toolCallId,
+            output,
+          })}\n\n`
+        )
+      }
+      chunks.push(`data: ${JSON.stringify({ type: "finish" })}\n\n`)
+      chunks.push(`data: [DONE]\n\n`)
+
+      return new Response(
+        simulateReadableStream({
+          initialDelayInMs: 200,
+          chunkDelayInMs: 150,
+          chunks,
+        }).pipeThrough(new TextEncoderStream()),
+        { status: 200, headers }
+      )
+    }
+
+    // No tool selected: stream a simple assistant text response
+    const textId = "text-1"
+    const textChunks: string[] = [
+      `data: ${JSON.stringify({ type: "start" })}\n\n`,
+      `data: ${JSON.stringify({ type: "text-start", id: textId })}\n\n`,
+      `data: ${JSON.stringify({ type: "text-delta", id: textId, delta: "Using demo mode. " })}\n\n`,
+      `data: ${JSON.stringify({ type: "text-delta", id: textId, delta: "No live providers called." })}\n\n`,
+      `data: ${JSON.stringify({ type: "text-end", id: textId })}\n\n`,
+      `data: ${JSON.stringify({ type: "finish" })}\n\n`,
+      `data: [DONE]\n\n`,
+    ]
+
+    return new Response(
+      simulateReadableStream({
+        initialDelayInMs: 200,
+        chunkDelayInMs: 120,
+        chunks: textChunks,
+      }).pipeThrough(new TextEncoderStream()),
+      {
+        status: 200,
+        headers,
+      }
+    )
+  }
 
   const result = streamText({
     model: "openai/gpt-5",

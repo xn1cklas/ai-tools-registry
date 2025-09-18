@@ -113,6 +113,7 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
       { text: hasText ? text : "Sent with attachments", files: message.files },
       {
         body: {
+          isLivemode: false,
           ...(activeToolProvider
             ? { activeToolProviderName: activeToolProvider }
             : {}),
