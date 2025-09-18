@@ -7,9 +7,6 @@ import { getRegistryItemFromJson as getItemFromHome } from "../page"
 export default async function PlaygroundPage() {
   const demos = await loadDemosFromRegistry()
 
-  if (!featureFlags.playgroundEnabled) {
-    return notFound()
-  }
   const tools = await Promise.all(
     demos.entries.map(async (name) => {
       const item = await getItemFromHome(name)
