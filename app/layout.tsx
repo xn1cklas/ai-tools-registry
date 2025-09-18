@@ -10,6 +10,7 @@ import { Toaster } from "@/registry/ai-tools/ui/sonner"
 import { RegistrySetup } from "@/components/registry-setup"
 import { GithubButton } from "@/components/github-button"
 import { TextIcon } from "lucide-react"
+import { AnnouncementBanner } from "@/components/announcement-banner"
 
 const fontSans = DM_Sans({
   variable: "--font-sans",
@@ -60,6 +61,7 @@ export default function RootLayout({
         className={`${fontSans.variable} font-sans antialiased min-h-screen flex flex-col`}
       >
         <Providers>
+          <AnnouncementBanner />
           <header>
             <div className="max-w-7xl mx-auto flex items-center px-4 py-6">
               <div className="flex items-center gap-4">
@@ -67,9 +69,14 @@ export default function RootLayout({
                   <TextIcon /> <span className="font-bold">AI Tools</span>
                 </Link>
                 <Separator orientation="vertical" className="!h-6" />
-                <p className="text-muted-foreground hidden md:block line-clamp-1 text-sm">
-                  Tool definitions and components for the AI SDK.
-                </p>
+                <nav className="flex items-center gap-4">
+                  <Link
+                    href="/playground"
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Playground
+                  </Link>
+                </nav>
               </div>
               <div className="ml-auto flex gap-2">
                 <RegistrySetup />
