@@ -133,7 +133,7 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 relative size-full rounded-lg border h-[600px]">
+    <div className="max-w-4xl mx-auto p-6 relative size-full rounded-lg border h-[calc(100vh-84px)] lg:h-[calc(100vh-104px)] max-h-screen">
       <div className="flex flex-col h-full">
         <Conversation>
           <ConversationContent>
@@ -340,7 +340,7 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                           <PromptInputModelSelectValue />
                         </PromptInputModelSelectTrigger>
                         <PromptInputModelSelectContent>
-                          {["1", "2", "3", "4", "5", "6", "7", "8"].map((n) => (
+                          {["1", "2", "3", "4"].map((n) => (
                             <PromptInputModelSelectItem key={n} value={n}>
                               {n}
                             </PromptInputModelSelectItem>
