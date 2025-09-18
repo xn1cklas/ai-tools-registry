@@ -31,6 +31,7 @@ import {
 } from "@/registry/ai-elements/prompt-input"
 import { MessageSquare, X } from "lucide-react"
 import { useState } from "react"
+import type { ToolUIPart } from "ai"
 import { useChat } from "@ai-sdk/react"
 import { Response } from "@/registry/ai-elements/response"
 import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
@@ -158,19 +159,28 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
               />
             ) : (
               messages.map((message) => {
-                const textParts = message.parts.filter(
-                  (part) => part.type === "text"
-                )
-                const toolParts = message.parts.filter((part) => {
-                  const p = part as any
+                const isToolPart = (part: unknown): part is ToolUIPart => {
                   return (
-                    p &&
-                    typeof p === "object" &&
-                    "state" in p &&
-                    "type" in p &&
-                    "toolCallId" in p
+                    !!part &&
+                    typeof part === "object" &&
+                    "state" in part &&
+                    "type" in part &&
+                    "toolCallId" in part
                   )
-                }) as any[]
+                }
+
+                type TextPart = { type: "text"; text: string }
+                const isTextPart = (part: unknown): part is TextPart => {
+                  return (
+                    !!part &&
+                    typeof part === "object" &&
+                    (part as { type?: unknown }).type === "text" &&
+                    "text" in part
+                  )
+                }
+
+                const textParts = message.parts.filter(isTextPart)
+                const toolParts = message.parts.filter(isToolPart)
 
                 return (
                   <div key={message.id}>
@@ -179,7 +189,7 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                         <MessageContent>
                           {textParts.map((part, i) => (
                             <Response key={`${message.id}-text-${i}`}>
-                              {(part as any).text}
+                              {part.text}
                             </Response>
                           ))}
                         </MessageContent>
@@ -187,7 +197,7 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                     ) : null}
 
                     {toolParts.map((p, i) => {
-                      const t = String((p as any).type || "")
+                      const t = String(p.type || "")
                       if (t.startsWith("tool-websearch")) {
                         return (
                           <WebSearchList
@@ -249,14 +259,14 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                           defaultOpen
                         >
                           <ToolHeader
-                            type={(p as any).type as `tool-${string}`}
-                            state={(p as any).state}
+                            type={p.type as `tool-${string}`}
+                            state={p.state}
                           />
                           <ToolContent>
-                            <ToolInput input={(p as any).input} />
+                            <ToolInput input={p.input} />
                             <ToolOutput
-                              output={(p as any).output}
-                              errorText={(p as any).errorText}
+                              output={p.output}
+                              errorText={p.errorText}
                             />
                           </ToolContent>
                         </ToolContainer>
