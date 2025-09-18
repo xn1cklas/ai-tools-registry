@@ -19,7 +19,9 @@
         }
       ],
       "dependencies": ["zod", "ai", "@ai-sdk/openai"],
-      "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
       "files": [
         {
           "path": "registry/ai-tools/tools/image/image-openai-tool.ts",
@@ -101,7 +103,9 @@
         }
       ],
       "dependencies": ["zod", "ai", "@ai-sdk/fal"],
-      "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
       "files": [
         {
           "path": "registry/ai-tools/tools/image/image-fal-tool.ts",
@@ -142,7 +146,9 @@
         }
       ],
       "dependencies": ["zod", "ai", "@runware/ai-sdk-provider"],
-      "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
       "files": [
         {
           "path": "registry/ai-tools/tools/image/image-runware-tool.ts",
@@ -183,7 +189,9 @@
         }
       ],
       "dependencies": ["zod", "ai", "@ai-sdk/google"],
-      "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
       "files": [
         {
           "path": "registry/ai-tools/tools/image/image-gemini-tool.ts",
