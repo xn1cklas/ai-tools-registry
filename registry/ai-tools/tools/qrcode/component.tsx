@@ -51,7 +51,7 @@ export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
   }
   if (part.state === "input-streaming") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("QR Code", "Waiting for data…")}
         <CardContent
           className={cn(
@@ -73,7 +73,7 @@ export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
 
   if (part.state === "input-available") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("QR Code", "Generating…")}
         <CardContent className={cn(contentBaseClass, "space-y-4")}>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -98,7 +98,7 @@ export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
 
   if (part.state === "output-error") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("QR Code", "Error")}
         <CardContent className={contentBaseClass}>
           <div className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
@@ -142,7 +142,7 @@ export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
   }
 
   return (
-    <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
+    <Card className={cn(cardBaseClass, "max-w-sm animate-in fade-in-50")}>
       {renderHeader(
         "QR Code",
         data.data.length > 50 ? `${data.data.slice(0, 50)}…` : data.data
@@ -175,7 +175,6 @@ export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
             className="relative z-10 h-auto w-full"
           />
         </div>
-        <div className="text-sm text-muted-foreground">Size: {data.size}px</div>
         <Button
           onClick={handleDownload}
           disabled={downloading}

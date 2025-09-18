@@ -51,7 +51,7 @@ export function WeatherCard({ invocation }: { invocation: WeatherToolType }) {
   // Handle tool invocation states
   if (part.state === "input-streaming") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-lg animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("Weather", "Waiting for input…")}
         <CardContent
           className={cn(
@@ -77,7 +77,7 @@ export function WeatherCard({ invocation }: { invocation: WeatherToolType }) {
 
   if (part.state === "input-available") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-lg animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("Weather", "Fetching data…")}
         <CardContent className={cn(contentBaseClass, "space-y-4")}>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -106,7 +106,7 @@ export function WeatherCard({ invocation }: { invocation: WeatherToolType }) {
 
   if (part.state === "output-error") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-lg animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("Weather", "Error")}
         <CardContent className={contentBaseClass}>
           <div className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
@@ -130,7 +130,7 @@ export function WeatherCard({ invocation }: { invocation: WeatherToolType }) {
     windKph,
   } = part.output
   return (
-    <Card className={cn(cardBaseClass, "max-w-lg animate-in fade-in-50")}>
+    <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
       {renderHeader(
         "Weather",
         location,

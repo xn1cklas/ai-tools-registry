@@ -55,7 +55,7 @@ export function NewsList({ invocation }: { invocation: NewsToolType }) {
   }
   if (part.state === "input-streaming") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-2xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("News", "Waiting for topic…")}
         <CardContent
           className={cn(
@@ -78,7 +78,7 @@ export function NewsList({ invocation }: { invocation: NewsToolType }) {
 
   if (part.state === "input-available") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-2xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("News", "Fetching…")}
         <CardContent className={cn(contentBaseClass, "space-y-4")}>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -104,7 +104,7 @@ export function NewsList({ invocation }: { invocation: NewsToolType }) {
 
   if (part.state === "output-error") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-2xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("News", "Error")}
         <CardContent className={contentBaseClass}>
           <div className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
@@ -119,7 +119,7 @@ export function NewsList({ invocation }: { invocation: NewsToolType }) {
   const linkedItems = items.filter((i) => i.url)
 
   return (
-    <Card className={cn(cardBaseClass, "max-w-2xl animate-in fade-in-50")}>
+    <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
       {renderHeader(
         "News",
         <span className="text-xs text-muted-foreground">

@@ -58,7 +58,7 @@ export function StatsChart({ invocation }: { invocation: StatsToolType }) {
   }
   if (part.state === "input-streaming") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-3xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("Public Stats", "Waiting for parameters…")}
         <CardContent
           className={cn(
@@ -79,7 +79,7 @@ export function StatsChart({ invocation }: { invocation: StatsToolType }) {
 
   if (part.state === "input-available") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-3xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("Public Stats", "Loading…")}
         <CardContent
           className={cn(
@@ -100,7 +100,7 @@ export function StatsChart({ invocation }: { invocation: StatsToolType }) {
 
   if (part.state === "output-error") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-3xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("Public Stats", "Error")}
         <CardContent className={contentBaseClass}>
           <div className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
@@ -113,7 +113,7 @@ export function StatsChart({ invocation }: { invocation: StatsToolType }) {
 
   if (!part.output) {
     return (
-      <Card className={cn(cardBaseClass, "max-w-3xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("Public Stats", "No data")}
         <CardContent
           className={cn(
@@ -141,7 +141,7 @@ export function StatsChart({ invocation }: { invocation: StatsToolType }) {
     })) ?? []
 
   return (
-    <Card className={cn(cardBaseClass, "max-w-3xl animate-in fade-in-50")}>
+    <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
       {renderHeader(
         part.output?.title ?? "Public Stats",
         "Source: USGS Earthquake Catalog"

@@ -2,20 +2,18 @@
 
 import * as React from "react"
 import { ImageToolType } from "./tool"
+import { type ImageInput, type ImageItem } from "./schema"
 import { Loader } from "@/registry/ai-elements/loader"
-import { CodeBlock } from "@/registry/ai-elements/code-block"
 import { Badge } from "@/registry/ai-tools/ui/badge"
 import { cn } from "@/lib/utils"
 
-import { useImageDemoControls } from "./demo-controls"
 import { Skeleton } from "@/registry/ai-tools/ui/skeleton"
 import { Card, CardContent, CardHeader } from "@/registry/ai-tools/ui/card"
 
 export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
   const part = invocation
-  const controls = useImageDemoControls()
-  const desiredCount = Math.max(1, Math.min(4, controls?.count ?? 3))
-  const desiredAR = controls?.aspectRatio ?? "1:1"
+  const desiredCount = Math.max(1, Math.min(4, part.input?.n ?? 3))
+  const desiredAR = part.input?.aspectRatio ?? "1:1"
 
   const cardBaseClass =
     "not-prose flex w-full flex-col gap-0 overflow-hidden border border-border/50 bg-background/95 py-0 text-foreground shadow-sm"
@@ -43,7 +41,7 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
       <div
         key={`placeholder-${i}`}
         className="relative w-full overflow-hidden rounded-xl border border-border/50 bg-background"
-        style={{ aspectRatio: ratio as any }}
+        style={{ aspectRatio: ratio }}
       >
         <Skeleton className="absolute inset-0 h-full w-full" />
         <div className="absolute inset-0 bg-gradient-to-br from-foreground/5 via-transparent to-transparent" />
@@ -86,7 +84,7 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
 
   if (part.state === "input-streaming") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("Generated Images", "Waiting for prompt…")}
         <CardContent className={cn(contentBaseClass, "space-y-4")}>
           <div className={`grid gap-4 ${gridColsForCount(desiredCount)}`}>
@@ -102,7 +100,7 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
 
   if (part.state === "input-available") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("Generated Images", "Generating…")}
         <CardContent className={cn(contentBaseClass, "space-y-4")}>
           <div className={`grid gap-4 ${gridColsForCount(desiredCount)}`}>
@@ -111,14 +109,6 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Loader /> Running tool
           </div>
-          {part.input ? (
-            <div className="rounded-md border border-border/40 bg-muted/40">
-              <CodeBlock
-                code={JSON.stringify(part.input, null, 2)}
-                language="json"
-              />
-            </div>
-          ) : null}
         </CardContent>
       </Card>
     )
@@ -126,7 +116,7 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
 
   if (part.state === "output-error") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("Generated Images", "Error")}
         <CardContent
           className={cn(
@@ -146,13 +136,15 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
   }
   if (!part.output) return null
   const { images, provider, prompt, aspectRatio } = part.output
-  const ar = controls?.aspectRatio ?? aspectRatio ?? "1:1"
+  const ar = part.input?.aspectRatio ?? aspectRatio ?? "1:1"
+
   // Render exactly the number of generated images, capped by desiredCount
   const displayCount = Math.min(images.length, desiredCount)
+  const selectedImages = images.slice(0, displayCount)
   const gridCols = gridColsForCount(displayCount)
 
   return (
-    <Card className={cn(cardBaseClass, "max-w-md animate-in fade-in-50")}>
+    <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
       {renderHeader(
         "Generated Images",
         prompt ? `“${prompt}”` : undefined,
@@ -162,8 +154,7 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
       )}
       <CardContent className={cn(contentBaseClass, "pb-6")}>
         <div className={`grid ${gridCols} gap-4`}>
-          {Array.from({ length: displayCount }).map((_, i) => {
-            const img = images[i]
+          {selectedImages.map((img, i) => {
             const src = img?.url
               ? img.url
               : img?.base64
@@ -173,7 +164,7 @@ export function ImageGrid({ invocation }: { invocation: ImageToolType }) {
               <div
                 key={src || `ph-${i}`}
                 className="w-full overflow-hidden rounded-xl border border-border/50 bg-background"
-                style={{ aspectRatio: toAspectRatio(ar) as any }}
+                style={{ aspectRatio: toAspectRatio(ar) }}
               >
                 <img
                   src={src}

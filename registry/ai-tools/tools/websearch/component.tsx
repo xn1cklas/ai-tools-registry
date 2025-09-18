@@ -73,7 +73,7 @@ export function WebSearchList({
   }
   if (part.state === "input-streaming") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-2xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("Web Search", "Waiting for query…")}
         <CardContent
           className={cn(
@@ -96,7 +96,7 @@ export function WebSearchList({
 
   if (part.state === "input-available") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-2xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("Web Search", "Searching…")}
         <CardContent className={cn(contentBaseClass, "space-y-4")}>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -122,7 +122,7 @@ export function WebSearchList({
 
   if (part.state === "output-error") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-2xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
         {renderHeader("Web Search", "Error")}
         <CardContent className={contentBaseClass}>
           <div className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
@@ -135,7 +135,7 @@ export function WebSearchList({
   if (part.output === undefined) return null
   const { query, results } = part.output
   return (
-    <Card className={cn(cardBaseClass, "max-w-2xl animate-in fade-in-50")}>
+    <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
       {renderHeader(
         "Web Search",
         <span className="text-xs text-muted-foreground">
