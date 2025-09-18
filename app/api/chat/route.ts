@@ -75,8 +75,8 @@ export async function POST(req: Request) {
     hasParams: Boolean(activeToolParams),
     model: "openai/gpt-5",
     mappedTools: {
-      websearch: (websearchToolToUse as any)?.name,
-      image: (imageToolToUse as any)?.name,
+      websearch: "websearch",
+      image: "image",
     },
   })
 
@@ -93,17 +93,17 @@ export async function POST(req: Request) {
     if (activeToolName) {
       const output =
         activeToolName === "websearch"
-          ? (websearchFixture as any)
+          ? websearchFixture
           : activeToolName === "image"
-            ? (imageFixture as any)
+            ? imageFixture
             : activeToolName === "news"
-              ? (newsFixture as any)
+              ? newsFixture
               : activeToolName === "qrcode"
-                ? (qrcodeFixture as any)
+                ? qrcodeFixture
                 : activeToolName === "stats"
-                  ? (statsFixture as any)
+                  ? statsFixture
                   : activeToolName === "weather"
-                    ? (weatherFixture as any)
+                    ? weatherFixture
                     : undefined
 
       const chunks: string[] = []

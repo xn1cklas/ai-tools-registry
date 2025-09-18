@@ -34,11 +34,23 @@ import { useState } from "react"
 import { useChat } from "@ai-sdk/react"
 import { Response } from "@/registry/ai-elements/response"
 import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
+import type { WebSearchToolInvocation } from "@/registry/ai-tools/tools/websearch"
 import { ImageGrid } from "@/registry/ai-tools/tools/image/component"
+import type {
+  ImageToolType,
+  ImageFalToolType,
+  ImageOpenAIToolType,
+  ImageRunwareToolType,
+  ImageGatewayGeminiToolType,
+} from "@/registry/ai-tools/tools/image"
 import { NewsList } from "@/registry/ai-tools/tools/news/component"
+import type { NewsToolType } from "@/registry/ai-tools/tools/news"
 import { WeatherCard } from "@/registry/ai-tools/tools/weather/component"
+import type { WeatherToolType } from "@/registry/ai-tools/tools/weather"
 import { QRCodeDisplay } from "@/registry/ai-tools/tools/qrcode/component"
+import type { QRCodeToolType } from "@/registry/ai-tools/tools/qrcode"
 import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
+import type { StatsToolType } from "@/registry/ai-tools/tools/stats"
 import {
   Tool as ToolContainer,
   ToolHeader,
@@ -153,13 +165,13 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                       if (part.type === "text") {
                         return (
                           <Response key={`${message.id}-${i}`}>
-                            {(part as any).text}
+                            {part.text}
                           </Response>
                         )
                       }
 
                       // Generic tool invocation rendering if present
-                      const p: any = part as any
+                      const p = part
                       const isToolPart =
                         p &&
                         typeof p === "object" &&
@@ -172,7 +184,7 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                           return (
                             <WebSearchList
                               key={`${message.id}-${i}`}
-                              invocation={p as any}
+                              invocation={p as WebSearchToolInvocation}
                             />
                           )
                         }
@@ -180,7 +192,14 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                           return (
                             <ImageGrid
                               key={`${message.id}-${i}`}
-                              invocation={p as any}
+                              invocation={
+                                p as
+                                  | ImageToolType
+                                  | ImageFalToolType
+                                  | ImageOpenAIToolType
+                                  | ImageRunwareToolType
+                                  | ImageGatewayGeminiToolType
+                              }
                             />
                           )
                         }
@@ -188,7 +207,7 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                           return (
                             <NewsList
                               key={`${message.id}-${i}`}
-                              invocation={p as any}
+                              invocation={p as NewsToolType}
                             />
                           )
                         }
@@ -196,7 +215,7 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                           return (
                             <WeatherCard
                               key={`${message.id}-${i}`}
-                              invocation={p as any}
+                              invocation={p as WeatherToolType}
                             />
                           )
                         }
@@ -204,7 +223,7 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                           return (
                             <QRCodeDisplay
                               key={`${message.id}-${i}`}
-                              invocation={p as any}
+                              invocation={p as QRCodeToolType}
                             />
                           )
                         }
@@ -212,13 +231,16 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                           return (
                             <StatsChart
                               key={`${message.id}-${i}`}
-                              invocation={p as any}
+                              invocation={p as StatsToolType}
                             />
                           )
                         }
                         return (
                           <ToolContainer key={`${message.id}-${i}`} defaultOpen>
-                            <ToolHeader type={p.type} state={p.state} />
+                            <ToolHeader
+                              type={p.type as `tool-${string}`}
+                              state={p.state}
+                            />
                             <ToolContent>
                               <ToolInput input={p.input} />
                               <ToolOutput
