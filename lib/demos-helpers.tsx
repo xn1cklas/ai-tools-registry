@@ -197,8 +197,10 @@ async function loadBaseFixture(name: string) {
         provider: "demo",
         prompt: "A serene landscape with mountains at sunrise",
         images: [
-          { url: "https://picsum.photos/seed/ai-tools-1/640/640" },
-          { url: "https://picsum.photos/seed/ai-tools-2/640/640" },
+          { url: "https://avatars.githubusercontent.com/haydenbleasel" },
+          { url: "https://avatars.githubusercontent.com/shadcn" },
+          { url: "https://avatars.githubusercontent.com/nicoalbanese" },
+          { url: "https://avatars.githubusercontent.com/rauchg" },
         ],
         aspectRatio: "1:1",
       })
