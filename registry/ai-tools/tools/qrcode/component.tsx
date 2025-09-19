@@ -51,7 +51,7 @@ export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
   }
   if (part.state === "input-streaming") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-sm animate-in fade-in-50")}>
         {renderHeader("QR Code", "Waiting for data…")}
         <CardContent
           className={cn(
@@ -63,7 +63,7 @@ export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
             <Loader /> Preparing request
           </div>
           <div className="space-y-3">
-            <Skeleton className="mx-auto h-[220px] w-[210px] rounded-2xl" />
+            <Skeleton className="mx-auto h-[280px] w-full max-w-[280px] rounded-2xl" />
             <Skeleton className="h-10 w-full rounded-lg" />
           </div>
         </CardContent>
@@ -73,24 +73,16 @@ export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
 
   if (part.state === "input-available") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-sm animate-in fade-in-50")}>
         {renderHeader("QR Code", "Generating…")}
         <CardContent className={cn(contentBaseClass, "space-y-4")}>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Loader /> Running tool
           </div>
           <div className="space-y-3">
-            <Skeleton className="mx-auto h-[220px] w-[210px] rounded-2xl" />
+            <Skeleton className="mx-auto h-[280px] w-full max-w-[280px] rounded-2xl" />
             <Skeleton className="h-10 w-full rounded-lg" />
           </div>
-          {part.input ? (
-            <div className="rounded-md border border-border/40 bg-muted/40">
-              <CodeBlock
-                code={JSON.stringify(part.input, null, 2)}
-                language="json"
-              />
-            </div>
-          ) : null}
         </CardContent>
       </Card>
     )
@@ -98,7 +90,7 @@ export function QRCodeDisplay({ invocation }: { invocation: QRCodeToolType }) {
 
   if (part.state === "output-error") {
     return (
-      <Card className={cn(cardBaseClass, "max-w-xl animate-in fade-in-50")}>
+      <Card className={cn(cardBaseClass, "max-w-sm animate-in fade-in-50")}>
         {renderHeader("QR Code", "Error")}
         <CardContent className={contentBaseClass}>
           <div className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">

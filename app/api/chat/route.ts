@@ -11,6 +11,7 @@ import newsFixture from "@/registry/ai-tools/tools/news/fixtures/demo.json"
 import qrcodeFixture from "@/registry/ai-tools/tools/qrcode/fixtures/demo.json"
 import statsFixture from "@/registry/ai-tools/tools/stats/fixtures/demo.json"
 import weatherFixture from "@/registry/ai-tools/tools/weather/fixtures/demo.json"
+import { qrCodeTool } from "@/registry/ai-tools/tools/qrcode/tool"
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30
@@ -92,20 +93,29 @@ export async function POST(req: Request) {
     }
 
     if (activeToolName) {
-      const output =
-        activeToolName === "websearch"
-          ? websearchFixture
-          : activeToolName === "image"
-            ? imageFixture
-            : activeToolName === "news"
-              ? newsFixture
-              : activeToolName === "qrcode"
-                ? qrcodeFixture
-                : activeToolName === "stats"
-                  ? statsFixture
-                  : activeToolName === "weather"
-                    ? weatherFixture
-                    : undefined
+      let output: unknown = undefined
+      if (activeToolName === "websearch") {
+        output = websearchFixture
+      } else if (activeToolName === "image") {
+        output = imageFixture
+      } else if (activeToolName === "news") {
+        output = newsFixture
+      } else if (activeToolName === "qrcode") {
+        // Match demos-helpers.tsx: try live generate, fallback to fixture
+        try {
+          const baseUrl =
+            process.env.NEXT_PUBLIC_BASE_URL ||
+            "https://ai-tools-registry.vercel.app"
+          // @ts-expect-error - tool typing not wired here
+          output = await qrCodeTool.execute({ data: baseUrl, size: 300 })
+        } catch {
+          output = qrcodeFixture
+        }
+      } else if (activeToolName === "stats") {
+        output = statsFixture
+      } else if (activeToolName === "weather") {
+        output = weatherFixture
+      }
 
       const chunks: string[] = []
       chunks.push(`data: ${JSON.stringify({ type: "start" })}\n\n`)
