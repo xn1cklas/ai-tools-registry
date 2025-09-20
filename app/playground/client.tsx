@@ -53,6 +53,8 @@ import { QRCodeDisplay } from "@/registry/ai-tools/tools/qrcode/component"
 import type { QRCodeToolType } from "@/registry/ai-tools/tools/qrcode"
 import { StatsChart } from "@/registry/ai-tools/tools/stats/component"
 import type { StatsToolType } from "@/registry/ai-tools/tools/stats"
+import { CurrencyDisplay } from "@/registry/ai-tools/tools/currency/component"
+import type { CurrencyConverterOutputSchemaType } from "@/registry/ai-tools/tools/currency"
 import {
   Tool as ToolContainer,
   ToolHeader,
@@ -68,7 +70,9 @@ import {
   BarChart3,
   QrCode,
   Image as ImageIcon,
+  CircleDollarSign,
 } from "lucide-react"
+import { CurrencyConverterToolType } from "@/registry/ai-tools/tools/currency/tool"
 
 type ToolMeta = { name: string; label: string }
 
@@ -79,6 +83,7 @@ const ICONS: Record<string, React.ReactNode> = {
   stats: <BarChart3 className="size-4" />,
   qrcode: <QrCode className="size-4" />,
   image: <ImageIcon className="size-4" />,
+  currency: <CircleDollarSign className="size-4" />,
 }
 
 const PROVIDER_OPTIONS: Record<
@@ -262,6 +267,14 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                           <StatsChart
                             key={`${message.id}-tool-${i}`}
                             invocation={p as StatsToolType}
+                          />
+                        )
+                      }
+                      if (t.startsWith("tool-currency")) {
+                        return (
+                          <CurrencyDisplay
+                            key={`${message.id}-tool-${i}`}
+                            invocation={p as CurrencyConverterToolType}
                           />
                         )
                       }

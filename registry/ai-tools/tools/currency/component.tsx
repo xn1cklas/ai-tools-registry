@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import type { CurrencyResult } from "./tool"
 import {
   Card,
   CardContent,
@@ -9,26 +8,108 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/ai-tools/ui/card"
+import { CurrencyConverterToolType } from "./tool"
+import { Loader } from "@/registry/ai-elements/loader"
+import { Skeleton } from "@/registry/ai-tools/ui/skeleton"
 
-export function CurrencyDisplay({ data }: { data: CurrencyResult }) {
+const CURRENCY_OPTIONS = {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 6,
+}
+interface Props {
+  invocation: CurrencyConverterToolType
+}
+
+export function CurrencyDisplay({ invocation }: Props) {
+  const part = invocation
+
   const formatCurrency = (amount: number, currency: string) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: currency,
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 6,
-    }).format(amount)
+    try {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: currency,
+        ...CURRENCY_OPTIONS,
+      }).format(amount)
+    } catch (error) {
+      // Fallback to number format if currency code is invalid
+      return new Intl.NumberFormat("en-US", CURRENCY_OPTIONS).format(amount)
+    }
   }
 
   const formatRate = (rate: number) => {
-    return new Intl.NumberFormat("en-US", {
-      minimumFractionDigits: 4,
-      maximumFractionDigits: 6,
-    }).format(rate)
+    return new Intl.NumberFormat("en-US", CURRENCY_OPTIONS).format(rate)
   }
 
+  if (part.state === "input-streaming") {
+    return (
+      <Card className="w-full max-w-md animate-in fade-in-50">
+        <CardHeader>
+          <CardTitle>Currency Converter</CardTitle>
+          <CardDescription>Waiting for data…</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <Loader /> Preparing request
+          </div>
+          <div className="space-y-3">
+            <Skeleton className="h-8 w-3/4 rounded-lg" />
+            <Skeleton className="h-10 w-full rounded-lg" />
+            <div className="grid grid-cols-2 gap-4">
+              <Skeleton className="h-14 w-full rounded-md" />
+              <Skeleton className="h-14 w-full rounded-md" />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (part.state === "input-available") {
+    return (
+      <Card className="w-full max-w-md animate-in fade-in-50">
+        <CardHeader>
+          <CardTitle>Currency Converter</CardTitle>
+          <CardDescription>Converting…</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Loader /> Running tool
+          </div>
+          <div className="space-y-3">
+            <Skeleton className="h-8 w-3/4 rounded-lg" />
+            <Skeleton className="h-10 w-full rounded-lg" />
+            <div className="grid grid-cols-2 gap-4">
+              <Skeleton className="h-14 w-full rounded-md" />
+              <Skeleton className="h-14 w-full rounded-md" />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (part.state === "output-error") {
+    return (
+      <Card className="w-full max-w-md animate-in fade-in-50">
+        <CardHeader>
+          <CardTitle>Currency Converter</CardTitle>
+          <CardDescription>Error</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
+            {part.errorText || "An error occurred while converting currency."}
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (part.output === undefined) return null
+
+  const data = part.output
+
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full max-w-md animate-in fade-in-50">
       <CardHeader>
         <CardTitle>Currency Converter</CardTitle>
         <CardDescription>
@@ -61,7 +142,7 @@ export function CurrencyDisplay({ data }: { data: CurrencyResult }) {
           </div>
         </div>
 
-        <div className="text-xs text-muted-foreground text-center">
+        <div className="text-center text-xs text-muted-foreground">
           Rates updated: {new Date(data.lastUpdated).toLocaleString()}
         </div>
       </CardContent>

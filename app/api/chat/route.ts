@@ -11,6 +11,7 @@ import newsFixture from "@/registry/ai-tools/tools/news/fixtures/demo.json"
 import qrcodeFixture from "@/registry/ai-tools/tools/qrcode/fixtures/demo.json"
 import statsFixture from "@/registry/ai-tools/tools/stats/fixtures/demo.json"
 import weatherFixture from "@/registry/ai-tools/tools/weather/fixtures/demo.json"
+import currencyFixture from "@/registry/ai-tools/tools/currency/fixtures/demo.json"
 import { qrCodeTool } from "@/registry/ai-tools/tools/qrcode/tool"
 
 // Allow streaming responses up to 30 seconds
@@ -32,6 +33,7 @@ export async function POST(req: Request) {
       | "stats"
       | "qrcode"
       | "image"
+      | "currency"
     isLivemode?: boolean
     activeToolParams?: unknown
     activeToolProviderName?:
@@ -115,6 +117,8 @@ export async function POST(req: Request) {
         output = statsFixture
       } else if (activeToolName === "weather") {
         output = weatherFixture
+      } else if (activeToolName === "currency") {
+        output = currencyFixture
       }
 
       const chunks: string[] = []
@@ -185,6 +189,7 @@ export async function POST(req: Request) {
       stats: Tools.publicStatsTool,
       qrcode: Tools.qrCodeTool,
       image: imageToolToUse,
+      currency: Tools.currencyConverterTool,
     },
     toolChoice: activeToolName
       ? { type: "tool", toolName: activeToolName }

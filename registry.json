@@ -669,7 +669,7 @@
       "title": "QR Code Generator",
       "description": "AI SDK tool that generates QR codes for text or URLs. Includes a QR code display component.",
       "dependencies": ["zod", "ai", "qrcode", "@types/qrcode"],
-      "author": "Tobias Bueschel <https://github.com/tobiasbueschel>",
+      "author": "Tobias Büschel <https://github.com/tobiasbueschel>",
       "creators": [
         {
           "name": "tobiasbueschel",
@@ -693,6 +693,42 @@
           "path": "registry/ai-tools/tools/qrcode/component.tsx",
           "type": "registry:file",
           "target": "~/ai/tools/qrcode/component.tsx"
+        }
+      ]
+    },
+    {
+      "name": "currency",
+      "type": "registry:component",
+      "title": "Currency Converter",
+      "description": "Convert currencies with real-time rates, including crypto currencies.",
+      "author": "Tobias Büschel <https://github.com/tobiasbueschel>",
+      "creators": [
+        {
+          "name": "tobiasbueschel",
+          "handle": "tobiasbueschel",
+          "url": "https://github.com/tobiasbueschel",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/13087421?v=4ntent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/currency/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/currency/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/currency/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/currency/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/currency/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/currency/schema.ts"
         }
       ]
     },
