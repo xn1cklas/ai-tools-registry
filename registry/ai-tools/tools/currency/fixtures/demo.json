@@ -1,0 +1,9 @@
+{
+  "amount": 1000,
+  "from": "USD",
+  "to": "EUR",
+  "date": "2024-01-01T00:00:00.000Z",
+  "rate": 0.85,
+  "converted": 850,
+  "lastUpdated": "2024-01-01T00:00:00.000Z"
+}

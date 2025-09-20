@@ -194,6 +194,17 @@ async function loadBaseFixture(name: string) {
         })
       }
     }
+    case "currency": {
+      return readJson(basePath, {
+        amount: 1000,
+        from: "USD",
+        to: "EUR",
+        date: new Date().toISOString(),
+        rate: 0.85,
+        converted: 850,
+        lastUpdated: new Date().toISOString(),
+      })
+    }
     default:
       return readJson(basePath, {})
   }
