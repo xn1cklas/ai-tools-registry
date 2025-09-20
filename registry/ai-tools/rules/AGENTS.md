@@ -10,7 +10,7 @@
      npx shadcn@latest add @ai-tools/websearch
      ```
 
-2. Use clear naming that matches folder names (e.g., `weather`, `news`, `time`).
+2. Use clear naming that matches folder names (e.g., `weather`, `news`).
 
 ## Colocation and boundaries
 
@@ -31,7 +31,6 @@
 ## Dependencies
 
 - Tools usually depend on `ai` and `zod`.
-- Renderers may use `react-markdown` + `remark-gfm` when helpful.
 
 ## Quality checks
 

@@ -78,6 +78,57 @@ export * from "./{tool}/tool"
 
 Important: For `type: "registry:file"`, `target` is REQUIRED by the schema.
 
+### Creator Metadata (shown in UI)
+
+Each registry item may include a `creators` array to attribute authors/maintainers and to render a nicer hover card in the UI. The first creator is currently displayed in the homepage cards.
+
+Supported creator fields:
+
+- `name` (string, required): Display name.
+- `handle` (string, optional): Generic handle used as a fallback for both platforms.
+- `url` (string, optional): Primary profile URL. If this points to GitHub, the UI will parse the GitHub handle from it.
+- `avatarUrl` (string, optional): Avatar image URL. Must be hosted on `avatars.githubusercontent.com` to comply with Next Image remote patterns. If omitted or not on that domain, the UI derives the avatar as `https://avatars.githubusercontent.com/<githubHandle>` (requires a GitHub handle or GitHub `url`).
+- `role` (enum, optional): One of `"author" | "maintainer"`.
+- `githubHandle` (string, optional): GitHub handle when it differs from other handles.
+- `xHandle` (string, optional): X/Twitter handle when it differs from other handles.
+- `githubUrl` (string, optional): Explicit GitHub profile URL (overrides any derived value).
+- `xUrl` (string, optional): Explicit X/Twitter profile URL (overrides any derived value).
+
+Fallback rules used by the UI (in `components/add-command.tsx`):
+
+- If `githubHandle` is missing but `url` contains `github.com/<user>`, the `<user>` segment is used as the GitHub handle.
+- If no platform-specific handle is provided, `handle` is used.
+- If `githubUrl`/`xUrl` are missing, they are built from the resolved handles.
+
+Example:
+
+```jsonc
+{
+  "name": "websearch",
+  "type": "registry:component",
+  "title": "Web Search",
+  "creators": [
+    {
+      "name": "Jane Doe",
+      "handle": "janed",
+      "githubHandle": "jane-on-gh",
+      "xHandle": "jane_on_x",
+      "githubUrl": "https://github.com/jane-on-gh",
+      "xUrl": "https://x.com/jane_on_x",
+      "avatarUrl": "https://example.com/jane.png",
+      "role": "author",
+    },
+  ],
+  "files": [
+    {
+      "path": "registry/ai-tools/tools/websearch/tool.ts",
+      "type": "registry:file",
+      "target": "~/ai/tools/websearch/tool.ts",
+    },
+  ],
+}
+```
+
 4. Add to the homepage (optional)
 
 The homepage showcases selected tools and provides copyable code.
@@ -112,10 +163,9 @@ Please verify these points before opening a PR:
 
 ## Naming & Dependencies
 
-- Keep tool names short, lowercase, and folder-aligned: `weather`, `news`, `time`, `markdown`, `websearch`.
+- Keep tool names short, lowercase, and folder-aligned: `weather`, `news`, `websearch`.
 - Common dependencies:
   - `ai` and `zod` for tool logic
-  - `react-markdown` + `remark-gfm` for markdown renderers (optional)
 
 ## Docs & Rules
 
@@ -134,3 +184,14 @@ Please verify these points before opening a PR:
    - Any dependencies and usage notes
 
 Thank you for helping improve the AI Tools Registry!
+
+## open in v0 workaround
+
+Registry namespaces are currently not supported by v0, follow this [thread](https://github.com/shadcn-ui/alpine-registry/issues/5) for updates.
+
+How to resolve this for now
+
+- Use static item URLs: `https://ai-tools-registry.vercel.app/r/{name}.json` (URL-encode for “Open in v0”).
+- In `registry.json`, set `registryDependencies` to absolute URLs and include `.json` instead of `@ai-tools/{component}`
+
+More context and rationale: https://github.com/shadcn-ui/alpine-registry/issues/5

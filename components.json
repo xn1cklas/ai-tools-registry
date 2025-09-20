@@ -15,7 +15,8 @@
     "utils": "@/lib/utils",
     "ui": "@/registry/ai-tools/ui",
     "lib": "@/lib",
-    "hooks": "@/hooks"
+    "hooks": "@/hooks",
+    "ai-elements": "@/registry/ai-elements"
   },
   "iconLibrary": "lucide"
 }

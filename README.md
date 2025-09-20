@@ -25,13 +25,7 @@ To install components from the ai-tools registry, add a remote registries config
 You can then add items using the following command:
 
 ```bash
-npx shadcn@latest add @ai-tools/login-form
-```
-
-To install the `ai-tools` design system, you can use the following command:
-
-```bash
-npx shadcn@beta add @ai-tools/design-system
+npx shadcn@latest add @ai-tools/web-search
 ```
 
 ### AI Tools
@@ -39,10 +33,8 @@ npx shadcn@beta add @ai-tools/design-system
 Example tools you can install:
 
 - `@ai-tools/weather` – AI SDK tool + `WeatherCard` renderer
-- `@ai-tools/calculator` – simple calculator tool
-- `@ai-tools/translate` – sample translate tool
 - `@ai-tools/news` – sample news search tool + `NewsList` renderer
-- `@ai-tools/time` – current time for a timezone
+
 - `@ai-tools/stats` – display data using `recharts`
 
 Install a tool (example):
@@ -57,7 +49,11 @@ Or install a pack of all tools:
 npx shadcn@latest add @ai-tools/tool-pack
 ```
 
-Note: The example tools import from `ai` (AI SDK v3) and `zod`. Ensure your app provides these dependencies.
+Note: The example tools import from `ai` (AI SDK v5) and `zod`. Ensure your app provides these dependencies.
+
+### Web Search provider
+
+The `@ai-tools/websearch` tool uses DuckDuckGo Instant Answer by default (no key required). If you set `BRAVE_SEARCH_API_KEY` in your environment, it will automatically use the Brave Search API instead.
 
 ## Authentication
 

@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
       {
         hostname: "images.unsplash.com",
       },
+      {
+        hostname: "avatars.githubusercontent.com",
+      },
     ],
   },
 }

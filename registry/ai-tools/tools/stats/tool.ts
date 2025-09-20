@@ -1,8 +1,22 @@
-import { tool } from "ai"
+import { UIToolInvocation, tool } from "ai"
 import { z } from "zod"
 
 // Fetch global earthquake counts (per day) from USGS for the last N days
+export const StatsSeriesPointSchema = z.object({
+  date: z.string(),
+  count: z.number(),
+})
+
+export const PublicStatsSchema = z.object({
+  title: z.string(),
+  series: z.array(StatsSeriesPointSchema),
+})
+
+export type StatsSeriesPoint = z.infer<typeof StatsSeriesPointSchema>
+export type PublicStatsResult = z.infer<typeof PublicStatsSchema>
+
 export const publicStatsTool = tool({
+  name: "stats",
   description:
     "Fetch daily counts of global earthquakes from USGS for the last N days.",
   inputSchema: z.object({
@@ -20,6 +34,7 @@ export const publicStatsTool = tool({
       .default(5)
       .describe("Minimum magnitude to include"),
   }),
+  outputSchema: PublicStatsSchema,
   execute: async ({ daysBack, minMagnitude }): Promise<PublicStatsResult> => {
     const end = new Date()
     const start = new Date(end.getTime() - daysBack * 24 * 60 * 60 * 1000)
@@ -58,14 +73,6 @@ export const publicStatsTool = tool({
   },
 })
 
-export interface StatsSeriesPoint {
-  date: string // YYYY-MM-DD
-  count: number
-}
-
-export interface PublicStatsResult {
-  title: string
-  series: StatsSeriesPoint[]
-}
-
 export default publicStatsTool
+
+export type StatsToolType = UIToolInvocation<typeof publicStatsTool>

@@ -3,6 +3,7 @@
   "name": "textarea",
   "type": "registry:ui",
   "title": "Textarea",
+  "author": "Nicklas Scharpff <https://n1cklas.com>",
   "description": "A textarea component.",
   "dependencies": [],
   "files": [

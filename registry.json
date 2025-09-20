@@ -4,36 +4,219 @@
   "homepage": "https://ai-tools-registry.vercel.app",
   "items": [
     {
-      "name": "design-system",
-      "type": "registry:style",
-      "dependencies": ["radix-ui"],
-      "registryDependencies": [
-        "@ai-tools/button",
-        "@ai-tools/input",
-        "@ai-tools/calendar",
-        "@ai-tools/card",
-        "@ai-tools/label",
-        "@ai-tools/popover",
-        "@ai-tools/textarea"
-      ],
-      "cssVars": {
-        "light": {
-          "primary": "oklch(0.63 0.17 149)",
-          "primary-foreground": "oklch(0.985 0 0)",
-          "radius": "0.825rem"
-        },
-        "dark": {
-          "primary": "oklch(0.63 0.17 149)",
-          "primary-foreground": "oklch(0.985 0 0)"
+      "name": "image",
+      "type": "registry:component",
+      "title": "Image Generation",
+      "description": "AI SDK tool that generates images from text prompts. Includes a grid renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
         }
-      },
+      ],
+      "dependencies": ["zod", "ai", "@ai-sdk/openai"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
       "files": [
         {
-          "path": "registry/ai-tools/rules/AGENTS.md",
+          "path": "registry/ai-tools/tools/image/image-openai-tool.ts",
           "type": "registry:file",
-          "target": "~/AGENTS.md"
+          "target": "~/ai/tools/image/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/schema.ts"
         }
-      ]
+      ],
+      "toolMeta": {
+        "kind": "tool",
+        "demoHeading": "Image Generation",
+        "demoSubheading": "Generate images from text prompts",
+        "isNew": true
+      }
+    },
+    {
+      "name": "image-openai",
+      "type": "registry:component",
+      "title": "Image Generation (OpenAI)",
+      "description": "Generate images using OpenAI via Vercel AI SDK. Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
+      "dependencies": ["zod", "ai", "@ai-sdk/openai"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/image/image-openai-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/schema.ts"
+        }
+      ],
+      "toolMeta": {
+        "kind": "tool",
+        "demoHeading": "Image Generation (OpenAI)",
+        "demoSubheading": "Generate with OpenAI",
+        "isNew": true
+      }
+    },
+    {
+      "name": "image-fal",
+      "type": "registry:component",
+      "title": "Image Generation (FAL.ai)",
+      "description": "Generate images using FAL.ai via Vercel AI SDK. Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
+      "dependencies": ["zod", "ai", "@ai-sdk/fal"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/image/image-fal-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/schema.ts"
+        }
+      ],
+      "toolMeta": {
+        "kind": "tool",
+        "demoHeading": "Image Generation (FAL.ai)",
+        "demoSubheading": "Generate with FAL.ai",
+        "isNew": true
+      }
+    },
+    {
+      "name": "image-runware",
+      "type": "registry:component",
+      "title": "Image Generation (Runware)",
+      "description": "Generate images using Runware via Vercel AI SDK. Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
+      "dependencies": ["zod", "ai", "@runware/ai-sdk-provider"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/image/image-runware-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/schema.ts"
+        }
+      ],
+      "toolMeta": {
+        "kind": "tool",
+        "demoHeading": "Image Generation (Runware)",
+        "demoSubheading": "Generate with Runware",
+        "isNew": true
+      }
+    },
+    {
+      "name": "image-gemini",
+      "type": "registry:component",
+      "title": "Image Generation (Gemini)",
+      "description": "Generate images using Google Gemini via Vercel AI SDK. Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
+      "dependencies": ["zod", "ai", "@ai-sdk/google"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/image/image-gemini-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/image/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/image/schema.ts"
+        }
+      ],
+      "toolMeta": {
+        "kind": "tool",
+        "demoHeading": "Image Generation",
+        "demoSubheading": "Generate with Gemini",
+        "isNew": true
+      }
     },
     {
       "name": "chart",
@@ -49,8 +232,20 @@
       "type": "registry:component",
       "title": "Web Search",
       "description": "AI SDK tool that searches the web. Includes a results renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "dependencies": ["zod", "ai"],
-      "registryDependencies": ["@ai-tools/card"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
       "files": [
         {
           "path": "registry/ai-tools/tools/websearch/tool.ts",
@@ -61,6 +256,160 @@
           "path": "registry/ai-tools/tools/websearch/component.tsx",
           "type": "registry:file",
           "target": "~/ai/tools/websearch/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/schema.ts"
+        }
+      ],
+      "toolMeta": {
+        "kind": "tool",
+        "demoHeading": "Web Search",
+        "demoSubheading": "Search the web and show results"
+      }
+    },
+    {
+      "name": "websearch-perplexity",
+      "type": "registry:component",
+      "title": "Web Search (Perplexity)",
+      "description": "Web search via Perplexity Sonar using Vercel AI SDK (requires Perplexity API key). Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "dependencies": ["zod", "ai", "@ai-sdk/perplexity"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/websearch/websearch-perplexity-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/schema.ts"
+        }
+      ],
+      "toolMeta": { "kind": "tool" }
+    },
+    {
+      "name": "websearch-exa",
+      "type": "registry:component",
+      "title": "Web Search (EXA)",
+      "description": "Web search via EXA API (requires EXA_API_KEY). Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "dependencies": ["zod", "ai"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/websearch/websearch-exa-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/schema.ts"
+        }
+      ],
+      "toolMeta": { "kind": "tool" }
+    },
+    {
+      "name": "websearch-firecrawl",
+      "type": "registry:component",
+      "title": "Web Search (Firecrawl)",
+      "description": "Web search via Firecrawl API (requires FIRECRAWL_API_KEY). Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "dependencies": ["zod", "ai"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/websearch/websearch-firecrawl-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/schema.ts"
+        }
+      ],
+      "toolMeta": { "kind": "tool" }
+    },
+    {
+      "name": "websearch-brave",
+      "type": "registry:component",
+      "title": "Web Search (Brave)",
+      "description": "Web search via Brave Search API (requires BRAVE_SEARCH_API_KEY). Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "dependencies": ["zod", "ai"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/websearch/websearch-brave-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/schema.ts"
+        }
+      ],
+      "toolMeta": { "kind": "tool" }
+    },
+    {
+      "name": "websearch-ddg",
+      "type": "registry:component",
+      "title": "Web Search (DuckDuckGo)",
+      "description": "Web search via DuckDuckGo Instant Answer (no key). Shares renderer.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "dependencies": ["zod", "ai"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/websearch/websearch-duckduckgo-tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/component.tsx"
+        },
+        {
+          "path": "registry/ai-tools/tools/websearch/schema.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/websearch/schema.ts"
         }
       ]
     },
@@ -70,7 +419,20 @@
       "title": "Public Stats",
       "description": "AI SDK tool that fetches global earthquake counts from USGS and renders a chart.",
       "dependencies": ["zod", "ai", "recharts"],
-      "registryDependencies": ["@ai-tools/card", "@ai-tools/chart"],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/chart.json"
+      ],
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/tools/stats/tool.ts",
@@ -85,50 +447,20 @@
       ]
     },
     {
-      "name": "currency",
-      "type": "registry:component",
-      "title": "Currency Converter",
-      "description": "AI SDK tool that converts currencies with real-time rates, including crypto currencies.",
-      "dependencies": ["zod", "ai"],
-      "registryDependencies": ["@ai-tools/card"],
-      "files": [
-        {
-          "path": "registry/ai-tools/tools/currency/tool.ts",
-          "type": "registry:file",
-          "target": "~/ai/tools/currency/tool.ts"
-        },
-        {
-          "path": "registry/ai-tools/tools/currency/component.tsx",
-          "type": "registry:file",
-          "target": "~/ai/tools/currency/component.tsx"
-        }
-      ]
-    },
-    {
-      "name": "markdown",
-      "type": "registry:component",
-      "title": "Markdown Renderer",
-      "description": "AI SDK tool that transports markdown; render with streamdown.",
-      "dependencies": ["zod", "ai", "streamdown"],
-      "registryDependencies": ["@ai-tools/card"],
-      "files": [
-        {
-          "path": "registry/ai-tools/tools/markdown/tool.ts",
-          "type": "registry:file",
-          "target": "~/ai/tools/markdown/tool.ts"
-        },
-        {
-          "path": "registry/ai-tools/tools/markdown/component.tsx",
-          "type": "registry:file",
-          "target": "~/ai/tools/markdown/component.tsx"
-        }
-      ]
-    },
-    {
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
       "description": "A button component.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/ui/button.tsx",
@@ -141,6 +473,16 @@
       "type": "registry:ui",
       "title": "Calendar",
       "description": "A calendar component.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "dependencies": ["react-day-picker"],
       "files": [
         {
@@ -154,6 +496,16 @@
       "type": "registry:ui",
       "title": "Card",
       "description": "A card component.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/ui/card.tsx",
@@ -166,6 +518,16 @@
       "type": "registry:ui",
       "title": "Input",
       "description": "An input component.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/ui/input.tsx",
@@ -178,6 +540,16 @@
       "type": "registry:ui",
       "title": "Label",
       "description": "A label component.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/ui/label.tsx",
@@ -190,6 +562,16 @@
       "type": "registry:ui",
       "title": "Popover",
       "description": "A popover component.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/ui/popover.tsx",
@@ -202,6 +584,16 @@
       "type": "registry:ui",
       "title": "Textarea",
       "description": "A textarea component.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "files": [
         {
           "path": "registry/ai-tools/ui/textarea.tsx",
@@ -214,7 +606,19 @@
       "type": "registry:component",
       "title": "Get Weather",
       "description": "AI SDK tool that returns mock weather for a location. Includes a WeatherCard renderer.",
-      "registryDependencies": ["@ai-tools/card"],
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
       "files": [
         {
           "path": "registry/ai-tools/tools/weather/tool.ts",
@@ -229,37 +633,23 @@
       ]
     },
     {
-      "name": "calculator",
-      "type": "registry:component",
-      "title": "Calculator",
-      "description": "Simple calculator tool for basic arithmetic.",
-      "files": [
-        {
-          "path": "registry/ai-tools/tools/calculator/tool.ts",
-          "type": "registry:file",
-          "target": "~/ai/tools/calculator/tool.ts"
-        }
-      ]
-    },
-    {
-      "name": "translate",
-      "type": "registry:component",
-      "title": "Translate",
-      "description": "Translate a string to a target language (mock).",
-      "files": [
-        {
-          "path": "registry/ai-tools/tools/translate/tool.ts",
-          "type": "registry:file",
-          "target": "~/ai/tools/translate/tool.ts"
-        }
-      ]
-    },
-    {
       "name": "news",
       "type": "registry:component",
       "title": "News Search",
       "description": "Return recent headlines for a topic (mock). Includes a NewsList renderer.",
-      "registryDependencies": ["@ai-tools/card"],
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json"
+      ],
       "files": [
         {
           "path": "registry/ai-tools/tools/news/tool.ts",
@@ -274,15 +664,35 @@
       ]
     },
     {
-      "name": "time",
+      "name": "qrcode",
       "type": "registry:component",
-      "title": "Time Now",
-      "description": "Get the current time for a timezone.",
+      "title": "QR Code Generator",
+      "description": "AI SDK tool that generates QR codes for text or URLs. Includes a QR code display component.",
+      "dependencies": ["zod", "ai", "qrcode", "@types/qrcode"],
+      "author": "Tobias Bueschel <https://github.com/tobiasbueschel>",
+      "creators": [
+        {
+          "name": "tobiasbueschel",
+          "handle": "tobiasbueschel",
+          "url": "https://github.com/tobiasbueschel",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/13087421?v=4ntent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
+      "registryDependencies": [
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/button.json"
+      ],
       "files": [
         {
-          "path": "registry/ai-tools/tools/time/tool.ts",
+          "path": "registry/ai-tools/tools/qrcode/tool.ts",
           "type": "registry:file",
-          "target": "~/ai/tools/time/tool.ts"
+          "target": "~/ai/tools/qrcode/tool.ts"
+        },
+        {
+          "path": "registry/ai-tools/tools/qrcode/component.tsx",
+          "type": "registry:file",
+          "target": "~/ai/tools/qrcode/component.tsx"
         }
       ]
     },
@@ -291,16 +701,22 @@
       "type": "registry:block",
       "title": "Tool Pack (All)",
       "description": "Install all sample tools and related renderers.",
+      "author": "Nicklas Scharpff <https://n1cklas.com>",
+      "creators": [
+        {
+          "name": "xn1cklas",
+          "handle": "xn1cklas",
+          "url": "https://github.com/xn1cklas",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/64584979?v=4",
+          "role": "author"
+        }
+      ],
       "registryDependencies": [
-        "@ai-tools/weather",
-        "@ai-tools/calculator",
-        "@ai-tools/translate",
-        "@ai-tools/news",
-        "@ai-tools/time",
-        "@ai-tools/websearch",
-        "@ai-tools/markdown",
-        "@ai-tools/stats",
-        "@ai-tools/currency"
+        "https://ai-tools-registry.vercel.app/r/weather.json",
+        "https://ai-tools-registry.vercel.app/r/news.json",
+        "https://ai-tools-registry.vercel.app/r/websearch.json",
+        "https://ai-tools-registry.vercel.app/r/stats.json",
+        "https://ai-tools-registry.vercel.app/r/qrcode.json"
       ],
       "files": [
         {

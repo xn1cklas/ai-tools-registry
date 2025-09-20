@@ -1,46 +1,78 @@
-import * as React from "react"
 import { AddCommand } from "@/components/add-command"
 import { OpenInV0 } from "@/components/open-in-v0"
-import registry from "@/registry.json"
 import { Button } from "@/registry/ai-tools/ui/button"
-import type { WebSearchResult } from "@/registry/ai-tools/tools/websearch/tool"
-import type { MarkdownResult } from "@/registry/ai-tools/tools/markdown/tool"
-import type { CurrencyResult } from "@/registry/ai-tools/tools/currency/tool"
 import { ToolDemoCard } from "@/components/tool-demo-card"
 import type { ExtendedRegistryItem } from "@/lib/registry-schemas"
-import { loadDemos } from "@/lib/demos"
+import PageWideScrollMask from "@/components/page-wide-adaptive-mask"
+import { resolveVariantRegistryName } from "@/lib/utils"
+import { loadDemosFromRegistry, type DemoEntry } from "@/lib/demos-helpers"
+import { cache } from "react"
 
-const getRegistryItemFromJson = React.cache(
-  (name: string): ExtendedRegistryItem | null => {
-    // Be permissive here so the homepage renders even if a registry item
-    // doesn't strictly match the shadcn schema (useful while iterating).
-    return registry.items.find((item) => item.name === name) ?? null
+type RegistryJson = {
+  items: Array<ExtendedRegistryItem & { toolMeta?: { kind?: string } }>
+}
+
+const getRegistryData = cache(async (): Promise<RegistryJson> => {
+  return (await import("@/registry.json")).default as RegistryJson
+})
+
+export const getRegistryItemFromJson = cache(
+  async (name: string): Promise<ExtendedRegistryItem | null> => {
+    const registry = await getRegistryData()
+    const match = registry.items.find((item) => item.name === name)
+    return (match ?? null) as ExtendedRegistryItem | null
   }
 )
 
-const toolNames = [
-  "stats",
-  "weather",
-  "news",
-  "calculator",
-  "translate",
-  "time",
-  "websearch",
-  "markdown",
-  "currency",
-  "polar",
-]
-
 export default async function Home() {
-  const demos = await loadDemos()
+  const [demosRecord, registryData] = await Promise.all([
+    loadDemosFromRegistry(),
+    getRegistryData(),
+  ])
 
-  const items = toolNames
-    .map((name) => ({ name, item: getRegistryItemFromJson(name) }))
-    .filter(
-      (x): x is { name: string; item: ExtendedRegistryItem } => x.item !== null
-    )
+  const registryMap = new Map<string, ExtendedRegistryItem>()
+  for (const raw of registryData.items) {
+    if (raw?.name) {
+      registryMap.set(raw.name, raw)
+    }
+  }
 
-  const pack = getRegistryItemFromJson("tool-pack")
+  const demoOrder = demosRecord.entries ?? []
+  const demos = demosRecord as unknown as Record<string, DemoEntry>
+
+  const preparedDemos = demoOrder
+    .map((name) => {
+      const entry = demos[name]
+      if (!entry) return null
+      const item = registryMap.get(entry.name)
+      if (!item) return null
+
+      const variantRegistryItems = entry.variants
+        ? (Object.fromEntries(
+            entry.variants.map((variant) => {
+              const targetName = resolveVariantRegistryName(
+                entry.name,
+                variant.key
+              )
+              return [variant.key, registryMap.get(targetName)] as const
+            })
+          ) as Record<string, ExtendedRegistryItem | undefined>)
+        : undefined
+
+      return { entry, item, variantRegistryItems }
+    })
+    .filter(Boolean) as Array<{
+    entry: DemoEntry
+    item: ExtendedRegistryItem
+    variantRegistryItems?: Record<string, ExtendedRegistryItem | undefined>
+  }>
+
+  const tools = registryData.items
+    .filter((tool) => tool.toolMeta?.kind === "tool" && tool.name)
+    .map((tool) => registryMap.get(tool.name))
+    .filter((item): item is ExtendedRegistryItem => Boolean(item))
+
+  const pack = registryMap.get("tool-pack") ?? null
 
   return (
     <main className="max-w-7xl mx-auto flex flex-col px-4 py-8 flex-1 gap-10 md:gap-12">
@@ -67,7 +99,7 @@ export default async function Home() {
           .
         </p>
         {pack && (
-          <div className="flex items-center gap-2 mt-2">
+          <div className="flex items-center gap-2 mt-2 flex-wrap">
             <AddCommand name={pack.name} />
             <OpenInV0 name={pack.name} />
             <Button
@@ -88,169 +120,28 @@ export default async function Home() {
       </section>
 
       <section className="grid grid-cols-1 gap-6">
-        {/* Public Stats */}
-        {(() => {
-          const item = getRegistryItemFromJson("stats")
-          if (!item || !demos.stats) return null
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={demos.stats.json}
-              code={demos.stats.code}
-              componentCode={demos.stats.componentCode}
-              renderer={demos.stats.renderer}
-              heading="Public Stats"
-              subheading="Global M5+ earthquakes — last 30 days"
-            />
-          )
-        })()}
-
-        {/* Weather */}
-        {(() => {
-          const item = getRegistryItemFromJson("weather")
-          if (!item) return null
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={demos.weather.json}
-              code={demos.weather.code}
-              componentCode={demos.weather.componentCode}
-              renderer={demos.weather.renderer}
-              heading="Get Weather"
-              subheading="Returns weather for a location"
-            />
-          )
-        })()}
-
-        {/* News */}
-        {(() => {
-          const item = getRegistryItemFromJson("news")
-          if (!item) return null
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={demos.news.json}
-              code={demos.news.code}
-              componentCode={demos.news.componentCode}
-              renderer={demos.news.renderer}
-              heading="News Search"
-              subheading="Returns headlines for a topic"
-            />
-          )
-        })()}
-
-        {/* Calculator */}
-        {(() => {
-          const item = getRegistryItemFromJson("calculator")
-          if (!item) return null
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={demos.calculator.json}
-              code={demos.calculator.code}
-              heading="Calculator"
-              subheading="Basic arithmetic"
-            />
-          )
-        })()}
-
-        {/* Translate */}
-        {(() => {
-          const item = getRegistryItemFromJson("translate")
-          if (!item) return null
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={demos.translate.json}
-              code={demos.translate.code}
-              heading="Translate"
-              subheading="Translate text (mock)"
-            />
-          )
-        })()}
-
-        {/* Time */}
-        {(() => {
-          const item = getRegistryItemFromJson("time")
-          if (!item) return null
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={demos.time.json}
-              code={demos.time.code}
-              heading="Time Now"
-              subheading="Current time for timezone"
-            />
-          )
-        })()}
-
-        {/* Web Search */}
-        {(() => {
-          const item = getRegistryItemFromJson("websearch")
-          if (!item) return null
-          const webDemo: WebSearchResult = demos.websearch.json
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={webDemo}
-              code={demos.websearch.code}
-              componentCode={demos.websearch.componentCode}
-              renderer={demos.websearch.renderer}
-              heading="Web Search"
-              subheading="Search the web and show results"
-            />
-          )
-        })()}
-
-        {/* Markdown */}
-        {(() => {
-          const item = getRegistryItemFromJson("markdown")
-          if (!item) return null
-          const mdDemo: MarkdownResult = demos.markdown.json
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={mdDemo}
-              code={demos.markdown.code}
-              componentCode={demos.markdown.componentCode}
-              renderer={demos.markdown.renderer}
-              heading="Markdown"
-              subheading="Render markdown in your chat view"
-            />
-          )
-        })()}
-
-        {/* Currency */}
-        {(() => {
-          const item = getRegistryItemFromJson("currency")
-          if (!item) return null
-          return (
-            <ToolDemoCard
-              key={item.name}
-              registryItem={item}
-              json={demos.currency?.json}
-              code={demos.currency?.code}
-              componentCode={demos.currency?.componentCode}
-              renderer={demos.currency?.renderer}
-              heading="Currency Converter"
-              subheading="Real-time currency conversion with crypto support"
-            />
-          )
-        })()}
+        {preparedDemos.map(({ entry, item, variantRegistryItems }) => (
+          <ToolDemoCard
+            key={item.name}
+            registryItem={item}
+            json={entry.json}
+            code={entry.code}
+            componentCode={entry.componentCode}
+            renderer={entry.renderer}
+            states={entry.states}
+            heading={entry.heading}
+            subheading={entry.subheading}
+            variants={entry.variants}
+            variantRegistryItems={variantRegistryItems}
+            isNew={Boolean(entry.isNew)}
+          />
+        ))}
       </section>
 
       <section className="flex flex-col gap-4">
         <div className="text-sm font-medium">All Tools</div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {items.map(({ item }) => (
+          {tools.map((item) => (
             <div
               key={item.name}
               className="border rounded-lg p-4 bg-muted/30 flex flex-col gap-3"
@@ -271,6 +162,7 @@ export default async function Home() {
           ))}
         </div>
       </section>
+      <PageWideScrollMask />
     </main>
   )
 }

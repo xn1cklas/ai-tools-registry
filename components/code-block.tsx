@@ -3,27 +3,25 @@
 import * as React from "react"
 import { highlight as sh } from "sugar-high"
 import { cn } from "@/lib/utils"
+import { ScrollArea } from "@/components/ui/lina-scroll-area"
 
-export function CodeBlock({
-  code,
-  className,
-  disableOverflow = false,
-}: {
+type CodeBlockProps = {
   code: string
   className?: string
-  disableOverflow?: boolean
-}) {
+}
+
+export function CodeBlock({ code, className }: CodeBlockProps) {
   const html = React.useMemo(() => sh(code), [code])
+
   return (
-    <pre
-      className={cn(
-        "text-xs whitespace-pre-wrap font-mono",
-        !disableOverflow && "overflow-auto",
-        className
-      )}
-    >
-      <code dangerouslySetInnerHTML={{ __html: html }} />
-    </pre>
+    <ScrollArea className="flex flex-col overflow-hidden max-h-128">
+      <pre className={cn("py-2", className)}>
+        <code
+          dangerouslySetInnerHTML={{ __html: html }}
+          className="font-geist-mono text-[13px] leading-0.5"
+        />
+      </pre>
+    </ScrollArea>
   )
 }
 

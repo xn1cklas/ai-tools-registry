@@ -1,13 +1,30 @@
-import { tool } from "ai"
+import { UIToolInvocation, tool } from "ai"
 import { z } from "zod"
 
 // Tool definition first
+export const GetWeatherSchema = z.object({
+  location: z.string(),
+  unit: z.enum(["C", "F"]),
+  temperature: z.number(),
+  condition: z.string(),
+  high: z.number(),
+  low: z.number(),
+  humidity: z.number(),
+  windKph: z.number(),
+  icon: z.string().optional(),
+})
+
+export type GetWeatherResult = z.infer<typeof GetWeatherSchema>
+
+// Tool definition first
 export const getWeatherTool = tool({
+  name: "weather",
   description: "Get the current weather for a location.",
   inputSchema: z.object({
     location: z.string().describe("City name, address or coordinates"),
     unit: z.enum(["C", "F"]).default("C"),
   }),
+  outputSchema: GetWeatherSchema,
   execute: async ({ location, unit }) => {
     const { latitude, longitude, name } = await geocodeLocation(location)
 
@@ -45,7 +62,10 @@ export const getWeatherTool = tool({
       condition: mapped.condition,
       high: Math.round(Number(daily.temperature_2m_max?.[0])),
       low: Math.round(Number(daily.temperature_2m_min?.[0])),
-      humidity: Math.max(0, Math.min(1, Number(current.relative_humidity_2m) / 100)),
+      humidity: Math.max(
+        0,
+        Math.min(1, Number(current.relative_humidity_2m) / 100)
+      ),
       windKph: Math.round(Number(current.wind_speed_10m)),
       icon: mapped.icon,
     }
@@ -53,19 +73,6 @@ export const getWeatherTool = tool({
     return result
   },
 })
-
-// Re-export shape for result rendering components
-export interface GetWeatherResult {
-  location: string
-  unit: "C" | "F"
-  temperature: number
-  condition: string
-  high: number
-  low: number
-  humidity: number // 0..1
-  windKph: number
-  icon?: string
-}
 
 // API response types (from Open-Meteo)
 interface GeocodeItem {
@@ -116,7 +123,11 @@ async function geocodeLocation(location: string): Promise<{
   if (coordMatch) {
     const latitude = parseFloat(coordMatch[1])
     const longitude = parseFloat(coordMatch[2])
-    return { latitude, longitude, name: `${latitude.toFixed(3)}, ${longitude.toFixed(3)}` }
+    return {
+      latitude,
+      longitude,
+      name: `${latitude.toFixed(3)}, ${longitude.toFixed(3)}`,
+    }
   }
 
   const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
@@ -127,7 +138,9 @@ async function geocodeLocation(location: string): Promise<{
   const data = (await res.json()) as GeocodeResponse
   const first = data?.results?.[0]
   if (!first) throw new Error(`Location not found: ${location}`)
-  const nameParts = [first.name, first.admin1, first.country_code].filter(Boolean)
+  const nameParts = [first.name, first.admin1, first.country_code].filter(
+    Boolean
+  )
   return {
     latitude: first.latitude,
     longitude: first.longitude,
@@ -135,9 +148,7 @@ async function geocodeLocation(location: string): Promise<{
   }
 }
 
-function mapWeatherCode(
-  code: number
-): { condition: string; icon?: string } {
+function mapWeatherCode(code: number): { condition: string; icon?: string } {
   switch (code) {
     case 0:
       return { condition: "Clear sky", icon: "weather-sun" }
@@ -183,4 +194,4 @@ function mapWeatherCode(
   }
 }
 
-export default getWeatherTool
+export type WeatherToolType = UIToolInvocation<typeof getWeatherTool>
