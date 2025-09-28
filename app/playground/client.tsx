@@ -38,13 +38,7 @@ import { WebSearchList } from "@/registry/ai-tools/tools/websearch/component"
 import type { WebSearchToolInvocation } from "@/registry/ai-tools/tools/websearch"
 import { DemoImageGrid } from "@/registry/ai-tools/tools/image/demo-wrapper"
 import { ImageDemoControlsProvider } from "@/registry/ai-tools/tools/image/demo-controls"
-import type {
-  ImageToolType,
-  ImageFalToolType,
-  ImageOpenAIToolType,
-  ImageRunwareToolType,
-  ImageGatewayGeminiToolType,
-} from "@/registry/ai-tools/tools/image"
+import type { ImageToolType } from "@/registry/ai-tools/tools/image"
 import { NewsList } from "@/registry/ai-tools/tools/news/component"
 import type { NewsToolType } from "@/registry/ai-tools/tools/news"
 import { WeatherCard } from "@/registry/ai-tools/tools/weather/component"
@@ -225,16 +219,7 @@ const ConversationDemo = ({ tools }: { tools?: ToolMeta[] }) => {
                               aspectRatio: imageAspect,
                             }}
                           >
-                            <DemoImageGrid
-                              invocation={
-                                p as
-                                  | ImageToolType
-                                  | ImageFalToolType
-                                  | ImageOpenAIToolType
-                                  | ImageRunwareToolType
-                                  | ImageGatewayGeminiToolType
-                              }
-                            />
+                            <DemoImageGrid invocation={p as ImageToolType} />
                           </ImageDemoControlsProvider>
                         )
                       }

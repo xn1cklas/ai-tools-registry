@@ -4,6 +4,102 @@
   "homepage": "https://ai-tools-registry.vercel.app",
   "items": [
     {
+      "name": "loader",
+      "type": "registry:component",
+      "title": "Loader",
+      "description": "Spinning loader indicator.",
+      "files": [
+        {
+          "path": "registry/ai-elements/loader.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "code-block",
+      "type": "registry:component",
+      "title": "Code Block",
+      "description": "Code block with copy support and theme-aware highlighting.",
+      "files": [
+        {
+          "path": "registry/ai-elements/code-block.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "inline-citation",
+      "type": "registry:component",
+      "title": "Inline Citation",
+      "description": "Inline citation UI with hover card and carousel.",
+      "files": [
+        {
+          "path": "registry/ai-elements/inline-citation.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "sources",
+      "type": "registry:component",
+      "title": "Sources",
+      "description": "Expandable list of sources.",
+      "files": [
+        {
+          "path": "registry/ai-elements/sources.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "A badge component.",
+      "files": [
+        { "path": "registry/ai-tools/ui/badge.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Skeleton loading placeholder.",
+      "files": [
+        { "path": "registry/ai-tools/ui/skeleton.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "Embla-based carousel primitives.",
+      "files": [
+        { "path": "registry/ai-tools/ui/carousel.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "title": "Hover Card",
+      "description": "Radix hover-card wrapper.",
+      "files": [
+        { "path": "registry/ai-tools/ui/hover-card.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "Radix collapsible wrapper.",
+      "files": [
+        {
+          "path": "registry/ai-tools/ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "image",
       "type": "registry:component",
       "title": "Image Generation",
@@ -20,7 +116,10 @@
       ],
       "dependencies": ["zod", "ai", "@ai-sdk/openai"],
       "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json",
+        "https://ai-tools-registry.vercel.app/r/badge.json"
       ],
       "files": [
         {
@@ -63,7 +162,10 @@
       ],
       "dependencies": ["zod", "ai", "@ai-sdk/openai"],
       "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json",
+        "https://ai-tools-registry.vercel.app/r/badge.json"
       ],
       "files": [
         {
@@ -106,7 +208,10 @@
       ],
       "dependencies": ["zod", "ai", "@ai-sdk/fal"],
       "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json",
+        "https://ai-tools-registry.vercel.app/r/badge.json"
       ],
       "files": [
         {
@@ -149,7 +254,10 @@
       ],
       "dependencies": ["zod", "ai", "@runware/ai-sdk-provider"],
       "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json",
+        "https://ai-tools-registry.vercel.app/r/badge.json"
       ],
       "files": [
         {
@@ -192,7 +300,10 @@
       ],
       "dependencies": ["zod", "ai", "@ai-sdk/google"],
       "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json",
+        "https://ai-tools-registry.vercel.app/r/badge.json"
       ],
       "files": [
         {
@@ -244,7 +355,17 @@
       ],
       "dependencies": ["zod", "ai"],
       "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/code-block.json",
+        "https://ai-tools-registry.vercel.app/r/inline-citation.json",
+        "https://ai-tools-registry.vercel.app/r/sources.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json",
+        "https://ai-tools-registry.vercel.app/r/badge.json",
+        "https://ai-tools-registry.vercel.app/r/carousel.json",
+        "https://ai-tools-registry.vercel.app/r/hover-card.json",
+        "https://ai-tools-registry.vercel.app/r/collapsible.json",
+        "https://ai-tools-registry.vercel.app/r/button.json"
       ],
       "files": [
         {
@@ -277,7 +398,17 @@
       "author": "Nicklas Scharpff <https://n1cklas.com>",
       "dependencies": ["zod", "ai", "@ai-sdk/perplexity"],
       "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/code-block.json",
+        "https://ai-tools-registry.vercel.app/r/inline-citation.json",
+        "https://ai-tools-registry.vercel.app/r/sources.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json",
+        "https://ai-tools-registry.vercel.app/r/badge.json",
+        "https://ai-tools-registry.vercel.app/r/carousel.json",
+        "https://ai-tools-registry.vercel.app/r/hover-card.json",
+        "https://ai-tools-registry.vercel.app/r/collapsible.json",
+        "https://ai-tools-registry.vercel.app/r/button.json"
       ],
       "files": [
         {
@@ -306,7 +437,17 @@
       "author": "Nicklas Scharpff <https://n1cklas.com>",
       "dependencies": ["zod", "ai"],
       "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/code-block.json",
+        "https://ai-tools-registry.vercel.app/r/inline-citation.json",
+        "https://ai-tools-registry.vercel.app/r/sources.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json",
+        "https://ai-tools-registry.vercel.app/r/badge.json",
+        "https://ai-tools-registry.vercel.app/r/carousel.json",
+        "https://ai-tools-registry.vercel.app/r/hover-card.json",
+        "https://ai-tools-registry.vercel.app/r/collapsible.json",
+        "https://ai-tools-registry.vercel.app/r/button.json"
       ],
       "files": [
         {
@@ -335,7 +476,17 @@
       "author": "Nicklas Scharpff <https://n1cklas.com>",
       "dependencies": ["zod", "ai"],
       "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/code-block.json",
+        "https://ai-tools-registry.vercel.app/r/inline-citation.json",
+        "https://ai-tools-registry.vercel.app/r/sources.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json",
+        "https://ai-tools-registry.vercel.app/r/badge.json",
+        "https://ai-tools-registry.vercel.app/r/carousel.json",
+        "https://ai-tools-registry.vercel.app/r/hover-card.json",
+        "https://ai-tools-registry.vercel.app/r/collapsible.json",
+        "https://ai-tools-registry.vercel.app/r/button.json"
       ],
       "files": [
         {
@@ -364,7 +515,11 @@
       "author": "Nicklas Scharpff <https://n1cklas.com>",
       "dependencies": ["zod", "ai"],
       "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/code-block.json",
+        "https://ai-tools-registry.vercel.app/r/badge.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json"
       ],
       "files": [
         {
@@ -393,7 +548,17 @@
       "author": "Nicklas Scharpff <https://n1cklas.com>",
       "dependencies": ["zod", "ai"],
       "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/code-block.json",
+        "https://ai-tools-registry.vercel.app/r/inline-citation.json",
+        "https://ai-tools-registry.vercel.app/r/sources.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json",
+        "https://ai-tools-registry.vercel.app/r/badge.json",
+        "https://ai-tools-registry.vercel.app/r/carousel.json",
+        "https://ai-tools-registry.vercel.app/r/hover-card.json",
+        "https://ai-tools-registry.vercel.app/r/collapsible.json",
+        "https://ai-tools-registry.vercel.app/r/button.json"
       ],
       "files": [
         {
@@ -418,10 +583,12 @@
       "type": "registry:component",
       "title": "Public Stats",
       "description": "AI SDK tool that fetches global earthquake counts from USGS and renders a chart.",
-      "dependencies": ["zod", "ai", "recharts"],
+      "dependencies": ["zod", "ai"],
       "registryDependencies": [
         "https://ai-tools-registry.vercel.app/r/card.json",
-        "https://ai-tools-registry.vercel.app/r/chart.json"
+        "https://ai-tools-registry.vercel.app/r/chart.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json"
       ],
       "author": "Nicklas Scharpff <https://n1cklas.com>",
       "creators": [
@@ -616,8 +783,13 @@
           "role": "author"
         }
       ],
+      "dependencies": ["zod", "ai"],
       "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/code-block.json",
+        "https://ai-tools-registry.vercel.app/r/sources.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json"
       ],
       "files": [
         {
@@ -647,8 +819,13 @@
           "role": "author"
         }
       ],
+      "dependencies": ["zod", "ai"],
       "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/code-block.json",
+        "https://ai-tools-registry.vercel.app/r/sources.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json"
       ],
       "files": [
         {
@@ -681,7 +858,10 @@
       ],
       "registryDependencies": [
         "https://ai-tools-registry.vercel.app/r/card.json",
-        "https://ai-tools-registry.vercel.app/r/button.json"
+        "https://ai-tools-registry.vercel.app/r/button.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/code-block.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json"
       ],
       "files": [
         {

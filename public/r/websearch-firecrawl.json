@@ -16,7 +16,19 @@
     "@radix-ui/react-hover-card",
     "@radix-ui/react-collapsible"
   ],
-  "registryDependencies": ["https://ai-tools-registry.vercel.app/r/card.json"],
+  "registryDependencies": [
+    "https://ai-tools-registry.vercel.app/r/card.json",
+    "https://ai-tools-registry.vercel.app/r/loader.json",
+    "https://ai-tools-registry.vercel.app/r/code-block.json",
+    "https://ai-tools-registry.vercel.app/r/inline-citation.json",
+    "https://ai-tools-registry.vercel.app/r/sources.json",
+    "https://ai-tools-registry.vercel.app/r/skeleton.json",
+    "https://ai-tools-registry.vercel.app/r/badge.json",
+    "https://ai-tools-registry.vercel.app/r/carousel.json",
+    "https://ai-tools-registry.vercel.app/r/hover-card.json",
+    "https://ai-tools-registry.vercel.app/r/collapsible.json",
+    "https://ai-tools-registry.vercel.app/r/button.json"
+  ],
   "files": [
     {
       "path": "registry/ai-tools/tools/websearch/websearch-firecrawl-tool.ts",

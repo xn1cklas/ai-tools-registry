@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "loader",
+  "type": "registry:component",
+  "title": "Loader",
+  "description": "Spinning loader indicator.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/ai-elements/loader.tsx",
+      "content": "import { cn } from \"@/lib/utils\"\nimport type { HTMLAttributes } from \"react\"\n\ntype LoaderIconProps = {\n  size?: number\n}\n\nconst LoaderIcon = ({ size = 16 }: LoaderIconProps) => (\n  <svg\n    height={size}\n    strokeLinejoin=\"round\"\n    style={{ color: \"currentcolor\" }}\n    viewBox=\"0 0 16 16\"\n    width={size}\n  >\n    <title>Loader</title>\n    <g clipPath=\"url(#clip0_2393_1490)\">\n      <path d=\"M8 0V4\" stroke=\"currentColor\" strokeWidth=\"1.5\" />\n      <path\n        d=\"M8 16V12\"\n        opacity=\"0.5\"\n        stroke=\"currentColor\"\n        strokeWidth=\"1.5\"\n      />\n      <path\n        d=\"M3.29773 1.52783L5.64887 4.7639\"\n        opacity=\"0.9\"\n        stroke=\"currentColor\"\n        strokeWidth=\"1.5\"\n      />\n      <path\n        d=\"M12.7023 1.52783L10.3511 4.7639\"\n        opacity=\"0.1\"\n        stroke=\"currentColor\"\n        strokeWidth=\"1.5\"\n      />\n      <path\n        d=\"M12.7023 14.472L10.3511 11.236\"\n        opacity=\"0.4\"\n        stroke=\"currentColor\"\n        strokeWidth=\"1.5\"\n      />\n      <path\n        d=\"M3.29773 14.472L5.64887 11.236\"\n        opacity=\"0.6\"\n        stroke=\"currentColor\"\n        strokeWidth=\"1.5\"\n      />\n      <path\n        d=\"M15.6085 5.52783L11.8043 6.7639\"\n        opacity=\"0.2\"\n        stroke=\"currentColor\"\n        strokeWidth=\"1.5\"\n      />\n      <path\n        d=\"M0.391602 10.472L4.19583 9.23598\"\n        opacity=\"0.7\"\n        stroke=\"currentColor\"\n        strokeWidth=\"1.5\"\n      />\n      <path\n        d=\"M15.6085 10.4722L11.8043 9.2361\"\n        opacity=\"0.3\"\n        stroke=\"currentColor\"\n        strokeWidth=\"1.5\"\n      />\n      <path\n        d=\"M0.391602 5.52783L4.19583 6.7639\"\n        opacity=\"0.8\"\n        stroke=\"currentColor\"\n        strokeWidth=\"1.5\"\n      />\n    </g>\n    <defs>\n      <clipPath id=\"clip0_2393_1490\">\n        <rect fill=\"white\" height=\"16\" width=\"16\" />\n      </clipPath>\n    </defs>\n  </svg>\n)\n\nexport type LoaderProps = HTMLAttributes<HTMLDivElement> & {\n  size?: number\n}\n\nexport const Loader = ({ className, size = 16, ...props }: LoaderProps) => (\n  <div\n    className={cn(\n      \"inline-flex animate-spin items-center justify-center\",\n      className\n    )}\n    {...props}\n  >\n    <LoaderIcon size={size} />\n  </div>\n)\n",
+      "type": "registry:component"
+    }
+  ]
+}
