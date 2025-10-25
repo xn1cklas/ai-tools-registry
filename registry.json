@@ -852,7 +852,7 @@
           "name": "tobiasbueschel",
           "handle": "tobiasbueschel",
           "url": "https://github.com/tobiasbueschel",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/13087421?v=4ntent.com/u/64584979?v=4",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/13087421?v=4",
           "role": "author"
         }
       ],
@@ -887,12 +887,14 @@
           "name": "tobiasbueschel",
           "handle": "tobiasbueschel",
           "url": "https://github.com/tobiasbueschel",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/13087421?v=4ntent.com/u/64584979?v=4",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/13087421?v=4",
           "role": "author"
         }
       ],
       "registryDependencies": [
-        "https://ai-tools-registry.vercel.app/r/card.json"
+        "https://ai-tools-registry.vercel.app/r/card.json",
+        "https://ai-tools-registry.vercel.app/r/loader.json",
+        "https://ai-tools-registry.vercel.app/r/skeleton.json"
       ],
       "files": [
         {

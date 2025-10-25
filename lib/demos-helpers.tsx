@@ -199,10 +199,9 @@ async function loadBaseFixture(name: string) {
         amount: 1000,
         from: "USD",
         to: "EUR",
-        date: new Date().toISOString(),
-        rate: 0.85,
-        converted: 850,
-        lastUpdated: new Date().toISOString(),
+        rate: 0.860228,
+        converted: 860.228,
+        lastUpdated: "Sat, 25 Oct 2025 00:02:31 +0000",
       })
     }
     default:

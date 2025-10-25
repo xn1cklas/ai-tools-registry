@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/ai-tools/ui/card"
-import { CurrencyConverterToolType } from "./tool"
+import type { CurrencyConverterToolType } from "./tool"
 import { Loader } from "@/registry/ai-elements/loader"
 import { Skeleton } from "@/registry/ai-tools/ui/skeleton"
 
@@ -16,29 +16,31 @@ const CURRENCY_OPTIONS = {
   minimumFractionDigits: 2,
   maximumFractionDigits: 6,
 }
+
+function formatCurrency(amount: number, currency: string) {
+  try {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: currency,
+      ...CURRENCY_OPTIONS,
+    }).format(amount)
+  } catch (error) {
+    console.error("Error formatting currency:", error)
+    // Fallback to number format if currency code is invalid
+    return new Intl.NumberFormat("en-US", CURRENCY_OPTIONS).format(amount)
+  }
+}
+
+function formatRate(rate: number) {
+  return new Intl.NumberFormat("en-US", CURRENCY_OPTIONS).format(rate)
+}
+
 interface Props {
   invocation: CurrencyConverterToolType
 }
 
 export function CurrencyDisplay({ invocation }: Props) {
   const part = invocation
-
-  const formatCurrency = (amount: number, currency: string) => {
-    try {
-      return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: currency,
-        ...CURRENCY_OPTIONS,
-      }).format(amount)
-    } catch (error) {
-      // Fallback to number format if currency code is invalid
-      return new Intl.NumberFormat("en-US", CURRENCY_OPTIONS).format(amount)
-    }
-  }
-
-  const formatRate = (rate: number) => {
-    return new Intl.NumberFormat("en-US", CURRENCY_OPTIONS).format(rate)
-  }
 
   if (part.state === "input-streaming") {
     return (
@@ -135,15 +137,11 @@ export function CurrencyDisplay({ invocation }: Props) {
             </div>
           </div>
           <div className="rounded-md bg-muted p-3">
-            <div className="text-muted-foreground">Date</div>
+            <div className="text-muted-foreground">Last Updated</div>
             <div className="font-medium">
-              {new Date(data.date).toLocaleDateString()}
+              {new Date(data.lastUpdated).toLocaleDateString()}
             </div>
           </div>
-        </div>
-
-        <div className="text-center text-xs text-muted-foreground">
-          Rates updated: {new Date(data.lastUpdated).toLocaleString()}
         </div>
       </CardContent>
     </Card>
