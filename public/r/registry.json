@@ -880,7 +880,7 @@
       "name": "currency",
       "type": "registry:component",
       "title": "Currency Converter",
-      "description": "Convert currencies with real-time rates, including crypto currencies.",
+      "description": "Convert currencies with real-time rates.",
       "author": "Tobias Büschel <https://github.com/tobiasbueschel>",
       "creators": [
         {

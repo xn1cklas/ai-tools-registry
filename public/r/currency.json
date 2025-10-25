@@ -4,7 +4,7 @@
   "type": "registry:component",
   "title": "Currency Converter",
   "author": "Tobias Büschel <https://github.com/tobiasbueschel>",
-  "description": "Convert currencies with real-time rates, including crypto currencies.",
+  "description": "Convert currencies with real-time rates.",
   "dependencies": ["ai", "zod"],
   "registryDependencies": [
     "https://ai-tools-registry.vercel.app/r/card.json",
