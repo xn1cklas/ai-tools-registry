@@ -891,6 +891,7 @@
           "role": "author"
         }
       ],
+      "dependencies": ["ai", "zod"],
       "registryDependencies": [
         "https://ai-tools-registry.vercel.app/r/card.json",
         "https://ai-tools-registry.vercel.app/r/loader.json",
