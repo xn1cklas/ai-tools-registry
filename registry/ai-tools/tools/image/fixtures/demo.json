@@ -2,17 +2,7 @@
   "provider": "demo",
   "prompt": "A serene landscape with mountains at sunrise",
   "images": [
-    { "url": "https://avatars.githubusercontent.com/dancer" },
-    { "url": "https://avatars.githubusercontent.com/amyegan" },
-    { "url": "https://avatars.githubusercontent.com/jacobparis" },
-    { "url": "https://avatars.githubusercontent.com/anshuman71" },
-    { "url": "https://avatars.githubusercontent.com/pawlean" },
-    { "url": "https://avatars.githubusercontent.com/evilrabbit" },
-    { "url": "https://avatars.githubusercontent.com/lgrammel" },
-    { "url": "https://avatars.githubusercontent.com/leerob" },
-    { "url": "https://avatars.githubusercontent.com/haydenbleasel" },
-    { "url": "https://avatars.githubusercontent.com/shadcn" },
-    { "url": "https://avatars.githubusercontent.com/nicoalbanese" }
+    { "url": "https://placekittens.com/g/400/400" }
   ],
   "aspectRatio": "1:1"
 }
