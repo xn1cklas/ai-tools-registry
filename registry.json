@@ -877,6 +877,36 @@
       ]
     },
     {
+      "name": "agent-search",
+      "type": "registry:component",
+      "title": "Agent Search",
+      "description": "AI SDK tool that searches for AI agents across MCP, A2A, and agents.txt protocols via Global Chat. Covers 18,000+ MCP servers.",
+      "author": "pumanitro <https://github.com/pumanitro>",
+      "creators": [
+        {
+          "name": "pumanitro",
+          "handle": "pumanitro",
+          "url": "https://github.com/pumanitro",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/7398214?v=4",
+          "role": "author"
+        }
+      ],
+      "dependencies": ["zod", "ai"],
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/agent-search/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/agent-search/tool.ts"
+        }
+      ],
+      "toolMeta": {
+        "kind": "tool",
+        "demoHeading": "Agent Search",
+        "demoSubheading": "Search AI agents across MCP, A2A, and agents.txt protocols",
+        "isNew": true
+      }
+    },
+    {
       "name": "tool-pack",
       "type": "registry:block",
       "title": "Tool Pack (All)",
