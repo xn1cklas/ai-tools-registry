@@ -76,6 +76,9 @@ importers:
       ai:
         specifier: ^5.0.108
         version: 5.0.108(zod@4.1.13)
+      arcmira:
+        specifier: 0.6.2
+        version: 0.6.2
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -2762,6 +2765,14 @@ packages:
         integrity: sha512-HqZ5rWlFjGiV0tDm3UxxgNRqsOTniqoKZu0pIAfh7TZQMGuZK+hH0drySty0si0QXj1ieop4+SkSfPZBPPkHig==,
       }
     engines: { node: ">=14" }
+
+  arcmira@0.6.2:
+    resolution:
+      {
+        integrity: sha512-lH7Zz6SsddXP3tHQV0O/CeQsJG4g81Am0HGwLgSvyHL+McsrnaCcKJcd8ZAHSwxhqoZm/RjQJa7u3EHNgbAP4Q==,
+      }
+    engines: { node: ">=18.0.0" }
+    hasBin: true
 
   argparse@2.0.1:
     resolution:
@@ -9698,6 +9709,8 @@ snapshots:
       color-convert: 2.0.1
 
   ansis@4.2.0: {}
+
+  arcmira@0.6.2: {}
 
   argparse@2.0.1: {}
 

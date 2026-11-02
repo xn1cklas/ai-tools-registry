@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "arcmira-transcript-search",
+  "type": "registry:component",
+  "title": "YouTube Transcript Search by Arcmira",
+  "author": "Arcmira <https://arcmira.com>",
+  "description": "Find timestamped passages in indexed YouTube videos and podcasts with the Arcmira API. Requires a server-side ARCMIRA_API_KEY.",
+  "dependencies": ["ai", "arcmira@0.6.2", "zod"],
+  "files": [
+    {
+      "path": "registry/ai-tools/tools/arcmira-transcript-search/tool.ts",
+      "content": "import { tool } from \"ai\"\nimport { ArcmiraClient } from \"arcmira\"\nimport { z } from \"zod\"\n\n// Preserve coverage notes, source metadata and any limits applied by the API.\nconst searchResult = z.looseObject({\n  query: z.string(),\n  window: z.looseObject({\n    after: z.string().nullable(),\n    before: z.string().nullable(),\n  }),\n  chunks: z\n    .array(\n      z.looseObject({\n        video_id: z.string(),\n        text: z.string(),\n        start_seconds: z.number().nullable(),\n        watch_url: z.string(),\n      })\n    )\n    .max(5),\n  note: z.string(),\n})\n\nexport const arcmiraTranscriptSearch = tool({\n  description:\n    \"Search indexed YouTube transcripts for one topic or phrase. Return up to five timestamped passages with source links and the applied coverage window.\",\n  inputSchema: z.object({\n    q: z.string().trim().min(2).describe(\"A spoken phrase or topic\"),\n    after: z.iso.date().optional().describe(\"Inclusive publication date\"),\n    before: z.iso.date().optional().describe(\"Exclusive publication date\"),\n  }),\n  execute: async (input, { abortSignal }) => {\n    const apiKey = process.env.ARCMIRA_API_KEY\n    if (!apiKey) {\n      throw new Error(\n        \"Set ARCMIRA_API_KEY on the server. See https://arcmira.com/docs/authentication\"\n      )\n    }\n    const client = new ArcmiraClient({ apiKey, maxRetries: 0 })\n    const result = await client.transcripts.search(\n      { ...input, limit: 5 },\n      { abortSignal }\n    )\n    return searchResult.parse(result)\n  },\n})\n",
+      "type": "registry:file",
+      "target": "~/ai/tools/arcmira-transcript-search/tool.ts"
+    }
+  ],
+  "docs": "Set ARCMIRA_API_KEY on the server. Import arcmiraTranscriptSearch from the installed tool file and include it in your AI SDK tools. API documentation: https://arcmira.com/docs"
+}

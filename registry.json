@@ -905,6 +905,34 @@
           "target": "~/AI_TOOLS_PACK.md"
         }
       ]
+    },
+    {
+      "name": "arcmira-transcript-search",
+      "type": "registry:component",
+      "title": "YouTube Transcript Search by Arcmira",
+      "description": "Find timestamped passages in indexed YouTube videos and podcasts with the Arcmira API. Requires a server-side ARCMIRA_API_KEY.",
+      "author": "Arcmira <https://arcmira.com>",
+      "dependencies": ["ai", "arcmira@0.6.2", "zod"],
+      "docs": "Set ARCMIRA_API_KEY on the server. Import arcmiraTranscriptSearch from the installed tool file and include it in your AI SDK tools. API documentation: https://arcmira.com/docs",
+      "files": [
+        {
+          "path": "registry/ai-tools/tools/arcmira-transcript-search/tool.ts",
+          "type": "registry:file",
+          "target": "~/ai/tools/arcmira-transcript-search/tool.ts"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Arcmira",
+          "url": "https://arcmira.com",
+          "githubHandle": "arcmira",
+          "role": "author"
+        }
+      ],
+      "toolMeta": {
+        "kind": "tool",
+        "hasRenderer": false
+      }
     }
   ]
 }
